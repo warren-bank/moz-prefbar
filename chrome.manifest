@@ -1,0 +1,13 @@
+overlay	chrome://navigator/content/navigator.xul	chrome://prefbar/content/prefbarOverlay.xul
+overlay	chrome://browser/content/browser.xul	chrome://prefbar/content/prefbarOverlay.xul
+overlay	chrome://communicator/content/pref/preferences.xul	chrome://prefbar/content/preferencesOverlay.xul
+
+style	chrome://global/content/customizeToolbar.xul	chrome://prefbar/skin/prefbarOverlay.css
+
+component {830a2ec4-be0d-4592-8397-ff794b476f28} components/goprefbar.js
+contract @prefbar.mozdev.org/goprefbar;1 {830a2ec4-be0d-4592-8397-ff794b476f28}
+
+content	prefbar	jar:chrome/prefbar.jar!/content/prefbar/
+skin	prefbar	classic/1.0	jar:chrome/prefbar.jar!/skin/
+locale	prefbar	en-US	jar:chrome/prefbar.jar!/locale/en-US/prefbar/
+locale	prefbar	de-AT	jar:chrome/prefbar.jar!/locale/de-AT/prefbar/

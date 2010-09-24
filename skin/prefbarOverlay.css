@@ -1,0 +1,88 @@
+/* Slimbutton support */
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbarbutton {
+  padding-left: 1px;
+  padding-right: 1px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > * {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-spacer-box {
+  margin-right: 1px;
+}
+
+/* Firefox wastes too much space for the toolbarbutton icon */
+#prefbar-buttons > toolbarbutton > .toolbarbutton-icon {
+  margin-right: 2px;
+}
+
+/* Toolkit toolbars may be set to "image only" using the customize window */
+/* PrefBar-buttons can't work without text, so force the text to be visible */
+/* there */
+#prefbar-buttons .toolbarbutton-text {
+  display: -moz-box !important;
+}
+
+/* Checkboxes keep focus, but we want the focus in the content area */
+/* https://www.mozdev.org/bugs/show_bug.cgi?id=18086 */
+/* Starting with PrefBar 5.0 those items are wrapped in "toolbaritem" tags */
+#prefbar-buttons > toolbaritem > * {
+  -moz-user-focus: ignore;
+}
+
+/* PrefBar menu */
+#prefbar-menu {
+  list-style-image: url(chrome://prefbar/skin/pblogo24.png);
+  /* Why do the Firefox developers want the dropmarker below the icon? */
+  -moz-box-orient: horizontal;
+}
+#prefbar-menu .toolbarbutton-icon {
+  margin-right: 4px;
+}
+toolbar[iconsize="small"] > #prefbar-menu,
+toolbar[iconsize="small"] > toolbarpaletteitem > #prefbar-menu,
+toolbarpaletteitem[place="palette"] > #prefbar-menu {
+  list-style-image: url(chrome://prefbar/skin/pblogo18.png);
+}
+toolbarpaletteitem[place="palette"] > #prefbar-menu .toolbarbutton-text {
+  display: none;
+}
+toolbarpaletteitem[place="palette"] > #prefbar-menu {
+  padding: 0;
+}
+
+/*
+  In customize mode we hide the normal PrefBar items and show a placeholder
+  for the drag/drop UI.
+*/
+.prefbar-toolbar-customize {
+  display: none;
+  max-width: 15em !important;
+  list-style-image: url(chrome://prefbar/skin/pblogo18.png);
+}
+.prefbar-toolbar-customize > .toolbarbutton-icon,
+.prefbar-toolbar-customize > .toolbarbutton-text {
+  display: -moz-box !important;
+}
+
+toolbarpaletteitem[place] > #prefbar-toolbaritem > #prefbar-contents >  .prefbar-toolbar-customize {
+  display: -moz-box;
+}
+
+toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .prefbar-toolbar-customize {
+  -moz-box-orient: vertical;
+}
+
+toolbarpaletteitem[place="toolbar"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
+toolbarpaletteitem[place="toolbar"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
+  visibility: collapse;
+}
+
+toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
+toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
+  display: none;
+}

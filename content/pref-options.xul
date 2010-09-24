@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+ Version: MPL 1.1/GPL 2.0/LGPL 2.1
+
+ The contents of this file are subject to the Mozilla Public License Version
+ 1.1 (the "License"); you may not use this file except in compliance with
+ the License. You may obtain a copy of the License at
+ http://www.mozilla.org/MPL/
+
+ Software distributed under the License is distributed on an "AS IS" basis,
+ WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ for the specific language governing rights and limitations under the
+ License.
+
+ The Original Code is Preferences Toolbar 3.
+
+ The Initial Developer of the Original Code is
+ Manuel Reimer
+ Portions created by the Initial Developer are Copyright (C) 2007
+ the Initial Developer. All Rights Reserved.
+
+ Contributor(s): Manuel Reimer (Manuel.Reimer@gmx.de)
+
+ Alternatively, the contents of this file may be used under the terms of
+ either of the GNU General Public License Version 2 or later (the "GPL"),
+ or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ in which case the provisions of the GPL or the LGPL are applicable instead
+ of those above. If you wish to allow use of your version of this file only
+ under the terms of either the GPL or the LGPL, and not to allow others to
+ use your version of this file under the terms of the MPL, indicate your
+ decision by deleting the provisions above and replace them with the notice
+ and other provisions required by the GPL or the LGPL. If you do not delete
+ the provisions above, a recipient may use your version of this file under
+ the terms of any one of the MPL, the GPL or the LGPL.
+
+ ***** END LICENSE BLOCK ***** -->
+
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://prefbar/locale/pref-options.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <prefpane id="prefbar_options_pane"
+            label="&header-title;"
+            script="chrome://prefbar/content/pref-options.js">
+
+    <preferences id="history_preferences">
+      <preference id="extensions.prefbar.show_in_popups"
+                  name="extensions.prefbar.show_in_popups"
+                  type="bool"/>
+      <preference id="extensions.prefbar.slimbuttons"
+                  name="extensions.prefbar.slimbuttons"
+                  type="bool"/>
+      <preference id="extensions.prefbar.hktoggle"
+                  name="extensions.prefbar.hktoggle"
+                  type="string"/>
+      <preference id="extensions.prefbar.website_import"
+                  name="extensions.prefbar.website_import"
+                  type="bool"/>
+    </preferences>
+
+    <groupbox id="displayPreferences"
+              align="start">
+      <caption label="&caption-appearance;"/>
+
+      <checkbox id="showInPopups"
+                label="&check-show-in-popups;"
+                preference="extensions.prefbar.show_in_popups"/>
+      <checkbox id="slimButtons"
+                label="&check-slimbuttons;"
+                preference="extensions.prefbar.slimbuttons"/>
+    </groupbox>
+
+    <groupbox>
+      <caption label="&caption-import;"/>
+      <checkbox label="&check-website-import;"
+                preference="extensions.prefbar.website_import"/>
+    </groupbox>
+
+    <groupbox id="hotkeyGroup">
+      <caption label="&caption-toggle-hotkey;"/>
+      <hkeditor id="PrefBarHotkeyEditor"
+                style="-moz-binding:url(chrome://prefbar/content/keyeditor.xml#keyeditor);"
+                preference="extensions.prefbar.hktoggle"
+                preference-editable="true"
+                onsyncfrompreference="document.getElementById('prefbar_options_pane').ReadHotkey(this);"
+                onsynctopreference="return document.getElementById('prefbar_options_pane').WriteHotkey(this);"/>
+    </groupbox>
+
+    <groupbox id="resetGroup">
+      <caption label="&caption-reset;"/>
+      <description>
+        &description-reset;
+      </description>
+      <button label="&button-reset;"
+              oncommand="resetButton();"/>
+    </groupbox>
+
+  </prefpane>
+
+</overlay>

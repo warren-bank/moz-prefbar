@@ -1,0 +1,37 @@
+<!ENTITY new-item-title        "Neues Element">
+<!ENTITY edit-item-title       "Element bearbeiten">
+
+<!ENTITY button-type-check     "Pref Check">
+<!ENTITY button-type-button    "Button">
+<!ENTITY button-type-menulist  "Menulist">
+<!ENTITY button-type-link      "Link">
+<!ENTITY button-type-label     "Text Label">
+<!ENTITY button-type-separator "Separator">
+<!ENTITY button-type-spacer    "Spacer">
+<!ENTITY button-type-extlist   "Extlist">
+<!ENTITY button-type-extcheck  "Extcheck">
+<!ENTITY button-type-submenu   "Untermen&#252;">
+
+<!ENTITY button-attr-data       "Eigenschaften">
+
+<!ENTITY button-attr-id         "Id:">
+<!ENTITY button-attr-label      "Label:">
+<!ENTITY button-attr-prefstring "Prefstring:">
+<!ENTITY button-attr-topref     "toPref:">
+<!ENTITY button-attr-frompref   "fromPref:">
+<!ENTITY button-attr-url        "Url:">
+<!ENTITY button-attr-hotkey     "Hotkey:">
+
+<!ENTITY button-attr-itemlabel  "Bezeichnung">
+<!ENTITY button-attr-itemvalue  "Wert">
+
+<!ENTITY button-preftype-common   "Standard">
+<!ENTITY button-preftype-onclick   "onClick">
+<!ENTITY button-preftype-setfunction "Set-Funktion">
+<!ENTITY button-preftype-getfunction "Get-Funktion">
+<!ENTITY button-preftype-initfunction "Init-Funktion">
+
+<!ENTITY button-update-caption "Ausf&#252;hren beim Wechseln von:">
+<!ENTITY button-update-window "Fenster">
+<!ENTITY button-update-tab "Tab">
+<!ENTITY button-update-url "URL">

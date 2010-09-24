@@ -1,0 +1,15 @@
+<!ENTITY header-title "Preferences Toolbar">
+
+<!ENTITY available-tree "Verf&#252;gbare Elemente">
+<!ENTITY enabled-tree   "Aktivierte Elemente">
+
+<!ENTITY name-col "Name">
+<!ENTITY type-col "Typ">
+
+<!ENTITY button-new "Neu">
+<!ENTITY button-edit "Bearbeiten">
+<!ENTITY button-delete "L&#246;schen">
+<!ENTITY button-copy "Kopieren">
+
+<!ENTITY button-import "Import">
+<!ENTITY button-export "Export">
