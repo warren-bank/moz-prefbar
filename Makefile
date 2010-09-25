@@ -12,9 +12,9 @@ patch:
 	sed -r "s/(<em:version>)[^<]*/\1$(VERSION)/" \
     -i install.rdf
 	sed -r "s/(v\. ).*(, build date )[0-9]*/\1$(VERSION)\2$(BUILD)/" \
-    -i locale/*/prefbar/help/index.html
+    -i locale/*/help/index.html
 	sed -r "s/(const prefbarVersion = )[^;]*/\1$(BUILD)/" \
-    -i content/prefbar/prefbar.js
+    -i content/prefbar.js
 
 jar:
 	@if [ ! -d chrome ]; then mkdir chrome; fi

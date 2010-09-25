@@ -7,7 +7,7 @@ style	chrome://global/content/customizeToolbar.xul	chrome://prefbar/skin/prefbar
 component {830a2ec4-be0d-4592-8397-ff794b476f28} components/goprefbar.js
 contract @prefbar.mozdev.org/goprefbar;1 {830a2ec4-be0d-4592-8397-ff794b476f28}
 
-content	prefbar	jar:chrome/prefbar.jar!/content/prefbar/
+content	prefbar	jar:chrome/prefbar.jar!/content/
 skin	prefbar	classic/1.0	jar:chrome/prefbar.jar!/skin/
-locale	prefbar	en-US	jar:chrome/prefbar.jar!/locale/en-US/prefbar/
-locale	prefbar	de-AT	jar:chrome/prefbar.jar!/locale/de-AT/prefbar/
+locale	prefbar	en-US	jar:chrome/prefbar.jar!/locale/en-US/
+locale	prefbar	de-AT	jar:chrome/prefbar.jar!/locale/de-AT/
