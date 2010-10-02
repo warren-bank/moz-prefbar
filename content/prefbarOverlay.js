@@ -125,7 +125,7 @@ function StartPrefBar(event) {
   if (goPrefBar.openPrefBarHP) {
     goPrefBar.openPrefBarHP = false;
     var browser = getBrowser();
-    var tab = browser.addTab("http://prefbar.mozdev.org/#news");
+    var tab = browser.addTab("http://prefbar.tuxfamily.org/#news");
     browser.selectedTab = tab;
   }
 

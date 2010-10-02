@@ -398,7 +398,7 @@ prefbarClearAllCache();
     <RDF:li><RDF:resource about="urn:prefbar:buttons:prefbarhomepagelink"
       prefbar:label="PrefBar homepage"
       prefbar:type="link"
-      prefbar:url="http://prefbar.mozdev.org"/>
+      prefbar:url="http://prefbar.tuxfamily.org"/>
     </RDF:li>
     <RDF:li><RDF:resource about="urn:prefbar:buttons:mozilla.org"
       prefbar:label="mozilla.org"

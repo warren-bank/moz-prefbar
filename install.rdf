@@ -10,7 +10,7 @@
     <em:creator>Manuel Reimer</em:creator>
     <em:contributor>Aaron Anderson</em:contributor>
     <em:contributor>Stephen Clavering</em:contributor>
-    <em:homepageURL>http://prefbar.mozdev.org/</em:homepageURL>
+    <em:homepageURL>http://prefbar.tuxfamily.org/</em:homepageURL>
     <em:optionsURL>chrome://prefbar/content/prefbar-bird-pref.xul</em:optionsURL>
     <em:aboutURL>chrome://prefbar/content/infoWindow.xul</em:aboutURL>
     <em:iconURL>chrome://prefbar/skin/pblogo.png</em:iconURL>

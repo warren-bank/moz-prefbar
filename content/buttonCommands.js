@@ -603,7 +603,7 @@ function prefbarRestoreTab() {
   }
 
   // If we get up to here, then "Restore Tab" didn't work
-  goPrefBar.msgAlert(window, "Restore Tab doesn't currently work in the browser, you use.\nPlease file a bug at http://prefbar.mozdev.org/");
+  goPrefBar.msgAlert(window, "Restore Tab doesn't currently work in the browser, you use.\nPlease file a bug at http://prefbar.tuxfamily.org/");
 }
 
 //

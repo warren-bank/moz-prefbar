@@ -63,9 +63,9 @@
         </description>
         <separator style="height: 1em;"/>
         <hbox flex="1">
-          <description id="nameField" crop="center" style="font-weight: bold;" value="test.btn"/>
+          <description id="nameField" crop="center" style="font-weight: bold;"/>
           <description id="md5Field" style="font-weight: bold; color: green;"/>
-          <description id="urlField" crop="center" value="http://prefbar.mozdev.org/test.btn"/>
+          <description id="urlField" crop="center"/>
         </hbox>
         <separator style="height: 1em;"/>
         <description flex="1" id="warn2">
