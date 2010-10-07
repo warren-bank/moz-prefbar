@@ -46,7 +46,8 @@
   %newitemDTD;
 ]>
 
-<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
 
   <prefpane id="prefbar_editbar_pane"
             label="&header-title;"
@@ -174,5 +175,12 @@
       </vbox>
 
     </hbox>
+    <vbox align="end">
+      <html:a target="_blank"
+              style="color: blue; text-decoration: underline;"
+              href="http://prefbar.tuxfamily.org/buttons.html">
+        &link-buttons;
+      </html:a>
+    </vbox>
   </prefpane>
 </overlay>
