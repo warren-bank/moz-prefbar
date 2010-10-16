@@ -73,6 +73,9 @@ function DelayedStartup() {
 
 function TreeClick(event) {
   if (event.detail != 2) return; // doubleclick
+  if (event.originalTarget.tagName != "treechildren") return;
+  if (gActiveTree.treeBoxObject.getRowAt(event.clientX, event.clientY) == -1)
+    return;
 
   event.preventDefault();
   event.stopPropagation();
