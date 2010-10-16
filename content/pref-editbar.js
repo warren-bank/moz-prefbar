@@ -49,6 +49,7 @@ var gRDF = null;
 var gMainDS = null;
 
 function Startup() {
+  goPrefBar.Include("chrome://global/content/contentAreaUtils.js", this);
   setTimeout(DelayedStartup, 0);
 }
 function DelayedStartup() {
@@ -262,6 +263,11 @@ function prefbarItemImport() {
   if (res==nsIFilePicker.returnOK) {
     goPrefBar.ImpExp.Import(window, fp.fileURL.spec);
   }
+}
+
+function OnLinkClick(aEvent) {
+  openURL(aEvent.target.href);
+  aEvent.preventDefault();
 }
 
 const gDragFlavor = "text/x-moz-prefbar-button";

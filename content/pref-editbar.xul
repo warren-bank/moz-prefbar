@@ -175,12 +175,13 @@
       </vbox>
 
     </hbox>
-    <vbox align="end">
+    <description style="text-align: right">
       <html:a target="_blank"
               style="color: blue; text-decoration: underline;"
+              onclick="this.parentNode.parentNode.OnLinkClick(event);"
               href="http://prefbar.tuxfamily.org/buttons.html">
         &link-buttons;
       </html:a>
-    </vbox>
+    </description>
   </prefpane>
 </overlay>
