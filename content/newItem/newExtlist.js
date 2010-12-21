@@ -55,7 +55,9 @@ function setupEdit() {
   setField(itemId, "initfunction",  "itemInitfunction");
 
   var itemugroup = document.getElementById("itemUpdateGroup");
-  itemugroup.value = getValue(itemId, "browserbtnupdatefor");
+  itemugroup.value = getValue(itemId, "browserbtnupdatefor") || "";
+  // Fix buttons, still affected by Bug 23398
+  if (itemugroup.value == "false") itemugroup.value = "";
 
   mnueditSetupEdit(itemId);
 
