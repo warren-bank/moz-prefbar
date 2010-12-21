@@ -180,7 +180,7 @@ var RDFObserver = {
   onChange: function (aDataSource, aSource, aProperty, aOldTarget, aNewTarget) {this.SpreadRDFEvent("change");},
   onMove: function (aDataSource, aOldSource, aNewSource, aProperty, aTarget) {},
   onBeginUpdateBatch: function (aDataSource) {},
-  onEndUpdateBatch:   function (aDataSource) {},
+  onEndUpdateBatch:   function (aDataSource) {this.SpreadRDFEvent("endupdatebatch");},
   SpreadRDFEvent: function(type) {
     // Notify all open PrefBar instances about the change
     var windowMediator = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
