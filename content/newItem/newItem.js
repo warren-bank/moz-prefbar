@@ -93,14 +93,17 @@ function setupFrame() {
 
   if(frame.docShell.busyFlags != frame.docShell.BUSY_FLAGS_NONE) {
     goPrefBar.dump("Frame not loaded");
-    setTimeout("setupFrame()", 10);
+    setTimeout(setupFrame, 10);
   }
   else {
     goPrefBar.dump("Frame loading complete");
     if (gInEditMode)
       window.frames[0].setupEdit();
-    else
+    else {
+      var idfield = window.frames[0].document.getElementById("itemId");
+      if (idfield) idfield.focus();
       window.frames[0].setupNew();
+    }
   }
 }
 
