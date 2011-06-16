@@ -55,7 +55,7 @@ function setupEdit() {
   setField(itemId, "initfunction",  "itemInitfunction");
 
   var itemugroup = document.getElementById("itemUpdateGroup");
-  itemugroup.value = getValue(itemId, "browserbtnupdatefor") || "";
+  itemugroup.value = gMainDS[itemId].browserbtnupdatefor || "";
   // Fix buttons, still affected by Bug 23398
   if (itemugroup.value == "false") itemugroup.value = "";
 
@@ -82,7 +82,7 @@ function verifyData() {
 }
 
 function createNewItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
 
   createEntry(itemId, "extlist");
 
@@ -90,7 +90,7 @@ function createNewItem() {
 }
 
 function editItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
 
   editField(itemId, "label",      "itemLabel");
   editField(itemId, "setfunction", "itemSetfunction");
@@ -99,15 +99,15 @@ function editItem() {
   // browserbtnupdatefor
   var itemugroup = document.getElementById("itemUpdateGroup");
   if (itemugroup.value != "")
-    setValue(itemId, "browserbtnupdatefor", itemugroup.value);
+    gMainDS[itemId].browserbtnupdatefor = itemugroup.value;
   else
-    removeValue(itemId, "browserbtnupdatefor");
+    delete(gMainDS[itemId].browserbtnupdatefor);
   // initfunction
   var initfunction = document.getElementById("itemInitfunction").value;
   if (initfunction.match(/[^\n\t\r ]/))
-    setValue(itemId, "initfunction", initfunction);
+    gMainDS[itemId].initfunction = initfunction;
   else
-    removeValue(itemId, "initfunction");
+    delete(gMainDS[itemId].initfunction);
 
   mnueditSaveData(itemId);
 }

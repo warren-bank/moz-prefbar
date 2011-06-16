@@ -53,6 +53,7 @@
     var PrefBarNS = {}; // PrefBar NameSpace
     goPrefBar.Include("chrome://prefbar/content/prefbarOverlay.js", PrefBarNS);
     goPrefBar.Include("chrome://prefbar/content/buttonCommands.js", PrefBarNS);
+    goPrefBar.Include("chrome://prefbar/content/buttonhandling.js", PrefBarNS);
 
     // Don't rename this one or move this one to any other context!!!
     // This is used by other extensions (at least Tiny Menu):
@@ -99,296 +100,6 @@
               key="key_prefbar"/>
   </menupopup>
 
-  <window id="main-window">
-    <template id="prefbarToolbarTemplate"
-              xmlns:prefbar="http://www.xulplanet.com/rdf/prefbar#">
-
-      <!-- ************ Submenu ************ -->
-
-      <rule parent="scrollbox" iscontainer="true">
-        <toolbarbutton uri="rdf:*"
-                       type="menu"
-                       btntype="submenu"
-                       label="rdf:http://www.xulplanet.com/rdf/prefbar#label">
-          <menupopup uri="rdf:*"
-                     onpopupshowing="PrefBarNS.SetChecks(true, false, this);"/>
-        </toolbarbutton>
-      </rule>
-
-      <rule parent="menupopup" iscontainer="true">
-        <menu uri="rdf:*"
-              btntype="submenu"
-              label="rdf:http://www.xulplanet.com/rdf/prefbar#label">
-          <menupopup uri="rdf:*"
-                     onpopupshowing="PrefBarNS.SetChecks(true, false, this);"/>
-        </menu>
-      </rule>
-
-      <!-- ************ Checkbox ************ -->
-      <rule parent="scrollbox" prefbar:type="check">
-        <toolbaritem uri="rdf:*">
-          <checkbox
-             uri        = "rdf:*"
-             btntype    = "check"
-             oncommand  = "PrefBarNS.ProcessCheck(this, false)"
-             prefstring = "rdf:http://www.xulplanet.com/rdf/prefbar#prefstring"
-             topref     = "rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-             frompref   = "rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-             label      = "rdf:http://www.xulplanet.com/rdf/prefbar#label"/>
-        </toolbaritem>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="check">
-        <menuitem
-           uri        = "rdf:*"
-           btntype    = "check"
-           oncommand  = "PrefBarNS.ProcessCheck(this, true)"
-           prefstring = "rdf:http://www.xulplanet.com/rdf/prefbar#prefstring"
-           topref     = "rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-           frompref   = "rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-           label      = "rdf:http://www.xulplanet.com/rdf/prefbar#label"
-           type       = "radio"
-           checked    = "true"
-           name       = "rdf:*"/>
-      </rule>
-
-      <!-- ************ Extcheck ************ -->
-      <rule parent="scrollbox" prefbar:type="extcheck">
-        <toolbaritem uri="rdf:*">
-          <checkbox
-             uri          = "rdf:*"
-             btntype      = "extcheck"
-             oncommand    = "PrefBarNS.ProcessExtcheck(this, false, event)"
-             setfunction  = "rdf:http://www.xulplanet.com/rdf/prefbar#setfunction"
-             getfunction  = "rdf:http://www.xulplanet.com/rdf/prefbar#getfunction"
-             initfunction = "rdf:http://www.xulplanet.com/rdf/prefbar#initfunction"
-             label        = "rdf:http://www.xulplanet.com/rdf/prefbar#label"
-             browserbtnupdatefor = "rdf:http://www.xulplanet.com/rdf/prefbar#browserbtnupdatefor"/>
-        </toolbaritem>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="extcheck">
-        <menuitem
-           uri          = "rdf:*"
-           btntype      = "extcheck"
-           oncommand    = "PrefBarNS.ProcessExtcheck(this, true, event)"
-           setfunction  = "rdf:http://www.xulplanet.com/rdf/prefbar#setfunction"
-           getfunction  = "rdf:http://www.xulplanet.com/rdf/prefbar#getfunction"
-           initfunction = "rdf:http://www.xulplanet.com/rdf/prefbar#initfunction"
-           label        = "rdf:http://www.xulplanet.com/rdf/prefbar#label"
-           type         = "radio"
-           checked      = "true"
-           name         = "rdf:*"/>
-      </rule>
-
-      <!-- ************* Button ************* -->
-      <rule parent="scrollbox" prefbar:type="button">
-        <toolbarbutton
-           uri          = "rdf:*"
-           btntype      = "button"
-           oncommandval = "rdf:http://www.xulplanet.com/rdf/prefbar#onclick"
-           oncommand    = "PrefBarNS.ProcessButton(this, event);"
-           onclick      = "if (event.button == 1) PrefBarNS.ProcessButton(this, event);"
-           initfunction = "rdf:http://www.xulplanet.com/rdf/prefbar#initfunction"
-           label        = "rdf:http://www.xulplanet.com/rdf/prefbar#label"/>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="button">
-        <menuitem
-           uri          = "rdf:*"
-           key          = "key:rdf:*"
-           btntype      = "button"
-           oncommandval = "rdf:http://www.xulplanet.com/rdf/prefbar#onclick"
-           oncommand    = "PrefBarNS.ProcessButton(this, event);"
-           onclick      = "if (event.button == 1) { this.parentNode.hidePopup(); PrefBarNS.ProcessButton(this, event); }"
-           initfunction = "rdf:http://www.xulplanet.com/rdf/prefbar#initfunction"
-           label        = "rdf:http://www.xulplanet.com/rdf/prefbar#label" />
-      </rule>
-
-      <!-- ************** Link *************** -->
-      <rule parent="scrollbox" prefbar:type="link">
-        <toolbarbutton
-           uri       = "rdf:*"
-           btntype   = "link"
-           class     = "bookmark-item"
-           url       = "rdf:http://www.xulplanet.com/rdf/prefbar#url"
-           oncommand = "PrefBarNS.GoLink(this.getAttribute('url'), event);"
-           onclick   = "if (event.button == 1) PrefBarNS.GoLink(this.getAttribute('url'), event);"
-           label     = "rdf:http://www.xulplanet.com/rdf/prefbar#label"/>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="link">
-        <menuitem
-           uri       = "rdf:*"
-           key       = "key:rdf:*"
-           btntype   = "link"
-           class     = "menuitem-iconic bookmark-item"
-           url       = "rdf:http://www.xulplanet.com/rdf/prefbar#url"
-           oncommand = "PrefBarNS.GoLink(this.getAttribute('url'), event);"
-           onclick   = "if (event.button == 1) PrefBarNS.GoLink(this.getAttribute('url'), event); hidePopup();"
-           label     = "rdf:http://www.xulplanet.com/rdf/prefbar#label" />
-      </rule>
-
-      <!-- ************** Text *************** -->
-      <rule parent="scrollbox" prefbar:type="text">
-        <description
-           uri     = "rdf:*"
-           btntype = "text"
-           crop    = "end"
-           value   = "rdf:http://www.xulplanet.com/rdf/prefbar#label"/>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="text">
-        <menuitem
-           uri      = "rdf:*"
-           btntype  = "text"
-           label    = "rdf:http://www.xulplanet.com/rdf/prefbar#label"
-           disabled = "true"/>
-      </rule>
-
-      <!-- *********** Separator ************* -->
-      <rule parent="scrollbox" prefbar:type="separator">
-        <toolbarseparator uri="rdf:*" btntype="separator"/>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="separator">
-        <menuseparator uri="rdf:*" btntype="separator" />
-      </rule>
-
-      <!-- ************* Spacer ************** -->
-      <rule parent="scrollbox" prefbar:type="spacer">
-        <toolbarspacer uri="rdf:*" btntype="spacer" flex="1"/>
-      </rule>
-
-      <!-- No spacer rule for menupopups needed! -->
-
-      <!-- *********** Menulist ************ -->
-      <rule parent="scrollbox" prefbar:type="menulist">
-        <toolbaritem uri="rdf:*">
-          <menulist uri="rdf:*"
-                    btntype="menulist"
-                    xlabel="rdf:http://www.xulplanet.com/rdf/prefbar#label"
-                    tooltiptext="rdf:http://www.xulplanet.com/rdf/prefbar#label">
-            <menupopup
-               uri="rdf:*"
-               prefstring="rdf:http://www.xulplanet.com/rdf/prefbar#prefstring"
-               topref="rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-               frompref="rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-               oncommand="PrefBarNS.ProcessMenulist(this, event);">
-              <!-- add empty menuitem to avoid resize events on GTK2 -->
-              <menuitem label=" "/>
-            </menupopup>
-          </menulist>
-        </toolbaritem>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="menulist">
-        <menu uri="rdf:*"
-              btntype="menulist"
-              label="rdf:http://www.xulplanet.com/rdf/prefbar#label">
-          <menupopup
-             uri="rdf:*"
-             prefstring="rdf:http://www.xulplanet.com/rdf/prefbar#prefstring"
-             topref="rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-             frompref="rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-             onpopupshowing="PrefBarNS.SetMenulist(this, true)"
-             oncommand="PrefBarNS.ProcessMenulist(this, event);"/>
-        </menu>
-      </rule>
-
-      <!-- *********** Extlist ************ -->
-      <rule parent="scrollbox" prefbar:type="extlist">
-        <toolbaritem uri="rdf:*">
-          <menulist uri="rdf:*"
-                    btntype="extlist"
-                    initfunction="rdf:http://www.xulplanet.com/rdf/prefbar#initfunction"
-                    xlabel="rdf:http://www.xulplanet.com/rdf/prefbar#label"
-                    tooltiptext="rdf:http://www.xulplanet.com/rdf/prefbar#label">
-            <menupopup
-               uri="rdf:*"
-               setfunction="rdf:http://www.xulplanet.com/rdf/prefbar#setfunction"
-               getfunction="rdf:http://www.xulplanet.com/rdf/prefbar#getfunction"
-               topref="rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-               frompref="rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-               oncommand="PrefBarNS.ProcessExtlist(this, event);"
-               browserbtnupdatefor="rdf:http://www.xulplanet.com/rdf/prefbar#browserbtnupdatefor">
-              <!-- add empty menuitem to avoid resize events on GTK2 -->
-              <menuitem label=" "/>
-            </menupopup>
-          </menulist>
-        </toolbaritem>
-      </rule>
-
-      <rule parent="menupopup" prefbar:type="extlist">
-        <menu uri="rdf:*"
-              btntype="extlist"
-              label="rdf:http://www.xulplanet.com/rdf/prefbar#label"
-              initfunction="rdf:http://www.xulplanet.com/rdf/prefbar#initfunction">
-          <menupopup
-             uri="rdf:*"
-             setfunction="rdf:http://www.xulplanet.com/rdf/prefbar#setfunction"
-             getfunction="rdf:http://www.xulplanet.com/rdf/prefbar#getfunction"
-             topref="rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-             frompref="rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-             onpopupshowing="PrefBarNS.SetExtlist(this, true)"
-             oncommand="PrefBarNS.ProcessExtlist(this, event);"/>
-        </menu>
-      </rule>
-
-    </template>
-
-    <!-- The template for the hotkeys... -->
-    <template id="prefbarHotkeyTemplate"
-              xmlns:prefbar="http://www.xulplanet.com/rdf/prefbar#">
-
-      <rule iscontainer="true">
-        <keyset uri="rdf:*"/>
-      </rule>
-
-      <rule prefbar:hkenabled="true" prefbar:type="button">
-        <key
-          uri="rdf:*"
-          keycode="rdf:http://www.xulplanet.com/rdf/prefbar#hkkeycode"
-          key="rdf:http://www.xulplanet.com/rdf/prefbar#hkkey"
-          modifiers="rdf:http://www.xulplanet.com/rdf/prefbar#hkmodifiers"
-          oncommandval="rdf:http://www.xulplanet.com/rdf/prefbar#onclick"
-          oncommand="PrefBarNS.ProcessButton(this, event);"/>
-      </rule>
-      <rule prefbar:hkenabled="true" prefbar:type="link">
-        <key
-          uri="rdf:*"
-          keycode="rdf:http://www.xulplanet.com/rdf/prefbar#hkkeycode"
-          key="rdf:http://www.xulplanet.com/rdf/prefbar#hkkey"
-          modifiers="rdf:http://www.xulplanet.com/rdf/prefbar#hkmodifiers"
-          url="rdf:http://www.xulplanet.com/rdf/prefbar#url"
-          oncommand = "PrefBarNS.GoLink(this.getAttribute('url'));"/>
-      </rule>
-      <rule prefbar:hkenabled="true" prefbar:type="check">
-        <key
-          uri="rdf:*"
-          keycode="rdf:http://www.xulplanet.com/rdf/prefbar#hkkeycode"
-          key="rdf:http://www.xulplanet.com/rdf/prefbar#hkkey"
-          modifiers="rdf:http://www.xulplanet.com/rdf/prefbar#hkmodifiers"
-          prefstring = "rdf:http://www.xulplanet.com/rdf/prefbar#prefstring"
-          topref     = "rdf:http://www.xulplanet.com/rdf/prefbar#topref"
-          frompref   = "rdf:http://www.xulplanet.com/rdf/prefbar#frompref"
-          label      = "rdf:http://www.xulplanet.com/rdf/prefbar#label"
-          oncommand  = "PrefBarNS.HotkeyCheck(this);"/>
-      </rule>
-      <rule prefbar:hkenabled="true" prefbar:type="extcheck">
-        <key
-          uri="rdf:*"
-          keycode="rdf:http://www.xulplanet.com/rdf/prefbar#hkkeycode"
-          key="rdf:http://www.xulplanet.com/rdf/prefbar#hkkey"
-          modifiers="rdf:http://www.xulplanet.com/rdf/prefbar#hkmodifiers"
-          setfunction = "rdf:http://www.xulplanet.com/rdf/prefbar#setfunction"
-          getfunction = "rdf:http://www.xulplanet.com/rdf/prefbar#getfunction"
-          label      = "rdf:http://www.xulplanet.com/rdf/prefbar#label"
-          oncommand  = "PrefBarNS.HotkeyExtcheck(this);"/>
-      </rule>
-    </template>
-  </window>
-
   <toolbox id="navigator-toolbox">
     <toolbar id="prefbar"
              customizable="true"
@@ -409,12 +120,9 @@
                    type="menu">
       <menupopup
          id="prefbar-menu-popup"
-         datasources="rdf:null"
-         template="prefbarToolbarTemplate"
-         ref="urn:prefbar:browserbuttons:enabled"
-         flags="dont-test-empty"
-         onpopuphidden="setTimeout('PrefBarNS.SetChecks(false, false)');"
-         onpopupshowing="PrefBarNS.SetChecks(true, false, this);"/>
+         ref="prefbar:menu:enabled"
+         onpopuphidden="setTimeout('PrefBarNS.ButtonHandling.update();');"
+         onpopupshowing="if (event.target == this) PrefBarNS.ButtonHandling.update(this);"/>
     </toolbarbutton>
 
     <toolbaritem id="prefbar-toolbaritem"
@@ -438,10 +146,7 @@
                    style="min-width: 1px;"
                    flex="1"
                    class="bookmarks-toolbar-items"
-                   template="prefbarToolbarTemplate"
-                   datasources="rdf:null"
-                   ref="urn:prefbar:browserbuttons:enabled"
-                   flags="dont-test-empty" />
+                   ref="prefbar:menu:enabled"/>
 
         <hbox class="bookmarks-toolbar-overflow-items" mousethrough="always">
           <hbox mousethrough="always" id="prefbar-overflow-padder" flex="1"/>
@@ -454,9 +159,7 @@
             <menupopup id="prefbar-chevron-popup"
                        onpopupshowing="if (event.target == this) PrefBarNS.UpdateChevronMenu();"
                        template="prefbarToolbarTemplate"
-                       datasources="rdf:null"
-                       ref="urn:prefbar:browserbuttons:enabled"
-                       flags="dont-test-empty" />
+                       ref="prefbar:menu:enabled"/>
           </toolbarbutton>
 
         </hbox><!--prefbar-toolbar-overflow-items-->

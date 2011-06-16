@@ -41,7 +41,7 @@
 // |  goprefbar.js component (goPrefBar)
 // +-
 
-const prefbarVersion = 20100723;
+const prefbarVersion = 20110616;
 
 var PrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
 var PrefBranch = PrefService.getBranch("");
@@ -72,6 +72,11 @@ function Init() {
   ClearPref("extensions.prefbar.display_on");
   ClearPref("extensions.prefbar.show_prefbar_menu");
 
+  // Load JSON stuff
+  this.JSONTools = {};
+  Include("chrome://prefbar/content/json.js", this.JSONTools);
+  JSONTools.Init(this);
+
   // Load RDF stuff
   this.RDF = new Object;
   Include("chrome://prefbar/content/prefbarRDF.js", this.RDF);
@@ -101,9 +106,6 @@ function Init() {
   var pbi = prefs.QueryInterface(Components.interfaces.nsIPrefBranchInternal);
   pbi.addObserver("extensions.prefbar.slimbuttons", PrefObserver, false);
   pbi.addObserver("extensions.prefbar.hktoggle", PrefObserver, false);
-
-  // Init RDF observer
-  RDF.mDatasource.AddObserver(RDFObserver);
 }
 
 var ProfChangeObserver = {
@@ -117,15 +119,8 @@ var ProfChangeObserver = {
         return;
       }
 
-      // Now as we are sure that PrefBar really exists here,
-      // reinitialize some modules
-      RDF.mDatasource.RemoveObserver(RDFObserver);
-
-      SetDefaultPrefs();
-      RDF.Init(this.goPrefBar);
+      JSONTools.Init(this.goPrefBar);
       ImpExp.Init(this.goPrefBar);
-
-      RDF.mDatasource.AddObserver(RDFObserver);
 
       dump("PrefBar: Profile changed, reinitialized modules!");
     }
@@ -173,28 +168,6 @@ var PrefObserver = {
   }
 };
 
-// rdf observer
-var RDFObserver = {
-  onAssert: function (aDataSource, aSource, aProperty, aTarget)  {this.SpreadRDFEvent("assert");},
-  onUnassert: function (aDataSource, aSource, aProperty, aTarget){},
-  onChange: function (aDataSource, aSource, aProperty, aOldTarget, aNewTarget) {this.SpreadRDFEvent("change");},
-  onMove: function (aDataSource, aOldSource, aNewSource, aProperty, aTarget) {},
-  onBeginUpdateBatch: function (aDataSource) {},
-  onEndUpdateBatch:   function (aDataSource) {this.SpreadRDFEvent("endupdatebatch");},
-  SpreadRDFEvent: function(type) {
-    // Notify all open PrefBar instances about the change
-    var windowMediator = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
-    var browserWindows = windowMediator.getEnumerator("navigator:browser");
-    while(browserWindows.hasMoreElements()) {
-      var browserWindow = browserWindows.getNext();
-      if (browserWindow.PrefBarNS &&
-          !browserWindow.PrefBarNS.DatabaseChanged) {
-        dump("RDFObserver: Notifying browser Window about RDF change: " + type);
-        browserWindow.PrefBarNS.DatabaseChanged = true;
-      }
-    }
-  }
-};
 
 // Stuff for detecting in which application we are running.
 function InApp(aAppID) {
@@ -232,6 +205,13 @@ function ChromeExists(chromeurl) {
 
 function IsArray(aObject) {
   return (Object.prototype.toString.call(aObject) === "[object Array]");
+}
+
+function ArraySearch(aSearch, aArray) {
+  var len = aArray.length;
+  for (var index = 0; index < len; index++)
+    if (aArray[index] == aSearch) return index;
+  return false;
 }
 
 function dump(aMessage) {

@@ -41,7 +41,7 @@ function setupNew() {
 
 function setupEdit() {
   var itemId = window.parent.arguments[0];
-  var itemIdShow = itemId.replace(/urn\:prefbar\:browserbuttons:/g, "");
+  var itemIdShow = itemId.replace(/prefbar:menu:/g, "");
   var itemIdField = document.getElementById("itemId");
 
   itemIdField.value = itemIdShow;
@@ -53,7 +53,7 @@ function setupEdit() {
 function verifyDataNew() {
   var itemId = document.getElementById("itemId").value;
 
-  if (gRDF.NodeExists(gMainDS, "urn:prefbar:browserbuttons:" + itemId)) {
+  if ("prefbar:menu:" + itemId in gMainDS) {
     goPrefBar.msgAlert(window, goPrefBar.GetString("newItem.properties", "alertidinuse"));
     return false;
   }
@@ -69,16 +69,16 @@ function verifyData() {
 }
 
 function createNewItem() {
-  var itemId = "urn:prefbar:browserbuttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:menu:" + document.getElementById("itemId").value;
 
   createEntry(itemId, "submenu");
-  gRDF.MakeContainer(gMainDS, itemId);
+  gMainDS[itemId].items = [];
 
   editItem();
 }
 
 function editItem() {
-  var itemId = "urn:prefbar:browserbuttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:menu:" + document.getElementById("itemId").value;
 
   editField(itemId, "label", "itemLabel");
 }

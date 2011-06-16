@@ -52,73 +52,206 @@ var FormatVersion = null;
 
 var NC = "http://www.xulplanet.com/rdf/prefbar#";
 
-function Init(go) {
-  goPrefBar = go;
+function Init(aGO) {
+  goPrefBar = aGO;
+}
 
-  var tmpInternalDS = RDFService.GetDataSourceBlocking("chrome://prefbar/content/prefbar.rdf");
-  FormatVersion = ReadFormatVersion(tmpInternalDS);
+// "ReadRDF", together with "RDFMenu2JSON" and "OldID2NewID" read old PrefBar
+// RDF based format into javascript object (JSON)
+// (hopefully the last time, I have to use the crappy RDF API...)
+function ReadRDF(aFile) {
+  var RDFService = goPrefBar.RDF.RDFService;
 
-  CheckForDataFile();
+  if (typeof aFile != "string") {
+    var fph = Components.classes["@mozilla.org/network/protocol;1?name=file"]
+      .getService(Components.interfaces.nsIFileProtocolHandler);
+    aFile = fph.getURLSpecFromFile(aFile);
+  }
 
-  var fDS = prefbarGetProfileDir("prefbar.rdf");
-  mDatasource = RDFService.GetDataSourceBlocking(fDS);
+  //****HACK**** (Mozilla Bug 237784) Copy to temporary file first
+  var tempfileobj;
+  // Only works with file URLs
+  // Only required for non-RDF-files
+  var isfileurl = aFile.match(/^file:/i);
+  var isrdf = aFile.match(/\.rdf$/i);
+  if (isfileurl && !isrdf) {
+    var dirService = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties);
+    var fileprotocolService = Components.classes["@mozilla.org/network/protocol;1?name=file"].getService(Components.interfaces.nsIFileProtocolHandler);
 
-  if (!CanReadFormat(mDatasource))
-    goPrefBar.msgAlert(null, goPrefBar.GetString("rdf.properties", "cantreadformat"));
+    var origfileobj = fileprotocolService.getFileFromURLSpec(aFile);
+    if (!origfileobj.exists()) return false;
 
-  if (FormatUpdateNeeded(mDatasource)) {
-    goPrefBar.msgAlert(null, goPrefBar.GetString("rdf.properties", "formatupdateneeded"));
-    PerformFormatUpdates(mDatasource);
-    goPrefBar.msgAlert(null, goPrefBar.GetString("rdf.properties", "formatupdatefinished"));
+    tempfileobj = dirService.get("TmpD", Components.interfaces.nsILocalFile);
+    tempfileobj.append("prefbarimport.rdf");
+    tempfileobj.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, parseInt("00600", 8));
+
+    copyOver(origfileobj, tempfileobj);
+    aFile = fileprotocolService.getURLSpecFromFile(tempfileobj);
+  }
+  //****END HACK****
+
+  var ds = RDFService.GetDataSourceBlocking(aFile);
+
+  if (FormatUpdateNeeded(ds)) PerformFormatUpdates(ds);
+
+  var json = {};
+  for (var menu in {enabled:true, disabled:true}) {
+    RDFMenu2JSON(ds, "urn:prefbar:browserbuttons:" + menu, json);
+  }
+
+  RDFService.UnregisterDataSource(ds);
+
+  //****HACK**** (Mozilla Bug 237784) Delete Temporary file
+  if (tempfileobj) tempfileobj.remove(false);
+  //****END HACK****
+
+
+  //
+  // We can benefit from the new javascript object based interface,
+  // enabled through JSON, from this point on
+  //
+
+  if (!json["prefbar:menu:enabled"] && !json["prefbar:menu:disabled"])
+    throw("JSON file invalid/corrupted");
+
+  // Fix up existing useragent menulists...
+  var uamenulist = json["prefbar:button:useragent"];
+  if (uamenulist &&
+      uamenulist.type == "extlist" &&
+      uamenulist.items.length > 0) {
+    var defaultfound = false;
+    for (var index = 0; index < uamenulist.items.length; index++) {
+      if (uamenulist.items[index][1] == "PREFBARDEFAULT") {
+        uamenulist.items[index][1] = "!RESET!";
+        defaultfound = true;
+        break;
+      }
+    }
+    if (!defaultfound) uamenulist.items[0][1] = "!RESET!";
+  }
+
+
+  for (var id in json) {
+    var button = json[id];
+    switch (button.type) {
+    case "menulist":
+      // Translate "PREFBARDEFAULT" to "!RESET!"
+      if ("items" in button) {
+        for (var index = 0; index < button.items.length; index++) {
+          if (button.items[index][1] == "PREFBARDEFAULT")
+            button.items[index][1] = "!RESET!";
+        }
+      }
+      break;
+    case "spacer":
+    case "separator":
+      delete(button.label);
+      break;
+    case "extcheck":
+    case "check":
+    case "button":
+    case "link":
+      delete(button.hkenabled);
+    }
+  }
+
+  // Add info header with "formatversion" set to "3"
+  json["prefbar:info"] = {formatversion: 3};
+
+  return json;
+}
+function RDFMenu2JSON(aDS, aMenu, aJSON) {
+  var RDF = goPrefBar.RDF;
+  var RDFService = goPrefBar.RDF.RDFService;
+
+  // Only for valid menus!
+  if (!RDFCU.IsContainer(aDS, RDFService.GetResource(aMenu))) return;
+
+  aJSON[OldID2NewID(aMenu)] = {items: []};
+
+  var menucontainer = Components.classes["@mozilla.org/rdf/container;1"]
+    .createInstance(Components.interfaces.nsIRDFContainer);
+  menucontainer.Init(aDS, RDFService.GetResource(aMenu));
+  var menuelements = menucontainer.GetElements();
+  while (menuelements.hasMoreElements()) {
+    var child = menuelements.getNext();
+    child.QueryInterface(Components.interfaces.nsIRDFResource);
+
+    var newchildid = OldID2NewID(child.Value);
+    aJSON[OldID2NewID(aMenu)].items.push(newchildid);
+
+    var type = aDS.GetTarget(child, RDFService.GetResource(RDF.NC + "type"), true);
+    type.QueryInterface(Components.interfaces.nsIRDFLiteral);
+    if (type.Value == "submenu")
+      RDFMenu2JSON(aDS, child.Value, aJSON);
+    else
+      aJSON[newchildid] = {};
+
+    if (type.Value == "menulist" || type.Value == "extlist") {
+      var arr = [];
+      var itemindex = 1;
+      while(true) {
+        var Loptlabel = aDS.GetTarget(child, RDFService.GetResource(RDF.NC + "optionlabel" + itemindex), true);
+        if (!Loptlabel) break;
+        Loptlabel.QueryInterface(Components.interfaces.nsIRDFLiteral);
+        var optlabel = Loptlabel.Value;
+        var Loptvalue = aDS.GetTarget(child, RDFService.GetResource(RDF.NC + "optionvalue" + itemindex), true);
+        //if (!Loptvalue) break;
+        Loptvalue.QueryInterface(Components.interfaces.nsIRDFLiteral);
+        var optvalue = Loptvalue.Value;
+        arr.push([optlabel, optvalue]);
+        itemindex++;
+      }
+      aJSON[newchildid].items = arr;
+    }
+
+    var attributes = aDS.ArcLabelsOut(child);
+    while(attributes.hasMoreElements()) {
+      var attrib = attributes.getNext();
+      attrib.QueryInterface(Components.interfaces.nsIRDFResource);
+      if (attrib.Value.match(/http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#/))
+        continue;
+
+      if (attrib.Value.match(/#option(value|label)/)) continue;
+      var attribval = aDS.GetTarget(child, attrib, true);
+      attribval.QueryInterface(Components.interfaces.nsIRDFLiteral);
+
+      attrib = attrib.Value.replace(RDF.NC, "");
+      aJSON[newchildid][attrib] = attribval.Value;
+    }
   }
 }
-
-function AddmDatasource(element) {
-  element.database.AddDataSource(mDatasource);
-  element.builder.rebuild();
+function OldID2NewID(aOldId) {
+  if (!aOldId.match(/\w+:\w+:(\w+):(\w+)/)) return aOldId;
+  if (RegExp.$1 == "buttons")
+    return "prefbar:button:" + RegExp.$2;
+  else
+    return "prefbar:menu:" + RegExp.$2;
 }
 
-var isEmpty = false;
-function CheckForDataFile() {
-  var targeturl = prefbarGetProfileDir("prefbar.rdf");
 
-  var fphandler = Components.classes["@mozilla.org/network/protocol;1?name=file"].getService(Components.interfaces.nsIFileProtocolHandler);
-  var target = fphandler.getFileFromURLSpec(targeturl);
+function copyOver(input, output) {
+  var istream = Components.classes["@mozilla.org/network/file-input-stream;1"]
+    .createInstance(Components.interfaces.nsIFileInputStream);
+  var ostream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+    .createInstance(Components.interfaces.nsIFileOutputStream);
+  var bstream = Components.classes["@mozilla.org/binaryinputstream;1"]
+    .createInstance(Components.interfaces.nsIBinaryInputStream);
 
-  if(target.exists()) return;
+  istream.init(input, -1, 0, 0);
+  bstream.setInputStream(istream);
+  ostream.init(output, 0x02|0x20, parseInt("00600", 8), 0);
+                     // write, truncate
 
-  WriteBTNTemplate(target);
-  isEmpty = true;
+  var length = bstream.available();
+  ostream.write(bstream.readBytes(length), length);
+
+  ostream.flush();
+  ostream.close();
+  bstream.close();
+  istream.close();
 }
 
-function WriteBTNTemplate(ofile) {
-  var t;
-  t =  '<?xml version="1.0"?>\n';
-  t += '<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"\n';
-  t += '         xmlns:prefbar="' + NC + '">\n';
-  t += '  <RDF:resource about="urn:prefbar:info" prefbar:formatversion="' + FormatVersion + '"/>\n';
-  t += '</RDF:RDF>\n';
-
-  var outputStream = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
-
-  outputStream.init(ofile, 0x02|0x08|0x20, parseInt("00640", 8), null);
-                         // write, create, truncate
-
-  outputStream.write(t, t.length);
-
-  outputStream.flush();
-  outputStream.close();
-}
-
-function prefbarGetProfileDir(subdir) {
-  var dirService = Components.classes["@mozilla.org/file/directory_service;1"]
-                             .getService(Components.interfaces.nsIProperties);
-  var profDir = dirService.get("ProfD", Components.interfaces.nsIFile);
-  if (subdir) profDir.append(subdir);
-  var fileHandler = Components.classes["@mozilla.org/network/protocol;1?name=file"].getService(Components.interfaces.nsIFileProtocolHandler);
-
-  return fileHandler.getURLSpecFromFile(profDir);
-}
 
 //
 // Format Version handling... We never know how often we improve the format
@@ -127,7 +260,9 @@ function prefbarGetProfileDir(subdir) {
 //
 
 function ReadFormatVersion(aDS) {
-  var lit = GetAttributeValue(aDS, "urn:prefbar:info", NC + "formatversion");
+  var lit = aDS.GetTarget(RDFService.GetResource("urn:prefbar:info"),
+                          RDFService.GetResource(NC + "formatversion"),
+                          true);
   return lit ? lit.Value : 0;
 }
 
@@ -248,173 +383,4 @@ function FormatUpdate1to2(datasource) {
 
   // Save database
   datasource.QueryInterface(Components.interfaces.nsIRDFRemoteDataSource).Flush();
-}
-
-
-//
-// Abstraction layer to simplify all this silly RDF stuff...
-//
-
-// Attribute translation functions
-function _ResAttr(aResource) {
-  if (typeof aResource == "string")
-    return RDFService.GetResource(aResource);
-  return aResource;
-}
-function _LitAttr(aLiteral) {
-  if (typeof aLiteral == "string")
-    return RDFService.GetLiteral(aLiteral);
-  return aLiteral;
-}
-function _ArrayAttr(aArray) {
-  if (!goPrefBar.IsArray(aArray))
-    return [aArray];
-  return aArray;
-}
-
-// True if given node exists in given datasource
-function NodeExists(aDS, aNode) {
-  return aDS.ArcLabelsOut(_ResAttr(aNode)).hasMoreElements();
-}
-
-// Returns true if node is container. False otherwise
-function IsContainer(aDS, aNode) {
-  return RDFCU.IsContainer(aDS, _ResAttr(aNode));
-}
-
-// Takes datasource and node and converts node into container
-function MakeContainer(aDS, aNode) {
-  return RDFCU.MakeSeq(aDS, _ResAttr(aNode));
-}
-
-// Returns index of given node in given container node
-function GetIndexOf(aDS, aContainer, aNode) {
-  var container = Components.classes["@mozilla.org/rdf/container;1"]
-    .createInstance(Components.interfaces.nsIRDFContainer);
-  container.Init(aDS, _ResAttr(aContainer));
-  return container.IndexOf(_ResAttr(aNode));
-}
-
-// Takes a datasource and a node and returns array of child nodes
-function GetChildNodes(aDS, aNode) {
-  var retarray = [];
-  if (!IsContainer(aDS, aNode)) return retarray; // No container --> empty array
-  var container = Components.classes["@mozilla.org/rdf/container;1"]
-    .createInstance(Components.interfaces.nsIRDFContainer);
-  container.Init(aDS, _ResAttr(aNode));
-  var elements = container.GetElements();
-  while (elements.hasMoreElements()) {
-    var item = elements.getNext();
-    item.QueryInterface(Components.interfaces.nsIRDFResource);
-    retarray.push(item);
-  }
-  return retarray;
-}
-
-// Takes a datasource and a node and returns array of parent nodes
-function GetParentNodes(aDS, aNode) {
-  var retarray = [];
-  var elements = aDS.ArcLabelsIn(_ResAttr(aNode));
-  while(elements.hasMoreElements()) {
-    var item = elements.getNext();
-    if (item instanceof Components.interfaces.nsIRDFResource) {
-      if (RDFCU.IsOrdinalProperty(item)) {
-        var parent = aDS.GetSource(item, _ResAttr(aNode), true);
-        parent.QueryInterface(Components.interfaces.nsIRDFResource);
-        retarray.push(parent);
-      }
-    }
-  }
-  return retarray;
-}
-
-// Takes datasource and parent node and adds all given child nodes.
-// Optionally, a target index may be passed.
-function AddChildNodes(aDS, aParentRes, aChildResArray, aOptionalIndex) {
-  if (!aOptionalIndex) aOptionalIndex = 1;
-  var container = RDFCU.MakeSeq(aDS, _ResAttr(aParentRes));
-  var children = _ArrayAttr(aChildResArray);
-  var childrenlen = children.length;
-  for (var index = 0; index < childrenlen; index++) {
-    var item = _ResAttr(children[index]);
-    container.InsertElementAt(item, aOptionalIndex, true);
-    aOptionalIndex++;
-  }
-}
-
-// Takes datasource and parent node. Removes all given child nodes
-function RemoveChildNodes(aDS, aParentRes, aChildResArray) {
-  var container = Components.classes["@mozilla.org/rdf/container;1"]
-    .createInstance(Components.interfaces.nsIRDFContainer);
-  container.Init(aDS, _ResAttr(aParentRes));
-  var children = _ArrayAttr(aChildResArray);
-  var childrenlen = children.length;
-  for (var index = 0; index < childrenlen; index++) {
-    var item = _ResAttr(children[index]);
-    if (index < childrenlen - 1)
-      container.RemoveElement(item, false);
-    else
-      container.RemoveElement(item, true);
-  }
-}
-
-// Takes a datasource and a node and returns array of attributes
-// If third attribute is true, "pseudo attributes" used by the mozilla backend
-// are also returned. Most probably this is only useful to safely delete nodes
-function GetAttributes(aDS, aNode, aPseudo) {
-  var retarray = [];
-  var attributes = aDS.ArcLabelsOut(_ResAttr(aNode));
-  while(attributes.hasMoreElements()) {
-    var item = attributes.getNext();
-    item.QueryInterface(Components.interfaces.nsIRDFResource);
-    if (!aPseudo &&
-        item.Value.match(/http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#/))
-      continue;
-    retarray.push(item);
-  }
-  return retarray;
-}
-
-// Removes one or more attributes from node
-function RemoveAttributes(aDS, aNode, aResAttrArray) {
-  var retval = true;
-  var attribs = _ArrayAttr(aResAttrArray);
-  var attribslen = attribs.length;
-  for (var index = 0; index < attribslen; index++) {
-    var attrres = _ResAttr(attribs[index]);
-    if (!aDS.hasArcOut(_ResAttr(aNode), attrres)) {
-      retval = false;
-      continue;
-    }
-    var oldvalue = GetAttributeValue(aDS, aNode, attrres);
-    aDS.Unassert(_ResAttr(aNode), attrres, oldvalue, true);
-  }
-  return retval;
-}
-
-// Gets value of attribute
-function GetAttributeValue(aDS, aNode, aResAttr) {
-  var value = aDS.GetTarget(_ResAttr(aNode), _ResAttr(aResAttr), true);
-  if (!value) return false;
-  // for some "pseudo attributes" set by mozilla (rdf-syntax-ns#instanceOf)
-  if (value instanceof Components.interfaces.nsIRDFResource)
-    value.QueryInterface(Components.interfaces.nsIRDFResource);
-  else
-    value.QueryInterface(Components.interfaces.nsIRDFLiteral);
-  return value;
-}
-
-// Sets value of attribute
-function SetAttributeValue(aDS, aNode, aResAttr, aLitValue) {
-  var oldvalue = GetAttributeValue(aDS, aNode, aResAttr);
-  if (oldvalue)
-    aDS.Change(_ResAttr(aNode),
-               _ResAttr(aResAttr),
-               oldvalue,
-               _LitAttr(aLitValue));
-  else
-    aDS.Assert(_ResAttr(aNode),
-               _ResAttr(aResAttr),
-               _LitAttr(aLitValue),
-               true);
 }

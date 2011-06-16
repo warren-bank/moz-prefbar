@@ -20,7 +20,7 @@
  * Portions created by the Initial Developer are Copyright (C) 2002
  * the Initial Developer. All Rights Reserved.
  *
- * Contributor(s): Manuel Reimer <Manuel.Reimer@gmx.de>
+ * Contributor(s): Manuel Reimer <manuel.reimer@gmx.de>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -45,133 +45,61 @@ const ImportType_Import = 1;
 const ImportType_Update = 2;
 const ImportType_Reset = 3;
 
-function Init(go) {
-  goPrefBar = go;
-  gRDF = goPrefBar.RDF;
-  gMainDS = gRDF.mDatasource;
+function Init(aGO) {
+  goPrefBar = aGO;
+  gMainDS = goPrefBar.JSONTools.mainDS;
 
-  if (gRDF.isEmpty) {
-    doUpdate();
-    goPrefBar.SetPref("extensions.prefbar.version", goPrefBar.prefbarVersion);
-  }
-  else
-    prefbarCheckForUpdate();
+  prefbarCheckForUpdate();
 }
 
-function Export(win, toexport, filename) {
-  if (toexport.length == 0) return;
+function Export(aWin, aToExport, aFileObj) {
+  if (aToExport.length == 0) return;
 
-  var fphandler = Components.classes["@mozilla.org/network/protocol;1?name=file"].getService(Components.interfaces.nsIFileProtocolHandler);
-  var exportfileobj = fphandler.getFileFromURLSpec(filename);
+  // Which parent menu?
+  var parent = "prefbar:menu:enabled";
+  if (goPrefBar.ArraySearch(aToExport[0], gMainDS["prefbar:menu:disabled"].items) !== false) parent = "prefbar:menu:disabled";
 
-  // Write Template first. If this fails, then throw error (readonly?)
-  try {
-    gRDF.WriteBTNTemplate(exportfileobj);
-  }
-  catch(e) {
-    goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "exporterrreadonly"));
-    return;
-  }
+  // Generate template
+  var exportds = {
+    "prefbar:info": {
+      formatversion: gMainDS["prefbar:info"].formatversion
+    }
+  };
+  exportds[parent] = {items: []};
 
-  var expDS = gRDF.RDFService.GetDataSourceBlocking(filename);
-
-  var len = toexport.length;
-  for (var i = 0; i < len; i++) {
-    var itemid = toexport[i];
+  // Add export items
+  for (var index in aToExport) {
+    var expitemid = aToExport[index];
+    var expitem = gMainDS[expitemid];
 
     // No submenus!
-    if (gRDF.IsContainer(gMainDS, itemid)) continue;
+    if (expitem.type == "submenu") continue;
 
-    // Get parent node of current node
-    var parents = gRDF.GetParentNodes(gMainDS, itemid);
-    if (parents.length != 1) continue; // only one parent supported
-    var parent = parents[0];
-    if (parent != "urn:prefbar:browserbuttons:disabled")
-      parent = "urn:prefbar:browserbuttons:enabled";
-
-    // Add node to parent container in export datasource
-    gRDF.AddChildNodes(expDS, parent, itemid);
-
-    // Copy over all attributes
-    var attribs = gRDF.GetAttributes(gMainDS, itemid);
-    for (var attrindex in attribs) {
-      var attrib = attribs[attrindex];
-      var value = gRDF.GetAttributeValue(gMainDS, itemid, attrib);
-      gRDF.SetAttributeValue(expDS, itemid, attrib, value);
-    }
+    exportds[expitemid] = expitem;
+    exportds[parent].items.push(expitemid);
   }
 
-  // Flush datasource
-  var remoteControll = expDS.QueryInterface(Components.interfaces.nsIRDFRemoteDataSource);
-  // With the fix of Mozilla Bug 236920, Flush should fail,
-  // if the disc is full
-  try {
-    remoteControll.Flush();
-  }
-  catch(e) {
-    goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "exporterrfailedwrite"));
-  }
-
-  // Close Datasource
-  gRDF.RDFService.UnregisterDataSource(expDS);
+  goPrefBar.JSONTools.WriteJSON(aFileObj, exportds);
 }
 
-function Import(win, origfilename, ImportType) {
-  if (ImportType == undefined) ImportType = ImportType_Import;
-  var menus = ["urn:prefbar:browserbuttons:enabled",
-               "urn:prefbar:browserbuttons:disabled"];
+function Import(aWin, aFile, aImportType) {
+  if (aImportType == undefined) aImportType = ImportType_Import;
+  var menus = {"prefbar:menu:enabled": 1,
+               "prefbar:menu:disabled": 1};
 
-  goPrefBar.dump("IMPORTER: Import started for " + origfilename);
-  //****HACK**** (Mozilla Bug 237784) Copy to temporary file first
-  var filename;
-  var tempfileobj;
-  // Only works with file URLs
-  // Only required for non-RDF-files
-  var isfileurl = origfilename.match(/^file:/i);
-  var isrdf = origfilename.match(/\.rdf$/i);
-  if (isfileurl && !isrdf) {
-    var dirService = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties);
-    var fileprotocolService = Components.classes["@mozilla.org/network/protocol;1?name=file"].getService(Components.interfaces.nsIFileProtocolHandler);
-
-    var origfileobj = fileprotocolService.getFileFromURLSpec(origfilename);
-    if (!origfileobj.exists()) return false;
-
-    tempfileobj = dirService.get("TmpD", Components.interfaces.nsILocalFile);
-    tempfileobj.append("prefbarimport.rdf");
-    tempfileobj.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, parseInt("00600", 8));
-
-    copyOver(origfileobj, tempfileobj);
-    filename = fileprotocolService.getURLSpecFromFile(tempfileobj);
+  // We don't know what the user tries to import...
+  var impds;
+  try {
+    impds = goPrefBar.JSONTools.ReadJSON(aFile);
   }
-  else
-    filename = origfilename;
-  //****END HACK****
-
-  var impDS = gRDF.RDFService.GetDataSourceBlocking(filename);
-
-  // If none of our containers exist, then user tries to import crap.
-  var check1 = gRDF.IsContainer(impDS, "urn:prefbar:buttons"); // old container
-  var check2 = gRDF.IsContainer(impDS, "urn:prefbar:browserbuttons:enabled");
-  var check3 = gRDF.IsContainer(impDS, "urn:prefbar:browserbuttons:disabled");
-  if (!check1 && !check2 && !check3) {
-    goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
-    gRDF.RDFService.UnregisterDataSource(impDS);
-    if (tempfileobj) tempfileobj.remove(false);
-    return false;
-  }
-
-  if (!gRDF.CanReadFormat(impDS)) {
-    goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "importerrversion").replace("$filename", origfilename));
-    gRDF.RDFService.UnregisterDataSource(impDS);
-    if (tempfileobj) tempfileobj.remove(false);
-    return false;
-  }
-
-  gMainDS.beginUpdateBatch();
-
-  if (gRDF.FormatUpdateNeeded(impDS)) {
-    goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "importinfooldformat").replace("$filename", origfilename));
-    gRDF.PerformFormatUpdates(impDS);
+  catch(e) {
+    try {
+      impds = goPrefBar.RDF.ReadRDF(aFile);
+    }
+    catch(e) {
+      goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
+      return false;
+    }
   }
 
   var overwrite = false;
@@ -182,122 +110,74 @@ function Import(win, origfilename, ImportType) {
   else {
     var exists = false;
     var noupdatelists = [];
-    for (var menuindex in menus) {
-      var children = gRDF.GetChildNodes(impDS, menus[menuindex]);
-      for (var childindex in children) {
-        var child = children[childindex];
-        if (!exists && gRDF.NodeExists(gMainDS, child)) exists = true;
-        if (gRDF.GetAttributeValue(impDS, child, gRDF.NC + "dontupdatelistitems"))
-          noupdatelists.push(child.Value.replace("urn:prefbar:buttons:", ""));
+    for (var menuid in menus) {
+      if (!impds[menuid]) continue;
+      var items = impds[menuid].items;
+      for (var childindex in items) {
+        var childid = items[childindex];
+        if (gMainDS[childid]) {
+          exists = true;
+          if (impds[childid].dontupdatelistitems)
+            noupdatelists.push(childid.replace("prefbar:button:", ""));
+        }
       }
     }
     if (exists) {
       var msg = goPrefBar.GetString("importexport.properties", "importquestionoverwrite");
       if (noupdatelists.length > 0)
         msg += "\n(" + goPrefBar.GetString("importexport.properties", "importinfokeptlistitems") + ": " + noupdatelists.join(",") + ")";
-      overwrite = goPrefBar.msgYesNo(win, msg);
+      overwrite = goPrefBar.msgYesNo(aWin, msg);
     }
   }
 
   // Run over all possible menus in btn file
-  for (var menuindex in menus) {
-    var menu = menus[menuindex];
+  for (var menuid in menus) {
+    if (!impds[menuid]) continue;
 
-    var children = gRDF.GetChildNodes(impDS, menu);
-    // New items are added as first item, so run backwards to keep order
-    for (var childindex = children.length - 1; childindex >= 0; childindex--) {
-      var child = children[childindex];
+    var items = impds[menuid].items;
 
-      var exists = gRDF.NodeExists(gMainDS, child);
+    for (var childindex in items) {
+      var childid = items[childindex];
 
-      // If this item already exists in MainDS
-      if (exists) {
-        // If the user has chosen to not overwrite, then continue with the
-        // next Button
-        if(!overwrite) continue;
+      var impitem = impds[childid];
 
-        //remove all old attributes
-        var attribs = gRDF.GetAttributes(gMainDS, child);
-        for (var attrindex in attribs) {
-          var attrib = attribs[attrindex];
-          // Check, if we are allowed to overwrite this property.
-          // If not, then continue
-          if (!Import_AllowOverwrite(impDS, child, attrib, ImportType))
-            continue;
-
-          gRDF.RemoveAttributes(gMainDS, child, attrib);
-        }
-      }
-      else {
-        gRDF.AddChildNodes(gMainDS, menu, child);
-      }
-
-      //Add all new attributes
-      var attribs = gRDF.GetAttributes(impDS, child);
-      for (var attrindex in attribs) {
-        var attrib = attribs[attrindex];
-        // Check if we are allowed to overwrite this property (if not
-        // then it hasn't been deleted before and still has the old
-        // value). If not, then continue
-        if (exists && !Import_AllowOverwrite(impDS, child, attrib, ImportType))
-          continue;
-
-        var value = gRDF.GetAttributeValue(impDS, child, attrib);
-
-        // If we have to write the label or optionlabel, then try to get a
-        // localized version.
-        if (attrib.Value.match(/prefbar#(label)$/) ||
-            attrib.Value.match(/prefbar#(optionlabel\d+)$/)) {
-          var pref=RegExp.$1;
-          var id = child.Value.replace(/urn:prefbar:buttons:/, "");
+      // Try to localize imported button
+      try {
+        impitem.label = goPrefBar.GetString("buttons.properties", childid + ".label");
+      } catch(e) {}
+      if (impitem.items) {
+        for (var index in impitem.items) {
           try {
-            value = goPrefBar.GetString("buttons.properties", id + "." + pref);
+            impitem.items[index][0] = goPrefBar.GetString("buttons.properties", childid + ".optionlabel" + (index + 1));
           } catch(e) {}
         }
-
-        gRDF.SetAttributeValue(gMainDS, child, attrib, value);
       }
+
+      // Item not in main datasource --> Add reference to it to enabled menu
+      if (!gMainDS[childid])
+        gMainDS["prefbar:menu:enabled"].items.unshift(childid);
+      // Item exists in main datasource --> Keep some things based on rules
+      else {
+        var olditem = gMainDS[childid];
+
+        // If we update, we don't touch the users labels
+        if (aImportType == ImportType_Update) impitem.label = olditem.label;
+
+        // We never change the hotkeys, defined by the user
+        impitem.hkkey = olditem.hkkey;
+        impitem.hkkeycode = olditem.hkkeycode;
+        impitem.hkmodifiers = olditem.hkmodifiers;
+
+        // We don't edit listitems, if the "DontUpdateListItems"-flag is set
+        if (impitem.dontupdatelistitems) impitem.items = olditem.items;
+      }
+
+      // Store imported item
+      gMainDS[childid] = impitem;
     }
   }
 
-  gMainDS.endUpdateBatch();
-  gMainDS.QueryInterface(Components.interfaces.nsIRDFRemoteDataSource).Flush();
-  gRDF.RDFService.UnregisterDataSource(impDS);
-
-  //****HACK**** (Mozilla Bug 237784) Delete Temporary file
-  if (tempfileobj) tempfileobj.remove(false);
-  //****END HACK****
-
-  return true;
-}
-
-function Import_AllowOverwrite(aDS, aNode, aAttrib, aImportType) {
-  // No need for additional checks if we reset. Everything has to be
-  // overwritten.
-  if (aImportType == ImportType_Reset) return true;
-
-  var attribstring = aAttrib.Value.toUpperCase();
-
-  // **** LABEL PROPERTY ****
-  if (attribstring == "HTTP://WWW.XULPLANET.COM/RDF/PREFBAR#LABEL") {
-    // If we update, we don't touch the users labels
-    if (aImportType == ImportType_Update)
-      return false;
-  }
-
-  // **** OPTIONLABEL/OPTIONVALUE PROPERTY ****
-  if (attribstring.match(/^HTTP:\/\/WWW.XULPLANET.COM\/RDF\/PREFBAR#OPTION(LABEL|VALUE)\d+/)) {
-    // We don't edit listitems, if the "DontUpdateListItems"-flag is "true"
-    if (gRDF.GetAttributeValue(aDS, aNode, gRDF.NC + "dontupdatelistitems"))
-      return false;
-  }
-
-  // **** HK* PROPERTIES ****
-  if (attribstring.match(/^HTTP:\/\/WWW.XULPLANET.COM\/RDF\/PREFBAR#HK\w+/)) {
-    // We never change the hotkeys, defined by the user
-    return false;
-  }
-
+  goPrefBar.JSONTools.MainDSUpdated();
   return true;
 }
 
@@ -311,27 +191,5 @@ function prefbarCheckForUpdate() {
   goPrefBar.SetPref("extensions.prefbar.version", goPrefBar.prefbarVersion);
 }
 function doUpdate() {
-  Import(null, "chrome://prefbar/content/prefbar.rdf", ImportType_Update);
-}
-
-function copyOver(input, output) {
-  var istream = Components.classes["@mozilla.org/network/file-input-stream;1"]
-    .createInstance(Components.interfaces.nsIFileInputStream);
-  var ostream = Components.classes["@mozilla.org/network/file-output-stream;1"]
-    .createInstance(Components.interfaces.nsIFileOutputStream);
-  var bstream = Components.classes["@mozilla.org/binaryinputstream;1"]
-    .createInstance(Components.interfaces.nsIBinaryInputStream);
-
-  istream.init(input, -1, 0, 0);
-  bstream.setInputStream(istream);
-  ostream.init(output, 0x02|0x20, parseInt("00600", 8), 0);
-                     // write, truncate
-
-  var length = bstream.available();
-  ostream.write(bstream.readBytes(length), length);
-
-  ostream.flush();
-  ostream.close();
-  bstream.close();
-  istream.close();
+  Import(null, "chrome://prefbar/content/prefbar.json", ImportType_Update);
 }

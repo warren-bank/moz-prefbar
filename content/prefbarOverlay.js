@@ -47,6 +47,8 @@
 // goPrefBar sets this to true, if anything in database has changed
 var DatabaseChanged = false;
 
+var gMainDS = goPrefBar.JSONTools.mainDS;
+
 window.addEventListener("load", StartPrefBar, true);
 
 function StartPrefBar(event) {
@@ -81,8 +83,8 @@ function StartPrefBar(event) {
   var mzquickprefsmnu = document.getElementById("quickpref-popup");
   if (mzquickprefsmnu && mztabcontextmnu) {
     goPrefBar.dump("StartPrefbar: Registering Event Listeners for MultiZilla QPrefs");
-    mztabcontextmnu.addEventListener("popuphidden", function(){setTimeout('PrefBarNS.SetChecks(false, false)');}, false);
-    mzquickprefsmnu.addEventListener("popuphidden", function(){setTimeout('PrefBarNS.SetChecks(false, false)');}, false);
+    mztabcontextmnu.addEventListener("popuphidden", function(){setTimeout('PrefBarNS.ButtonHandling.update();');}, false);
+    mzquickprefsmnu.addEventListener("popuphidden", function(){setTimeout('PrefBarNS.ButtonHandling.update();');}, false);
   }
 
   // Init hotkey stuff
@@ -184,16 +186,17 @@ function OnFocus(event) {
     // Now update anything else...
     var buttons = document.getElementById("prefbar-buttons");
     if (buttons) {
-      buttons.builder.rebuild();
-      document.getElementById("prefbar-chevron-popup").builder.rebuild();
+      ButtonHandling.render(buttons);
+      var chevron = document.getElementById("prefbar-chevron-popup");
+      ButtonHandling.render(chevron);
       setTimeout(UpdateToolbar);
     }
     var menu = document.getElementById("prefbar-menu-popup");
-    if (menu) menu.builder.rebuild();
+    if (menu) ButtonHandling.render(menu);
     CallInitFunctions();
   }
   else
-    SetChecks(false, false);
+    ButtonHandling.update();
 
   FocusTimeStamp = new Date().getTime();
 }
@@ -202,10 +205,10 @@ function OnAfterCustomization() {
   goPrefBar.dump("OnAfterCustomization");
 
   var pbmenupopup = document.getElementById("prefbar-menu-popup");
-  if (pbmenupopup) goPrefBar.RDF.AddmDatasource(pbmenupopup);
+  if (pbmenupopup) ButtonHandling.render(pbmenupopup);
 
   var buttons = document.getElementById("prefbar-buttons");
-  if (buttons) goPrefBar.RDF.AddmDatasource(buttons);
+  if (buttons) ButtonHandling.render(buttons);
 
   CallInitFunctions();
 
@@ -213,7 +216,7 @@ function OnAfterCustomization() {
   if (!buttons) return;
 
   var chevron = document.getElementById("prefbar-chevron-popup");
-  goPrefBar.RDF.AddmDatasource(chevron);
+  ButtonHandling.render(chevron);
 
   // If there are other flexible items on the toolbar, we have been placed to,
   // then make PrefBar's stuff *non-flexible*
@@ -287,21 +290,25 @@ function SetSpecialChecks(updatefor) {
   var len = buttons.childNodes.length;
   for (var i = 0; i < len; i++) {
     var button = buttons.childNodes[i];
+    if (button.tagName == "toolbaritem") button = button.firstChild;
 
     if (button.collapsed == true) break;
 
-    var btnufor = button.getAttribute("browserbtnupdatefor");
+    var data = gMainDS[button.id];
+    if (!data) alert(button.id);
+
+    var btnufor = data.browserbtnupdatefor;
     if (!btnufor) continue;
     if (updatefor == "page" && btnufor != "page") continue;
 
-    var btntype = button.getAttribute('btntype');
+    var btntype = data.type;
 
     switch (btntype) {
     case "extcheck":
-      SetExtcheck(button, false);
+      ButtonHandling.extcheck.update(button, data);
       break;
     case "extlist":
-      SetExtlist(button.menupopup, false);
+      ButtonHandling.extlist.update(button, data);
       break;
     }
   }
@@ -384,75 +391,67 @@ function UpdateButtonHotkeys() {
 
   ourkeyset = document.createElement("keyset");
   ourkeyset.id = "prefbarButtonKeyset";
-
-  ourkeyset.setAttribute("template", "prefbarHotkeyTemplate");
-  ourkeyset.setAttribute("datasources", "rdf:null");
-  ourkeyset.setAttribute("ref", "urn:prefbar:browserbuttons:enabled");
-  ourkeyset.setAttribute("flags", "dont-test-empty");
+  AddButtonHotkeys(ourkeyset);
   mainwin.appendChild(ourkeyset);
-
-  goPrefBar.RDF.AddmDatasource(ourkeyset);
-  ourkeyset.builder.rebuild();
-
-  PrefixSubIds(ourkeyset, "key:");
-
-  // keysets aren't properly initialised, when rendered using RDF rules
-  var len = ourkeyset.childNodes.length;
-  for (var cindex = 0; cindex < len; cindex++) {
-    var curChild = ourkeyset.childNodes[cindex];
-    if (curChild.tagName == "keyset") {
-      var keyset = curChild.cloneNode(true);
-      ourkeyset.insertBefore(keyset, curChild);
-      ourkeyset.removeChild(curChild);
-    }
-  }
 }
-function PrefixSubIds(parent, prefix) {
-  var len = parent.childNodes.length;
-  for (var cindex = 0; cindex < len; cindex++) {
-    var curChild = parent.childNodes[cindex];
-    var curid = curChild.id;
-    if (curid && curid.substr(0, prefix.length) != prefix)
-      curChild.id = prefix + curid;
-    if (curChild.childNodes.length > 0)
-      PrefixSubIds(curChild, prefix);
+function AddButtonHotkeys(aKeyset, aParentMenu) {
+  if (!aParentMenu) aParentMenu = "prefbar:menu:enabled";
+
+  var items = gMainDS[aParentMenu].items;
+  var len = items.length;
+  for (var index in items) {
+    var itemid = items[index];
+    var item = gMainDS[itemid];
+
+    if (item.type == "submenu")
+      AddButtonHotkeys(aKeyset, itemid);
+    else if (item.hkkey || item.hkkeycode) {
+      var key = document.createElement("key");
+      key.setAttribute("id", "key:" + itemid);
+      key.setAttribute("key", item.hkkey);
+      key.setAttribute("keycode", item.hkkeycode);
+      key.setAttribute("modifiers", item.hkmodifiers);
+      key.setAttribute("oncommand", "PrefBarNS.ButtonHandling.hotkey(this);");
+      aKeyset.appendChild(key);
+    }
   }
 }
 
 // This one will init all currently available buttons.
 function CallInitFunctions(aParent) {
-  var RDF = goPrefBar.RDF;
-  var mainDS = RDF.mDatasource;
+  if (!aParent) aParent = "prefbar:menu:enabled";
 
-  if (!aParent) aParent = "urn:prefbar:browserbuttons:enabled";
+  var ds = goPrefBar.JSONTools.mainDS;
 
-  var children = RDF.GetChildNodes(mainDS, aParent);
-  var len = children.length;
-  for (var cindex = 0; cindex < len; cindex++) {
-    var node = children[cindex];
-    if (RDF.IsContainer(mainDS, node))
-      CallInitFunctions(node);
-    else {
-      var initfunction = RDF.GetAttributeValue(mainDS, node, RDF.NC + "initfunction");
-      if (initfunction) {
-        var btnid = node.Value;
+  var len = ds[aParent].items.length;
+  for (var index = 0; index < len; index++) {
+    var id = ds[aParent].items[index];
+    var btn = ds[id];
+
+    if (btn.type == "submenu")
+      CallInitFunctions(id);
+    else if (btn.type == "extmenu" ||
+             btn.type == "extlist" ||
+             btn.type == "button") {
+      if (btn.initfunction) {
         try {
           var lf = new Error();
-          eval(initfunction.Value);
-        } catch(e) {LogError(e, lf, btnid, 'initfunction');}
+          eval(btn.initfunction);
+        } catch(e) {LogError(e, lf, id, 'initfunction');}
       }
     }
   }
 }
 
 function UpdateToolbar() {
-  // Force to redraw everything as we need the button width.
-  SetChecks(false, true);
-
   goPrefBar.dump("UpdateToolbar");
 
   var buttons = document.getElementById("prefbar-buttons");
   if (!buttons) return;
+
+  // Force to redraw everything as we need the button width.
+  ButtonHandling.update(buttons, true);
+
   var chevron = document.getElementById("prefbar-chevron");
   var toolbaritem = document.getElementById("prefbar-toolbaritem");
 
@@ -511,10 +510,11 @@ function UpdateToolbar() {
 function UpdateChevronMenu() {
   goPrefBar.dump("UpdateChevronMenu");
 
-  SetChecks(true, false);
-
   var toolbar = document.getElementById("prefbar-buttons");
   var menu = document.getElementById("prefbar-chevron-popup");
+
+  ButtonHandling.update(menu);
+
   var spacercount = 0;
 
   var len = toolbar.childNodes.length;
@@ -529,247 +529,10 @@ function UpdateChevronMenu() {
   }
 }
 
-function SetChecks(menu, forceAll, optional_target) {
-  goPrefBar.dump("SetChecks Menu:" + !!menu);
 
-  var buttons;
-
-  if (optional_target != undefined)
-    buttons = optional_target;
-  else {
-    if (!menu)
-      buttons = document.getElementById("prefbar-buttons");
-    else
-      buttons = document.getElementById("prefbar-chevron-popup");
-  }
-
-  if (!buttons) return;
-  var len = buttons.childNodes.length;
-  for (var i = 0; i < len; i++) {
-
-    var button = buttons.childNodes[i];
-    if (!forceAll && button.style.visibility == "hidden") {
-      goPrefBar.dump("SetChecks: jumpingbutton");
-      break;
-    }
-    // Silently jump over "toolbaritem" items
-    if (button.tagName == "toolbaritem") button = button.firstChild;
-    var btntype = button.getAttribute('btntype');
-
-    switch (btntype) {
-    case "check":
-      SetCheck(button, menu);
-      break;
-    case "extcheck":
-      SetExtcheck(button, menu);
-      break;
-    case "menulist":
-      if (!menu) SetMenulist(button.menupopup, false);
-      break;
-    case "extlist":
-      if (!menu) SetExtlist(button.menupopup, false);
-      break;
-    }
-  }
-}
-
-function ProcessButton(button, event) {
-  try {
-    var lf = new Error();
-    eval(button.getAttribute("oncommandval"));
-  } catch(e) { LogError(e, lf, button.id, "onclick"); }
-}
-
-function SetCheck(button, menu) {
-  // Value is magic variable referenced in prefstring
-  var value = goPrefBar.GetPref(button.getAttribute("prefstring"));
-
-  var checked = eval(button.getAttribute("frompref"));
-
-  if (!menu)
-    button.setAttribute("checked", checked);
-  else {
-    var tvalue = checked ? "checkbox" : "radio";
-    button.setAttribute("type", tvalue);
-    button.setAttribute("checked", "true");
-  }
-}
-
-function ProcessCheck(button, menu) {
-  var value;
-  if (!menu)
-    value = button.checked;
-  else
-    value = (button.getAttribute("type") == "radio");
-
-  goPrefBar.SetPref(button.getAttribute("prefstring"), eval(button.getAttribute("topref")));
-}
-
-function HotkeyCheck(key) {
-  var value = goPrefBar.GetPref(key.getAttribute("prefstring"));
-  var checked = eval(key.getAttribute("frompref"));
-  value = !checked;
-  value = eval(key.getAttribute("topref"));
-  goPrefBar.SetPref(key.getAttribute("prefstring"), value);
-
-  var msg;
-  if (!checked)
-    msg = goPrefBar.GetString("prefbarOverlay.properties", "enabled");
-  else
-    msg = goPrefBar.GetString("prefbarOverlay.properties", "disabled");
-  OSDMessage(key.getAttribute("label") + ": " + msg);
-  SetChecks(false, false);
-}
-
-function SetExtcheck(button, menu) {
-  var func = button.getAttribute("getfunction");
-
-  var value;
-  try {
-    var lf = new Error();
-    eval(func);
-  } catch(e) { LogError(e, lf, button.id, "getfuntion"); }
-
-  if (!menu)
-    button.setAttribute("checked", value);
-  else {
-    var tvalue = value ? "checkbox" : "radio";
-    button.setAttribute("type", tvalue);
-    button.setAttribute("checked", "true");
-  }
-}
-
-function ProcessExtcheck(button, menu, event) {
-  var func = button.getAttribute("setfunction");
-
-  var value;
-  if (!menu)
-    value = button.checked;
-  else
-    value = (button.getAttribute("type") == "radio");
-
-  try {
-    var lf = new Error();
-    eval(func);
-  } catch(e) { LogError(e, lf, button.id, "setfuntion"); }
-}
-
-function HotkeyExtcheck(key) {
-  var value;
-  eval(key.getAttribute("getfunction"));
-  value = !value;
-  eval(key.getAttribute("setfunction"));
-
-  var msg;
-  if (value)
-    msg = goPrefBar.GetString("prefbarOverlay.properties", "enabled");
-  else
-    msg = goPrefBar.GetString("prefbarOverlay.properties", "disabled");
-  OSDMessage(key.getAttribute("label") + ": " + msg);
-  SetChecks(false, false);
-}
-
-
-function SetMenulist(menupopup, menu) {
-  var prefstring = menupopup.getAttribute("prefstring");
-
-  var prefBranch = goPrefBar.PrefBranch;
-  var prefHasUserValue = prefBranch.prefHasUserValue(prefstring);
-
-  var prefvalue = String(goPrefBar.GetPref(prefstring));
-
-  var items = GetMenupopupItems(menupopup);
-  GenerateMenupopup(menupopup, menu, items, !prefHasUserValue, prefvalue);
-}
-
-function ProcessMenulist(menupopup, aEvent) {
-  var menuitem = aEvent.target;
-  var prefBranch = goPrefBar.PrefBranch;
-
-  var pref = menuitem.parentNode.getAttribute("prefstring");
-  var value = menuitem.getAttribute("value");
-  var type = prefBranch.getPrefType(pref);
-
-  if (value == "PREFBARDEFAULT")
-    goPrefBar.ClearPref(pref);
-  else {
-    if(type == prefBranch.PREF_STRING)
-      prefBranch.setCharPref(pref, value);
-    else if(type == prefBranch.PREF_INT)
-      prefBranch. setIntPref(pref, Number(value));
-    else if(type == prefBranch.PREF_BOOL)
-      prefBranch.setBoolPref(pref, Boolean(value));
-    else
-      navigator.preference(pref, value);  // Couldn't hurt to try...
-  }
-}
-
-
-function SetExtlist(menupopup, menu) {
-  var getfunction = menupopup.getAttribute("getfunction");
-
-  // The variables that may be modified by the getfunction
-  /* value to select in list */
-  var value = "";
-  /* Here we have the array of all items defined via GUI. The array has
-     two dimensions. First is the index and second is label(0) and value(1)
-     feel free to edit,read,parse special values or dump new items in here
-     from wherever you read them */
-  var items = GetMenupopupItems(menupopup);
-
-  var defaultset = false;
-
-  // Call the getfunction
-  try {
-    var lf = new Error();
-    eval(getfunction);
-  } catch(e) { LogError(e, lf, menupopup.id, "getfuntion"); }
-
-  GenerateMenupopup(menupopup, menu, items, defaultset, value);
-}
-
-
-function ProcessExtlist(menupopup, aEvent) {
-  var menuitem = aEvent.target;
-  var func = menuitem.parentNode.getAttribute("setfunction");
-  var value = menuitem.getAttribute("value");
-
-  try {
-    var lf = new Error();
-    eval(func);
-  } catch(e) { LogError(e, lf, menupopup.id, "setfuntion"); }
-}
-
-function GetMenupopupItems(menupopup) {
-  var RDF = goPrefBar.RDF;
-  var DS = RDF.mDatasource;
-
-  var itemId = menupopup.getAttribute("id");
-  var returnArray = Array();
-
-  // It would be possible to implement some "cache" here
-  // means a "hash array" which holds the finished arrays for each id.
-  // Don't know if this is worth the effort and if this is really faster
-  // than reading from RDF.
-
-  var itemindex = 1;
-  while(true) {
-    var Loptlabel = RDF.GetAttributeValue(DS, itemId, RDF.NC + "optionlabel" + itemindex);
-    if (!Loptlabel) break;
-    var optlabel = Loptlabel.Value;
-    var Loptvalue = RDF.GetAttributeValue(DS, itemId, RDF.NC + "optionvalue" + itemindex);
-    //if (!Loptvalue) break;
-    var optvalue = Loptvalue.Value;
-
-    returnArray.push(Array(optlabel, optvalue));
-    itemindex++;
-  }
-
-  return returnArray;
-}
 
 function GenerateMenupopup(menupopup, menu, items, defaultset, value) {
-  var itemId = menupopup.getAttribute("id");
+  var itemId = menupopup.parentNode.id;
   goPrefBar.dump("GenerateMenupopup: itemId: " + itemId);
 
   var activeitem = null;
@@ -783,7 +546,8 @@ function GenerateMenupopup(menupopup, menu, items, defaultset, value) {
     var optvalue = items[itemindex][1];
 
     var newitem = document.createElement('menuitem');
-    if (optvalue == "PREFBARDEFAULT") defaultitem = newitem;
+    if (optvalue == "PREFBARDEFAULT" ||
+        optvalue == "!RESET!") defaultitem = newitem;
     if (optvalue == value) activeitem = newitem;
 
     newitem.setAttribute("label", optlabel);
@@ -802,11 +566,8 @@ function GenerateMenupopup(menupopup, menu, items, defaultset, value) {
   else {
     if (activeitem)
       menupopup.parentNode.selectedItem = activeitem;
-    else {
+    else
       menupopup.parentNode.selectedItem = null;
-      var label = menupopup.parentNode.getAttribute("xlabel");
-      menupopup.parentNode.setAttribute("label", label);
-    }
   }
 }
 

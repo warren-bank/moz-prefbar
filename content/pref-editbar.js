@@ -60,16 +60,14 @@ function DelayedStartup() {
   enabledTree.addEventListener("click", TreeClick, true);
 
   gRDF = goPrefBar.RDF;
-  gMainDS = gRDF.mDatasource;
-  gRDF.AddmDatasource(allTree);
-  gRDF.AddmDatasource(enabledTree);
+  gMainDS = goPrefBar.JSONTools.mainDS;
+  RenderTree(allTree);
+  RenderTree(enabledTree);
 
   // Set the preset for the selections.
   enabledTree.focus();
   if (allTree.view) allTree.view.selection.clearSelection();
   if (enabledTree.view) enabledTree.view.selection.select(0);
-
-  window.addEventListener("unload", prefbarWriteToDisk, true);
 }
 
 function TreeClick(event) {
@@ -123,14 +121,14 @@ function ItemNew(aType) {
   if (!aType) return;
   var item1 = enabledTree.contentView.getItemAtIndex(0);
   window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "newItemDialog", "chrome,titlebar,dialog,modal,resizable", aType);
+
+  RenderTree(gActiveTree);
   var item2 = enabledTree.contentView.getItemAtIndex(0);
 
   if (item1 != item2) {
-    enabledTree.builder.rebuild();
-    enabledTree.focus();
-    setTimeout(function() {
-      enabledTree.view.selection.select(0);
-    });
+    RenderTree(gActiveTree);
+    goPrefBar.JSONTools.MainDSUpdated();
+    enabledTree.view.selection.select(0);
   }
 }
 
@@ -140,6 +138,9 @@ function prefbarItemEdit() {
   var selItemId = selections[0];
 
   window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,modal,resizable", selItemId);
+
+  RenderTree(gActiveTree);
+  goPrefBar.JSONTools.MainDSUpdated();
 }
 
 
@@ -157,42 +158,30 @@ function prefbarItemDelete() {
     items[selItemId] = selItemCN;
   }
 
-  gMainDS.beginUpdateBatch();
-
-  for (var delitem in items) {
-    var parent = items[delitem];
+  for (var delitemid in items) {
+    var parentid = items[delitemid];
+    var delitem = gMainDS[delitemid];
+    var parent = gMainDS[parentid];
 
     // If the item, to delete, is a container, then move all children to
     // the parent container, to empty the container.
-    if (gRDF.IsContainer(gMainDS, delitem)) {
-      var index = gRDF.GetIndexOf(gMainDS, parent, delitem);
+    if (delitem.type == "submenu")
+      parent.items = delitem.items.concat(parent.items);
 
-      var children = gRDF.GetChildNodes(gMainDS, delitem);
-      gRDF.RemoveChildNodes(gMainDS, delitem, children);
-      gRDF.AddChildNodes(gMainDS, parent, children, index);
-
-      for (var index in children) {
-        var child = children[index];
-        if (child in items) items[child] = parent;
-      }
-    }
-
-    // Drop all attributes and pseudo-attributes from item
-    var attributes = gRDF.GetAttributes(gMainDS, delitem, true);
-    gRDF.RemoveAttributes(gMainDS, delitem, attributes);
-
-    // Drop item from its parent
-    gRDF.RemoveChildNodes(gMainDS, parent, delitem);
+    var delitemindex = goPrefBar.ArraySearch(delitemid, parent.items);
+    parent.items.splice(delitemindex, 1);
+    delete(gMainDS[delitemid]);
   }
 
-  gMainDS.endUpdateBatch();
+  RenderTree(gActiveTree);
+  goPrefBar.JSONTools.MainDSUpdated();
 }
 
 function ItemCopy() {
   var selections = prefbarGetTreeSelections(gActiveTree);
   if (selections.length != 1) return;
   var selItemId = selections[0];
-  if (!selItemId.match(/^(urn:prefbar:(?:browser)?buttons:)/)) return;
+  if (!selItemId.match(/^(prefbar:menu:|prefbar:button:)/)) return;
   var prefix = RegExp.$1;
 
   var copyid;
@@ -202,35 +191,37 @@ function ItemCopy() {
     if (id === null) return;
     if (!id.match(/[^\n\t\r ]/)) continue;
     copyid = prefix + id;
-    if (gRDF.NodeExists(gMainDS, copyid)) {
+    if (copyid in gMainDS) {
       goPrefBar.msgAlert(window, goPrefBar.GetString("newItem.properties", "alertidinuse"));
     }
     else break;
   }
 
-  gMainDS.beginUpdateBatch();
+  var copyitem = {};
 
-  // Source is container --> Make destination a new container
-  if (gRDF.IsContainer(gMainDS, selItemId))
-    gRDF.MakeContainer(gMainDS, copyid);
+  var selitem = gMainDS[selItemId];
+  for (var property in selitem) {
+    var value = selitem[property];
 
-  // Copy over attributes
-  var attributes = gRDF.GetAttributes(gMainDS, selItemId);
-  for (var attrindex in attributes) {
-    var attrib = attributes[attrindex];
-    var value = gRDF.GetAttributeValue(gMainDS, selItemId, attrib);
-    gRDF.SetAttributeValue(gMainDS, copyid, attrib, value);
+    if (property == "items") {
+      copyitem.items = [];
+      if (selitem.type.match(/list$/)) {
+        for (var index in selitem.items) {
+          var srcarray = selitem.items[index];
+          copyitem.items.push(srcarray.slice());
+        }
+      }
+    }
+    else
+      copyitem[property] = value;
   }
 
-  // Add new button to the container node of the active tree
-  var container = gActiveTree.ref;
-  gRDF.AddChildNodes(gMainDS, container, copyid);
+  gMainDS[copyid] = copyitem;
+  gMainDS[gActiveTree.ref].items.unshift(copyid);
 
-  gMainDS.endUpdateBatch();
-
-  setTimeout(function() {
-    gActiveTree.view.selection.select(0);
-  });
+  RenderTree(gActiveTree);
+  gActiveTree.view.selection.select(0);
+  goPrefBar.JSONTools.MainDSUpdated();
 }
 
 function prefbarItemExport() {
@@ -245,7 +236,10 @@ function prefbarItemExport() {
   var res=fp.show();
   if (res==nsIFilePicker.returnOK || res == nsIFilePicker.returnReplace) {
     var selections = prefbarGetTreeSelections(gActiveTree);
-    goPrefBar.ImpExp.Export(window, selections, fp.fileURL.spec);
+
+
+
+    goPrefBar.ImpExp.Export(window, selections, fp.file);
   }
 }
 
@@ -261,8 +255,11 @@ function prefbarItemImport() {
 
   var res=fp.show();
   if (res==nsIFilePicker.returnOK) {
-    goPrefBar.ImpExp.Import(window, fp.fileURL.spec);
+    goPrefBar.ImpExp.Import(window, fp.file);
   }
+
+  RenderTree(allTree);
+  RenderTree(enabledTree);
 }
 
 function OnLinkClick(aEvent) {
@@ -338,7 +335,7 @@ function DropOnTree(event, tree) {
 
       var item = document.getElementById(idPlaceBefore);
       if (item.getAttribute("container") == "true") {
-        if (item.getAttribute("empty") == "true") {
+        if (item.lastChild.children.length == 0) {
           if (pastePos > 1 && pastePos < 3) {
             idPlaceInside = idPlaceBefore;
             idPlaceBefore = null;
@@ -375,7 +372,7 @@ function DropOnTree(event, tree) {
     targetcontainer = getCNameById(idPlaceBefore);
   else if (idPlaceInside) {
     targetcontainer = idPlaceInside;
-    savedOpenState[idPlaceInside] = "true";
+    document.getElementById(idPlaceInside).setAttribute("open", "true");
   }
   else
     targetcontainer = tree.ref;
@@ -386,28 +383,27 @@ function DropOnTree(event, tree) {
   if (gDragArray.length > 1 ||
       targetcontainer != "urn:prefbar:browserbuttons:enabled") {
     for (var i = gDragArray.length - 1; i >= 0; i--) {
-      if (gRDF.IsContainer(gMainDS, gDragArray[i][0]))
+      if (gMainDS[gDragArray[i][0]].type == "submenu")
         gDragArray.splice(i, 1);
     }
   }
 
-  gMainDS.beginUpdateBatch();
-
-  // first run: Kill all items from old seq
+  // first run: Kill all items from old menu
   var dragcnt = gDragArray.length;
   for (var i = 0; i < dragcnt; i++) {
     var curitem = gDragArray[i];
-    gRDF.RemoveChildNodes(gMainDS, curitem[1], curitem[0]);
+    var oldmnuitems = gMainDS[curitem[1]].items;
+    oldmnuitems.splice(goPrefBar.ArraySearch(curitem[0], oldmnuitems), 1);
   }
 
   // Now get target position.
   var newpos;
   if (!idPlaceBefore)
-    newpos = 1;
+    newpos = 0;
   else {
-    newpos = gRDF.GetIndexOf(gMainDS, targetcontainer, idPlaceBefore);
-    if (newpos == -1)
-      newpos = 1;
+    newpos = goPrefBar.ArraySearch(idPlaceBefore, gMainDS[targetcontainer].items);
+    if (newpos === false)
+      newpos = 0;
     else
       if (PlaceAfter) newpos++;
   }
@@ -415,16 +411,15 @@ function DropOnTree(event, tree) {
   // Second run: Add all items to new seq on their new position
   for (var i = 0; i < dragcnt; i++) {
     var curitem = gDragArray[i];
-    gRDF.AddChildNodes(gMainDS, targetcontainer, curitem[0], newpos);
+    gMainDS[targetcontainer].items.splice(newpos, 0, curitem[0]);
     newpos++;
   }
 
-  gMainDS.endUpdateBatch();
-
   // Focus target tree
-  tree.builder.rebuild();
   tree.focus();
-  restoreOpenStates();
+  RenderTree(allTree);
+  RenderTree(enabledTree);
+  goPrefBar.JSONTools.MainDSUpdated();
 
   // Add selection for newly added items
   if (dragcnt > 0) {
@@ -468,10 +463,6 @@ function restoreOpenStates() {
   }
 }
 
-function prefbarWriteToDisk() {
-  gMainDS.QueryInterface(Components.interfaces.nsIRDFRemoteDataSource).Flush();
-}
-
 function prefbarGetTreeSelections(tree) {
   var selections = [];
   var select = tree.view.selection;
@@ -489,4 +480,61 @@ function prefbarGetTreeSelections(tree) {
     }
   }
   return selections;
+}
+
+function RenderTree(aTree, aIsSubmenu) {
+  var menu = aTree.getAttribute("ref");
+  if (!menu) return;
+
+  var treechildren = aTree.lastChild;
+  if (!treechildren.tagName == "treechildren") return;
+
+  if (!aIsSubmenu) saveOpenStates();
+
+  // Dump children
+  for (var index = treechildren.children.length - 1; index >= 0; index--) {
+    treechildren.removeChild(treechildren.children[index]);
+  }
+
+  // Recreate from datasource
+  var ds = goPrefBar.JSONTools.mainDS;
+  var len = ds[menu].items.length;
+  for (var index = 0; index < len; index++) {
+    var itemid = ds[menu].items[index];
+    var item = ds[itemid];
+
+    var treeitem = document.createElement("treeitem");
+    var treerow = document.createElement("treerow");
+    var treecell1 = document.createElement("treecell");
+    var treecell2 = document.createElement("treecell");
+
+    treerow.appendChild(treecell1);
+    treerow.appendChild(treecell2);
+    treeitem.appendChild(treerow);
+    treechildren.appendChild(treeitem);
+
+    treeitem.setAttribute("id", itemid);
+    treecell2.setAttribute("label", item.type);
+
+    switch (item.type) {
+    case "separator":
+      treecell1.setAttribute("label", "------------------");
+      break;
+    case "spacer":
+      treecell1.setAttribute("label", "(spacer)");
+      break;
+    default:
+      treecell1.setAttribute("label", item.label);
+    }
+
+    if (item.type == "submenu") {
+      var subtreechildren = document.createElement("treechildren");
+      treeitem.appendChild(subtreechildren);
+      treeitem.setAttribute("ref", itemid);
+      treeitem.setAttribute("container", "true");
+      RenderTree(treeitem, true);
+    }
+  }
+
+  if (!aIsSubmenu) restoreOpenStates();
 }

@@ -40,11 +40,10 @@
 var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
                           .getService().wrappedJSObject;
 
-var gRDF = goPrefBar.RDF;
-var gMainDS = gRDF.mDatasource;
+var gMainDS = goPrefBar.JSONTools.mainDS;
 
 function checkId(itemId) {
-  if (gRDF.NodeExists(gMainDS, "urn:prefbar:buttons:" + itemId)) {
+  if ("prefbar:button:" + itemId in gMainDS) {
     goPrefBar.msgAlert(window, goPrefBar.GetString("newItem.properties", "alertidinuse"));
     return false;
   }
@@ -65,7 +64,7 @@ function fieldEmpty(edit) {
 }
 
 function setIdField(itemId) {
-  var itemIdShow = itemId.replace(/urn\:prefbar\:buttons:/g, "");
+  var itemIdShow = itemId.replace(/prefbar:button:/g, "");
 
   var itemIdField = document.getElementById("itemId");
 
@@ -74,35 +73,20 @@ function setIdField(itemId) {
 }
 
 function setField(itemId, attribute,  fieldId) {
-  var value = getValue(itemId, attribute);
-  if (value !== false)
+  var value = gMainDS[itemId][attribute];
+  if (value !== undefined)
     document.getElementById(fieldId).value = value;
 }
 
 function editField(itemId, attribute, fieldId) {
   var value = document.getElementById(fieldId).value;
-  setValue(itemId, attribute, value);
-}
-
-
-function removeValue(itemId, attribute) {
-  return gRDF.RemoveAttributes(gMainDS, itemId, gRDF.NC + attribute);
-}
-
-function setValue(itemId, attribute, value) {
-  gRDF.SetAttributeValue(gMainDS, itemId, gRDF.NC + attribute, value);
-}
-
-function getValue(itemId, attribute) {
-  var literal = gRDF.GetAttributeValue(gMainDS, itemId, gRDF.NC + attribute);
-  // return boolean, to allow to detect unset values using (value === false);
-  return literal ? literal.Value : false;
+  gMainDS[itemId][attribute] = value;
 }
 
 function createEntry(id, type) {
-  if (gRDF.NodeExists(gMainDS, id)) return false;
-  gRDF.AddChildNodes(gMainDS, "urn:prefbar:browserbuttons:enabled", id);
-  setValue(id, "type", type);
+  if (id in gMainDS) return false;
+  gMainDS[id] = {type: type};
+  gMainDS["prefbar:menu:enabled"].items.unshift(id);
   return true;
 }
 

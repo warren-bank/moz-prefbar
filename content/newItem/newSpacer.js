@@ -58,10 +58,9 @@ function verifyData() {
 }
 
 function createNewItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
 
   createEntry(itemId, "spacer");
-  setValue(itemId, "label", "(spacer)");
 }
 
 function editItem() {

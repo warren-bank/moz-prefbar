@@ -44,23 +44,21 @@ function hkeditSetupNew() {
 
 function hkeditSetupEdit(itemId) {
   hkeditor = document.getElementById("HotkeyEditor");
-  hkeditor.key = getValue(itemId, "hkkey");
-  hkeditor.keycode = getValue(itemId, "hkkeycode");
-  hkeditor.modifiers = getValue(itemId, "hkmodifiers");
+  hkeditor.key = gMainDS[itemId].hkkey;
+  hkeditor.keycode = gMainDS[itemId].hkkeycode;
+  hkeditor.modifiers = gMainDS[itemId].hkmodifiers;
   hkeditor.update();
 }
 
 function hkeditSaveData(itemId) {
   if (hkeditor.key || hkeditor.keycode) {
-    setValue(itemId, "hkkey", hkeditor.key);
-    setValue(itemId, "hkkeycode", hkeditor.keycode);
-    setValue(itemId, "hkmodifiers", hkeditor.modifiers);
-    setValue(itemId, "hkenabled", "true");
+    gMainDS[itemId].hkkey = hkeditor.key;
+    gMainDS[itemId].hkkeycode = hkeditor.keycode;
+    gMainDS[itemId].hkmodifiers = hkeditor.modifiers;
   }
   else {
-    removeValue(itemId, "hkkey");
-    removeValue(itemId, "hkkeycode");
-    removeValue(itemId, "hkmodifiers");
-    removeValue(itemId, "hkenabled");
+    delete(gMainDS[itemId].hkkey);
+    delete(gMainDS[itemId].hkkeycode);
+    delete(gMainDS[itemId].hkmodifiers);
   }
 }

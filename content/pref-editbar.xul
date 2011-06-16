@@ -110,8 +110,7 @@
               context="tree-contextmenu"
               flex="1"
               seltype="multiple"
-              datasources="rdf:null"
-              ref="urn:prefbar:browserbuttons:disabled"
+              ref="prefbar:menu:disabled"
               onfocus="AllTreeFocus()"
               onkeypress="TreeKeypress(event);"
               ondraggesture="BeginDragTree(event, this)"
@@ -122,18 +121,7 @@
             <splitter class="tree-splitter"/>
             <treecol id="all-tree-type"    label="&type-col;" flex="1"/>
           </treecols>
-          <template>
-            <rule iscontainer="false">
-              <treechildren>
-                <treeitem ref="rdf:*" uri="rdf:*">
-                  <treerow>
-                    <treecell label="rdf:http://www.xulplanet.com/rdf/prefbar#label"/>
-                    <treecell label="rdf:http://www.xulplanet.com/rdf/prefbar#type"/>
-                  </treerow>
-                </treeitem>
-              </treechildren>
-            </rule>
-          </template>
+          <treechildren/>
         </tree>
       </vbox>
 
@@ -146,8 +134,7 @@
               context="tree-contextmenu"
               flex="1"
               seltype="multiple"
-              datasources="rdf:null"
-              ref="urn:prefbar:browserbuttons:enabled"
+              ref="prefbar:menu:enabled"
               onfocus="EnabledTreeFocus()"
               onkeypress="TreeKeypress(event);"
               ondraggesture="BeginDragTree(event, this)"
@@ -159,18 +146,7 @@
             <splitter class="tree-splitter"/>
             <treecol id="enabled-tree-type" label="&type-col;" flex="1"/>
           </treecols>
-          <template>
-            <rule>
-              <treechildren>
-                <treeitem uri="rdf:*">
-                  <treerow>
-                    <treecell label="rdf:http://www.xulplanet.com/rdf/prefbar#label"/>
-                    <treecell label="rdf:http://www.xulplanet.com/rdf/prefbar#type"/>
-                  </treerow>
-                </treeitem>
-              </treechildren>
-            </rule>
-          </template>
+          <treechildren/>
         </tree>
       </vbox>
 

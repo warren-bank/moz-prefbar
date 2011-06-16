@@ -61,7 +61,7 @@ function verifyData() {
 }
 
 function createNewItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
 
   createEntry(itemId, "text");
 
@@ -69,7 +69,7 @@ function createNewItem() {
 }
 
 function editItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
 
   editField(itemId, "label", "itemLabel");
 }

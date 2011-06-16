@@ -46,16 +46,10 @@ var gListBox;
 function mnueditSetupEdit(itemId) {
   mnueditInit();
 
-  var itemindex = 1;
-
-  while(true) {
-    var optlabel = getValue(itemId, "optionlabel" + itemindex);
-    if (optlabel === false) break;
-    var optvalue = getValue(itemId, "optionvalue" + itemindex);
-
-    mnueditAddNewItem(optlabel, optvalue);
-
-    itemindex++;
+  var len = gMainDS[itemId].items.length;
+  for (var index = 0; index < len; index++) {
+    var entry = gMainDS[itemId].items[index];
+    mnueditAddNewItem(entry[0], entry[1]);
   }
 
   if (gListBox.getRowCount() != 0)
@@ -72,21 +66,12 @@ function mnueditSetupNew() {
 }
 
 function mnueditSaveData(itemId) {
-  var itemindex = 1;
+  gMainDS[itemId].items = [];
+
   for (var index = 0; index < gListBox.getRowCount(); index++) {
     var dataArray = mnueditDataByItem(gListBox.getItemAtIndex(index));
-    var optlabel = dataArray[0];
-    var optvalue = dataArray[1];
-    if (optlabel == "") continue;
-    setValue(itemId, "optionlabel" + itemindex, optlabel);
-    setValue(itemId, "optionvalue" + itemindex, optvalue);
-    itemindex++;
-  }
-  while(true) {
-    var success = removeValue(itemId, "optionlabel" + itemindex);
-    removeValue(itemId, "optionvalue" + itemindex);
-    if (!success) break;
-    itemindex++;
+    if (dataArray[0] == "") continue;
+    gMainDS[itemId].items.push(dataArray);
   }
 }
 

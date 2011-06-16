@@ -65,7 +65,7 @@ function Startup() {
 
   var arg = window.arguments[0];
 
-  gInEditMode = arg.match(/^urn:prefbar:/);
+  gInEditMode = arg.match(/^prefbar:/);
 
   var type = arg;
   if (gInEditMode) {
@@ -74,8 +74,7 @@ function Startup() {
 
     goPrefBar.dump("Editing item id: " + arg);
 
-    var RDF = goPrefBar.RDF;
-    type = RDF.GetAttributeValue(RDF.mDatasource, arg, RDF.NC + "type").Value;
+    var type = goPrefBar.JSONTools.mainDS[arg].type
   }
   goPrefBar.dump("Item type: " + type);
 
@@ -108,20 +107,15 @@ function setupFrame() {
 }
 
 function dialogAccept() {
-  var MainDS = goPrefBar.RDF.mDatasource;
   if (gInEditMode) {
     if(window.frames[0].verifyData()) {
-      MainDS.beginUpdateBatch();
       window.frames[0].editItem();
-      MainDS.endUpdateBatch();
       return true;
     }
   }
   else {
     if(window.frames[0].verifyDataNew()) {
-      MainDS.beginUpdateBatch();
       window.frames[0].createNewItem();
-      MainDS.endUpdateBatch();
       return true;
     }
   }

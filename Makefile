@@ -3,8 +3,8 @@
 # Makefile for PrefBar
 #
 
-VERSION=5.1.1
-BUILD=20100723
+VERSION=6.0.0
+BUILD=20110616
 
 all: patch jar xpi
 

@@ -74,25 +74,24 @@ function verifyData() {
 }
 
 function createNewItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
-
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
   createEntry(itemId, "button");
 
   editItem();
 }
 
 function editItem() {
-  var itemId = "urn:prefbar:buttons:" + document.getElementById("itemId").value;
+  var itemId = "prefbar:button:" + document.getElementById("itemId").value;
 
   editField(itemId, "label",   "itemLabel");
   editField(itemId, "onclick", "itemOnclick");
 
-    // initfunction
+  // initfunction
   var initfunction = document.getElementById("itemInitfunction").value;
   if (initfunction.match(/[^\n\t\r ]/))
-    setValue(itemId, "initfunction", initfunction);
+    gMainDS[itemId].initfunction = initfunction;
   else
-    removeValue(itemId, "initfunction");
+    delete(gMainDS[itemId].initfunction);
 
   hkeditSaveData(itemId);
 }
