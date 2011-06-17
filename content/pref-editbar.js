@@ -492,9 +492,7 @@ function RenderTree(aTree, aIsSubmenu) {
   if (!aIsSubmenu) saveOpenStates();
 
   // Dump children
-  for (var index = treechildren.children.length - 1; index >= 0; index--) {
-    treechildren.removeChild(treechildren.children[index]);
-  }
+  while(treechildren.firstChild) treechildren.removeChild(treechildren.firstChild);
 
   // Recreate from datasource
   var ds = goPrefBar.JSONTools.mainDS;

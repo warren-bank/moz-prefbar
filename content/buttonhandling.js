@@ -35,10 +35,11 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-
 // This file is loaded into context of PrefBarNS and does all the handling,
 // that has to do with the buttons inside the browser, from rendering to
 // updating and user interaction.
+// Stuff that belongs to one button type is always grouped together in
+// one object.
 
 var ButtonHandling = {
   // Drops all children of given aTarget and recreates them from datasource
@@ -55,11 +56,9 @@ var ButtonHandling = {
     var ismenu = (aTarget.tagName == "menupopup");
 
     // Clear target
-    for (var index = aTarget.children.length - 1; index >= 0; index--) {
-      aTarget.removeChild(aTarget.children[index]);
-    }
+    while(aTarget.firstChild) aTarget.removeChild(aTarget.firstChild);
 
-    for (var index in ds[menuid].items) {
+    for (var index = 0; index < ds[menuid].items.length; index++) {
       var btnid = ds[menuid].items[index];
       var btndata = ds[btnid];
 
@@ -96,8 +95,7 @@ var ButtonHandling = {
 
     var ismenu = (aTarget.tagName == "menupopup");
 
-    var btncount = aTarget.children.length;
-    for (var index = 0; index < btncount; index++) {
+    for (var index = 0; index < aTarget.children.length; index++) {
       var btn = aTarget.children[index];
 
       if (btn.tagName == "toolbaritem") btn = btn.firstChild;
@@ -330,7 +328,44 @@ var ButtonHandling = {
       var prefvalue = String(goPrefBar.GetPref(prefstring));
 
       var items = data.items;
-      GenerateMenupopup(menupopup, menu, items, !prefHasUserValue, prefvalue);
+      this._gen_menupopup(menupopup, menu, items, !prefHasUserValue, prefvalue);
+    },
+    _gen_menupopup: function(aMenuPopup, aIsMenu, aItems, aDefaultset, aValue) {
+      goPrefBar.dump("_gen_menupopup: itemId: " + aMenuPopup.parentNode.id);
+
+      var activeitem;
+      var defaultitem;
+
+      while(aMenuPopup.firstChild) aMenuPopup.removeChild(aMenuPopup.firstChild);
+
+      for (var itemindex = 0; itemindex < aItems.length; itemindex++) {
+        var optlabel = aItems[itemindex][0];
+        var optvalue = aItems[itemindex][1];
+
+        var newitem = document.createElement('menuitem');
+        if (optvalue == "PREFBARDEFAULT" ||
+            optvalue == "!RESET!") defaultitem = newitem;
+        if (optvalue == aValue) activeitem = newitem;
+
+        newitem.setAttribute("label", optlabel);
+        newitem.setAttribute("value", optvalue);
+        if (aIsMenu) {
+          newitem.setAttribute("type", "checkbox");
+          newitem.setAttribute("checked", "false");
+        }
+        aMenuPopup.appendChild(newitem);
+      }
+
+      if (aDefaultset && defaultitem) activeitem = defaultitem;
+
+      if (aIsMenu)
+        activeitem.setAttribute("checked", "true");
+      else {
+        if (activeitem)
+          aMenuPopup.parentNode.selectedItem = activeitem;
+        else
+          aMenuPopup.parentNode.selectedItem = null;
+      }
     }
   },
 
@@ -370,7 +405,7 @@ var ButtonHandling = {
          feel free to edit,read,parse special values or dump new items in here
          from wherever you read them */
       var items = [];
-      for (var index in data.items) {
+      for (var index = 0; index < data.items.length; index++) {
         var srcarray = data.items[index];
         items.push(srcarray.slice());
       }
@@ -383,7 +418,7 @@ var ButtonHandling = {
         eval(getfunction);
       } catch(e) { LogError(e, lf, menupopup.id, "getfuntion"); }
 
-      GenerateMenupopup(menupopup, menu, items, defaultset, value);
+      ButtonHandling.menulist._gen_menupopup(menupopup, menu, items, defaultset, value);
     }
   },
 

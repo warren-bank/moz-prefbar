@@ -530,47 +530,6 @@ function UpdateChevronMenu() {
 }
 
 
-
-function GenerateMenupopup(menupopup, menu, items, defaultset, value) {
-  var itemId = menupopup.parentNode.id;
-  goPrefBar.dump("GenerateMenupopup: itemId: " + itemId);
-
-  var activeitem = null;
-  var defaultitem = null;
-
-  while(menupopup.firstChild) menupopup.removeChild(menupopup.firstChild);
-
-  var len = items.length;
-  for (var itemindex = 0; itemindex < len; itemindex++) {
-    var optlabel = items[itemindex][0];
-    var optvalue = items[itemindex][1];
-
-    var newitem = document.createElement('menuitem');
-    if (optvalue == "PREFBARDEFAULT" ||
-        optvalue == "!RESET!") defaultitem = newitem;
-    if (optvalue == value) activeitem = newitem;
-
-    newitem.setAttribute("label", optlabel);
-    newitem.setAttribute("value", optvalue);
-    if (menu) {
-      newitem.setAttribute("type", "checkbox");
-      newitem.setAttribute("checked", "false");
-    }
-    menupopup.appendChild(newitem);
-  }
-
-  if (defaultset && defaultitem) activeitem = defaultitem;
-
-  if (menu)
-    activeitem.setAttribute("checked", "true");
-  else {
-    if (activeitem)
-      menupopup.parentNode.selectedItem = activeitem;
-    else
-      menupopup.parentNode.selectedItem = null;
-  }
-}
-
 var NotifyIndex = 0;
 function OSDMessage(message) {
   const ourvalue = "prefbar-notification";

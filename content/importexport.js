@@ -68,7 +68,7 @@ function Export(aWin, aToExport, aFileObj) {
   exportds[parent] = {items: []};
 
   // Add export items
-  for (var index in aToExport) {
+  for (var index = 0; index < aToExport.length; index++) {
     var expitemid = aToExport[index];
     var expitem = gMainDS[expitemid];
 
@@ -104,7 +104,7 @@ function Import(aWin, aFile, aImportType) {
 
   var overwrite = false;
   // Reset or Update --> overwrite anything without asking
-  if (ImportType == ImportType_Reset || ImportType == ImportType_Update)
+  if (aImportType == ImportType_Reset || aImportType == ImportType_Update)
     overwrite = true;
   // Import by user --> If items already exist, then ask user about what to do
   else {
@@ -113,7 +113,7 @@ function Import(aWin, aFile, aImportType) {
     for (var menuid in menus) {
       if (!impds[menuid]) continue;
       var items = impds[menuid].items;
-      for (var childindex in items) {
+      for (var childindex = 0; childindex < items.length; childindex++) {
         var childid = items[childindex];
         if (gMainDS[childid]) {
           exists = true;
@@ -136,7 +136,7 @@ function Import(aWin, aFile, aImportType) {
 
     var items = impds[menuid].items;
 
-    for (var childindex in items) {
+    for (var childindex = 0; childindex < items.length; childindex++) {
       var childid = items[childindex];
 
       var impitem = impds[childid];
@@ -146,7 +146,7 @@ function Import(aWin, aFile, aImportType) {
         impitem.label = goPrefBar.GetString("buttons.properties", childid + ".label");
       } catch(e) {}
       if (impitem.items) {
-        for (var index in impitem.items) {
+        for (var index = 0; index < impitem.items.length; index++) {
           try {
             impitem.items[index][0] = goPrefBar.GetString("buttons.properties", childid + ".optionlabel" + (index + 1));
           } catch(e) {}
