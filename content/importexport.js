@@ -97,7 +97,7 @@ function Import(aWin, aFile, aImportType) {
       impds = goPrefBar.RDF.ReadRDF(aFile);
     }
     catch(e) {
-      goPrefBar.msgAlert(win, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
+      goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
       return false;
     }
   }
