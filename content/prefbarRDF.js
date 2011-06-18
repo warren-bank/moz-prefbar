@@ -47,9 +47,6 @@ var RDFService = Components.classes["@mozilla.org/rdf/rdf-service;1"]
 var RDFCU = Components.classes['@mozilla.org/rdf/container-utils;1']
   .getService().QueryInterface(Components.interfaces.nsIRDFContainerUtils);
 
-var mDatasource = null;
-var FormatVersion = null;
-
 var NC = "http://www.xulplanet.com/rdf/prefbar#";
 
 function Init(aGO) {
@@ -60,8 +57,6 @@ function Init(aGO) {
 // RDF based format into javascript object (JSON)
 // (hopefully the last time, I have to use the crappy RDF API...)
 function ReadRDF(aFile) {
-  var RDFService = goPrefBar.RDF.RDFService;
-
   if (typeof aFile != "string") {
     var fph = Components.classes["@mozilla.org/network/protocol;1?name=file"]
       .getService(Components.interfaces.nsIFileProtocolHandler);
@@ -155,15 +150,12 @@ function ReadRDF(aFile) {
     }
   }
 
-  // Add info header with "formatversion" set to "3"
+  // Add info header with "formatversion" set to "3" (first JSON format)
   json["prefbar:info"] = {formatversion: 3};
 
   return json;
 }
 function RDFMenu2JSON(aDS, aMenu, aJSON) {
-  var RDF = goPrefBar.RDF;
-  var RDFService = goPrefBar.RDF.RDFService;
-
   // Only for valid menus!
   if (!RDFCU.IsContainer(aDS, RDFService.GetResource(aMenu))) return;
 
@@ -180,7 +172,7 @@ function RDFMenu2JSON(aDS, aMenu, aJSON) {
     var newchildid = OldID2NewID(child.Value);
     aJSON[OldID2NewID(aMenu)].items.push(newchildid);
 
-    var type = aDS.GetTarget(child, RDFService.GetResource(RDF.NC + "type"), true);
+    var type = aDS.GetTarget(child, RDFService.GetResource(NC + "type"), true);
     type.QueryInterface(Components.interfaces.nsIRDFLiteral);
     if (type.Value == "submenu")
       RDFMenu2JSON(aDS, child.Value, aJSON);
@@ -191,11 +183,11 @@ function RDFMenu2JSON(aDS, aMenu, aJSON) {
       var arr = [];
       var itemindex = 1;
       while(true) {
-        var Loptlabel = aDS.GetTarget(child, RDFService.GetResource(RDF.NC + "optionlabel" + itemindex), true);
+        var Loptlabel = aDS.GetTarget(child, RDFService.GetResource(NC + "optionlabel" + itemindex), true);
         if (!Loptlabel) break;
         Loptlabel.QueryInterface(Components.interfaces.nsIRDFLiteral);
         var optlabel = Loptlabel.Value;
-        var Loptvalue = aDS.GetTarget(child, RDFService.GetResource(RDF.NC + "optionvalue" + itemindex), true);
+        var Loptvalue = aDS.GetTarget(child, RDFService.GetResource(NC + "optionvalue" + itemindex), true);
         //if (!Loptvalue) break;
         Loptvalue.QueryInterface(Components.interfaces.nsIRDFLiteral);
         var optvalue = Loptvalue.Value;
@@ -216,7 +208,7 @@ function RDFMenu2JSON(aDS, aMenu, aJSON) {
       var attribval = aDS.GetTarget(child, attrib, true);
       attribval.QueryInterface(Components.interfaces.nsIRDFLiteral);
 
-      attrib = attrib.Value.replace(RDF.NC, "");
+      attrib = attrib.Value.replace(NC, "");
       aJSON[newchildid][attrib] = attribval.Value;
     }
   }
@@ -266,10 +258,7 @@ function ReadFormatVersion(aDS) {
   return lit ? lit.Value : 0;
 }
 
-function CanReadFormat(datasource) {
-  var toread_version = ReadFormatVersion(datasource);
-  return (toread_version <= FormatVersion);
-}
+const FormatVersion = 2; // Last used RDF format version
 
 function FormatUpdateNeeded(datasource) {
   var toread_version = ReadFormatVersion(datasource);
