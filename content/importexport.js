@@ -98,8 +98,14 @@ function Import(aWin, aFile, aImportType) {
     }
     catch(e) {
       goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
+      throw(e);
       return false;
     }
+  }
+
+  if (!goPrefBar.JSONUtils.CanReadFormat(impds)) {
+    goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrversion").replace("$filename", aFile.path));
+    return false;
   }
 
   var overwrite = false;
