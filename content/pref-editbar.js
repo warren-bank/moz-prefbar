@@ -118,14 +118,13 @@ function PopupShowing() {
 
 function ItemNew(aType) {
   if (!aType) return;
-  var item1 = enabledTree.contentView.getItemAtIndex(0);
+  var rows1 = enabledTree.view.rowCount;
   window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "newItemDialog", "chrome,titlebar,dialog,modal,resizable", aType);
 
-  RenderTree(gActiveTree);
-  var item2 = enabledTree.contentView.getItemAtIndex(0);
+  RenderTree(enabledTree);
+  var rows2 = enabledTree.view.rowCount;
 
-  if (item1 != item2) {
-    RenderTree(gActiveTree);
+  if (rows1 != rows2) {
     goPrefBar.JSONUtils.MainDSUpdated();
     enabledTree.view.selection.select(0);
   }
