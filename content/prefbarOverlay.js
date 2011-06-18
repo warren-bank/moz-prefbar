@@ -258,6 +258,19 @@ function OnLinkClicked(event) {
                       "prefbarURLImport",
                       "chrome,centerscreen,modal,titlebar",
                       href);
+
+    // We have to get sure. trees of possible open editbar_panes are rerendered.
+    var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
+      .getService(Components.interfaces.nsIWindowMediator);
+    var prefWin = wm.getMostRecentWindow("prefbar:preferences");
+    if (!prefWin)
+      prefWin = wm.getMostRecentWindow("mozilla:preferences");
+    if (prefWin) {
+      var editbar_pane = prefWin.document.getElementById("prefbar_editbar_pane");
+      if (editbar_pane && editbar_pane.RenderBothTrees)
+        editbar_pane.RenderBothTrees();
+    }
+
     event.stopPropagation();
     event.preventDefault();
     return false;

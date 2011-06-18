@@ -44,10 +44,8 @@ function resetButton() {
 
     // If editbar pane exists and is loaded, then re-render trees on it
     var editbar_pane = document.getElementById("prefbar_editbar_pane");
-    if (editbar_pane && editbar_pane.RenderTree) {
-      editbar_pane.RenderTree(editbar_pane.allTree);
-      editbar_pane.RenderTree(editbar_pane.enabledTree);
-    }
+    if (editbar_pane && editbar_pane.RenderBothTrees)
+      editbar_pane.RenderBothTrees();
   }
 }
 

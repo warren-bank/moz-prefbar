@@ -61,8 +61,7 @@ function DelayedStartup() {
 
   gRDF = goPrefBar.RDF;
   gMainDS = goPrefBar.JSONTools.mainDS;
-  RenderTree(allTree);
-  RenderTree(enabledTree);
+  RenderBothTrees();
 
   // Set the preset for the selections.
   enabledTree.focus();
@@ -258,8 +257,7 @@ function prefbarItemImport() {
     goPrefBar.ImpExp.Import(window, fp.file);
   }
 
-  RenderTree(allTree);
-  RenderTree(enabledTree);
+  RenderBothTrees();
 }
 
 function OnLinkClick(aEvent) {
@@ -417,8 +415,7 @@ function DropOnTree(event, tree) {
 
   // Focus target tree
   tree.focus();
-  RenderTree(allTree);
-  RenderTree(enabledTree);
+  RenderBothTrees();
   goPrefBar.JSONTools.MainDSUpdated();
 
   // Add selection for newly added items
@@ -535,4 +532,9 @@ function RenderTree(aTree, aIsSubmenu) {
   }
 
   if (!aIsSubmenu) restoreOpenStates();
+}
+
+function RenderBothTrees() {
+  RenderTree(allTree);
+  RenderTree(enabledTree);
 }
