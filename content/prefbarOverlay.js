@@ -47,7 +47,7 @@
 // goPrefBar sets this to true, if anything in database has changed
 var DatabaseChanged = false;
 
-var gMainDS = goPrefBar.JSONTools.mainDS;
+var gMainDS = goPrefBar.JSONUtils.mainDS;
 
 window.addEventListener("load", StartPrefBar, true);
 
@@ -434,7 +434,7 @@ function AddButtonHotkeys(aKeyset, aParentMenu) {
 function CallInitFunctions(aParent) {
   if (!aParent) aParent = "prefbar:menu:enabled";
 
-  var ds = goPrefBar.JSONTools.mainDS;
+  var ds = goPrefBar.JSONUtils.mainDS;
 
   var len = ds[aParent].items.length;
   for (var index = 0; index < len; index++) {

@@ -73,9 +73,9 @@ function Init() {
   ClearPref("extensions.prefbar.show_prefbar_menu");
 
   // Load JSON stuff
-  this.JSONTools = {};
-  Include("chrome://prefbar/content/json.js", this.JSONTools);
-  JSONTools.Init(this);
+  this.JSONUtils = {};
+  Include("chrome://prefbar/content/json.js", this.JSONUtils);
+  JSONUtils.Init(this);
 
   // Load RDF stuff
   this.RDF = new Object;
@@ -119,7 +119,7 @@ var ProfChangeObserver = {
         return;
       }
 
-      JSONTools.Init(this.goPrefBar);
+      JSONUtils.Init(this.goPrefBar);
       ImpExp.Init(this.goPrefBar);
 
       dump("PrefBar: Profile changed, reinitialized modules!");

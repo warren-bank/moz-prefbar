@@ -51,7 +51,7 @@ var ButtonHandling = {
       return;
     }
 
-    var ds = goPrefBar.JSONTools.mainDS;
+    var ds = goPrefBar.JSONUtils.mainDS;
     var menuid = aTarget.getAttribute("ref");
     var ismenu = (aTarget.tagName == "menupopup");
 

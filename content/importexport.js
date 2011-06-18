@@ -47,7 +47,7 @@ const ImportType_Reset = 3;
 
 function Init(aGO) {
   goPrefBar = aGO;
-  gMainDS = goPrefBar.JSONTools.mainDS;
+  gMainDS = goPrefBar.JSONUtils.mainDS;
 
   prefbarCheckForUpdate();
 }
@@ -79,7 +79,7 @@ function Export(aWin, aToExport, aFileObj) {
     exportds[parent].items.push(expitemid);
   }
 
-  goPrefBar.JSONTools.WriteJSON(aFileObj, exportds);
+  goPrefBar.JSONUtils.WriteJSON(aFileObj, exportds);
 }
 
 function Import(aWin, aFile, aImportType) {
@@ -90,7 +90,7 @@ function Import(aWin, aFile, aImportType) {
   // We don't know what the user tries to import...
   var impds;
   try {
-    impds = goPrefBar.JSONTools.ReadJSON(aFile);
+    impds = goPrefBar.JSONUtils.ReadJSON(aFile);
   }
   catch(e) {
     try {
@@ -177,7 +177,7 @@ function Import(aWin, aFile, aImportType) {
     }
   }
 
-  goPrefBar.JSONTools.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated();
   return true;
 }
 

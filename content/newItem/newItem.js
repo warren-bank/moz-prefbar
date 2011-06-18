@@ -74,7 +74,7 @@ function Startup() {
 
     goPrefBar.dump("Editing item id: " + arg);
 
-    var type = goPrefBar.JSONTools.mainDS[arg].type
+    var type = goPrefBar.JSONUtils.mainDS[arg].type
   }
   goPrefBar.dump("Item type: " + type);
 

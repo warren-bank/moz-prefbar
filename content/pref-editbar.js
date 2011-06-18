@@ -60,7 +60,7 @@ function DelayedStartup() {
   enabledTree.addEventListener("click", TreeClick, true);
 
   gRDF = goPrefBar.RDF;
-  gMainDS = goPrefBar.JSONTools.mainDS;
+  gMainDS = goPrefBar.JSONUtils.mainDS;
   RenderBothTrees();
 
   // Set the preset for the selections.
@@ -126,7 +126,7 @@ function ItemNew(aType) {
 
   if (item1 != item2) {
     RenderTree(gActiveTree);
-    goPrefBar.JSONTools.MainDSUpdated();
+    goPrefBar.JSONUtils.MainDSUpdated();
     enabledTree.view.selection.select(0);
   }
 }
@@ -139,7 +139,7 @@ function prefbarItemEdit() {
   window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,modal,resizable", selItemId);
 
   RenderTree(gActiveTree);
-  goPrefBar.JSONTools.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated();
 }
 
 
@@ -173,7 +173,7 @@ function prefbarItemDelete() {
   }
 
   RenderTree(gActiveTree);
-  goPrefBar.JSONTools.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated();
 }
 
 function ItemCopy() {
@@ -220,7 +220,7 @@ function ItemCopy() {
 
   RenderTree(gActiveTree);
   gActiveTree.view.selection.select(0);
-  goPrefBar.JSONTools.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated();
 }
 
 function prefbarItemExport() {
@@ -416,7 +416,7 @@ function DropOnTree(event, tree) {
   // Focus target tree
   tree.focus();
   RenderBothTrees();
-  goPrefBar.JSONTools.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated();
 
   // Add selection for newly added items
   if (dragcnt > 0) {
@@ -492,7 +492,7 @@ function RenderTree(aTree, aIsSubmenu) {
   while(treechildren.firstChild) treechildren.removeChild(treechildren.firstChild);
 
   // Recreate from datasource
-  var ds = goPrefBar.JSONTools.mainDS;
+  var ds = goPrefBar.JSONUtils.mainDS;
   var len = ds[menu].items.length;
   for (var index = 0; index < len; index++) {
     var itemid = ds[menu].items[index];

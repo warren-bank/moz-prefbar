@@ -40,7 +40,7 @@
 var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
                           .getService().wrappedJSObject;
 
-var gMainDS = goPrefBar.JSONTools.mainDS;
+var gMainDS = goPrefBar.JSONUtils.mainDS;
 
 function checkId(itemId) {
   if ("prefbar:button:" + itemId in gMainDS) {
