@@ -66,7 +66,7 @@ function Init(aGO) {
   if (gMainDSFile.exists() || prefbarrdf.exists()) {
     mainDS = gMainDSFile.exists() ? ReadJSON(gMainDSFile) : goPrefBar.RDF.ReadRDF(prefbarrdf);
     if (!CanReadFormat(mainDS)) {
-      goPrefBar.msgAlert(null, goPrefBar.GetString("rdf.properties", "cantreadformat"));
+      goPrefBar.msgAlert(null, goPrefBar.GetString("rdf.properties", "cantreadformat") + "\n\n" + gMainDSFile.path);
       mainDS = null;
       return;
     }
@@ -139,8 +139,9 @@ function WriteJSON(aFileObj, aJSON) {
 }
 
 function CanReadFormat(aDS) {
-  var toread_version = aDS["prefbar:info"].formatversion;
-  return (toread_version &&
-          toread_version >= 3 &&  // First used JSON datasource version
-          toread_version <= gFormatVersion); // Current DS version
+  var info = aDS["prefbar:info"];
+  return (info &&
+          info.formatversion &&
+          info.formatversion >= 3 &&  // First used JSON datasource version
+          info.formatversion <= gFormatVersion); // Current DS version
 }
