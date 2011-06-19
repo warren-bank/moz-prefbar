@@ -72,15 +72,15 @@ function Init() {
   ClearPref("extensions.prefbar.display_on");
   ClearPref("extensions.prefbar.show_prefbar_menu");
 
-  // Load JSON stuff
-  this.JSONUtils = {};
-  Include("chrome://prefbar/content/json.js", this.JSONUtils);
-  JSONUtils.Init(this);
-
   // Load RDF stuff
   this.RDF = new Object;
   Include("chrome://prefbar/content/prefbarRDF.js", this.RDF);
   RDF.Init(this);
+
+  // Load JSON stuff
+  this.JSONUtils = {};
+  Include("chrome://prefbar/content/json.js", this.JSONUtils);
+  JSONUtils.Init(this);
 
   // Load Importer/Exporter
   this.ImpExp = new Object;
