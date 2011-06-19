@@ -159,9 +159,9 @@ function Import(aWin, aFile, aImportType) {
         }
       }
 
-      // Item not in main datasource --> Add reference to it to enabled menu
+      // Item not in main datasource --> Append to menu also used in import ds
       if (!gMainDS[childid])
-        gMainDS["prefbar:menu:enabled"].items.unshift(childid);
+        gMainDS[menuid].items.push(childid);
       // Item exists in main datasource --> Keep some things based on rules
       else {
         var olditem = gMainDS[childid];
