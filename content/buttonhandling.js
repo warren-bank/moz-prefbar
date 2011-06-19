@@ -331,7 +331,8 @@ var ButtonHandling = {
       this._gen_menupopup(menupopup, menu, items, !prefHasUserValue, prefvalue);
     },
     _gen_menupopup: function(aMenuPopup, aIsMenu, aItems, aDefaultset, aValue) {
-      goPrefBar.dump("_gen_menupopup: itemId: " + aMenuPopup.parentNode.id);
+      var menu = aMenuPopup.parentNode;
+      goPrefBar.dump("_gen_menupopup: itemId: " + menu.id);
 
       var activeitem;
       var defaultitem;
@@ -362,9 +363,11 @@ var ButtonHandling = {
         activeitem.setAttribute("checked", "true");
       else {
         if (activeitem)
-          aMenuPopup.parentNode.selectedItem = activeitem;
-        else
-          aMenuPopup.parentNode.selectedItem = null;
+          menu.selectedItem = activeitem;
+        else {
+          menu.selectedItem = null;
+          menu.setAttribute("label", gMainDS[menu.id].label);
+        }
       }
     }
   },
