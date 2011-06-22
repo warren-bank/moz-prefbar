@@ -148,13 +148,14 @@ function Import(aWin, aFile, aImportType) {
       var impitem = impds[childid];
 
       // Try to localize imported button
+      var niceid = childid.split(":")[2];
       try {
-        impitem.label = goPrefBar.GetString("buttons.properties", childid + ".label");
+        impitem.label = goPrefBar.GetString("buttons.properties", niceid + ".label");
       } catch(e) {}
       if (impitem.items) {
         for (var index = 0; index < impitem.items.length; index++) {
           try {
-            impitem.items[index][0] = goPrefBar.GetString("buttons.properties", childid + ".optionlabel" + (index + 1));
+            impitem.items[index][0] = goPrefBar.GetString("buttons.properties", niceid + ".optionlabel" + (index + 1));
           } catch(e) {}
         }
       }
