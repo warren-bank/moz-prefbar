@@ -64,6 +64,7 @@
       </p>
 
       <p>
+        <a href="#v6.0">Changelog 6.0</a><br/>
         <a href="#v5.1.1">Changelog 5.1.1</a><br/>
         <a href="#v5.1">Changelog 5.1</a><br/>
         <a href="#v5.0.2">Changelog 5.0.2</a><br/>
@@ -102,9 +103,11 @@
 
       <hr/>
 
-      <h2 id="v5.x">Changelog 5.x</h2>
+      <h2 id="v6.0">Changelog 6.0</h2>
       <ul>
+        <li>Changed button datasource format from RDF to JSON. PrefBar now saves button configuration to a file "prefbar.json" in your profile. Exported buttons are also JSON files, now. Older PrefBar versions won't be able to read buttons, exported from PrefBar 6.0! This change was required as the Firefox developers are also reducing their usage of RDF. This means, that there is a good chance, that we will have bugs in RDF, in future, which won't be fixed with priority (Manuel Reimer).</li>
         <li>prefbar:// URLs now support SHA1 and SHA256 checksums to be integrated into the URL. I'll use this in future to make import from the "More buttons" page even more secure. (Manuel Reimer)</li>
+        <li>New value for resetting a pref from a menulist is now "!RESET!" (was: "PREFBARDEFAULT"). (Manuel Reimer)</li>
         <li>"Slimbuttons" now is the default behaviour (makes buttons on PrefBar take less space). If you had disabled the feature, it is activated after this update and you have to disable it manually if you have any issues with it. (Manuel Reimer)</li>
         <li>Got rid of some warnings in error console about octal literals and octal escape sequences being deprecated. (Manuel Reimer)</li>
         <li>Added "Get more buttons" link to preferences window (Manuel Reimer)</li>

@@ -157,7 +157,7 @@
 
         <dt>Label &amp; Value</dt>
         <dd>
-          When dealing with menulists, each option has a corresponding value which the preference defined in prefstring will be set to when that option is chosen.  If the value for an option is "PREFBARDEFAULT" then the preference will be removed when that option is chosen.  If both the value and label for a given option are empty, then those items will be ignored if you accept the dialog window.
+          When dealing with menulists, each option has a corresponding value which the preference defined in prefstring will be set to when that option is chosen. If the value for an option is "!RESET!", then the preference will be resetted to its default setting (like "Reset" in about:config). If both the value and label for a given option are empty, then those items will be ignored if you accept the dialog window.
         </dd>
 
         <dt>Url</dt>
@@ -173,7 +173,7 @@
 
       <h3 id="noeditbuttons">Why you shouldn't edit most of the built in buttons</h3>
       <p>
-        Even as you know now how to edit buttons it's not recommended to do so with most properties of the built in buttons without creating a copy of the button before (an easy "make copy" button is on my todo list). The reason is simple: As soon as you get a new PrefBar version and update the buttons, PrefBar will immediately update its built in buttons and your changes are lost!
+        Even as you know now how to edit buttons it's not recommended to do so with most properties of the built in buttons without creating a copy of the button before (right click on button in customize window, choose "Copy" and enter a new ID for your button). The reason is simple: As soon as you get a new PrefBar version and update the buttons, PrefBar will immediately update its built in buttons and your changes are lost!
       </p>
       <p>Exceptions to this rule are:</p>
       <ul>
