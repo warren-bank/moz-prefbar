@@ -73,6 +73,9 @@ function Init(aGO) {
   }
   else
     mainDS = internalds;
+
+  // Get sure we have a "prefbar.json" in profile
+  if (!gMainDSFile.exists()) WriteJSON(gMainDSFile, mainDS);
 }
 
 function MainDSUpdated() {
