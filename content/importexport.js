@@ -38,7 +38,6 @@
 
 
 var goPrefBar = null;
-var gRDF;
 var gMainDS;
 
 const ImportType_Import = 1;

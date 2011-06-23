@@ -45,7 +45,6 @@ var gActiveTree = null;
 var allTree = null;
 var enabledTree = null;
 
-var gRDF = null;
 var gMainDS = null;
 
 function Startup() {
@@ -59,7 +58,6 @@ function DelayedStartup() {
   allTree.addEventListener("click", TreeClick, true);
   enabledTree.addEventListener("click", TreeClick, true);
 
-  gRDF = goPrefBar.RDF;
   gMainDS = goPrefBar.JSONUtils.mainDS;
   RenderBothTrees();
 
