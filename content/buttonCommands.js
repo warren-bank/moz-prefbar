@@ -456,21 +456,10 @@ function prefbarSetUseragent(value) {
 
   if (value.substr(0,3) == "js:")
     eval(value.substr(3));
-  else {
-    // XXX Hack to get backwards compatibility
-    // In new PrefBar versions the default item in an list is marked by the
-    // value "PREFBARDEFAULT". This allows to have the default item
-    // everywhere in the list and doesn't confuse the users (see
-    // PrefBar-Bug 5733) In old versions simply the first item was the
-    // default. As we don't update the items of the "User Agent Menulist",
-    // we have to be backwards compatible for this one item.
-    if (value == "") value = undefined;
-
-    // If value is PREFBARDEFAULT then we have to reset the preference
-    if (value == "PREFBARDEFAULT") value = undefined;
-
+  else if (value == "!RESET!")
+    useragent = undefined;
+  else
     useragent = value;
-  }
 
   // Either set or reset the variables that may be changed using the user
   // agent menulist.
@@ -498,30 +487,9 @@ function prefbarSetUseragent(value) {
 
 function prefbarGetUseragent(context) {
   var prefBranch = goPrefBar.PrefBranch;
-  var defaultset = !prefBranch.prefHasUserValue("general.useragent.override");
 
-  // XXX Hack to get backwards compatibility
-  // In new PrefBar versions the default item in an list is marked by the
-  // value "PREFBARDEFAULT". This allows to have the default item
-  // everywhere in the list and doesn't confuse the users (see
-  // PrefBar-Bug 5733) In old versions simply the first item was the
-  // default. As we don't update the items of the "User Agent Menulist",
-  // we have to be backwards compatible for this one item.
-  if (defaultset) {
-    var defaultexists = false;
-    var len = context.items.length;
-    for (var index = 0; index < len; index++) {
-      if (context.items[index][1] == "PREFBARDEFAULT") {
-        defaultexists = true;
-        break;
-      }
-    }
-
-    if (defaultexists)
-      context.value = "PREFBARDEFAULT";
-    else
-      context.value = context.items[0][1];
-
+  if (!prefBranch.prefHasUserValue("general.useragent.override")) {
+    context.value = "!RESET!";
     return;
   }
 
