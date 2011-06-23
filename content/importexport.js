@@ -124,7 +124,7 @@ function Import(aWin, aFile, aImportType) {
         if (gMainDS[childid]) {
           exists = true;
           if (impds[childid].dontupdatelistitems)
-            noupdatelists.push(childid.replace("prefbar:button:", ""));
+            noupdatelists.push(childid.replace(/^prefbar:button:/, ""));
         }
       }
     }
@@ -148,7 +148,7 @@ function Import(aWin, aFile, aImportType) {
       var impitem = impds[childid];
 
       // Try to localize imported button
-      var niceid = childid.split(":")[2];
+      var niceid = childid.replace(/^prefbar:button:/, "");
       try {
         impitem.label = goPrefBar.GetString("buttons.properties", niceid + ".label");
       } catch(e) {}

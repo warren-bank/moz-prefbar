@@ -170,18 +170,29 @@ var PrefObserver = {
 
 
 // Stuff for detecting in which application we are running.
-function InApp(aAppID) {
+function InApp(aAppID, aLowerVersion, aUpperVersion) {
   var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
     .getService(Components.interfaces.nsIXULAppInfo);
-  return (appInfo.ID == aAppID);
+
+  if (appInfo.ID != aAppID) return false;
+
+  var comp = Components.classes["@mozilla.org/xpcom/version-comparator;1"]
+    .getService(Components.interfaces.nsIVersionComparator);
+
+  if (aLowerVersion && comp.compare(appInfo.version, aLowerVersion) < 0)
+    return false;
+  if (aUpperVersion && comp.compare(appInfo.version, aUpperVersion) > 0)
+    return false;
+
+  return true;
 }
-function InSM() {
+function InSM(aLowerVersion, aUpperVersion) {
   const SM_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
-  return InApp(SM_ID);
+  return InApp(SM_ID, aLowerVersion, aUpperVersion);
 }
-function InFF() {
+function InFF(aLowerVersion, aUpperVersion) {
   const FF_ID = "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}";
-  return InApp(FF_ID);
+  return InApp(FF_ID, aLowerVersion, aUpperVersion);
 }
 
 function ChromeExists(chromeurl) {
