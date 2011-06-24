@@ -226,7 +226,7 @@ function prefbarZoomEnlarge() {
 
 function prefbarKillFlash() {
   var frames = prefbarGetFrames(window._content.window);
-  for (var frameindex in frames) {
+  for (var frameindex = 0; frameindex < frames.length; frameindex++) {
     var page = frames[frameindex].document;
 
     // "Twice-Cooked Method" and <embed>
@@ -259,8 +259,7 @@ function prefbarKillFlash() {
 function prefbarGetFrames(owindow) {
   var winarray = new Array();
   winarray.push(owindow);
-  var len = owindow.frames.length;
-  for (var index = 0; index < len; index++)
+  for (var index = 0; index < owindow.frames.length; index++)
     winarray = winarray.concat(prefbarGetFrames(owindow.frames[index]));
   return winarray;
 }
@@ -494,8 +493,7 @@ function prefbarGetUseragent(context) {
   }
 
   var uavalue = goPrefBar.GetPref("general.useragent.override");
-  var len = context.items.length;
-  for (var index = 0; index < len; index++) {
+  for (var index = 0; index < context.items.length; index++) {
     var curval = context.items[index][1];
     if (curval.substr(0,3) == "js:") {
       var useragent;
@@ -528,8 +526,7 @@ function prefbarSetLanguage(value) {
   var langs = prefstr.split(/\s*,\s*/);
   var newlangs = Array(value);
 
-  var len = langs.length;
-  for (var index = 0; index < len; index++) {
+  for (var index = 0; index < langs.length; index++) {
     if (langs[index] != value)
       newlangs.push(langs[index]);
   }
@@ -544,8 +541,7 @@ function prefbarGetLanguage(context) {
 
   context.items = Array();
 
-  var len = langs.length;
-  for (var index = 0; index < len; index ++) {
+  for (var index = 0; index < langs.length; index ++) {
     context.items.push(Array(langs[index], langs[index]));
   }
 

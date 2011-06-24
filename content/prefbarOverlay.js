@@ -307,8 +307,7 @@ function SetSpecialChecks(updatefor) {
   var buttons = document.getElementById("prefbar-buttons");
   if (!buttons) return;
 
-  var len = buttons.childNodes.length;
-  for (var i = 0; i < len; i++) {
+  for (var i = 0; i < buttons.childNodes.length; i++) {
     var button = buttons.childNodes[i];
     if (button.tagName == "toolbaritem") button = button.firstChild;
 
@@ -418,8 +417,7 @@ function AddButtonHotkeys(aKeyset, aParentMenu) {
   if (!aParentMenu) aParentMenu = "prefbar:menu:enabled";
 
   var items = gMainDS[aParentMenu].items;
-  var len = items.length;
-  for (var index in items) {
+  for (var index = 0; index < items.length; index++) {
     var itemid = items[index];
     var item = gMainDS[itemid];
 
@@ -443,8 +441,7 @@ function CallInitFunctions(aParent) {
 
   var ds = goPrefBar.JSONUtils.mainDS;
 
-  var len = ds[aParent].items.length;
-  for (var index = 0; index < len; index++) {
+  for (var index = 0; index < ds[aParent].items.length; index++) {
     var id = ds[aParent].items[index];
     var btn = ds[id];
 
@@ -492,8 +489,7 @@ function UpdateToolbar() {
 
   var overflowed = false;
 
-  var len = buttons.childNodes.length;
-  for (var i = 0; i < len; i++) {
+  for (var i = 0; i < buttons.childNodes.length; i++) {
     var button = buttons.childNodes[i];
     if (toolbaritem.flex == 0)
       button.style.visibility = "visible";
@@ -537,8 +533,7 @@ function UpdateChevronMenu() {
 
   var spacercount = 0;
 
-  var len = toolbar.childNodes.length;
-  for (var i = 0; i < len; i++) {
+  for (var i = 0; i < toolbar.childNodes.length; i++) {
     var button = toolbar.childNodes[i];
     if (button.tagName == "toolbarspacer") {
       spacercount++;

@@ -219,8 +219,7 @@ function IsArray(aObject) {
 }
 
 function ArraySearch(aSearch, aArray) {
-  var len = aArray.length;
-  for (var index = 0; index < len; index++)
+  for (var index = 0; index < aArray.length; index++)
     if (aArray[index] == aSearch) return index;
   return false;
 }

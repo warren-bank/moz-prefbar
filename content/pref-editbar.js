@@ -142,13 +142,12 @@ function prefbarItemEdit() {
 
 function prefbarItemDelete() {
   var selections = prefbarGetTreeSelections(gActiveTree);
-  var len = selections.length;
-  if (len < 1) return;
+  if (selections.length < 1) return;
 
   if(!goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-editbar.properties", "questiondelete"))) return;
 
   var items = {};
-  for(var i = 0; i < len; i++) {
+  for(var i = 0; i < selections.length; i++) {
     var selItemId = selections[i];
     var selItemCN = getCNameById(selItemId);
     items[selItemId] = selItemCN;
@@ -202,7 +201,7 @@ function ItemCopy() {
     if (property == "items") {
       copyitem.items = [];
       if (selitem.type.match(/list$/)) {
-        for (var index in selitem.items) {
+        for (var index = 0; index < selitem.items.length; index++) {
           var srcarray = selitem.items[index];
           copyitem.items.push(srcarray.slice());
         }
@@ -444,16 +443,15 @@ function saveOpenStates() {
   savedOpenState = {};
   var tb = enabledTree.treeBoxObject.treeBody;
   if (!tb) return; // Empty tree
-  var len = tb.childNodes.length;
-  for (var index = 0; index < len; index++) {
+  for (var index = 0; index < tb.childNodes.length; index++) {
     var curnode = tb.childNodes[index];
     if (curnode.getAttribute("container") == "true")
       savedOpenState[curnode.id] = curnode.getAttribute("open");
   }
 }
 function restoreOpenStates() {
-  for (var index in savedOpenState) {
-    document.getElementById(index).setAttribute("open", savedOpenState[index]);
+  for (var id in savedOpenState) {
+    document.getElementById(id).setAttribute("open", savedOpenState[id]);
   }
 }
 
@@ -490,8 +488,7 @@ function RenderTree(aTree, aIsSubmenu) {
 
   // Recreate from datasource
   var ds = goPrefBar.JSONUtils.mainDS;
-  var len = ds[menu].items.length;
-  for (var index = 0; index < len; index++) {
+  for (var index = 0; index < ds[menu].items.length; index++) {
     var itemid = ds[menu].items[index];
     var item = ds[itemid];
 

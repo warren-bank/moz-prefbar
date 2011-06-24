@@ -46,8 +46,7 @@ var gListBox;
 function mnueditSetupEdit(itemId) {
   mnueditInit();
 
-  var len = gMainDS[itemId].items.length;
-  for (var index = 0; index < len; index++) {
+  for (var index = 0; index < gMainDS[itemId].items.length; index++) {
     var entry = gMainDS[itemId].items[index];
     mnueditAddNewItem(entry[0], entry[1]);
   }
