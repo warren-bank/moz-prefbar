@@ -146,15 +146,9 @@ function prefbarItemDelete() {
 
   if(!goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-editbar.properties", "questiondelete"))) return;
 
-  var items = {};
   for(var i = 0; i < selections.length; i++) {
-    var selItemId = selections[i];
-    var selItemCN = getCNameById(selItemId);
-    items[selItemId] = selItemCN;
-  }
-
-  for (var delitemid in items) {
-    var parentid = items[delitemid];
+    var delitemid = selections[i];
+    var parentid = getCNameById(delitemid);
     var delitem = gMainDS[delitemid];
     var parent = gMainDS[parentid];
 
