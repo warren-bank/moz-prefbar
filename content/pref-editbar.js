@@ -160,8 +160,16 @@ function prefbarItemDelete() {
 
     // If the item, to delete, is a container, then move all children to
     // the parent container, to empty the container.
-    if (delitem.type == "submenu")
+    if (delitem.type == "submenu") {
+      // Prepend children to parent
       parent.items = delitem.items.concat(parent.items);
+
+      // Set new parent in our item list
+      for (var index = 0; index < delitem.items.length; index++) {
+        var child = delitem.items[index];
+        if (child in items) items[child] = parentid;
+      }
+    }
 
     var delitemindex = goPrefBar.ArraySearch(delitemid, parent.items);
     parent.items.splice(delitemindex, 1);
