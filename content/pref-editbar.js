@@ -315,7 +315,6 @@ function DropOnTree(event, tree) {
   // The drop procedure may take really long (depending on how much items
   // have to be moved)...
   window.setCursor("wait");
-  saveOpenStates();
 
   var idPlaceBefore = null;
   var idPlaceInside = null;
@@ -459,7 +458,8 @@ function saveOpenStates() {
 }
 function restoreOpenStates() {
   for (var id in savedOpenState) {
-    document.getElementById(id).setAttribute("open", savedOpenState[id]);
+    var element = document.getElementById(id);
+    if (element) element.setAttribute("open", savedOpenState[id]);
   }
 }
 
