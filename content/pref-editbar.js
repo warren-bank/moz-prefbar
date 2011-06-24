@@ -383,7 +383,7 @@ function DropOnTree(event, tree) {
   // moved to the enabled root level. Otherwise delete all containers
   // from gDragArray
   if (gDragArray.length > 1 ||
-      targetcontainer != "urn:prefbar:browserbuttons:enabled") {
+      targetcontainer != "prefbar:menu:enabled") {
     for (var i = gDragArray.length - 1; i >= 0; i--) {
       if (gMainDS[gDragArray[i][0]].type == "submenu")
         gDragArray.splice(i, 1);
