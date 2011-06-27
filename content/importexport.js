@@ -191,11 +191,8 @@ function prefbarCheckForUpdate() {
   var savedVersion = goPrefBar.GetPref("extensions.prefbar.version", 0);
   if (savedVersion < goPrefBar.prefbarVersion) {
     goPrefBar.openPrefBarHP = true;
-    doUpdate();
+    Import(null, "chrome://prefbar/content/prefbar.json", ImportType_Update);
   }
 
   goPrefBar.SetPref("extensions.prefbar.version", goPrefBar.prefbarVersion);
-}
-function doUpdate() {
-  Import(null, "chrome://prefbar/content/prefbar.json", ImportType_Update);
 }
