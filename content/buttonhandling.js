@@ -97,6 +97,7 @@ var ButtonHandling = {
     for (var index = 0; index < aTarget.children.length; index++) {
       var btn = aTarget.children[index];
 
+      // Jump into toolbaritem nodes
       if (btn.tagName == "toolbaritem") btn = btn.firstChild;
 
       var btndata = gMainDS[btn.id];
@@ -111,6 +112,7 @@ var ButtonHandling = {
     }
   },
 
+  // All hotkeys call in here to get forwarded to the right handler
   hotkey: function(aKey) {
     var btnid = aKey.id.replace(/^key:/, "");
     var btndata = gMainDS[btnid];
@@ -166,10 +168,11 @@ var ButtonHandling = {
 
   // ************ Checkbox ************
   check: {
-    create: function(aData, aMenu) {
+    create: function(aData, aMenu, aID) {
       var btn = document.createElement(aMenu ? "menuitem" : "checkbox");
       btn.setAttribute("oncommand", "PrefBarNS.ButtonHandling.check.set(this)");
       btn.setAttribute("label", aData.label);
+      if (aMenu) btn.setAttribute("name", aID);
       return btn;
     },
     set: function(button) {
@@ -216,8 +219,8 @@ var ButtonHandling = {
 
   // ************ Extcheck ************
   extcheck: {
-    create: function(aData, aMenu) {
-      var btn = ButtonHandling.check.create(aData, aMenu);
+    create: function(aData, aMenu, aID) {
+      var btn = ButtonHandling.check.create(aData, aMenu, aID);
       btn.setAttribute("oncommand", "PrefBarNS.ButtonHandling.extcheck.set(this)");
       return btn;
     },
