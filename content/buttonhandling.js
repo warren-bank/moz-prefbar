@@ -51,16 +51,15 @@ var ButtonHandling = {
       return;
     }
 
-    var ds = goPrefBar.JSONUtils.mainDS;
     var menuid = aTarget.getAttribute("ref");
     var ismenu = (aTarget.tagName == "menupopup");
 
     // Clear target
     while(aTarget.firstChild) aTarget.removeChild(aTarget.firstChild);
 
-    for (var index = 0; index < ds[menuid].items.length; index++) {
-      var btnid = ds[menuid].items[index];
-      var btndata = ds[btnid];
+    for (var index = 0; index < gMainDS[menuid].items.length; index++) {
+      var btnid = gMainDS[menuid].items[index];
+      var btndata = gMainDS[btnid];
 
       if (!(btndata.type in this)) continue;
 
