@@ -69,19 +69,6 @@
              oncommand="PrefBarNS.TogglePrefBar();"/>
   </commandset>
 
-  <!-- In Firefox, this menuitem is added invisible and is just needed to -->
-  <!-- connect key and command -->
-  <menupopup id="menu_viewPopup">
-    <menuitem id="viewprefsbar"
-              collapsed="true"
-              type="checkbox"
-              checked="true"
-              position="2"
-              label="&prefbar-toolbar.label;"
-              command="cmd_prefbar"
-              key="key_prefbar"/>
-  </menupopup>
-
 
   <!-- SeaMonkey: -->
   <commandset id="commands">

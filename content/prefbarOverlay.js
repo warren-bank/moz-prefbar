@@ -398,7 +398,7 @@ function UpdateToggleKey() {
   mainwin.appendChild(ourkeyset);
 
   var menuitem = document.getElementById("viewprefsbar");
-  menuitem.removeAttribute("acceltext");
+  if (menuitem) menuitem.removeAttribute("acceltext");
 }
 
 function UpdateButtonHotkeys() {
