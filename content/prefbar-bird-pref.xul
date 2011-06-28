@@ -79,12 +79,19 @@
       if (editWin)
         editWin.focus();
       else {
-        goPrefBar.Include("chrome://communicator/content/utilityOverlay.js",
-                          this);
-        goPreferences("prefbar_editbar_pane");
+        // We ask the first window with "goPreferences" to open the pref system
+        // for us, so the preferences window can not get modal to this window.
+        var wins = wm.getEnumerator(null);
+        while(wins.hasMoreElements()) {
+          var win = wins.getNext();
+          if (win.goPreferences) {
+            win.goPreferences("prefbar_editbar_pane");
+            break;
+          }
+        }
       }
 
-      window.close();
+      setTimeout(function(){window.close();}, 0);
     }
 
     // Some getter injections to modify behaviour of prefwindow
