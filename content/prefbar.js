@@ -367,6 +367,36 @@ function ReadClipboard(aUseSelClipboard) {
 }
 
 //
+// A function, which writes a string to clipboard.
+//
+
+function WriteClipboard(aText, aUseSelClipboard) {
+  var str = Components.classes["@mozilla.org/supports-string;1"]
+    .createInstance(Components.interfaces.nsISupportsString);
+  if (!str) return false;
+
+  str.data = aText;
+
+  var trans = Components.classes["@mozilla.org/widget/transferable;1"]
+    .createInstance(Components.interfaces.nsITransferable);
+  if (!trans) return false;
+
+  trans.addDataFlavor("text/unicode");
+  trans.setTransferData("text/unicode", str, aText.length * 2);
+
+  var clipid = Components.interfaces.nsIClipboard;
+  var clip = Components.classes["@mozilla.org/widget/clipboard;1"].getService(clipid);
+  if (!clip) return false;
+
+  var cptype = clip.kGlobalClipboard;
+  if (aUseSelClipboard && clip.supportsSelectionClipboard())
+    cptype = clip.kSelectionClipboard;
+
+  clip.setData(trans, null, cptype);
+  return true;
+}
+
+//
 // General stuff for toggling plugins in addon manager
 //
 
