@@ -447,7 +447,7 @@ function CallInitFunctions(aParent) {
 
     if (btn.type == "submenu")
       CallInitFunctions(id);
-    else if (btn.type == "extmenu" ||
+    else if (btn.type == "extcheck" ||
              btn.type == "extlist" ||
              btn.type == "button") {
       if (btn.initfunction) {
