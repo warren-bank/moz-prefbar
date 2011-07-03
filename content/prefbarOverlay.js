@@ -427,8 +427,8 @@ function AddButtonHotkeys(aKeyset, aParentMenu) {
       var key = document.createElement("key");
       key.setAttribute("id", "key:" + itemid);
       if (item.hkkey) key.setAttribute("key", item.hkkey);
-      if (item.keycode) key.setAttribute("keycode", item.hkkeycode);
-      key.setAttribute("modifiers", item.hkmodifiers);
+      if (item.hkkeycode) key.setAttribute("keycode", item.hkkeycode);
+      if (item.hkmodifiers) key.setAttribute("modifiers", item.hkmodifiers);
       key.setAttribute("oncommand", "PrefBarNS.ButtonHandling.hotkey(this);");
       aKeyset.appendChild(key);
     }
