@@ -214,7 +214,7 @@ function RDFMenu2JSON(aDS, aMenu, aJSON) {
   }
 }
 function OldID2NewID(aOldId) {
-  if (!aOldId.match(/\w+:\w+:(\w+):(\w+)/)) return aOldId;
+  if (!aOldId.match(/^\w+:\w+:(\w+):(.+)/)) return aOldId;
   if (RegExp.$1 == "buttons")
     return "prefbar:button:" + RegExp.$2;
   else
