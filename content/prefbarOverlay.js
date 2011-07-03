@@ -649,7 +649,7 @@ function LogError(e, lf, id, fname) {
   var olnum = e.lineNumber;
   // SeaMonkey has "fileName", Firefox has "filename"
   var osrc = e.fileName ? e.fileName : e.filename;
-  if (osrc && osrc.match(/prefbarOverlay\.js/)) {
+  if (osrc && osrc.match(/(prefbarOverlay|buttonhandling)\.js/)) {
     olnum = e.lineNumber - lf.lineNumber;
     osrc = "'" + fname + "' in button '" + id.substr(20) + "'";
   }
