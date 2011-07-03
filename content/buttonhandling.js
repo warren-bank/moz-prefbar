@@ -222,10 +222,10 @@ var ButtonHandling = {
   extcheck: {
     create: function(aData, aMenu, aID) {
       var btn = ButtonHandling.check.create(aData, aMenu, aID);
-      btn.setAttribute("oncommand", "PrefBarNS.ButtonHandling.extcheck.set(this)");
+      btn.setAttribute("oncommand", "PrefBarNS.ButtonHandling.extcheck.set(this, event)");
       return btn;
     },
-    set: function(button) {
+    set: function(button, event) {
       var data = gMainDS[button.id];
 
       var func = data.setfunction;
