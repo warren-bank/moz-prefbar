@@ -114,6 +114,7 @@ var ButtonHandling = {
 
   // All hotkeys call in here to get forwarded to the right handler
   hotkey: function(aKey) {
+    goPrefBar.dump("Hotkey: " + aKey.id);
     var btnid = aKey.id.replace(/^key:/, "");
     var btndata = gMainDS[btnid];
 
