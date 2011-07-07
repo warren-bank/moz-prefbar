@@ -140,7 +140,7 @@ function StartPrefBar(event) {
 
   // Emulate a customize of the toolbox to try to init PrefBar (fails if PrefBar
   // items aren't placed to any toolbar)
-  OnAfterCustomization();
+  setTimeout(OnAfterCustomization, 0);
 }
 
 // preferences observer "driven" by goPrefBar
@@ -481,33 +481,27 @@ function UpdateToolbar() {
     return;
   }
 
-  chevron.collapsed = false; // If collapsed, we can't get width value
-  var chevronWidth = chevron.boxObject.width;
+  // Hide chevron --> Button container expands to full width.
   chevron.collapsed = true;
+  // If we have a flexible toolbaritem and buttons overflow, then show chevron.
+  if (toolbaritem.flex != 0 && (buttons.getBoundingClientRect().right < buttons.lastChild.getBoundingClientRect().right)) {
+    chevron.collapsed = false;
+  }
 
-  var scrollboxRight = buttons.getBoundingClientRect().right;
-
-  var overflowed = false;
-
+  // Loop over buttons and set visibility.
   for (var i = 0; i < buttons.childNodes.length; i++) {
     var button = buttons.childNodes[i];
     if (toolbaritem.flex == 0)
       button.style.visibility = "visible";
     else {
-      if (i == buttons.childNodes.length - 1)
-        chevronWidth = 0;
-
       if (button.tagName == "toolbarspacer") continue;
 
-      var remainingWidth = scrollboxRight - button.getBoundingClientRect().right;
+      var remainingWidth = buttons.getBoundingClientRect().right -
+                           button.getBoundingClientRect().right;
 
-      if (!overflowed) overflowed = (remainingWidth < chevronWidth);
-
-      button.style.visibility = overflowed ? "hidden" : "visible";
+      button.style.visibility = (remainingWidth < 0) ? "hidden" : "visible";
     }
   }
-
-  chevron.collapsed = !overflowed;
 
   // HACK: SeaMonkey 2.0.x doesn't correctly set width of our scrollbox
   //       if toolbaritem is *not* flexible
