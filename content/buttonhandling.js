@@ -97,6 +97,10 @@ var ButtonHandling = {
     for (var index = 0; index < aTarget.children.length; index++) {
       var btn = aTarget.children[index];
 
+      // If we aren't forced to update everything, then we may stop where the
+      // hidden buttons start.
+      if (!aForced && btn.style.visibility == "hidden") break;
+
       // Jump into toolbaritem nodes
       if (btn.tagName == "toolbaritem") btn = btn.firstChild;
 
