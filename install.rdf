@@ -5,7 +5,7 @@
 
     <em:id>{8A6C82A1-F6C9-481a-AAE7-C96444C9A754}</em:id>
     <em:name>PrefBar</em:name>
-    <em:version>6.0.0rc2</em:version>
+    <em:version>6.0.0</em:version>
     <em:description>The all in one toolbar(item)</em:description>
     <em:creator>Manuel Reimer</em:creator>
     <em:contributor>Aaron Anderson</em:contributor>
@@ -20,7 +20,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>3.5</em:minVersion>
-        <em:maxVersion>7.0</em:maxVersion>
+        <em:maxVersion>8.0</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -29,7 +29,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>2.1</em:maxVersion>
+        <em:maxVersion>2.5a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
