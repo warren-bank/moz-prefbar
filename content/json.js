@@ -42,7 +42,6 @@ var gMainDSFile = null;
 var gFormatVersion = null;
 
 var mainDS = {};         // Property for outside access. Holds main datasource
-var mainDSEmpty = false; // Property accessed from importer
 
 function Init(aGO) {
   goPrefBar = aGO;
