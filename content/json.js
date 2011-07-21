@@ -94,7 +94,7 @@ function MainDSUpdated() {
   WriteJSON(gMainDSFile, mainDS);
 }
 
-function ReadJSON(aFile) {
+function ReadJSON(aFile, aEncoding) {
   var istream;
   if (typeof aFile == "string") {
     var ios = Components.classes["@mozilla.org/network/io-service;1"]
@@ -110,17 +110,26 @@ function ReadJSON(aFile) {
 
   var sstream = Components.classes["@mozilla.org/scriptableinputstream;1"]
     .createInstance(Components.interfaces.nsIScriptableInputStream);
-  sstream.init(istream)
+  sstream.init(istream);
 
   var jsonstr = "";
   var buffer = "";
   do {
     buffer = sstream.read(1024);
     jsonstr += buffer;
-  } while(buffer != "")
+  } while(buffer != "");
 
   sstream.close();
   istream.close();
+
+  // Only *try* to parse input string as UTF-8. If this fails, then we still
+  // have the already read string and can expect it to be ANSI
+  try {
+    var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+      .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+    converter.charset = "UTF-8";
+    jsonstr = converter.ConvertToUnicode(jsonstr);
+  } catch(e) {}
 
   return JSON.parse(jsonstr);
 }
@@ -135,8 +144,13 @@ function WriteJSON(aFileObj, aJSON) {
   os.init(aFileObj, 0x02|0x08|0x20, parseInt("00640", 8), 0);
                     // write, create, truncate
 
-  os.write(jsonstr, jsonstr.length);
-  os.flush();
+  var cstream = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+    .createInstance(Components.interfaces.nsIConverterOutputStream);
+  cstream.init(os, "UTF-8", 0, 0);
+
+  cstream.writeString(jsonstr);
+
+  cstream.close();
   os.close();
 }
 
