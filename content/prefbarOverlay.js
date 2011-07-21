@@ -645,7 +645,7 @@ function LogError(e, lf, id, fname) {
   var osrc = e.fileName ? e.fileName : e.filename;
   if (osrc && osrc.match(/(prefbarOverlay|buttonhandling)\.js/)) {
     olnum = e.lineNumber - lf.lineNumber;
-    osrc = "'" + fname + "' in button '" + id.substr(20) + "'";
+    osrc = "'" + fname + "' in button '" + id.substr(15) + "'";
   }
   var omsg = "PrefBar error: " + e.message;
 
