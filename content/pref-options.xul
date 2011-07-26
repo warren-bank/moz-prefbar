@@ -58,7 +58,8 @@
                   type="string"/>
       <preference id="extensions.prefbar.website_import"
                   name="extensions.prefbar.website_import"
-                  type="bool"/>
+                  type="bool"
+                  onchange="SetButtons();"/>
     </preferences>
 
     <groupbox id="displayPreferences"
@@ -75,8 +76,14 @@
 
     <groupbox>
       <caption label="&caption-import;"/>
-      <checkbox label="&check-website-import;"
-                preference="extensions.prefbar.website_import"/>
+      <hbox>
+        <checkbox flex="1"
+                  label="&check-website-import;"
+                  preference="extensions.prefbar.website_import"/>
+        <button id="PrefBarManagePermissions"
+                label="&button-manage-permissions;"
+                oncommand="ManageImportPerms();"/>
+      </hbox>
     </groupbox>
 
     <groupbox id="hotkeyGroup">

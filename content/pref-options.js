@@ -36,6 +36,15 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+function Startup() {
+  SetButtons();
+}
+
+function SetButtons() {
+  var webimport = goPrefBar.GetPref("extensions.prefbar.website_import");
+  document.getElementById("PrefBarManagePermissions").disabled = !webimport;
+}
+
 function resetButton() {
   var resetwanted = goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-options.properties", "questionreset"));
   if (resetwanted) {
@@ -47,6 +56,26 @@ function resetButton() {
     if (editbar_pane && editbar_pane.RenderBothTrees)
       editbar_pane.RenderBothTrees();
   }
+}
+
+function ManageImportPerms() {
+  var params = {
+    prefilledHost: "",
+    blockVisible: false,
+    sessionVisible: false,
+    allowVisible: true,
+    permissionType: "extensions-prefbar-webimport",
+    introText: goPrefBar.GetString("pref-options.properties", "permmgrintro"),
+    windowTitle: goPrefBar.GetString("pref-options.properties", "permmgrtitle")
+  }
+
+  var permmgr_url = goPrefBar.InFF() ?
+    "chrome://browser/content/preferences/permissions.xul" :
+    "chrome://communicator/content/permissions/permissionsManager.xul";
+  window.openDialog(permmgr_url,
+                    "prefbar:webimportpermissions",
+                    "chrome,titlebar,dialog,modal,resizable",
+                    params);
 }
 
 function ReadHotkey(aField) {

@@ -94,7 +94,7 @@ function MainDSUpdated() {
   WriteJSON(gMainDSFile, mainDS);
 }
 
-function ReadJSON(aFile, aEncoding) {
+function ReadJSON(aFile) {
   var istream;
   if (typeof aFile == "string") {
     var ios = Components.classes["@mozilla.org/network/io-service;1"]

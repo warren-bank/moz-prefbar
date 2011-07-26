@@ -106,6 +106,9 @@ function Init() {
   var pbi = prefs.QueryInterface(Components.interfaces.nsIPrefBranchInternal);
   pbi.addObserver("extensions.prefbar.slimbuttons", PrefObserver, false);
   pbi.addObserver("extensions.prefbar.hktoggle", PrefObserver, false);
+
+  // Prefill web import whitelist
+  ImportWhitelistPrefs();
 }
 
 var ProfChangeObserver = {
@@ -168,6 +171,26 @@ var PrefObserver = {
   }
 };
 
+// This one imports all pref strings starting with
+// "extensions.prefbar.website_import.whitelist"
+// as entries of the web import whitelist.
+function ImportWhitelistPrefs() {
+  var list = PrefBranch.getChildList("extensions.prefbar.website_import.whitelist", {});
+  for (var index = 0; index < list.length; index++) {
+    var host = GetPref(list[index]);
+    if (!host) continue;
+
+    var uri = Components.classes['@mozilla.org/network/standard-url;1']
+      .createInstance(Components.interfaces.nsIURI);
+    uri.spec = "http://" + host;
+
+    var pm = Components.classes["@mozilla.org/permissionmanager;1"]
+      .getService(Components.interfaces.nsIPermissionManager);
+    pm.add(uri, "extensions-prefbar-webimport", Components.interfaces.nsIPermissionManager.ALLOW_ACTION);
+
+    SetPref(list[index], "");
+  }
+}
 
 // Stuff for detecting in which application we are running.
 function InApp(aAppID, aLowerVersion, aUpperVersion) {

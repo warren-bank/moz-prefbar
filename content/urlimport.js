@@ -40,7 +40,6 @@ var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
                           .getService().wrappedJSObject;
 
 var gURL;
-var gName;
 var gHashType;
 var gChecksum;
 var gDownloader;
@@ -50,7 +49,6 @@ function onLoad() {
   var url = window.arguments[0];
   var success = parseurl(url);
   if (!success) {
-    goPrefBar.msgAlert(window, goPrefBar.GetString("urlimport.properties", "msgurlinvalid"));
     window.close();
     return;
   }
@@ -58,8 +56,8 @@ function onLoad() {
   var fname = document.getElementById("nameField");
   var furl = document.getElementById("urlField");
   var fmd5 = document.getElementById("md5Field");
-  fname.value = gName;
-  furl.value = gURL;
+  fname.value = gURL.fileName;
+  furl.value = gURL.spec;
   if (gHashType) fmd5.value = gHashType.toUpperCase();
 
   var aButton = document.documentElement.getButton("accept");
@@ -102,16 +100,12 @@ function doDownload() {
   var infoicon = document.getElementById("infoicon");
   infoicon.setAttribute("class", "message-icon");
 
-  //new obj_URI object
-  var obj_URI  = Components.classes['@mozilla.org/network/standard-url;1'].createInstance(Components.interfaces.nsIURI);
-  obj_URI.spec = gURL;
-
   //new persitence object
   gDownloader = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"].createInstance(Components.interfaces.nsIWebBrowserPersist);
   gDownloader.progressListener = new PersistProgressListener;
 
   //save file to target
-  gDownloader.saveURI(obj_URI,null,null,null,null,gTempfile);
+  gDownloader.saveURI(gURL,null,null,null,null,gTempfile);
 
   return false;
 }
@@ -191,21 +185,24 @@ function toHexString(charCode) {
   return ("0" + charCode.toString(16)).slice(-2);
 }
 
-function parseurl(url) {
+function parseurl(aURL) {
   // URL has to be a "prefbar://" URL
-  if (!url.match(/^prefbar:\/\/(.+)$/)) return false;
-  url = RegExp.$1;
+  if (!aURL.match(/^prefbar:\/\/(.+)$/)) {
+    goPrefBar.msgAlert(null, goPrefBar.GetString("urlimport.properties", "msgurlinvalid"));
+    return false;
+  }
+  aURL = RegExp.$1;
 
   // Split hash information, if available
-  if (url.match(/^(.+)\/(md5|sha1|sha256):(\S+)$/)) {
-    url = RegExp.$1;
+  if (aURL.match(/^(.+)\/(md5|sha1|sha256):(\S+)$/)) {
+    aURL = RegExp.$1;
     gHashType = RegExp.$2;
     gChecksum = RegExp.$3
   }
 
-  // Get last URL part (filename) if possible
-  if (url.match(/\/([^\/]+)$/))
-    gName = RegExp.$1;
+  var url = Components.classes['@mozilla.org/network/standard-url;1']
+    .createInstance(Components.interfaces.nsIURL);
+  url.spec = aURL;
 
   // URL security check
   const nsIScriptSecurityManager =
@@ -215,8 +212,18 @@ function parseurl(url) {
   var principal = window.opener.content.document.nodePrincipal;
   var flags = nsIScriptSecurityManager.STANDARD;
   try {
-    secMan.checkLoadURIStrWithPrincipal(principal, url, flags);
+    secMan.checkLoadURIWithPrincipal(principal, url, flags);
   } catch (e) {
+    goPrefBar.msgAlert(null, goPrefBar.GetString("urlimport.properties", "msgurlinvalid"));
+    return false;
+  }
+
+  // Permission check
+  var pm = Components.classes["@mozilla.org/permissionmanager;1"]
+    .getService(Components.interfaces.nsIPermissionManager);
+  var perm = pm.testExactPermission(url, "extensions-prefbar-webimport");
+  if (perm != Components.interfaces.nsIPermissionManager.ALLOW_ACTION) {
+    goPrefBar.msgAlert(null, goPrefBar.GetString("urlimport.properties", "msgnopermission").replace(/\$HOST/, url.host));
     return false;
   }
 
