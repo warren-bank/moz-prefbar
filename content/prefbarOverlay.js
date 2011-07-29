@@ -504,14 +504,16 @@ function UpdateToolbar() {
   }
 
   // HACK: SeaMonkey 2.0.x doesn't correctly set width of our scrollbox
-  //       if toolbaritem is *not* flexible
-  if (toolbaritem.flex == 0) {
-    var fb = buttons.firstChild.boxObject;
-    var lb = buttons.lastChild.boxObject;
-    var width = lb.x - fb.x + lb.width;
-    if (width != buttons.boxObject.width) {
-      goPrefBar.dump("scrollbox width fixing hack in affect!");
-      buttons.style.width = width + "px";
+  //       if toolbaritem is *not* flexible. Fixed since 2.1
+  if (goPrefBar.InSM("2.0", "2.1")) {
+    if (toolbaritem.flex == 0) {
+      var fb = buttons.firstChild.boxObject;
+      var lb = buttons.lastChild.boxObject;
+      var width = lb.x - fb.x + lb.width;
+      if (width != buttons.boxObject.width) {
+        goPrefBar.dump("scrollbox width fixing hack in affect!");
+        buttons.style.width = width + "px";
+      }
     }
   }
 }

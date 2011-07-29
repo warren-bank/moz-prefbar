@@ -193,6 +193,9 @@ function ImportWhitelistPrefs() {
 }
 
 // Stuff for detecting in which application we are running.
+// aLowerVersion and aUpperVersion for "workaround handling"
+// aLowerVersion: First version where "workaround" needed
+// aUpperVersion: Version where "workaround" not longer needed (fixed upstream)
 function InApp(aAppID, aLowerVersion, aUpperVersion) {
   var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
     .getService(Components.interfaces.nsIXULAppInfo);
@@ -204,7 +207,7 @@ function InApp(aAppID, aLowerVersion, aUpperVersion) {
 
   if (aLowerVersion && comp.compare(appInfo.version, aLowerVersion) < 0)
     return false;
-  if (aUpperVersion && comp.compare(appInfo.version, aUpperVersion) > 0)
+  if (aUpperVersion && comp.compare(appInfo.version, aUpperVersion) >= 0)
     return false;
 
   return true;
