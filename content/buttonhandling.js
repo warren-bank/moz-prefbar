@@ -146,6 +146,7 @@ var ButtonHandling = {
     },
     hotkey: function(aID, aData) {
       var event = {altKey:false, ctrlKey:false, metaKey:false, shiftKey:false};
+      var button; // Intentionally left undefined
       try {
         var lf = new Error();
         eval(aData.onclick);
@@ -265,6 +266,7 @@ var ButtonHandling = {
     },
     hotkey: function(aID, aData) {
       var event = {altKey:false, ctrlKey:false, metaKey:false, shiftKey:false};
+      var button; // Intentionally left undefined
 
       var value;
       eval(aData.getfunction);
