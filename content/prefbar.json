@@ -455,14 +455,18 @@
     "getfunction":"value=prefbarGetProxy();"
   },
   "prefbar:button:prefbarlanglist":{
-    "items":[["Don't edit here. Use the content language GUI of the browser to add new languages",
-        ""
-      ]
+    "items":[
+      ["English",  "en-us"],
+      ["French",   "fr-fr"],
+      ["German",   "de-de"],
+      ["Japanese", "ja-jp"],
+      ["Spanish",  "es-es"]
     ],
     "label":"Language",
     "type":"extlist",
     "setfunction":"prefbarSetLanguage(value);",
-    "getfunction":"var t = new Object;\nt.items = items; t.value = value;\nprefbarGetLanguage(t);\nitems = t.items; value = t.value;"
+    "getfunction":"value = prefbarGetLanguage();",
+    "dontupdatelistitems":1
   },
   "prefbar:button:executedemo1":{
     "label":"executedemo1",

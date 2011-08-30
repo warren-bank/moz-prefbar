@@ -517,35 +517,27 @@ function prefbarGetUseragent(context) {
 
 //
 // Languages Menulist
-// "Auto-Configures" using the settings done in the content languages GUI
-// of the browser!
 //
 
-function prefbarSetLanguage(value) {
-  var prefstr = goPrefBar.PrefBranch.getComplexValue("intl.accept_languages", Components.interfaces.nsIPrefLocalizedString).data;
-  var langs = prefstr.split(/\s*,\s*/);
-  var newlangs = Array(value);
+function prefbarSetLanguage(aValue) {
+  if (aValue.match(/(\w+)-\w+/))
+    aValue += ", " + RegExp.$1;
 
-  for (var index = 0; index < langs.length; index++) {
-    if (langs[index] != value)
-      newlangs.push(langs[index]);
-  }
+  if (!aValue.match(/^en-us/))
+    aValue += ", en-us";
 
-  prefstr = newlangs.join(", ");
-  goPrefBar.SetPref("intl.accept_languages", prefstr);
+  if (!aValue.match(/^en-/))
+    aValue += ", en";
+
+  goPrefBar.SetPref("intl.accept_languages", aValue);
 }
 
-function prefbarGetLanguage(context) {
+function prefbarGetLanguage() {
   var prefstr = goPrefBar.PrefBranch.getComplexValue("intl.accept_languages", Components.interfaces.nsIPrefLocalizedString).data;
-  var langs = prefstr.split(/\s*,\s*/);
+  if (prefstr.match(/^\s*(\S+)\s*,/))
+    return RegExp.$1;
 
-  context.items = Array();
-
-  for (var index = 0; index < langs.length; index ++) {
-    context.items.push(Array(langs[index], langs[index]));
-  }
-
-  context.value = langs[0];
+  return "";
 }
 
 //
