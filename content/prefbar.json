@@ -92,7 +92,7 @@
     ],
     "label":"User Agent",
     "type":"extlist",
-    "dontupdatelistitems":"true",
+    "dontupdatelistitems":true,
     "setfunction":"prefbarSetUseragent(value);",
     "getfunction":"var t = new Object;\nt.items = items; t.value = value;\nprefbarGetUseragent(t);\nitems = t.items; value = t.value;"
   },
@@ -376,7 +376,7 @@
     ],
     "label":"Resize",
     "type":"extlist",
-    "dontupdatelistitems":"true",
+    "dontupdatelistitems":true,
     "setfunction":"prefbarSetResolution(value);",
     "getfunction":"value = prefbarGetResolution();"
   },
@@ -450,7 +450,7 @@
     ],
     "label":"Proxy Serverlist",
     "type":"extlist",
-    "dontupdatelistitems":"true",
+    "dontupdatelistitems":true,
     "setfunction":"prefbarSetProxy(value);",
     "getfunction":"value=prefbarGetProxy();"
   },
@@ -466,7 +466,7 @@
     "type":"extlist",
     "setfunction":"prefbarSetLanguage(value);",
     "getfunction":"value = prefbarGetLanguage();",
-    "dontupdatelistitems":1
+    "dontupdatelistitems":true
   },
   "prefbar:button:executedemo1":{
     "label":"executedemo1",
