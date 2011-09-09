@@ -122,7 +122,8 @@ function Import(aWin, aFile, aImportType) {
         var childid = items[childindex];
         if (gMainDS[childid]) {
           exists = true;
-          if (impds[childid].dontupdatelistitems)
+          if (impds[childid].dontupdatelistitems &&
+              gMainDS[childid].dontupdatelistitems)
             noupdatelists.push(childid.replace(/^prefbar:button:/, ""));
         }
       }
@@ -175,7 +176,9 @@ function Import(aWin, aFile, aImportType) {
         impitem.hkmodifiers = olditem.hkmodifiers;
 
         // We don't edit listitems, if the "DontUpdateListItems"-flag is set
-        if (impitem.dontupdatelistitems) impitem.items = olditem.items;
+        // in the main datasource *and* in the import datasource
+        if (impitem.dontupdatelistitems && olditem.dontupdatelistitems)
+          impitem.items = olditem.items;
       }
 
       // Store imported item
