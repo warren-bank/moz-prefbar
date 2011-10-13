@@ -70,8 +70,16 @@ function Init(aGO) {
       return;
     }
   }
-  else
-    mainDS = internalds;
+  // Nothing exists, that could be loaded --> Create skeleton json
+  // ImportExport fills this in "Init". Internal DS has to be loaded this way
+  // for "buttons.properties" to take effect.
+  else {
+    mainDS = {
+      "prefbar:menu:enabled": {items: []},
+      "prefbar:menu:disabled": {items: []},
+      "prefbar:info": {formatversion: gFormatVersion}
+    }
+  }
 
   // Get sure we have a "prefbar.json" in profile
   if (!gMainDSFile.exists()) WriteJSON(gMainDSFile, mainDS);

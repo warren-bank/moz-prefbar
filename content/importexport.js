@@ -48,7 +48,13 @@ function Init(aGO) {
   goPrefBar = aGO;
   gMainDS = goPrefBar.JSONUtils.mainDS;
 
-  prefbarCheckForUpdate();
+  // If mainDS is empty (e.g. skeleton created by json.js), then forcefully
+  // trigger update to get it filled with contents of internal database
+  if (gMainDS["prefbar:menu:enabled"].items.length == 0 &&
+      gMainDS["prefbar:menu:disabled"].items.length == 0)
+    doUpdate();
+  else
+    prefbarCheckForUpdate();
 }
 
 function Export(aWin, aToExport, aFileObj) {
@@ -194,8 +200,11 @@ function prefbarCheckForUpdate() {
   var savedVersion = goPrefBar.GetPref("extensions.prefbar.version", 0);
   if (savedVersion < goPrefBar.prefbarVersion) {
     goPrefBar.openPrefBarHP = true;
-    Import(null, "chrome://prefbar/content/prefbar.json", ImportType_Update);
+    doUpdate();
   }
+}
 
+function doUpdate() {
+  Import(null, "chrome://prefbar/content/prefbar.json", ImportType_Update);
   goPrefBar.SetPref("extensions.prefbar.version", goPrefBar.prefbarVersion);
 }
