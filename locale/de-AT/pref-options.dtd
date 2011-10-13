@@ -1,7 +1,8 @@
+<!-- -*- coding: utf-8 -*- -->
 <!ENTITY header-title "Preferences Toolbar Optionen">
 
 <!ENTITY caption-appearance "Erscheinungsbild">
-<!ENTITY caption-reset "Buttons zur&#252;cksetzen">
+<!ENTITY caption-reset "Buttons zurücksetzen">
 <!ENTITY caption-import "Import">
 
 <!ENTITY check-show-in-popups "PrefBar in Popup-Fenstern anzeigen">
@@ -11,5 +12,5 @@
 
 <!ENTITY caption-toggle-hotkey "Hotkey zum Anzeigen/Verstecken der PrefBar">
 
-<!ENTITY description-reset "Klicken Sie diesen Button wenn Sie eingebaute Buttons gel&#246;scht oder ver&#228;ndert haben und Sie die Buttons auf die &quot;Werkseinstellung&quot; zur&#252;cksetzen wollen">
-<!ENTITY button-reset "Zur&#252;cksetzen">
+<!ENTITY description-reset "Klicken Sie diesen Button wenn Sie eingebaute Buttons gelöscht oder verändert haben und Sie die Buttons auf die &quot;Werkseinstellung&quot; zurücksetzen wollen">
+<!ENTITY button-reset "Zurücksetzen">
