@@ -367,6 +367,17 @@ function DropOnTree(event, tree) {
     goPrefBar.dump("DropOnTree: Dropped On Empty Tree");
   }
 
+  // If we have a reference ID and the reference ID is within the dragged items,
+  // then do not continue!
+  if (idPlaceBefore) {
+    for (var i = 0; i < gDragArray.length; i++) {
+      if (gDragArray[i][0] == idPlaceBefore) {
+        window.setCursor("auto");
+        return true;
+      }
+    }
+  }
+
   // Get target sequence and container
   var targetcontainer;
   if (idPlaceBefore)
