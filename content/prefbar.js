@@ -333,7 +333,11 @@ function ClearPref(aPrefstring) {
 //
 
 function RunApplication(aPath, aArguments) {
-  if (!IsArray(aArguments)) aArguments = [];
+  if (!IsArray(aArguments)) {
+    aArguments = [aArguments];
+    for (var i = 2; i < arguments.length; i++)
+      aArguments.push(arguments[i])
+  }
 
   var executable = Components.classes["@mozilla.org/file/local;1"]
     .createInstance(Components.interfaces.nsILocalFile);
