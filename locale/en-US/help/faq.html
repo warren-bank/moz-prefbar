@@ -68,16 +68,10 @@
         <a href="#whatis">What is the Preferences Toolbar?</a>
       </p>
 
-      <h3>Installation</h3>
-      <p>
-        <a href="#popupproblem">Help! I installed the PrefBar2 over the PrefBar1 and now I can't get popups to work.</a>
-      </p>
-
       <h3>Use</h3>
       <p>
         <a href="#resetbuttons">How do I reset the buttons on the toolbar?</a><br/>
         <a href="#imagereload">Why doesn't the images pref work correctly?</a><br/>
-        <a href="#onloadpopups">What happened to the old onLoadPopups pref?</a><br/>
       </p>
 
       <h3>Feature Requests</h3>
@@ -88,7 +82,6 @@
 
       <h3>Other</h3>
       <p>
-        <a href="#netscape">Why do I see such and such a bug with Netscape 7.x?</a><br/>
         <a href="#nightly">Why do I see such and such a bug with a current mozilla alpha, beta or nightly?</a><br/>
         <a href="#foundabug">I discovered a bug!  What should I do?</a><br/>
         <a href="#notlisted">My question isn't listed here.  Now what?</a><br/>
@@ -115,26 +108,10 @@
 
       <h2 id="imagereload">Why doesn't the images pref work correctly?</h2>
       <p>
-        The images preference does work, it just had one weird quirk: it requires you to restart the page in order to see the effect.  If you don't restart the page you will get some strange behavior where the state of the images is exactly opposite that of the preference.  I have no idea why this happens, but I am almost certain it is a bug in mozilla, not in my prefbar code.
+        The images preference does work, it just had one weird quirk: it requires you to reload the page in order to see the effect.
       </p>
       <p>
         A few people have suggested that I have the page automatically reload when you click that pref, but I think that could have some pretty bad unwanted side effects.  Plus I think users are perfectly capable of reloading the page themselves if they want to see the current page without images immediately, but most of the time I think people set that pref because they want the <i>next</i> page they plan to view to be loaded without images, so I won't set prefbar to do any automatic reloading.
-      </p>
-
-
-      <h2 id="onloadpopups">What happened to the old onLoadPopups pref?</h2>
-      <p>
-        The old onLoadPopups pref is still there, it is just called popups now.  It was actually the old popups pref that got removed, since it was pretty much made obsolete by the new popups pref.  (The new popups pref is the one that has a UI in the prefs dialog.  The old popups pref was a hack using capibility.policy.)  You should be able to accomplish your popup blocking with the new popups pref.  However, if you really want the old popups pref back, you can make a new one by using:
-      </p>
-      <p>
-        prefstring: capability.policy.default.Window.open<br/>
-        topref: value ? 'allAccess' : 'noAccess'<br/>
-        frompref: Boolean(value == 'allAccess')
-      </p>
-
-      <h2 id="popupproblem">Help! I installed the PrefBar2 over the PrefBar1 and now I can't get popups to work.</h2>
-      <p>
-        If you had the old popups pref turned off, and then installed the PrefBar2, you won't be able to turn it back on again because that pref is no longer on the prefbar.  To reenable popups, either remake the old popups pref according to the instructions in the previous question, or open your prefs.js file (without mozilla running) and remove the line for "capability.policy.default.Window.open".
       </p>
 
 
@@ -149,14 +126,9 @@
         Yes, definitely.  A good number of the new buttons in each new version come by way of users who send in the values for them.  If someone just sends in an idea for a new button, it can take me an hour or more to go hunt down the values for it and get into the toolbar; when someone sends me those values, I can usually get it finished in less than ten minutes.
       </p>
 
-      <h2 id="netscape">Why do I see such and such a bug with Netscape 7.x?</h2>
-      <p>
-        Well, the thing is, maintaining the prefbar takes a lot of work.  The people who write the XUL stuff in mozilla have a way of changing things (and breaking everybody's extensions) every few releases.  Keeping the prefbar working in two different browsers is a sizeable task, and doing it in three would be near impossible (at least for one person who can only work on this in his increasingly less frequent free time).  I have therefore chosen to support the two most popular of browsers that prefbar users use, meaning Mozilla Seamonkey (the Suite) and Firefox.  Consequently, I do not officially support any Netscape releases.  Any Netscape compatibility that does exist is purely coincidental.  There are usually bugs when using the prefbar with Netscape, and I usually don't have time to fix them, because I'm too busy making sure that the prefbar still works with mozilla.
-      </p>
-
       <h2 id="nightly">Why do I see such and such a bug with a current mozilla alpha, beta or nightly?</h2>
       <p>
-        Here generally the same problem exists as with <a href="#netscape">Netscape</a>, but it would be even more difficult to give full support on nightlies. Nightlies are also called "unstables" which means that nightlies may have major bugs that could cause PrefBar to fail. I don't have the time to spend several hours on writing "workaround-code" for nightlies which can be removed in the final version, if the mozilla bugs are fixed. If you really know that the problem you've found is not a mozilla bug, then <a href="feedback.html#myaddress">let me know</a>. Otherwise please wait for the final version of the mozilla version you want to use.
+        Well, the thing is, maintaining the prefbar takes a lot of work. The people who write the XUL stuff in mozilla have a way of changing things (and breaking everybody's extensions) every few releases. Keeping the prefbar working in two different browsers is a sizeable task. Nightlies are also called "unstables" which means that nightlies may have major bugs that could cause PrefBar to fail. I don't have the time to spend several hours on writing "workaround-code" for nightlies which can be removed in the final version, if the mozilla bugs are fixed. If you really know that the problem, you've found, is not a mozilla bug, then <a href="feedback.html#myaddress">let me know</a>. Otherwise please wait for the final version of the mozilla version you want to use.
       </p>
 
       <h2 id="foundabug">I discovered a bug!  What should I do?</h2>

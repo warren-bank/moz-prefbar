@@ -69,16 +69,10 @@
         <a href="#whatis">Was ist die Preferences Toolbar?</a>
       </p>
 
-      <h3>Installation</h3>
-      <p>
-        <a href="#popupproblem">Hilfe! Ich habe die PrefBar2 über die PrefBar1 installiert und jetzt bekomme ich keine Popups mehr angezeigt.</a><br/>
-      </p>
-
       <h3>Gebrauch</h3>
       <p>
         <a href="#resetbuttons">Wie kann ich die Buttons auf der Toolbar zurücksetzen?</a><br/>
         <a href="#imagereload">Warum funktioniert die "images" Einstellung nicht?</a><br/>
-        <a href="#onloadpopups">Was ist aus der alten "onLoadPopups" Einstellung geworden?</a>
       </p>
 
       <h3>Feature Anfragen</h3>
@@ -89,7 +83,6 @@
 
       <h3>Anderes</h3>
       <p>
-        <a href="#netscape">Warum sehe ich diesen oder jenen Bug mit Netscape 7.x?</a><br/>
         <a href="#nightly">Warum sehe ich diesen oder jenen Bug mit einem aktuellen Mozilla Alpha, Beta oder Nightly?</a><br/>
         <a href="#foundabug">Ich habe einen Bug gefunden! Was sollte ich tun?</a><br/>
         <a href="#notlisted">Meine Frage ist nicht hier gelistet. Was jetzt?</a>
@@ -115,29 +108,11 @@
 
       <h2 id="imagereload">Warum funktioniert die "images" Einstellung nicht?</h2>
       <p>
-        Die "images"-Einstellung funktioniert. Es ist nur ein seltsamer Kniff erforderlich: Sie müssen die Seite neu laden, um den Effekt zu sehen. Wenn Sie die Seite nicht neu laden, dann erhalten Sie das merkwürdige Verhalten dass der Status der Bilder genau entgegengesetzt zu dieser Einstellung ist. Ich weiß nicht warum dies passiert aber ich bin ziemlich sicher, dass es ein Bug in Mozilla ist und nicht im PrefBar-Code.
+        Die "images"-Einstellung funktioniert. Es ist nur ein seltsamer Kniff erforderlich: Sie müssen die Seite neu laden, um den Effekt zu sehen.
       </p>
       <p>
         Ein paar Leute haben vorgeschlagen, dass die Seite automatisch neu geladen werden sollte, wenn diese Eigenschaft verändert wird, aber ich glaube dass dieses einige unerwünschte Nebeneffekte hätte. Des Weiteren denke ich, dass die Benutzer fähig sind, die Seite selber neu zu laden, wenn sie die aktuelle Seite sofort ohne Bilder sehen wollen. Aber ich glaube, die meisten Leute ändern diese Einstellung, wenn sie vorhaben die nächste Seite ohne Bilder zu sehen. Deshalb wird die PrefBar nicht automatisch neu laden.
       </p>
-
-
-      <h2 id="onloadpopups">Was ist aus der alten "onLoadPopups" Einstellung geworden?</h2>
-      <p>
-        Die alte "onLoadPopups"-Einstellung ist immer noch vorhanden, sie wird jetzt nur "popups" genannt. Es wurde nur die alte "popups"-Eigenschaft entfernt, da diese wegen der neuen "popups"-Eigenschaft veraltet ist. (Die neue "popups"-Eigenschaft ist die, die auch im Einstellungs-Dialog zu finden ist. Die alte war ein Hack mit capibility.policy.). Die neue Checkbox sollte alle Bedürfnisse im Bereich "Popup-Blocking" befriedigen. Sollten Sie trotzdem die alte Checkbox zurückwollen, dann können Sie eine neue mit folgenden Werten erstellen:
-      </p>
-      <p>
-        prefstring: capability.policy.default.Window.open<br/>
-        topref: value ? 'allAccess' : 'noAccess'<br/>
-        frompref: Boolean(value == 'allAccess')
-      </p>
-
-
-      <h2 id="popupproblem">Hilfe! Ich habe die PrefBar2 über die PrefBar1 installiert und jetzt bekomme ich keine Popups mehr angezeigt.</h2>
-      <p>
-        Wenn Sie die alte "popups"-Eigenschaft deaktiviert hatten und dann PrefBar2 installiert haben, dann können Sie diese nicht mehr aktivieren da diese von der PrefBar entfernt wurde. Um die Popups wieder zu aktivieren können Sie entweder die alte "popups"-Eigenschaft anhand der Anleitung in der vorigen Frage wieder einfügen oder die Zeile für "capability.policy.default.Window.open" aus ihrer prefs.js löschen (Mozilla vorher beenden).
-      </p>
-
 
       <h2 id="buttonvaluesask">Ich möchte einen Button hinzufügen um dies und jenes zu machen. Wissen Sie wie der onclick-Wert ist?</h2>
       <p>
@@ -149,14 +124,9 @@
         Ja, absolut. Eine große Anzahl der neuen Buttons in jeder neuen Version kommen von Benutzern, die ihre Werte für diese Buttons einsenden. Wenn jemand nur eine Idee für einen Button einsendet, dann kann es Stunden oder länger dauern bis die Werte dafür herausgefunden werden. Wenn jemand diese Werte sendet, dann dauert es normalerweise weniger als 10 Minuten um den Button hinzuzufügen.
       </p>
 
-      <h2 id="netscape">Warum sehe ich diesen oder jenen Bug mit Netscape 7.x?</h2>
-      <p>
-        Nun, das Problem ist, dass das Warten der PrefBar viel Arbeit kostet. Die Leute, die den XUL-Code von Mozilla schreiben, haben die Angewohnheit alle paar Releases alles zu verändern (und dadurch dafür zu sorgen das es zu Problemen mit Extensions kommt). Die PrefBar in zwei verschiedenen Browsern am Laufen zu halten ist eine schwierige Aufgabe. Das gleiche würde für drei Browser fast unmöglich. Ich habe mich deshalb entschieden, die zwei wichtigsten Browser zu unterstützen, mit denen die PrefBar-Nutzer arbeiten. Gemeint sind Mozilla Seamonkey (die Suite) und Firefox. Demzufolge wird Netscape nicht offiziell unterstützt. Jede Netscape-Kompatibilität die existiert, ist rein zufällig. Es wird immer Bugs geben wenn die PrefBar mit Netscape benutzt wird und ich habe wirklich keine Zeit diese zu beheben weil ich zu beschäftigt damit bin, dafür zu sorgen, dass die PrefBar in Mozilla funktioniert.
-      </p>
-
       <h2 id="nightly">Warum sehe ich diesen oder jenen Bug mit einem aktuellen Mozilla Alpha, Beta oder Nightly?</h2>
       <p>
-        Hier ist das Problem im Wesentlichen das gleiche wie bei <a href="#netscape">Netscape</a>, aber es wäre noch schwieriger volle Unterstützung für Nightlies zu bieten. Nightlies werden auch "unstables" (also "nicht stabile") genannt, was bedeutet, dass Nightlies größere Bugs haben können, die dafür sorgen, dass die PrefBar nicht funktioniert. Ich habe nicht die Zeit, um viele Stunden in das Schreiben von "Workaround-Code" für Nightlies zu investieren, der dann in der "Final-Version" wieder entfernt werden kann, wenn die Mozilla-Bugs gefixt sind. Wenn Sie wirklich wissen, dass es sich beim Problem mit der PrefBar und nicht um einen Bug in Mozilla handelt, dann <a href="feedback.html#myaddress">lassen Sie es mich wissen</a>. Ansonsten warten Sie bitte auf die Final-Version der von ihnen gewünschten Mozilla-Version.
+        Nun, das Problem ist, dass das Warten der PrefBar viel Arbeit kostet. Die Leute, die den XUL-Code von Mozilla schreiben, haben die Angewohnheit alle paar Releases alles zu verändern (und dadurch dafür zu sorgen das es zu Problemen mit Extensions kommt). Die PrefBar in zwei verschiedenen Browsern am Laufen zu halten ist eine schwierige Aufgabe. Nightlies werden auch "unstables" (also "nicht stabile") genannt, was bedeutet, dass Nightlies größere Bugs haben können, die dafür sorgen, dass die PrefBar nicht funktioniert. Ich habe nicht die Zeit, um viele Stunden in das Schreiben von "Workaround-Code" für Nightlies zu investieren, der dann in der "Final-Version" wieder entfernt werden kann, wenn die Mozilla-Bugs gefixt sind. Wenn Sie wirklich wissen, dass es sich beim Problem mit der PrefBar und nicht um einen Bug in Mozilla handelt, dann <a href="feedback.html#myaddress">lassen Sie es mich wissen</a>. Ansonsten warten Sie bitte auf die Final-Version der von ihnen gewünschten Mozilla-Version.
       </p>
 
       <h2 id="foundabug">Ich habe einen Bug gefunden! Was sollte ich tun?</h2>
