@@ -168,9 +168,7 @@
       "prefbar:button:separator7",
       "prefbar:button:hidetoolbar",
       "prefbar:button:proxylist",
-      "prefbar:button:prefbarlanglist",
-      "prefbar:button:executedemo1",
-      "prefbar:button:executedemo2"
+      "prefbar:button:prefbarlanglist"
     ]
   },
   "prefbar:button:back":{
@@ -467,16 +465,6 @@
     "setfunction":"prefbarSetLanguage(value);",
     "getfunction":"value = prefbarGetLanguage();",
     "dontupdatelistitems":true
-  },
-  "prefbar:button:executedemo1":{
-    "label":"executedemo1",
-    "type":"button",
-    "onclick":"prefbarExecute(\"C:\\\\Windows\\\\notepad.exe\");"
-  },
-  "prefbar:button:executedemo2":{
-    "label":"executedemo2",
-    "type":"button",
-    "onclick":"var Arguments = new Array\nArguments[0] = \"/c\"\nArguments[1] = \"dir\"\nArguments[2] = \"&pause\"\nprefbarExecute(\"C:\\\\Windows\\\\System32\\\\cmd.exe\", Arguments);\ndelete Arguments;"
   },
   "prefbar:info":{
     "formatversion":3
