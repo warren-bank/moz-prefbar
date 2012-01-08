@@ -1,0 +1,38 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY intro "Wenn Sie eine Frage haben dann lesen Sie erst hier, bevor Sie eine E-Mail senden. Es besteht die Chance, dass ihre Frage bereits gefragt und unten hinzugefügt wurde.">
+
+<!ENTITY general "Allgemein">
+<!ENTITY use "Gebrauch">
+<!ENTITY featurereq "Feature Anfragen">
+<!ENTITY other "Anderes">
+
+<!ENTITY whatis.title "Was ist die Preferences Toolbar?">
+<!ENTITY whatis.summary "Die Preferences Toolbar ist ein Addon, welches erstellt wurde, um Ihnen das Surfen angenehmer zu gestalten indem sie erlaubt, schnell Navigator-Eigenschaften zu verändern und verschiedene Funktionen auszuführen.">
+<!ENTITY whatis.example "Zum Beispiel wenn Sie eine Seite betrachten, deren Autor glaubt, dass roter Text auf gelbem Hintergrund schön aussieht, dann macht es die Preferences Toolbar möglich, schnell die &quot;Custom Colors&quot;-Eigenschaft zu deaktivieren und die Seite in den Browser-Standardfarben (normalerweise schwarz auf weiß) zu betrachten.">
+<!ENTITY whatis.developers "Webdesigner werden auch die Möglichkeit, das Browser Cache mit einem Klick zu leeren, mögen und auch das schnelle Vortäuschen eines falschen User Agent dürfte für viele interessant sein.">
+
+<!ENTITY resetbuttons.title "Wie kann ich die Buttons auf der Toolbar zurücksetzen?">
+<!ENTITY resetbuttons.howto "Um alle Buttons auf der Toolbar in den Auslieferungszustand zurückzusetzen, können Sie die Zurücksetzen-Funktion im Einstellungsdialog der PrefBar verwenden. Dies kann sinnvoll sein, wenn Sie etwas Gelöschtes wieder zurück haben wollen oder wenn Sie einen der Standardbuttons geändert haben und diesen in den Originalzustand zurücksetzen wollen. (Beachten Sie, dass dieses Vorgehen alle Änderungen, die Sie an der Toolbar gemacht haben, zerstört. Buttons, die neu erstellt wurden, werden nicht angefasst!)">
+
+<!ENTITY imagereload.title "Warum funktioniert die &quot;Bilder&quot; Einstellung nicht?">
+<!ENTITY imagereload.reloadneeded "Die &quot;Bilder&quot;-Einstellung funktioniert. Es ist nur ein seltsamer Kniff erforderlich: Sie müssen die Seite neu laden, um den Effekt zu sehen.">
+<!ENTITY imagereload.autoreload "Ein paar Leute haben vorgeschlagen, dass die Seite automatisch neu geladen werden sollte, wenn diese Eigenschaft verändert wird, aber ich glaube dass dieses einige unerwünschte Nebeneffekte hätte. Des Weiteren denke ich, dass die Benutzer fähig sind, die Seite selber neu zu laden, wenn sie die aktuelle Seite sofort ohne Bilder sehen wollen. Aber ich glaube, die meisten Leute ändern diese Einstellung, wenn sie vorhaben die nächste Seite ohne Bilder zu sehen. Deshalb wird die PrefBar nicht automatisch neu laden.">
+
+<!ENTITY buttonvaluesask.title "Ich möchte einen Button hinzufügen um dies und jenes zu machen. Wissen Sie wie der onclick-Wert ist?">
+<!ENTITY buttonvaluesask.answer "Nein. Wenn, dann hätte ich den Button vielleicht bereits in der Standard-Installation hinzugefügt. Es wäre zwar möglich diese Werte herauszufinden, jedoch ist dies einer der Gründe warum es vier Monate gedauert hat eine Firefox-kompatible Version der PrefBar zu veröffentlichen. In Zukunft werde ich wahrscheinlich keine Zeit mehr haben um solche Fragen zu beantworten.">
+
+<!ENTITY buttonvaluesgive.title "Ich habe einen Button hinzugefügt der dies und jenes macht. Wollen Sie wissen welche Werte ich genutzt habe?">
+<!ENTITY buttonvaluesgive.answer "Ja, absolut. Eine große Anzahl der neuen Buttons in jeder neuen Version kommen von Benutzern, die ihre Werte für diese Buttons einsenden. Wenn jemand nur eine Idee für einen Button einsendet, dann kann es Stunden oder länger dauern bis die Werte dafür herausgefunden werden. Wenn jemand diese Werte sendet, dann dauert es normalerweise weniger als 10 Minuten um den Button hinzuzufügen.">
+
+<!ENTITY nightly.title "Warum sehe ich diesen oder jenen Bug mit einem aktuellen Mozilla Alpha, Beta oder Nightly?">
+<!ENTITY nightly.answer "Nun, das Problem ist, dass das Warten der PrefBar viel Arbeit kostet. Die Leute, die den XUL-Code von Mozilla schreiben, haben die Angewohnheit alle paar Releases alles zu verändern (und dadurch dafür zu sorgen das es zu Problemen mit Extensions kommt). Die PrefBar in zwei verschiedenen Browsern am Laufen zu halten ist eine schwierige Aufgabe. Nightlies werden auch &quot;unstables&quot; (also &quot;nicht stabile&quot;) genannt, was bedeutet, dass Nightlies größere Bugs haben können, die dafür sorgen, dass die PrefBar nicht funktioniert. Ich habe nicht die Zeit, um viele Stunden in das Schreiben von &quot;Workaround-Code&quot; für Nightlies zu investieren, der dann in der &quot;Final-Version&quot; wieder entfernt werden kann, wenn die Mozilla-Bugs gefixt sind.">
+
+<!ENTITY foundabug.title "Ich habe einen Bug gefunden! Was sollte ich tun?">
+<!ENTITY foundabug.answer.beforelink "Lesen Sie zuerst diese FAQ um sicherzustellen, dass ich nicht bereits von dem Bug weiß. Wenn Sie ihren Bug nirgends finden können, dann">
+<!ENTITY foundabug.answer.sendmail "senden Sie mir eine E-Mail">
+<!ENTITY foundabug.answer.afterlink "mit der Problembeschreibung und ich werde sehen was ich tun kann. Stellen Sie sicher, dass Sie die exakte Version der PrefBar, die Sie nutzen, das Betriebssystem und die Mozilla-Version mit angeben.">
+
+<!ENTITY notlisted.title "Meine Frage ist nicht hier gelistet. Was jetzt?">
+<!ENTITY notlisted.answer.beforelink "Wenn Sie hier gelesen haben und ihre Frage nicht finden, dann">
+<!ENTITY notlisted.answer.sendmail "senden Sie mir eine E-Mail">
+<!ENTITY notlisted.answer.afterlink "mit ihrer Frage. Ich werde mein Bestes versuchen so bald wie möglich wieder mit Ihnen in Kontakt zu treten. Es kann jedoch einige Zeit dauern, abhängig von der Anzahl der E-Mails, die ich pro Tag erhalte.">

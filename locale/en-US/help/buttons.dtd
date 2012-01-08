@@ -1,0 +1,138 @@
+<!ENTITY intro "This file contains a list of every button (checkbox, button, link, menulist, etc.), available in the default Prefbar installation, along with information on using each. All items are listed in the order, in which they appear, when first installed.">
+<!ENTITY outro "That should be all of them. If you notice any errors in this file, be sure to">
+<!ENTITY outro.letmeknow "let me know">
+
+<!-- Grouping of buttons in help system -->
+<!ENTITY navbuttons "Nav buttons">
+<!ENTITY prefchecks "Pref checks">
+<!ENTITY devchecks "Dev checks">
+<!ENTITY devbuttons "Dev buttons">
+<!ENTITY commandbuttons "Command buttons">
+<!ENTITY menulists "Menulists">
+<!ENTITY helplinks "Help Links">
+<!ENTITY weblinks "Web Links">
+
+<!-- Preferences of buttons -->
+<!ENTITY type "Type">
+
+<!ENTITY defstatus "Default Status">
+<!ENTITY hidden "Hidden">
+<!ENTITY visible "Visible">
+
+<!ENTITY customizable "Customizable">
+<!ENTITY yes "YES">
+<!ENTITY no "NO">
+
+<!-- Labels of buttons -->
+<!ENTITY back.label "Back">
+<!ENTITY forward.label "Forward">
+<!ENTITY reload.label "Reload">
+<!ENTITY stop.label "Stop">
+<!ENTITY home.label "Home">
+<!ENTITY tabjavascript.label "Javascript (Tab)">
+<!ENTITY tabimages.label "Images (Tab)">
+<!ENTITY tabplugins.label "Plugins (Tab)">
+<!ENTITY fonts.label "Fonts">
+<!ENTITY colors.label "Colors">
+<!ENTITY systemcolors.label "System Colors">
+<!ENTITY images.label "Images">
+<!ENTITY animation.label "Animation">
+<!ENTITY javascript.label "JavaScript">
+<!ENTITY java.label "Java">
+<!ENTITY popups.label "Popups">
+<!ENTITY proxies.label "Proxies">
+<!ENTITY proxymenulist.label "Proxy Menulist">
+<!ENTITY cookies.label "Cookies">
+<!ENTITY cookiewarning.label "Cookie Warning">
+<!ENTITY Flash.label "Flash">
+<!ENTITY proxylist.label "Proxylist">
+<!ENTITY pipelining.label "Pipelining">
+<!ENTITY diskcache.label "Disk Cache">
+<!ENTITY memcache.label "Mem Cache">
+<!ENTITY sendreferrer.label "Send Referrer">
+<!ENTITY clearmemcache.label "Clear Mem Cache">
+<!ENTITY cleardiskcache.label "Clear Disk Cache">
+<!ENTITY clearallcache.label "Clear Cache">
+<!ENTITY clearhist.label "Clear History">
+<!ENTITY clearurlbar.label "Clear Location Bar">
+<!ENTITY clearcookies.label "Clear Cookies">
+<!ENTITY clearall.label "Clear All">
+<!ENTITY resize.label "Resize">
+<!ENTITY newtab.label "New Tab">
+<!ENTITY savepage.label "Save Page">
+<!ENTITY restoretab.label "Restore Tab">
+<!ENTITY killflash.label "Kill Flash">
+<!ENTITY fontdown.label "Font -">
+<!ENTITY fontup.label "Font +">
+<!ENTITY customize.label "Customize">
+<!ENTITY hidetoolbar.label "Hide Toolbar">
+<!ENTITY useragent.label "User Agent">
+<!ENTITY help.label "Help">
+<!ENTITY whatsnew.label "What's New">
+<!ENTITY prefbarhomepagelink.label "PrefBar homepage">
+<!ENTITY mozilla.org.label "Mozilla.org">
+<!ENTITY mozillazine.org.label "MozillaZine.org">
+<!ENTITY prefbarlanglist.label "Language">
+
+<!-- Button descriptions -->
+<!ENTITY back.desc "This is a very simple back button, that takes you to the previous page in your browser history, just like the back button on the navigation toolbar. Unlike the back button on the navigation toolbar, however, this button doesn't have a history drop down menu, doesn't have an icon, and doesn't become disabled, when there is no page to go back to. Like I said, it's just a simple back button.">
+<!ENTITY forward.desc "This is a very simple forward button, just like the very simple back button described above. All limitations mentioned there also apply here.">
+<!ENTITY reload.desc "This is a very simple reload button, to go with the very simple back button and the very simple forward button. Unlike the aforementioned other two, this button actually has all the functionality of its navigation bar equivlent, meaning that you can click it with shift to get a cacheless reload, or just click it for a regular reload.">
+<!ENTITY stop.desc "A very simple stop button, to finish off the group. This doesn't have observers setup either, so it will be enabled even when navigator is not currently doing anything (at which time clicking it will have absolutely no effect whatsoever).">
+<!ENTITY home.desc "Although this button doesn't look as nice as the real home button (it doesn't have the icon, at least not yet) clicking it will bring you to your homepage just as fast.">
+<!ENTITY tabjavascript.desc "This toggles javascript for the selected tab.">
+<!ENTITY tabimages.desc "This toggles images for the selected tab.">
+<!ENTITY tabplugins.desc "This toggles plugins for the selected tab.">
+<!ENTITY fonts.desc "This toggles the &quot;Allow documents to use other fonts&quot; preferences. When you encounter a webpage with really horrible font settings, turn this off to have the page rendered with normal fonts instead.">
+<!ENTITY colors.desc "Perhaps the most useful checkbox of them all, this turns off author specified colors, rendering everything with your defaults instead. Just because some moron thinks that yellow text on a red background looks good doesn't mean you should have to read it like that. From now on, you don't.">
+<!ENTITY systemcolors.desc "Toggles between the colors chosen in the prefs dialog and your system colors. Only useful when the Colors pref is turned off.">
+<!ENTITY images.desc "This switches the image loading pref from &quot;Accept all images&quot; when enabled, to &quot;Don't load any images&quot; when disabled. You have to either set this before loading a page or reload the page after changing the pref. (I have no idea why this one doesn't work automatically like the fonts and colors prefs; it's probably a bug, but I don't know the number.)">
+<!ENTITY animation.desc "This switches controls whether animated images are allowed. It does not affect other kinds of animation such as Javascript or Flash. You have to either set this before loading a page or reload the page after changing the pref.">
+<!ENTITY javascript.desc "Enables or disables JavaScript. This can be very useful at times. Note that--like all preferences--this is global, so turning it off in one browser window or tab will disable JavaScript for the entire product.">
+<!ENTITY java.desc "Enables or disables Java. Personally, I like to leave java off most of the time, and only turn it on when I encounter a java applet that I really need. That way I don't have to deal with java based advertisements, or wait for java to load before viewing a page containing one.">
+<!ENTITY Flash.desc "This is a checkbox to completely deactivate flash if it isn't needed.">
+<!ENTITY popups.desc "Toggles the &quot;Open unrequested windows&quot; pref. I have heard that there are still some popups that can get through this, but I don't know any details.">
+<!ENTITY proxies.desc "This switches the proxy settings between &quot;No Proxies&quot; (disabled) and the last setting, you had set, before unchecking the box (enabled).">
+<!ENTITY proxymenulist.desc "This allows you to chose which type of proxy you currently need. You need to have the info setup in the preferences dialog for whatever type(s) of proxies you plan to use.">
+<!ENTITY proxymenulist.options "Options:">
+<!ENTITY proxymenulist.noproxies "Proxies are disabled">
+<!ENTITY proxymenulist.manualproxy "Manual proxy setup used">
+<!ENTITY proxymenulist.automaticproxy "Automatic proxy configuration url used">
+<!ENTITY cookies.desc "This toggles the cookie preferences from &quot;Enable all cookies&quot; (enabled) to &quot;Disable cookies&quot; (disabled).">
+<!ENTITY cookiewarning.desc "When turned on, mozilla will put up a warning dialog before any site it allowed to store a cookie or modify a cookie.">
+<!ENTITY pipelining.desc "Enables or disables http pipelining. This is supposed to speed up page loads over dialup, but not all servers support it.">
+<!ENTITY diskcache.desc "This toggles the disk cache on and off. This might require a restart to work.">
+<!ENTITY memcache.desc "Toggles the memory cache on and off. This might require a restart to work.">
+<!ENTITY sendreferrer.desc "When disabled, mozilla will not send referrer url information with page requests.">
+<!ENTITY clearmemcache.desc "This clears mozilla's memory cache, except for XUL chrome items.">
+<!ENTITY cleardiskcache.desc "This clears mozilla's disk cache. Good for testing web pages.">
+<!ENTITY clearallcache.desc "This clears mozilla's memory chache and disk cache, just like clicking &quot;Clear Mem Cache&quot; and then clicking &quot;Clear Disk Cache&quot;.">
+<!ENTITY clearhist.desc "Clears mozilla's global browser history.">
+<!ENTITY clearurlbar.desc "Clears the history of urls you typed into the location bar.">
+<!ENTITY clearurlbar.ffnote "This does not longer work with Firefox 3.0 and above, as those versions use your bookmarks and your regular history to create the dropdown menu. Use &quot;ClearHistory&quot; as an replacement.">
+<!ENTITY clearcookies.desc "Clears all Cookies.">
+<!ENTITY clearall.desc "Clears the History, the Location Bar, Disk Cache, and Memory Cache.">
+<!ENTITY resize.desc "Resizes the browser window to the resolution you select in the menulist.">
+<!ENTITY newtab.desc "Opens a new browser tab. I don't really know how useful this would be, but somebody wanted it so I put it in.">
+<!ENTITY savepage.desc "Click this button to save the current page on disk. Much like &quot;File -&gt; Save as&quot; in Mozilla, but this button uses the title to generate the default filename!">
+<!ENTITY restoretab.desc "This button will restore the last closed tab.">
+<!ENTITY killflash.desc "Click this button, to remove all flash embeds in the current page.">
+<!ENTITY fontdown.desc "Decrease the font size.">
+<!ENTITY fontup.desc "Increase the font size.">
+<!ENTITY useragent.desc "This allows you to quickly change mozilla's user agent string, which is useful when viewing sites that attempt to block non-IE browsers. This works for all server side and some client side detectors. The entry &quot;Real UA&quot; represents the correct value for whatever mozilla build you are using">
+<!ENTITY useragent.resetuainfo.beforelink "The PrefBar automatically resets your user agent to the default (correct) value when you exit mozilla. This prevents you from running into">
+<!ENTITY useragent.resetuainfo.afterlink "(unless mozilla crashes), and makes sure you don't forgot that you changed the UA string and leave it spoofed for three weeks.">
+<!ENTITY help.desc "A link to the index page of this help system.">
+<!ENTITY whatsnew.desc "A link to the <i>What's New?</i> page in this help system.">
+<!ENTITY prefbarhomepagelink.desc "A link to the homepage of the PrefBar project.">
+<!ENTITY mozilla.org.desc "A link to mozilla.org, homepage of the mozilla project.">
+<!ENTITY mozillazine.org.desc "A link to MozillaZine.org, gathering place for mozila developers and users.">
+<!ENTITY customize.desc "This will quickly take you to the preferences toolbar customization panel in the preferences dialog.">
+<!ENTITY hidetoolbar.desc "A button to hide the preferences toolbar. Does the same thing as pressing F8.">
+<!ENTITY proxylist.desc "A list, where you can add some proxies, you need, with the needed ports. This makes it easy to switch between the proxies.">
+<!ENTITY prefbarlanglist.desc "Enables to switch the language identifier, sent to webservers.">
+
+<!ENTITY separator1.desc "This is a separator to go between the navigation buttons and the home button (or whatever else you put to the the right of the navigation buttons). There are several separators defined in the prefbar button list, one for each group of items. They do take a small amound of horizontal space on the toolbar, but they make things look so nice that I'd recomend having them enabled, unless you have a really small moniter (or just want to enabled a large number of buttons at once.)">
+<!ENTITY separator2.desc "A separator, designed to go to the right of the home button. You can (of course) move this to where ever place on the toolbar you want.">
+<!ENTITY separatorX.desc "Another separator.">
+<!ENTITY spacer0.desc "This widget doesn't display anything, but expands as big as it can, taking up all the extra space available and forcing everything to its right to the far right edge of the toolbar.">

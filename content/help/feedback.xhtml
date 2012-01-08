@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+  <!ENTITY % globalDTD SYSTEM "chrome://prefbar/locale/help/_global.dtd">
+    %globalDTD;
+  <!ENTITY % pageDTD SYSTEM "chrome://prefbar/locale/help/feedback.dtd">
+    %pageDTD;
+]>
 
 <!-- ***** BEGIN LICENSE BLOCK *****
    - Version: MPL 1.1/GPL 2.0/LGPL 2.1
@@ -14,7 +19,7 @@
    - for the specific language governing rights and limitations under the
    - License.
    -
-   - The Original Code is Preferences Toolbar 2.
+   - The Original Code is Preferences Toolbar.
    -
    - The Initial Developer of the Original Code is
    - Aaron Andersen.
@@ -38,72 +43,61 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <link rel="stylesheet" href="help.css" type="text/css"/>
-    <title>Einführung - PrefBar Hilfe</title>
+    <title>&page.feedback.title; - &page.title;</title>
   </head>
   <body>
     <div>
-      <img src="prefbarhelp.png" alt="PrefBar Help"/>
+      <img src="prefbarhelp.png" alt="&page.title;"/>
     </div>
 
     <div id="buttons">
-      <span>Einführung</span>
-      <a href="use.html">Preferences Toolbar benutzen</a>
-      <a href="newstuff.html">Was ist neu?</a>
-      <a href="buttons.html">Button Liste</a>
-      <a href="faq.html">PrefBar FAQ</a>
-      <a href="credits.html">Credits</a>
-      <a href="feedback.html">Hilfe/Feedback</a>
+      <a href="index.xhtml">&page.index.title;</a>
+      <a href="use.xhtml">&page.use.title;</a>
+      <a href="newstuff.xhtml">&page.newstuff.title;</a>
+      <a href="buttons.xhtml">&page.buttons.title;</a>
+      <a href="faq.xhtml">&page.faq.title;</a>
+      <a href="credits.xhtml">&page.credits.title;</a>
+      <span>&page.feedback.title;</span>
     </div>
 
     <div id="content">
-      <h1>Einführung</h1>
+      <h1>&page.feedback.title;</h1>
       <p>
-        Version 1.2.21. Letztes Update: Mai 24, 2008.
+        &intro;
       </p>
       <p>
-        Willkommen zur Preferences Toolbar Dokumentation! Anders als die originale Prefbar --die keine Dokumentation enthalten hatte-- kommt die Prefbar 4 mit einer großen wundervollen kompletten Hilfedatei, die Sie gerade betrachten.
-      </p>
-      <p>
-        Sie benutzen gerade PrefBar v. 6.1.0, build date 20110913. (Wenn Sie diese Dokumentation online lesen, dann muss das nicht zwingend auf Sie zutreffen.)
-      </p>
-      <p>
-        Bitte wählen Sie die gewünschte Sektion, im obigen Menü, oder lesen Sie weiter, um eine Beschreibung der Seiten zu erhalten.
+        <a href="#checkfaq">&checkfaq.title;</a><br/>
+        <a href="#bugzilla">Bugzilla</a><br/>
+        <a href="#internet">Internet Sites</a><br/>
+        <a href="#myaddress">EMail</a>
       </p>
 
       <hr/>
 
-      <h2>Preferences Toolbar benutzen</h2>
+      <h2 id="checkfaq">&checkfaq.title;</h2>
       <p>
-        Alles, das Sie wissen müssen, um die Preferences Toolbar zu verwenden.
+        &checkfaq.content.beforelink; <a href="faq.html">&page.faq.title;</a> &checkfaq.content.afterlink;
       </p>
 
-      <h2>Was ist neu?</h2>
+      <h2 id="bugzilla">Bugzilla</h2>
       <p>
-        Eine Liste der neuen Features in der aktuellen Version.
+        &bugzilla.content; <a href="http://bugzilla.mozdev.org">bugzilla.mozdev.org</a>.
       </p>
 
-      <h2>Button Liste</h2>
+      <h2 id="internet">&websites.title;</h2>
       <p>
-        Dies ist eine Liste aller verfügbaren Buttons und was sie tun.
+        &websites.prefbarhp.info; <a href="http://prefbar.tuxfamily.org">&websites.prefbarhp.link;</a>.
       </p>
 
-      <h2>PrefBar FAQ</h2>
+      <h2 id="myaddress">&email.title;</h2>
       <p>
-        Die "Frequently Asked Questions" (meistgefragte Fragen) Seite. Suchen Sie hier nach einer Lösung, bevor Sie mir eine E-Mail schreiben.
+        &email.content; <a href="mailto:manuel.reimer@gmx.de">manuel.reimer@gmx.de</a>
       </p>
 
-      <h2>Credits</h2>
-      <p>
-        Credits und Lizenzbestimmungen.
-      </p>
-
-      <h2>Hilfe/Feedback</h2>
-      <p>
-        Kontaktieren Sie den Autor.
-      </p>
     </div>
+
   </body>
 </html>

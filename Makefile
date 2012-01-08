@@ -11,8 +11,8 @@ all: patch jar xpi
 patch:
 	sed -r "s/(<em:version>)[^<]*/\1$(VERSION)/" \
     -i install.rdf
-	sed -r "s/(v\. ).*(, build date )[0-9]*/\1$(VERSION)\2$(BUILD)/" \
-    -i locale/*/help/index.html
+	sed -r "s/(v\. ).*(, &builddate; )[0-9]*/\1$(VERSION)\2$(BUILD)/" \
+    -i content/help/index.xhtml
 	sed -r "s/(const prefbarVersion = )[^;]*/\1$(BUILD)/" \
     -i content/prefbar.js
 

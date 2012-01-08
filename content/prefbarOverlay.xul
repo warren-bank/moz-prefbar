@@ -122,7 +122,7 @@
         <menupopup id="prefbar-contextmenu">
           <menuitem id="prefbar-help"
                     label="&prefbar-help-main;"
-                    oncommand="PrefBarNS.GoLink('chrome://prefbar/locale/help/index.html');"/>
+                    oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml');"/>
           <menuseparator/>
           <menuitem id="prefbar-customize"
                     label="&prefbar-help-customize;"

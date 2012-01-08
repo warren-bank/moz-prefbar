@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+  <!ENTITY % globalDTD SYSTEM "chrome://prefbar/locale/help/_global.dtd">
+    %globalDTD;
+  <!ENTITY % pageDTD SYSTEM "chrome://prefbar/locale/help/newstuff.dtd">
+    %pageDTD;
+]>
 
 <!-- ***** BEGIN LICENSE BLOCK *****
    - Version: MPL 1.1/GPL 2.0/LGPL 2.1
@@ -14,7 +19,7 @@
    - for the specific language governing rights and limitations under the
    - License.
    -
-   - The Original Code is Preferences Toolbar 2.
+   - The Original Code is Preferences Toolbar.
    -
    - The Initial Developer of the Original Code is
    - Aaron Andersen.
@@ -41,26 +46,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <link rel="stylesheet" href="help.css" type="text/css"/>
-    <title>What's New - PrefBar Help</title>
+    <title>&page.newstuff.title; - &page.title;</title>
   </head>
   <body>
     <div>
-      <img src="prefbarhelp.png" alt="PrefBar Help"/>
+      <img src="prefbarhelp.png" alt="&page.title;"/>
     </div>
 
     <div id="buttons">
-      <a href="index.html">Introduction</a>
-      <a href="use.html">Using the Preferences Toolbar</a>
-      <span>What's New?</span>
-      <a href="buttons.html">Button List</a>
-      <a href="faq.html">PrefBar FAQ</a>
-      <a href="credits.html">Credits</a>
-      <a href="feedback.html">Help/Feedback</a>
+      <a href="index.xhtml">&page.index.title;</a>
+      <a href="use.xhtml">&page.use.title;</a>
+      <span>&page.newstuff.title;</span>
+      <a href="buttons.xhtml">&page.buttons.title;</a>
+      <a href="faq.xhtml">&page.faq.title;</a>
+      <a href="credits.xhtml">&page.credits.title;</a>
+      <a href="feedback.xhtml">&page.feedback.title;</a>
     </div>
 
     <div id="content">
-      <h1>What's New?</h1>
-      <p>There are lots of new and exciting features in the current version of the Preferences Toolbar.  This page lists them all with explanations about how to use each one.
+      <h1>&page.newstuff.title;</h1>
+      <p>
+        &intro;
       </p>
 
       <p>
@@ -107,6 +113,7 @@
         <li>Fixed bug that caused button translations, defined in locale, to not always take affect (Manuel Reimer)</li>
         <li>Fixed Bug 23412 "Drag&amp;Drop of button onto itself moves it to the top of the list" (Manuel Reimer)</li>
         <li>Dropped the "execute demo" buttons. They will be replaced with a "Create buttons that run external programs" tutorial on the PrefBar homepage, at some time (Manuel Reimer)</li>
+        <li>Modified help system to use "DTD" files and entities for translation (Manuel Reimer)</li>
       </ul>
 
       <h2 id="v6.0.1">Changelog 6.0.1</h2>

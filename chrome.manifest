@@ -4,8 +4,7 @@ overlay	chrome://communicator/content/pref/preferences.xul	chrome://prefbar/cont
 
 style	chrome://global/content/customizeToolbar.xul	chrome://prefbar/skin/prefbarOverlay.css
 
-override chrome://prefbar/locale/help/buttons.css chrome://prefbar/content/help/buttons.css
-override chrome://prefbar/locale/help/help.css chrome://prefbar/content/help/help.css
+override chrome://prefbar/content/help/prefbarhelp.png chrome://prefbar/locale/help/prefbarhelp.png
 
 component {830a2ec4-be0d-4592-8397-ff794b476f28} components/goprefbar.js
 contract @prefbar.mozdev.org/goprefbar;1 {830a2ec4-be0d-4592-8397-ff794b476f28}

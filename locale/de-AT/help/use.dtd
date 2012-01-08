@@ -1,0 +1,91 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY intro "Dies ist das Prefbar Benutzerhandbuch. Alles das Sie über den Gebrauch der Prefbar wissen müssen steht hier in dieser Datei. Nun, vielleicht nicht <i>alles</i> aber vielleicht fast.">
+
+<!ENTITY showing.title "Die PrefBar anzeigen">
+<!ENTITY showing.howto "Um die PrefBar anzuzeigen, können Sie sie entwender über das Menü &quot;Ansicht-&gt;Anzeigen/Verstecken&quot; (bzw. das Menü &quot;Ansicht&quot; in Firefox) oder durch Drücken von F8 aktivieren. Wenn die zweite Methode nicht funktioniert, dann versuchen Sie die erste.">
+
+<!ENTITY moving.title "PrefBar Buttons auf andere Toolbars verschieben">
+<!ENTITY moving.howto "PrefBar startet als neue Toolbar, welche mit jeder Tastenkombination, die Sie dafür einstellen, ein- und ausgeblendet werden kann. Aber das bedeutet nicht, dass Sie die Buttons auf einer eigenen Toolbar lassen müssen. Beginnend mit PrefBar 5.0 ist PrefBar eine sogenannte &quot;anpassbare Symbolleiste&quot;. Das bedeutet, dass Sie sowohl beliebige fremde Buttons auf die PrefBar Symbolleiste platzieren (und mit der festgelegten Tastenkombination ein- und ausblenden!) können als auch die PrefBar Button Gruppe selbst auf beliebige andere Toolbars verschieben können. Wenn Sie die PrefBar Buttons von ihrer eigenen Symbolleiste genommen haben, dann können Sie diese einfach ausblenden, um Platz zu sparen. Um dies zu erreichen, rechtsklicken Sie auf eine beliebige Symbolleiste, außer PrefBar selbst, und wählen Sie &quot;Anpassen...&quot;. Mit diesem Weg betreten Sie den &quot;Symbolleisten-Anpassmodus&quot; in dem Sie die Elemente via &quot;Drag&amp;Drop&quot; verschieben können.">
+
+<!ENTITY menu.title "PrefBars buttons unterhalb eines einzigen Menü-Buttons anzeigen">
+<!ENTITY menu.howto.beforelink "Beginnend mit PrefBar 5.1 ist es möglich, PrefBars buttons unterhalb eines einzigen Menü-Buttons anzuzeigen. Sie finden diesen Button, der mit &quot;PrefBar Menü&quot; benannt ist, im Symbolleisten-Anpassen-Dialog (siehe auch: ">
+<!ENTITY menu.howto.afterlink "). Nachdem Sie diesen Button an beliebige Stelle geschoben haben, können Sie die PrefBar-Toolbar ausblenden.">
+
+<!ENTITY customizing.title "Die PrefBar anpassen">
+<!ENTITY customizing.howto "Um die Prefbar anzupassen, rechtsklicken Sie auf die PrefBar und wählen Sie &quot;PrefBar anpassen...&quot;. Sie erreichen das gleich auch über das Konfigurationsfenster im SeaMonkey oder über den Addon-Manager in SeaMonkey und Firefox, aber das Kontextmenü ist der schnellste Weg.">
+<!ENTITY customizing.ui "Die Buttons, die gerade auf der Toolbar zu sehen sind, werden in der rechten Liste, und die verfügbaren, nicht auf der Toolbar sichtbaren, Buttons sind in der linken Liste aufgelistet. Um einen existierenden Button zur Toolbar hinzuzufügen, ziehen Sie ihn von der linken in die rechte Liste. Um ein Element von der Toolbar zu entfernen, machen Sie das selbe andersrum. Zum Sortieren der Elemente kann ebenfalls Drag&amp;Drop verwendet werden. Alle weiteren Befehle sind im Kontextmenü untergebracht.">
+<!ENTITY customizing.attributes "Wenn Sie existierende Buttons editieren, oder neue erstellen, werden ihnen folgende Attribute begegnen:">
+
+<!ENTITY customizing.id.title "Id">
+<!ENTITY customizing.id.content "Alles hat eine Id. Die Id sollte kurz und knapp beschreiben, was Sie für einen Button erstellen. Wenn ihre Zeichenfolge nicht einzigartig ist und sie exportieren den Button, dann könnte derjenige, der ihre Button-Datei erhält, Probleme mit existierenden Buttons bekommen. Dies ist besonders wichtig, wenn Sie den Button im Internet anbieten.">
+
+<!ENTITY customizing.label.title "Label">
+<!ENTITY customizing.label.content "Dies ist das Label, das auf dem Button und im Einstellungs-Dialog erscheint.">
+
+<!ENTITY customizing.onclick.title "Onclick">
+<!ENTITY customizing.onclick.content "Für einen Button ist dies der Code, der ausgeführt wird, wenn jemand auf den Button klickt. Die eingebauten Buttons haben eingebaute Funktionen, und dadurch auch kurze onclick Werte. Wenn Sie einen eigenen Button hinzufügen, können Sie den Code-Editor nutzen, und ihren Code mehrzeilig, oder mit Kommentaren, eingeben.">
+
+<!ENTITY customizing.prefstring.title "Prefstring">
+<!ENTITY customizing.prefstring.content "Dies ist der Name der Eigenschaft, der durch das Element verändert wird. Diese sind nirgends exakt dokumentiert. Der beste Weg, den Prefstring für ein neues Element herauszufinden, ist es, ihn im XUL Sourcecodes der Eigenschaftsseite, die diese Eigenschaft normalerweise verändert, zu suchen.">
+
+<!ENTITY customizing.frompref-topref.title "fromPref &amp; topPref">
+<!ENTITY customizing.frompref-topref.applies "Diese beiden treten nur bei Checkboxen auf. Weil es verschiedene Typen von Eigenschaften gibt (int, bool, string, etc.), und viele von ihnen merkwürdige Werte nutzen, setzt die PrefBar diese in den Status &quot;an&quot; und &quot;aus&quot;, durch das  frompref und topref Attribut, um.">
+<!ENTITY customizing.frompref-topref.frompref "Das frompref Attribut ist eine Javascript Ausdruck der, wenn aufgelöst, den Status der Checkbox zurückgibt, auf den die Checkbox gesetzt werden soll (z.B. entweder &quot;an&quot; oder &quot;aus&quot;). Die Variable &quot;value&quot; enthält den aktuellen Status der Eigenschaft. Deshalb sind übliche frompref Werte &quot;value&quot; und &quot;!value&quot;. (oder &quot;Boolen(value)&quot; und &quot;Boolean(!value)&quot;, wenn value eine Zahl ist). Denken Sie daran, dass das Resultat ein boolescher Wert sein muss. Zeichenfolgen-Eigenschaften erfordern normalerweise kompliziertere topref und frompref Werte.">
+<!ENTITY customizing.frompref-topref.topref "Das topref Attribut ist das Gegenteil des frompref Attributs. Es wird genutzt, um den booleschen Checkbox-Status in den entsprechenden Eigenschaftswert zu übersetzen. Wie frompref muss topref ein Javascript Ausdruck sein, der den richtigen Eigenschaftswert im richtigen Datenformat erzeugt. Die &quot;value&quot; Variable enthält den &quot;true&quot; oder &quot;false&quot; Wert der Checkbox. Übliche topref Werte sind &quot;value&quot;, &quot;!value&quot; und &quot;2*Number(!value)&quot;.">
+<!ENTITY customizing.frompref-topref.prefinfo "Wie bereits erwähnt sind die Eigenschaften nicht sehr gut dokumentiert. Der beste Weg, um herauszufinden, welche Eigenschaft auf welchen Wert gesetzt werden müss, ist es im XUL Sourcecode zu suchen.">
+
+<!ENTITY customizing.getfunction-setfunction.title "Get-Funktion &amp; Set-Funktion">
+<!ENTITY customizing.getfunction-setfunction.applies "Diese zwei treten nur bei Buttons, Extchecks und Extlists auf. Diese Button-Typen wurden speziell für Skripte entwickelt. Sie setzen keine Eigenschaften, sondern rufen Skripte auf, wenn der Benutzer den Button anklickt, die Checkbox/Liste ändert oder wenn Mozilla den aktuellen Status erhalten möchte.">
+<!ENTITY customizing.getfunction-setfunction.getfunction "Die Get-Function ist ein Javascript Ausdruck, der immer aufgerufen wird, wenn die Prefbar aktualisiert werden muss. Hier möchte die PrefBar wissen, was der aktuelle Status des Elements ist. Sie müssen die Variable &quot;value&quot; auf den aktuellen Wert setzen.">
+<!ENTITY customizing.getfunction-setfunction.setfunction "Die Set-Funktion ist ein Javascript Ausdruck, der immer aufgerufen wird, wenn der Benutzer den Status des Elements verändert (einen Eintrag in der Liste wählt oder die Checkbox aktiviert/deaktiviert). Der neue Status ist in der Variable &quot;value&quot;.">
+
+<!ENTITY customizing.initfunction.title "Init-Funktion">
+<!ENTITY customizing.initfunction.content "Die Init-Funktion ist ein optionaler Javascript Ausdruck, der genutzt werden kann, um Code unterzubringen, der nötig ist, um die Funktion für den Button zu initialisieren. Der Code wird einmal beim Starten des Browsers und nach jeder PrefBar-Datenbankänderung aufgerufen. Es kann demnach also vorkommen, dass die Init-Funktion mehrfach in einer Browsersitzung ausgeführt wird!">
+
+<!ENTITY customizing.label-value.title "Bezeichnung &amp; Wert">
+<!ENTITY customizing.label-value.content "Bei Dropdown-Listen hat jeder Eintrag einen dazugehörigen Wert, auf den die Eigenschaft, die durch den Prefstring definiert ist, gesetzt wird, wenn der Listeneintrag ausgewählt ist. Wenn der Wert eines Eintrags &quot;!RESET!&quot; ist, dann wird die Eigenschaft beim Auswählen dieser Option auf den Standardwert zurückgesetzt (Wie &quot;Reset&quot; in about:config). Wenn der Wert und das Label leer sind, dann wird dieser Eintrag beim Bestätigen des Dialogfensters ignoriert.">
+
+<!ENTITY customizing.url.title "Url">
+<!ENTITY customizing.url.content "Für einen Link ist dies die URL, auf die Sie verwiesen werden, wenn Sie auf den Link klicken.">
+
+<!ENTITY customizing.hotkey.title "Hotkey">
+<!ENTITY customizing.hotkey.content "Das Feld &quot;Hotkey&quot; ermöglicht es, Tastenkombinationen für diesen Button zu definieren. Wird diese Tastenkombination später im Browser gedrückt, wird die entsprechendne Funktion des Buttons ausgelöst, ganz so, als hätte man den Button mit der Maus angeklickt.">
+
+<!ENTITY noeditbuttons.title "Warum Sie die meisten eingebauten Buttons nicht bearbeiten sollten">
+<!ENTITY noeditbuttons.why "Auch wenn Sie nun wissen, wie man Buttons bearbeitet, ist es nicht empfehlenswert, dies mit den meisten Eingenschaften der eingebauten Buttons zu tun, ohne vorher eine Kopie des Buttons zu erstellen (Auf den Button im PrefBar-Einstellungsfenster rechtsklicken, &quot;Kopieren&quot; wählen und neue ID vergeben). Der Grund ist einfach: Sobald Sie eine neue PrefBar Version einrichten, und die Buttons aktualisieren, wird PrefBar umgehend ihre eingebauten Buttons aktualisieren, und Ihre Änderungen sind verloren!">
+<!ENTITY noeditbuttons.exceptions "Ausnahmen von dieser Regel sind:">
+<!ENTITY noeditbuttons.exceptions.discussedin.beforelink "Dinge die in">
+<!ENTITY noeditbuttons.exceptions.discussedin.afterlink "behandelt werden.">
+<!ENTITY noeditbuttons.exceptions.label "Die Label Eigenschaft. Diese wird nicht vom Update-Prozess angefasst, also <b>zögern Sie nicht und geben Sie jedem Button einen kürzeren Namen oder einfach einen Namen den Sie lieber mögen</b>">
+<!ENTITY noeditbuttons.exceptions.selfcreated "Natürlich alles, was kein eingebauter Button ist, wie selbsterstellte Buttons oder importierte Buttons">
+<!ENTITY noeditbuttons.buildininfo "Sie können auch einen Blick auf die Button-Liste werfen, um im Detail zu sehen, welche Buttons Sie nicht bearbeiten sollten. Wenn diese Buttons wirklich einen Bug haben, dann teilen Sie mir das mit. Sie sollten keinen Grund haben, diese Buttons selber zu bearbeiten.">
+
+<!ENTITY editbuttons.title "Eingebaute Buttons, die Sie bearbeiten können">
+<!ENTITY editbuttons.preamble "Einige Buttons sind ein Spezialfall. Da diese nicht brauchbar sind, ohne einige Dinge zu bearbeiten, sind einige Teile vom Update ausgeschlossen. Hier möchten ich Sie informieren, wie Sie diese Buttons bearbeiten, um Sie für sich nutzbar zu machen.">
+
+<!ENTITY editresize.title "Resize">
+<!ENTITY editresize.howto "Hier können Sie Ihre eigenen Bildschirmauflösungen mit dem Bearbeiten-Button eintragen. Das Format ist:">
+<!ENTITY editresize.example "<i>$BREITE</i><b>x</b><i>$HÖHE</i>">
+
+<!ENTITY edituseragent.title "User Agent">
+<!ENTITY edituseragent.howto "Sie können hier problemlos eigene User Agents einfügen. Seit PrefBar 3.3 gibt es zwei Wege, um dies zu tun:">
+<!ENTITY edituseragent.uastring.title "Einfach den User Agent String eintragen">
+<!ENTITY edituseragent.uastring.howto "Als Wert für den neuen User Agent können Sie einfach einen User Agent Wert, Ihrer Wahl, eintragen. Dies ist zum Beispiel der User Agent von Mozilla 1.7.12, der unter Linux läuft:">
+<!ENTITY edituseragent.javascript.title "Nutzen von Javascript Syntax, um mehr als nur den User Agent anzugeben">
+<!ENTITY edituseragent.javascript.preface "Dies ist ein neues Feature, das mit PrefBar 3.3 gekommen ist. Sie können nun jedes der folgenden mit Javascript festlegen: useragent, appname, appversion und platform. Dies wird es erlauben, an noch mehr Browserweichen vorbeizukommen.">
+<!ENTITY edituseragent.javascript.howto "Um PrefBar mitzuteilen, dass Sie Javascript verwenden, müssen Sie dem Wert ein &quot;js:&quot; voranstellen. Zum Beispiel wäre dies die Zeichenfolge, die Sie eintragen würden, um Internet Explorer auf Windows XP vorzutäuschen:">
+
+<!ENTITY editproxylist.title "Proxylist">
+<!ENTITY editproxylist.howto "Eine Proxy Server Liste würde Ihnen nicht helfen, wenn es Ihnen nicht erlaubt wäre, Ihre Proxies hier einzutragen ;-) Sie können problemlos eigene Proxies nach folgender Syntax eintragen:">
+<!ENTITY editproxylist.sockshowto "Seit PrefBar 4.2 ist es möglich, auch SOCKS-Proxies in folgender Form in die Liste einzutragen:">
+<!ENTITY editproxylist.exampleinfo "In beiden Fällen ist &quot;$SERVER&quot; der Server-Name oder die Server-IP-Adresse und &quot;$PORT&quot; ist die Port-Nummer. FTP/HTTP und SOCKS-Proxies können in der Liste beliebig gemischt werden.">
+
+<!ENTITY editlanglist.title "Language list">
+<!ENTITY editlanglist.howto "Sie können hier ihre nach Ihren Wünschen Sprachkennungen hinzufügen, löschen oder verschieben.">
+
+<!ENTITY importexport.title "Importieren/Exportieren von Elementen">
+<!ENTITY importexport.howto "Sie können den &quot;Import&quot; und &quot;Export&quot; im Einstellungs-Dialog verwenden, um Buttons in &quot;btn&quot;-Dateien zu exportieren und Buttons von diesen Dateien zu importieren. Dies macht es möglich, Buttons sehr einfach an andere zu geben und Buttons, oder Button-Packete, im Internet anzubieten.">
+<!ENTITY importexport.export.title "Exportieren">
+<!ENTITY importexport.export.howto "Zum Exportieren von Buttons müssen Sie erst die Buttons, die Sie exportieren wollen, in einer der Listen im Einstellungs-Dialog auswählen. Sie können nicht von beiden Listen auf einmal Buttons exportieren. Dann klicken Sie auf den &quot;Export&quot;-Button. Nun werden Sie gefragt, wohin Sie die &quot;btn&quot;-Datei speichern wollen. Nach dem Klicken von &quot;Speichern&quot; wird die Datei erstellt.">
+<!ENTITY importexport.import.title "Importieren">
+<!ENTITY importexport.import.howto "Wenn Sie eine &quot;btn&quot;-Datei bekommen, dann können Sie diese einfach mit dem Button &quot;Import&quot; importieren. Nachdem Sie ihn angeklickt haben, wird ein Dialog angezeigt, in dem sie ihre &quot;btn&quot;-Datei auswählen müssen. Nach einem Klick auf &quot;Öffnen&quot;, wird die Datei importiert. Es ist möglich, dass Sie gefragt werden, ob sie exitierende Elemente überschreiben wollen, wenn eines der Elemente, dass Sie importieren wollen, die gleiche &quot;Id&quot;, wie ein bereits existierendes Element auf der PrefBar, hat.">

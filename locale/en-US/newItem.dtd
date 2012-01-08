@@ -1,7 +1,7 @@
 <!ENTITY new-item-title        "New Item">
 <!ENTITY edit-item-title       "Edit Item">
 
-<!ENTITY button-type-check     "Pref Check">
+<!ENTITY button-type-check     "Checkbox">
 <!ENTITY button-type-button    "Button">
 <!ENTITY button-type-menulist  "Menulist">
 <!ENTITY button-type-link      "Link">
@@ -35,3 +35,5 @@
 <!ENTITY button-update-window "Window">
 <!ENTITY button-update-tab "Tab">
 <!ENTITY button-update-url "URL">
+
+<!ENTITY type "test">

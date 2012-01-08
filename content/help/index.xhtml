@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+  <!ENTITY % globalDTD SYSTEM "chrome://prefbar/locale/help/_global.dtd">
+    %globalDTD;
+  <!ENTITY % pageDTD SYSTEM "chrome://prefbar/locale/help/index.dtd">
+    %pageDTD;
+]>
 
 <!-- ***** BEGIN LICENSE BLOCK *****
    - Version: MPL 1.1/GPL 2.0/LGPL 2.1
@@ -14,7 +19,7 @@
    - for the specific language governing rights and limitations under the
    - License.
    -
-   - The Original Code is Preferences Toolbar 2.
+   - The Original Code is Preferences Toolbar.
    -
    - The Initial Developer of the Original Code is
    - Aaron Andersen.
@@ -38,61 +43,72 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <link rel="stylesheet" href="help.css" type="text/css"/>
-    <title>Help/Feedback - PrefBar Help</title>
+    <title>&page.index.title; - &page.title;</title>
   </head>
   <body>
     <div>
-      <img src="prefbarhelp.png" alt="PrefBar Help"/>
+      <img src="prefbarhelp.png" alt="&page.title;"/>
     </div>
 
     <div id="buttons">
-      <a href="index.html">Einführung</a>
-      <a href="use.html">Preferences Toolbar benutzen</a>
-      <a href="newstuff.html">Was ist neu?</a>
-      <a href="buttons.html">Button Liste</a>
-      <a href="faq.html">PrefBar FAQ</a>
-      <a href="credits.html">Credits</a>
-      <span>Hilfe/Feedback</span>
+      <span>&page.index.title;</span>
+      <a href="use.xhtml">&page.use.title;</a>
+      <a href="newstuff.xhtml">&page.newstuff.title;</a>
+      <a href="buttons.xhtml">&page.buttons.title;</a>
+      <a href="faq.xhtml">&page.faq.title;</a>
+      <a href="credits.xhtml">&page.credits.title;</a>
+      <a href="feedback.xhtml">&page.feedback.title;</a>
     </div>
 
     <div id="content">
-      <h1>Hilfe/Feedback</h1>
+      <h1>&page.index.title;</h1>
       <p>
-        Ich habe mein bestes getan, dass so ziemlich jeder alles was er über die PrefBar wissen muss in diesem Hilfe-System findet. Sollten Sie, nachdem sie dies alles gelesen haben, immer noch Hilfe benötigen dann sind sie an der richtigen Stellen. Lesen Sie weiter für mehr Informationen.
+        &version;
       </p>
       <p>
-        <a href="#checkfaq">Lesen Sie die FAQ</a>
-        <a href="#bugzilla">Bugzilla</a><br/>
-        <a href="#internet">Internet Seiten</a><br/>
-        <a href="#myaddress">EMail</a><br/>
+        &welcome;
+      </p>
+      <p>
+        &currentlyusing; v. 6.1.0, &builddate; 20110913. (&onlinenote;)
+      </p>
+      <p>
+        &pleaseselect;
       </p>
 
       <hr/>
 
-      <h2 id="checkfaq">Lesen Sie die FAQ</h2>
+      <h2>&page.use.title;</h2>
       <p>
-        Wenn Sie eine Frage haben dann stellen Sie sicher das die Frage nicht in <a href="faq.html">der FAQ</a> steht bevor Sie mir eine E-Mail schreiben. Es sind noch nicht sehr viele Fragen in der FAQ aber ich hoffe die FAQ mit richtigen Benutzerfragen füllen zu können wenn sie nach der ersten Version der PrefBar 2 gefragt werden.
+        &use.desc;
       </p>
 
-      <h2 id="bugzilla">Bugzilla</h2>
+      <h2>&page.newstuff.title;</h2>
       <p>
-        Alle PrefBar Bugs werden jetzt durch das Bugzilla-System von mozdev.org bearbeitet. Um einen neuen Bug zu melden oder existierende Bugs anzusehen gehen Sie zu <a href="http://bugzilla.mozdev.org">bugzilla.mozdev.org</a>.
+        &newstuff.desc;
       </p>
 
-      <h2 id="internet">Internet Siten</h2>
+      <h2>&page.buttons.title;</h2>
       <p>
-Für weitere Informationen über die PrefBar könnten Sie die <a href="http://prefbar.tuxfamily.org">die PrefBar Homepage</a> besuchen.
+        &buttons.desc;
       </p>
 
-      <h2 id="myaddress">EMail</h2>
+      <h2>&page.faq.title;</h2>
       <p>
-Für andere Fragen und Feedback können Sie Manuel Reimer via EMail kontaktieren: <a href="mailto:manuel.reimer@gmx.de">manuel.reimer@gmx.de</a>
+        &faq.desc;
       </p>
 
+      <h2>&page.credits.title;</h2>
+      <p>
+        &credits.desc;
+      </p>
+
+      <h2>&page.feedback.title;</h2>
+      <p>
+        &feedback.desc;
+      </p>
     </div>
-
   </body>
 </html>

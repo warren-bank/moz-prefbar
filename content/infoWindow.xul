@@ -42,7 +42,7 @@
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="prefbar-info-dialog"
         title="PrefBar Info"
-        onload="document.getElementById('browser').loadURI('chrome://prefbar/locale/help/credits.html');"
+        onload="document.getElementById('browser').loadURI('chrome://prefbar/content/help/credits.xhtml');"
         width="800" height="600">
 
   <browser id="browser" type="content" flex="1"/>

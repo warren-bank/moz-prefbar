@@ -1,0 +1,14 @@
+<!ENTITY intro "I've tried my best to make sure that almost everyone should find everything they need to know about the prefbar right here in this help system. However, if you have read all this and still need help, you've come to the right place. Read on for more info.">
+
+<!ENTITY checkfaq.title "Check the FAQ">
+<!ENTITY checkfaq.content.beforelink "If you have a question, be sure to check the">
+<!ENTITY checkfaq.content.afterlink "before sending me email to make sure your question isn't listed there. Right now there actually aren't a whole lot of questions in the FAQ, but I hope to fill it up with real user questions as I get asked them.">
+
+<!ENTITY bugzilla.content "All prefbar bugs are now managed through the bugzilla system on mozdev.org. To file a new bug or view existing bugs, see">
+
+<!ENTITY websites.title "Internet Sites">
+<!ENTITY websites.prefbarhp.info "For more information on the PrefBar you might want to check out">
+<!ENTITY websites.prefbarhp.link "The PrefBar Homepage">
+
+<!ENTITY email.title "EMail">
+<!ENTITY email.content "For other questions or feedback feel free to contact Manuel Reimer via EMail:">

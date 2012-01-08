@@ -2,7 +2,7 @@
 <!ENTITY new-item-title        "Neues Element">
 <!ENTITY edit-item-title       "Element bearbeiten">
 
-<!ENTITY button-type-check     "Pref Check">
+<!ENTITY button-type-check     "Checkbox">
 <!ENTITY button-type-button    "Button">
 <!ENTITY button-type-menulist  "Menulist">
 <!ENTITY button-type-link      "Link">

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+  <!ENTITY % globalDTD SYSTEM "chrome://prefbar/locale/help/_global.dtd">
+    %globalDTD;
+  <!ENTITY % pageDTD SYSTEM "chrome://prefbar/locale/help/credits.dtd">
+    %pageDTD;
+]>
 
 <!-- ***** BEGIN LICENSE BLOCK *****
    - Version: MPL 1.1/GPL 2.0/LGPL 2.1
@@ -14,7 +19,7 @@
    - for the specific language governing rights and limitations under the
    - License.
    -
-   - The Original Code is Preferences Toolbar 2.
+   - The Original Code is Preferences Toolbar.
    -
    - The Initial Developer of the Original Code is
    - Aaron Andersen.
@@ -38,52 +43,52 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <link rel="stylesheet" href="help.css" type="text/css"/>
-    <title>Credits - PrefBar Help</title>
+    <title>&page.credits.title; - &page.title;</title>
   </head>
   <body>
     <div>
-      <img src="prefbarhelp.png" alt="PrefBar Help"/>
+      <img src="prefbarhelp.png" alt="&page.title;"/>
     </div>
 
     <div id="buttons">
-      <a href="index.html">Einführung</a>
-      <a href="use.html">Preferences Toolbar benutzen</a>
-      <a href="newstuff.html">Was ist neu?</a>
-      <a href="buttons.html">Button Liste</a>
-      <a href="faq.html">PrefBar FAQ</a>
-      <span>Credits</span>
-      <a href="feedback.html">Hilfe/Feedback</a>
+      <a href="index.xhtml">&page.index.title;</a>
+      <a href="use.xhtml">&page.use.title;</a>
+      <a href="newstuff.xhtml">&page.newstuff.title;</a>
+      <a href="buttons.xhtml">&page.buttons.title;</a>
+      <a href="faq.xhtml">&page.faq.title;</a>
+      <span>&page.credits.title;</span>
+      <a href="feedback.xhtml">&page.feedback.title;</a>
     </div>
 
     <div id="content">
-      <h1>Credits</h1>
+      <h1>&page.credits.title;</h1>
 
       <hr/>
 
-      <h2>License</h2>
+      <h2>&license.title;</h2>
       <p>
-        The Preferences Toolbar is released under the MPL/GPL/LGPL tri-license.  (See any of the source files for details.)  You may freely use it in any manner compatible with that license.  (If you plan to use the program or any of the source code anywhere else, I would appreciate it if you'd <a href="feedback.html#myaddress">let me know</a>.)
+        &license.content; <a href="feedback.html#myaddress">&license.letmeknow;</a>.
       </p>
 
       <hr/>
 
-      <h2>Credits</h2>
+      <h2>&page.credits.title;</h2>
       <p>
         Original Concept: <a href="http://mpt.phrasewise.com/">Matthew Thomas</a> (via <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=38521">bug 38521</a>)
       </p>
       <p>
-        <b>Aaron Andersen</b>: Project Owner and Initial Developer (left project until end of 2005) <a href="http://www.xulplanet.com/aaron/">[homepage]</a>
+        Inital developer: <b>Aaron Andersen</b>
       </p>
       <p>
-        <b>Manuel Reimer</b>: Project Owner <a href="mailto:manuel.reimer@gmx.de">[mail]</a> <a href="http://www.mreimer.de.vu">[homepage]</a>
+        <b>Manuel Reimer</b>: Project Owner <a href="mailto:manuel.reimer@gmx.de">[mail]</a>
       </p>
 
-      <h2>Special Thanks To</h2>
+      <h2>&specialthanks.title;</h2>
       <p>
-        I'd like to thank the Producer, the Director, the whole cast...
+        &specialthanks.preface;
       </p>
       <p>
         Sascha Grage, Stefan Blumenrath and Stefan Müller for testing my release candidates of PrefBar 6.0
@@ -110,7 +115,7 @@
         Karsten Düsterloh - who helped me with converting the german "Umlaute" to UTF8 and with creating the "install.rdf" file and the configuration-dialog which are needed to get PrefBar compatible with Firefox. I also found the needed setting to get the PrefBar homepage skinned with the default skin in the CVS repository of his project "mnenhy".
       </p>
       <p>
-        Shimoda Hiroshi - who created the library which I use for the uninstaller in Mozilla Seamonkey
+        Shimoda Hiroshi - who created the library which I used for the uninstaller in Mozilla Seamonkey 1.x
       </p>
       <p>
         Vladislav Duma - who sent in the code for the new button type "extlist"
@@ -124,8 +129,7 @@
       <p>
         Frank Nestel - My alpha tester, who put up with all my buggy software, including the version with the wrong install script.
       </p>
-      <p>
-        Fred Yontz - Who (without being asked) proofread all the prefbar documentation, pointing out to me all my misspellings, inaccuracies, and grammatical rule breaking.
+      <p>Fred Yontz - Who (without being asked) proofread all the prefbar documentation, pointing out to me all my misspellings, inaccuracies, and grammatical rule breaking.
       </p>
       <p>
         Dave Johnson - Who hacked together the first Phoenix compatible version of the PrefBar, and then didn't kill me when it took me <del>two</del> <del>three</del> four months to get it online.
@@ -142,7 +146,6 @@
       <p>
         Everyone who wrote me emails about version 1.0, whether to ask questions or just to say "thanks for making the prefbar".  You really made my day.  (Or more specifically, each individual one of you made my day the day that I received your particular email.)
       </p>
-
     </div>
   </body>
 </html>
