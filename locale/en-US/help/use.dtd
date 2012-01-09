@@ -53,7 +53,8 @@
 <!ENTITY noeditbuttons.title "Why you shouldn't edit most of the built in buttons">
 <!ENTITY noeditbuttons.why "Even as you know now how to edit buttons it's not recommended to do so with most properties of the built in buttons without creating a copy of the button before (right click on button in customize window, choose &quot;Copy&quot; and enter a new ID for your button). The reason is simple: As soon as you get a new PrefBar version and update the buttons, PrefBar will immediately update its built in buttons and your changes are lost!">
 <!ENTITY noeditbuttons.exceptions "Exceptions to this rule are:">
-<!ENTITY noeditbuttons.exceptions.discussedin "Things discussed in">
+<!ENTITY noeditbuttons.exceptions.discussedin.beforelink "Things discussed in">
+<!ENTITY noeditbuttons.exceptions.discussedin.afterlink "">
 <!ENTITY noeditbuttons.exceptions.label "The label property. This one isn't touched by the update process, so <b>feel free to give each button a shorter name or just give it a name you like better</b>">
 <!ENTITY noeditbuttons.exceptions.selfcreated "Of course anything that isn't built in such as self-created buttons or imported buttons">
 <!ENTITY noeditbuttons.buildininfo "You may also have a look at the button list to see in detail which buttons you should not edit. If those buttons really have a bug, please tell me. It's the task of the PrefBar team to fix this. You should have no reason to modify the buttons on your own.">
