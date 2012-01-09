@@ -47,11 +47,8 @@
 <!ENTITY Flash.label "Flash">
 <!ENTITY proxylist.label "Proxylist">
 <!ENTITY pipelining.label "Pipelining">
-<!ENTITY diskcache.label "Disk Cache">
-<!ENTITY memcache.label "Mem Cache">
+<!ENTITY cacheenabled.label "Cache">
 <!ENTITY sendreferrer.label "Send Referrer">
-<!ENTITY clearmemcache.label "Clear Mem Cache">
-<!ENTITY cleardiskcache.label "Clear Disk Cache">
 <!ENTITY clearallcache.label "Clear Cache">
 <!ENTITY clearhist.label "Clear History">
 <!ENTITY clearurlbar.label "Clear Location Bar">
@@ -101,12 +98,9 @@
 <!ENTITY cookies.desc "This toggles the cookie preferences from &quot;Enable all cookies&quot; (enabled) to &quot;Disable cookies&quot; (disabled).">
 <!ENTITY cookiewarning.desc "When turned on, mozilla will put up a warning dialog before any site it allowed to store a cookie or modify a cookie.">
 <!ENTITY pipelining.desc "Enables or disables http pipelining. This is supposed to speed up page loads over dialup, but not all servers support it.">
-<!ENTITY diskcache.desc "This toggles the disk cache on and off. This might require a restart to work.">
-<!ENTITY memcache.desc "Toggles the memory cache on and off. This might require a restart to work.">
+<!ENTITY cacheenabled.desc "This toggles the browser cache on and off.">
 <!ENTITY sendreferrer.desc "When disabled, mozilla will not send referrer url information with page requests.">
-<!ENTITY clearmemcache.desc "This clears mozilla's memory cache, except for XUL chrome items.">
-<!ENTITY cleardiskcache.desc "This clears mozilla's disk cache. Good for testing web pages.">
-<!ENTITY clearallcache.desc "This clears mozilla's memory chache and disk cache, just like clicking &quot;Clear Mem Cache&quot; and then clicking &quot;Clear Disk Cache&quot;.">
+<!ENTITY clearallcache.desc "This clears mozilla's browser cache.">
 <!ENTITY clearhist.desc "Clears mozilla's global browser history.">
 <!ENTITY clearurlbar.desc "Clears the history of urls you typed into the location bar.">
 <!ENTITY clearurlbar.ffnote "This does not longer work with Firefox 3.0 and above, as those versions use your bookmarks and your regular history to create the dropdown menu. Use &quot;ClearHistory&quot; as an replacement.">

@@ -142,12 +142,9 @@
       "prefbar:button:cookies",
       "prefbar:button:cookieask",
       "prefbar:button:pipelining",
-      "prefbar:button:diskcache",
-      "prefbar:button:memcache",
+      "prefbar:button:cacheenabled",
       "prefbar:button:referrer",
       "prefbar:button:separator2",
-      "prefbar:button:clearmemcache",
-      "prefbar:button:cleardiskcache",
       "prefbar:button:clearhist",
       "prefbar:button:clearurlbar",
       "prefbar:button:clearcookies",
@@ -304,19 +301,11 @@
     "setfunction":"prefbarSetPipelining(value);",
     "getfunction":"value = prefbarGetPipelining();"
   },
-  "prefbar:button:diskcache":{
-    "label":"Disk Cache",
-    "type":"check",
-    "prefstring":"browser.cache.disk.enable",
-    "topref":"value",
-    "frompref":"value"
-  },
-  "prefbar:button:memcache":{
-    "label":"Mem Cache",
-    "type":"check",
-    "prefstring":"browser.cache.memory.enable",
-    "topref":"value",
-    "frompref":"value"
+  "prefbar:button:cacheenabled":{
+    "label":"Cache",
+    "type":"extcheck",
+    "setfunction":"prefbarSetCacheEnabled(value);",
+    "getfunction":"value = prefbarGetCacheEnabled();"
   },
   "prefbar:button:referrer":{
     "label":"Send Referrer",
@@ -327,16 +316,6 @@
   },
   "prefbar:button:separator2":{
     "type":"separator"
-  },
-  "prefbar:button:clearmemcache":{
-    "label":"Clear Mem Cache",
-    "type":"button",
-    "onclick":"prefbarClearMemCache()"
-  },
-  "prefbar:button:cleardiskcache":{
-    "label":"Clear Disk Cache",
-    "type":"button",
-    "onclick":"prefbarClearDiskCache()"
   },
   "prefbar:button:clearhist":{
     "label":"Clear History",

@@ -61,10 +61,10 @@ function prefbarClearCache(aType) {
     cacheService.evictEntries(aType);
   } catch (e) {}
 }
-function prefbarClearMemCache() {
+function prefbarClearMemCache() { // Obsolete! To be removed!
   prefbarClearCache(Components.interfaces.nsICache.STORE_IN_MEMORY);
 }
-function prefbarClearDiskCache() {
+function prefbarClearDiskCache() { // Obsolete! To be removed!
   prefbarClearCache(Components.interfaces.nsICache.STORE_ON_DISK);
 }
 function prefbarClearAllCache() {
@@ -360,6 +360,20 @@ function prefbarSetPipelining(value) {
 function prefbarGetPipelining() {
   return (goPrefBar.GetPref("network.http.proxy.pipelining") &&
           goPrefBar.GetPref("network.http.pipelining"));
+}
+
+//
+// "Cache" checkbox
+//
+
+function prefbarSetCacheEnabled(value) {
+  goPrefBar.SetPref("browser.cache.disk.enable", value);
+  goPrefBar.SetPref("browser.cache.memory.enable", value);
+}
+
+function prefbarGetCacheEnabled() {
+  return (goPrefBar.GetPref("browser.cache.disk.enable") &&
+          goPrefBar.GetPref("browser.cache.memory.enable"));
 }
 
 //

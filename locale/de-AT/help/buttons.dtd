@@ -48,11 +48,8 @@
 <!ENTITY Flash.label "Flash">
 <!ENTITY proxylist.label "Proxylist">
 <!ENTITY pipelining.label "Pipelining">
-<!ENTITY diskcache.label "Disk Cache">
-<!ENTITY memcache.label "Mem Cache">
+<!ENTITY cacheenabled.label "Cache">
 <!ENTITY sendreferrer.label "Send Referrer">
-<!ENTITY clearmemcache.label "Clear Mem Cache">
-<!ENTITY cleardiskcache.label "Clear Disk Cache">
 <!ENTITY clearallcache.label "Clear Cache">
 <!ENTITY clearhist.label "Clear History">
 <!ENTITY clearurlbar.label "Clear Location Bar">
@@ -102,12 +99,9 @@
 <!ENTITY cookies.desc "Dies schaltet die Cookie-Einstellungen zwischen &quot;Alle Cookies akzeptieren&quot; (wenn aktiviert) und &quot;Keine Cookies akzeptieren&quot; (wenn deaktiviert) um.">
 <!ENTITY cookiewarning.desc "Wenn aktiviert, dann wird Mozilla eine Warnung anzeigen, bevor eine Seite die Erlaubnis erhält, ein Cookie zu setzen, oder ein Cookie zu verändern.">
 <!ENTITY pipelining.desc "Aktiviert oder deaktiviert HTTP Pipelining. Dies ist eine experimentelle Funktion, um die Seitenladegeschwindigkeit zu verbessern, aber wird nicht von allen Servern unterstützt.">
-<!ENTITY diskcache.desc "Dies schaltet den Festplatten-Cache ein oder aus. Diese Funktion könnte einen Neustart erfordern, um zu funktionieren.">
-<!ENTITY memcache.desc "Dies schaltet den Speicher-Cache ein oder aus. Diese Funktion könnte einen Neustart erfordern, um zu funktionieren.">
+<!ENTITY cacheenabled.desc "Dies schaltet den Browser-Cache ein oder aus.">
 <!ENTITY sendreferrer.desc " Wenn diese Checkbox deaktiviert ist, wird Mozilla keine Referrer-Adressen mehr bei Seitenanfragen senden.">
-<!ENTITY clearmemcache.desc "Dies leert Mozillas Speicher-Cache, ausgenommen sind XUL Chrome Elemente.">
-<!ENTITY cleardiskcache.desc "Dies leert Mozillas Festplatten-Cache. Gut zum Testen von Seiten.">
-<!ENTITY clearallcache.desc "Dies leert Mazillas Speicher-Cache und Festplatten-Cache, genau so wie wenn Sie zuerst auf &quot;Clear Disk Cache&quot; und dann &quot;Clear Mem Cache&quot; klicken.">
+<!ENTITY clearallcache.desc "Dies leert Mozillas Browser-Cache.">
 <!ENTITY clearhist.desc "Leert Mozillas Browser History.">
 <!ENTITY clearurlbar.desc "Leert die History der URLs, die in die Adressleiste eigegeben wurden.">
 <!ENTITY clearurlbar.ffnote "Dieser Button funktioniert nicht mehr mit Firefox 3.0 oder höher, da dort die Lesezeichen und die reguläre History zum Füllen des Dropdown-Menüs in der Adresszeile genutzt werden. Sie können den Button &quot;&clearhist.label;&quot; als Ersatz verwenden.">
