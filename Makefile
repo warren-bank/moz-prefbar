@@ -27,8 +27,7 @@ xpi: jar
                          components/goprefbar.js \
                          defaults/preferences/prefs.js \
                          chrome.manifest \
-                         install.rdf \
-                         install.js
+                         install.rdf
 
 clean:
 	rm -f prefbar-trunk.xpi
