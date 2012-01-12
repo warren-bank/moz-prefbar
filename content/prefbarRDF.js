@@ -255,7 +255,11 @@ function ReadFormatVersion(aDS) {
   var lit = aDS.GetTarget(RDFService.GetResource("urn:prefbar:info"),
                           RDFService.GetResource(NC + "formatversion"),
                           true);
-  return lit ? lit.Value : 0;
+  if (lit) {
+    lit.QueryInterface(Components.interfaces.nsIRDFLiteral);
+    return lit.Value;
+  }
+  return 0;
 }
 
 const FormatVersion = 2; // Last used RDF format version
