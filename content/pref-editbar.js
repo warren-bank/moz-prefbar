@@ -529,7 +529,7 @@ function RenderTree(aTree, aIsSubmenu) {
       treecell1.setAttribute("label", "------------------");
       break;
     case "spacer":
-      treecell1.setAttribute("label", "(spacer)");
+      treecell1.setAttribute("label", goPrefBar.GetString("pref-editbar.properties", "spacer.label"));
       break;
     default:
       treecell1.setAttribute("label", item.label);
