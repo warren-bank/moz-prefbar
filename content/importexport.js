@@ -155,11 +155,13 @@ function Import(aWin, aFile, aImportType) {
 
       // Try to localize imported button
       var niceid = childid.replace(/^prefbar:button:/, "");
-      try {
-        if (aImportType != ImportType_Import ||
-            impitem.label == goPrefBar.GetString("buttons.properties", niceid + "._label"))
-          impitem.label = goPrefBar.GetString("buttons.properties", niceid + ".label");
-      } catch(e) {}
+      if (impitem.label) {
+        try {
+          if (aImportType != ImportType_Import ||
+              impitem.label == goPrefBar.GetString("buttons.properties", niceid + "._label"))
+            impitem.label = goPrefBar.GetString("buttons.properties", niceid + ".label");
+        } catch(e) {}
+      }
       if (impitem.items) {
         for (var index = 0; index < impitem.items.length; index++) {
           try {
