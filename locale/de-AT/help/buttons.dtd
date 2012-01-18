@@ -25,18 +25,18 @@
 <!ENTITY no "NEIN">
 
 <!-- Labels of buttons -->
-<!ENTITY back.label "Back">
-<!ENTITY forward.label "Forward">
-<!ENTITY reload.label "Reload">
-<!ENTITY stop.label "Stop">
+<!ENTITY back.label "Zurück">
+<!ENTITY forward.label "Vor">
+<!ENTITY reload.label "Neu laden">
+<!ENTITY stop.label "Stopp">
 <!ENTITY home.label "Home">
 <!ENTITY tabjavascript.label "Javascript (Tab)">
-<!ENTITY tabimages.label "Images (Tab)">
+<!ENTITY tabimages.label "Bilder (Tab)">
 <!ENTITY tabplugins.label "Plugins (Tab)">
 <!ENTITY fonts.label "Fonts">
-<!ENTITY colors.label "Colors">
-<!ENTITY systemcolors.label "System Colors">
-<!ENTITY images.label "Images">
+<!ENTITY colors.label "Farben">
+<!ENTITY systemcolors.label "Systemfarben">
+<!ENTITY images.label "Bilder">
 <!ENTITY animation.label "Animation">
 <!ENTITY javascript.label "JavaScript">
 <!ENTITY java.label "Java">
@@ -44,33 +44,33 @@
 <!ENTITY proxies.label "Proxies">
 <!ENTITY proxymenulist.label "Proxy Menulist">
 <!ENTITY cookies.label "Cookies">
-<!ENTITY cookiewarning.label "Cookie Warning">
+<!ENTITY cookiewarning.label "Cookie Warnung">
 <!ENTITY Flash.label "Flash">
-<!ENTITY proxylist.label "Proxylist">
+<!ENTITY proxylist.label "Proxyserver-Liste">
 <!ENTITY pipelining.label "Pipelining">
 <!ENTITY cacheenabled.label "Cache">
-<!ENTITY sendreferrer.label "Send Referrer">
-<!ENTITY clearallcache.label "Clear Cache">
-<!ENTITY clearhist.label "Clear History">
-<!ENTITY clearurlbar.label "Clear Location Bar">
-<!ENTITY clearcookies.label "Clear Cookies">
-<!ENTITY clearall.label "Clear All">
+<!ENTITY sendreferrer.label "Referrer senden">
+<!ENTITY clearallcache.label "Cache leeren">
+<!ENTITY clearhist.label "History leeren">
+<!ENTITY clearurlbar.label "Adresszeile leeren">
+<!ENTITY clearcookies.label "Cookies leeren">
+<!ENTITY clearall.label "Alles leeren">
 <!ENTITY resize.label "Resize">
-<!ENTITY newtab.label "New Tab">
-<!ENTITY savepage.label "Save Page">
+<!ENTITY newtab.label "Neues Tab">
+<!ENTITY savepage.label "Seite speichern">
 <!ENTITY restoretab.label "Restore Tab">
 <!ENTITY killflash.label "Kill Flash">
 <!ENTITY fontdown.label "Font -">
 <!ENTITY fontup.label "Font +">
-<!ENTITY customize.label "Customize">
+<!ENTITY customize.label "Anpassen">
 <!ENTITY hidetoolbar.label "Hide Toolbar">
 <!ENTITY useragent.label "User Agent">
-<!ENTITY help.label "Help">
-<!ENTITY whatsnew.label "What's New">
-<!ENTITY prefbarhomepagelink.label "PrefBar homepage">
+<!ENTITY help.label "Hilfe">
+<!ENTITY whatsnew.label "Was ist neu">
+<!ENTITY prefbarhomepagelink.label "PrefBar Homepage">
 <!ENTITY mozilla.org.label "Mozilla.org">
 <!ENTITY mozillazine.org.label "MozillaZine.org">
-<!ENTITY prefbarlanglist.label "Language">
+<!ENTITY prefbarlanglist.label "Sprache">
 
 <!-- Button descriptions -->
 <!ENTITY back.desc "Dies ist ein sehr einfacher &quot;Zurück&quot; Button, der eine Seite in der Browser-History zurückspringt, genau so wie der &quot;Zurück&quot; Button in der Navigations-Symbolleiste.  Anders als der &quot;Zurück&quot; Button, in der Navigations-Symbolleiste, hat dieser Button keine Dropdown-Liste, mit den zuletzt gewählten Seiten, hat kein Icon und wird nicht deaktiviert, wenn es keine Seite zum zurückgehen gibt.  Wie gesagt, es ist nur ein einfacher &quot;Zurück&quot; Button.">

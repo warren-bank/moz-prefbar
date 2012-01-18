@@ -75,12 +75,12 @@
 <!ENTITY edituseragent.javascript.preface "Dies ist ein neues Feature, das mit PrefBar 3.3 gekommen ist. Sie können nun jedes der folgenden mit Javascript festlegen: useragent, appname, appversion und platform. Dies wird es erlauben, an noch mehr Browserweichen vorbeizukommen.">
 <!ENTITY edituseragent.javascript.howto "Um PrefBar mitzuteilen, dass Sie Javascript verwenden, müssen Sie dem Wert ein &quot;js:&quot; voranstellen. Zum Beispiel wäre dies die Zeichenfolge, die Sie eintragen würden, um Internet Explorer auf Windows XP vorzutäuschen:">
 
-<!ENTITY editproxylist.title "Proxylist">
+<!ENTITY editproxylist.title "Proxyserver-Liste">
 <!ENTITY editproxylist.howto "Eine Proxy Server Liste würde Ihnen nicht helfen, wenn es Ihnen nicht erlaubt wäre, Ihre Proxies hier einzutragen ;-) Sie können problemlos eigene Proxies nach folgender Syntax eintragen:">
 <!ENTITY editproxylist.sockshowto "Seit PrefBar 4.2 ist es möglich, auch SOCKS-Proxies in folgender Form in die Liste einzutragen:">
 <!ENTITY editproxylist.exampleinfo "In beiden Fällen ist &quot;$SERVER&quot; der Server-Name oder die Server-IP-Adresse und &quot;$PORT&quot; ist die Port-Nummer. FTP/HTTP und SOCKS-Proxies können in der Liste beliebig gemischt werden.">
 
-<!ENTITY editlanglist.title "Language list">
+<!ENTITY editlanglist.title "Sprach-Liste">
 <!ENTITY editlanglist.howto "Sie können hier ihre nach Ihren Wünschen Sprachkennungen hinzufügen, löschen oder verschieben.">
 
 <!ENTITY importexport.title "Importieren/Exportieren von Elementen">

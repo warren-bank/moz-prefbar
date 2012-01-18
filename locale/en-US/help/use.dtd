@@ -74,7 +74,7 @@
 <!ENTITY edituseragent.javascript.preface "This is a new feature which came with PrefBar 3.3. You may now specify each of the following using Javascript: useragent, appname, appversion and platform. This will allow you to pass even more browser selection scripts.">
 <!ENTITY edituseragent.javascript.howto "To tell PrefBar you like to use Javascript you have to prefix your value with &quot;js:&quot;. For example this would be the string you enter to spoof Internet Explorer on Windows XP:">
 
-<!ENTITY editproxylist.title "Proxylist">
+<!ENTITY editproxylist.title "Proxy Serverlist">
 <!ENTITY editproxylist.howto "A proxy server list won't help you if you wouldn't be allowed to enter your proxies here ;-) Feel free to add some in the following syntax:">
 <!ENTITY editproxylist.sockshowto "Starting with PrefBar 4.2, it's also possible to enter SOCKS proxies into the list, in the following form:">
 <!ENTITY editproxylist.exampleinfo "In both cases &quot;$SERVER&quot; is the server name or server IP and &quot;$PORT&quot; is the port number. You may mix FTP/HTTP and SOCKS proxies in your list, if you like.">

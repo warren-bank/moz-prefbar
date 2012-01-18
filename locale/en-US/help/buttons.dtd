@@ -45,7 +45,7 @@
 <!ENTITY cookies.label "Cookies">
 <!ENTITY cookiewarning.label "Cookie Warning">
 <!ENTITY Flash.label "Flash">
-<!ENTITY proxylist.label "Proxylist">
+<!ENTITY proxylist.label "Proxy Serverlist">
 <!ENTITY pipelining.label "Pipelining">
 <!ENTITY cacheenabled.label "Cache">
 <!ENTITY sendreferrer.label "Send Referrer">
