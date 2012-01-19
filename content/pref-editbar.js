@@ -437,6 +437,7 @@ function DropOnTree(event, tree) {
     for (var index = 0; index < tree.view.rowCount; index++) {
       if (tree.contentView.getItemAtIndex(index).id == gDragArray[0][0]) {
         tree.view.selection.rangedSelect(index, index + gDragArray.length - 1, false);
+        tree.treeBoxObject.ensureRowIsVisible(index);
         break;
       }
     }
