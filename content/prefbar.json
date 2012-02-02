@@ -433,16 +433,16 @@
   },
   "prefbar:button:prefbarlanglist":{
     "items":[
-      ["English",  "en-us"],
-      ["French",   "fr-fr"],
-      ["German",   "de-de"],
-      ["Japanese", "ja-jp"],
-      ["Spanish",  "es-es"]
+      ["Default",  "!RESET!"],
+      ["English",  "en-us,en"],
+      ["French",   "fr-fr,fr,en-us,en"],
+      ["German",   "de-de,de,en-us,en"],
+      ["Japanese", "ja,en-us,en"],
+      ["Spanish",  "es-es,es,en-us,en"]
     ],
     "label":"Language",
-    "type":"extlist",
-    "setfunction":"prefbarSetLanguage(value);",
-    "getfunction":"value = prefbarGetLanguage();",
+    "type":"menulist",
+    "prefstring":"intl.accept_languages",
     "dontupdatelistitems":true
   },
   "prefbar:info":{

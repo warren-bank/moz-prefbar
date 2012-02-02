@@ -530,31 +530,6 @@ function prefbarGetUseragent(context) {
 }
 
 //
-// Languages Menulist
-//
-
-function prefbarSetLanguage(aValue) {
-  if (aValue.match(/(\w+)-\w+/))
-    aValue += ", " + RegExp.$1;
-
-  if (!aValue.match(/^en-us/))
-    aValue += ", en-us";
-
-  if (!aValue.match(/^en-/))
-    aValue += ", en";
-
-  goPrefBar.SetPref("intl.accept_languages", aValue);
-}
-
-function prefbarGetLanguage() {
-  var prefstr = goPrefBar.PrefBranch.getComplexValue("intl.accept_languages", Components.interfaces.nsIPrefLocalizedString).data;
-  if (prefstr.match(/^\s*(\S+)\s*,/))
-    return RegExp.$1;
-
-  return "";
-}
-
-//
 // Restore Tab Button
 //
 function prefbarRestoreTab() {

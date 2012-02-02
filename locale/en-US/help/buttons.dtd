@@ -124,7 +124,7 @@
 <!ENTITY customize.desc "This will quickly take you to the preferences toolbar customization panel in the preferences dialog.">
 <!ENTITY hidetoolbar.desc "A button to hide the preferences toolbar. Does the same thing as pressing F8.">
 <!ENTITY proxylist.desc "A list, where you can add some proxies, you need, with the needed ports. This makes it easy to switch between the proxies.">
-<!ENTITY prefbarlanglist.desc "Enables to switch the language identifier, sent to webservers.">
+<!ENTITY prefbarlanglist.desc "Enables to switch the language identifier, sent to webservers. The entry &quot;Default&quot; resets the setting of this preference back to the default setting, the author of your Firefox/SeaMonkey language pack defined for your locale.">
 
 <!ENTITY separator1.desc "This is a separator to go between the navigation buttons and the home button (or whatever else you put to the the right of the navigation buttons). There are several separators defined in the prefbar button list, one for each group of items. They do take a small amound of horizontal space on the toolbar, but they make things look so nice that I'd recomend having them enabled, unless you have a really small moniter (or just want to enabled a large number of buttons at once.)">
 <!ENTITY separator2.desc "A separator, designed to go to the right of the home button. You can (of course) move this to where ever place on the toolbar you want.">

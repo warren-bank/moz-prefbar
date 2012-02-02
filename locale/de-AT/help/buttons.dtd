@@ -125,7 +125,7 @@
 <!ENTITY customize.desc "Dieser Button bringt Sie schnell zu den Prefbar-Einstellungen im Einstellungen-Dialog.">
 <!ENTITY hidetoolbar.desc "Ein Button, der die Preferences Toolbar ausblendet. Macht das gleiche, wie wenn F8 gedrückt wird.">
 <!ENTITY proxylist.desc "Eine Liste, in die benötigte Proxies mit den zugehörigen Ports eingetragen werden können. Dies macht es einfach, zwischen den Proxies zu wechseln.">
-<!ENTITY prefbarlanglist.desc "Ermöglicht das Umschalten der Sprachkennung, die an die Webserver übermittelt wird.">
+<!ENTITY prefbarlanglist.desc "Ermöglicht das Umschalten der Sprachkennung, die an die Webserver übermittelt wird. Der Eintrag &quot;Standard&quot; setzt die Einstellung zurück auf den Wert, den der Autor Ihres Firefox/SeaMonkey Sprachpakets für Ihre Sprachumgebung vorgesehen hat.">
 
 <!ENTITY separator1.desc "Dieser Abstandshalter kommt zwischen die Navigations-Buttons und den Home-Button (oder wo auch immer sie ihn an der rechten Seite der Navigations-Buttons anordnen). Es gibt mehrere Abstandshalter in der PrefBar Button-Liste, einen für jede Gruppe von Elementen. Sie brauchen ein wenig Platz auf der Toolbar, aber sie sorgen dafür, dass die Button-Anordnungen besser aussehen. Deshalb ist es empfehlenswert, die Abstandshalter aktiviert zu lassen, es sei denn Sie haben einen sehr kleinen Monitor (oder wollen eine große Anzahl von Buttons auf einmal aktiviert haben).">
 <!ENTITY separator2.desc "Ein Abstandshalter, der auf die rechte Seite des Home-Buttons gehört. Sie können ihn (natürlich) an jede beliebige Stelle auf der Toolbar verschieben.">
