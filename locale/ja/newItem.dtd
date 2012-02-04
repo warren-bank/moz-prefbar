@@ -1,0 +1,37 @@
+<!ENTITY new-item-title        "新しいボタンの作成">
+<!ENTITY edit-item-title       "ボタンの編集">
+
+<!ENTITY button-type-check     "チェックボックス"> 
+<!ENTITY button-type-button    "ボタン"> 
+<!ENTITY button-type-menulist  "メニューリスト">
+<!ENTITY button-type-link      "リンク"> 
+<!ENTITY button-type-label     "テキストラベル"> 
+<!ENTITY button-type-separator "区切り線"> 
+<!ENTITY button-type-spacer    "空白"> 
+<!ENTITY button-type-extlist   "拡張メニューリスト">
+<!ENTITY button-type-extcheck  "拡張チェックボックス">
+<!ENTITY button-type-submenu   "サブメニュー">
+
+<!ENTITY button-attr-data       "データ">
+
+<!ENTITY button-attr-id         "ID:">
+<!ENTITY button-attr-label      "表示名:">
+<!ENTITY button-attr-prefstring "Prefstring:">
+<!ENTITY button-attr-topref     "toPref:">
+<!ENTITY button-attr-frompref   "fromPref:">
+<!ENTITY button-attr-url        "URL:">
+<!ENTITY button-attr-hotkey     "ホットキー:">
+
+<!ENTITY button-attr-itemlabel  "表示名">
+<!ENTITY button-attr-itemvalue  "値">
+
+<!ENTITY button-preftype-common   "共通">
+<!ENTITY button-preftype-onclick   "onClick">
+<!ENTITY button-preftype-setfunction "Set-function">
+<!ENTITY button-preftype-getfunction "Get-function">
+<!ENTITY button-preftype-initfunction "Init-function">
+
+<!ENTITY button-update-caption "変更時に呼び出す:">
+<!ENTITY button-update-window "ウィンドウ">
+<!ENTITY button-update-tab "タブ">
+<!ENTITY button-update-url "URL">

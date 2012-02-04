@@ -1,0 +1,90 @@
+<!ENTITY intro "これは PrefBar のユーザーガイドです。PrefBar を使用するのに必要な情報はすべてこのページに収められています。">
+
+<!ENTITY showing.title "PrefBar を表示する">
+<!ENTITY showing.howto "PrefBar を表示するには [表示] -&gt; [表示/非表示] メニュー (Firefox の場合は [表示] -&gt; [ツールバー] メニュー) で PrefBar を選択するか、キーボードの [F8] キーを押してください。">
+
+<!ENTITY moving.title "ほかのツールバーに PrefBar ボタンを表示する">
+<!ENTITY moving.howto "PrefBar は新しいツールバーの形でインストールされますが、それはそのツールバー上でしか PrefBar のボタンを使用する事ができない、ということではありません。PrefBar は &quot;カスタマイズ可能なツールバー&quot; になっています。この事は PrefBar のツールバーに他の拡張機能のボタンを配置することや、逆に PrefBar のボタンを他のツールバーに配置できることを意味しています。実際に他のツールバーで PrefBar を表示する時はツールバー上で右クリックをして &quot;カスタマイズ...&quot; を選択し、移動したい項目をドラッグ &amp; ドロップしてください。">
+
+<!ENTITY menu.title "PrefBar をメニューボタンとして表示する">
+<!ENTITY menu.howto.beforelink "PrefBar はメニューボタン形式でも使用出来ます。このメニューボタンは &quot;PrefBar メニュー&quot; と呼ばれ、ツールバーのカスタマイズダイアログ (詳しくは次を参照: ">
+<!ENTITY menu.howto.afterlink ") から使用する事ができます。このボタンには PrefBar のすべての機能が収められているのでツールバーを使用したくない場合に便利です。">
+
+<!ENTITY customizing.title "PrefBar をカスタマイズする">
+<!ENTITY customizing.howto "PrefBar をカスタマイズする場合は PrefBar を右クリックし &quot;カスタマイズ...&quot; を選択してください(ツールバー形式のみ)。ブラウザのアドオンマネージャー等からもカスタマイズする事はできますが、コンテキストメニュー経由でカスタマイズダイアログを開く方が簡単でしょう。">
+<!ENTITY customizing.ui "カスタマイズウィンドウの左側に使用可能なボタンが、右側に現在ツールバーに表示中のボタンが表示されます。ボタンをツールバーに表示するには表示するボタンを左から右にドラッグ &amp; ドロップしてください。逆にボタンをツールバーから削除する時は、削除するボタンを右から左へドラッグ &amp; ドロップします。またドラッグ &amp; ドロップすることによって表示される順番を変更することも可能です。ボタンの編集などさらなる機能はコンテキストメニューから使用できます。">
+<!ENTITY customizing.attributes "新しいボタンの作成や編集をするさい次の属性を使用してボタンをカスタマイズできます:">
+
+<!ENTITY customizing.id.title "ID">
+<!ENTITY customizing.id.content "すべてのボタンには重複しない固有の ID を割り振る必要があります。ID の長さや使用できる文字に特に制限はありませんが、作成したボタンをインターネット上で公開する場合、すでに存在するボタンの ID と競合しないよう注意する必要があります。">
+
+<!ENTITY customizing.label.title "表示名">
+<!ENTITY customizing.label.content "これはボタンの表示名です。">
+
+<!ENTITY customizing.onclick.title "onClick">
+<!ENTITY customizing.onclick.content "この属性はボタン形式でのみ使用出来ます。マルチラインエディターを使用して実行したいコードを入力します。ここで書かれたコードはボタンがクリックされると実行されます">
+
+<!ENTITY customizing.prefstring.title "Prefstring">
+<!ENTITY customizing.prefstring.content "制御したいブラウザの設定名を入力します。一般的にブラウザで使用可能な設定名を見つけるにはオプション画面等のソースコードをみるか about:config を調べる必要があります。">
+
+<!ENTITY customizing.frompref-topref.title "fromPref &amp; topPref">
+<!ENTITY customizing.frompref-topref.applies "この属性はチェックボックスでのみ使用出来ます。ブラウザの設定は (整数値、真偽値、文字列など) 複数の形式にくわえ、そのうちの幾つかは特殊な値を使用します。fromPref &amp; toPref 属性はそれら設定の状態をチェックボックスに表示します。">
+<!ENTITY customizing.frompref-topref.frompref "fromPref 属性はチェックボックスの状態 (true か false) を返します。また JavaScript 形式である必要があります。変数 &quot;value&quot; はチェックボックスの値を返します。そして fromPref 属性に用意されている値は &quot;value&quot; と &quot;!value&quot; です。(あるいは設定の値が整数値の場合 &quot;Boolean(value)&quot; と &quot;Boolean(!value)&quot; が使用されます。いずれの場合にしても最終的な出力は真偽値になります。) また設定の値が文字列の場合、特殊な toPref および fromPref の値を要求します。)">
+<!ENTITY customizing.frompref-topref.topref "toPref 属性は fromPref 属性の逆の動作をします。つまりチェックボックスの状態をブラウザの設定に反映します。fromPref 属性同様 JavaScript 形式でなくてはならず、ブラウザの設定が使用するのと同じ形式の値である必要があります。変数 &quot;value&quot; にはチェックボックスの状態が &quot;true&quot; か &quot;false&quot; で出力されます。そして toPref 属性に用意されている値は &quot;value&quot; と &quot;!value&quot; に &quot;2*Number(!value)&quot; です。">
+<!ENTITY customizing.frompref-topref.prefinfo "ブラウザの設定名とその値はドキュメント化されていないため、それらを探すには設定項目を制御するための UI のソースコードを見るのが最善の方法です。もし探している設定が UI 化されていないなら根気が必要となるでしょう。">
+
+<!ENTITY customizing.getfunction-setfunction.title "Get-function &amp; Set-function">
+<!ENTITY customizing.getfunction-setfunction.applies "この属性はボタンと拡張チェックボックスに拡張メニューリストでのみ使用出来ます。この属性を使用すると指定された PrefBar ボタンがクリックしたりチェックボックスやリストに変更があった時に JavaScript を使用してブラウザの設定の変更や取得を行います。">
+<!ENTITY customizing.getfunction-setfunction.getfunction "Get-function は JavaScript を使用してブラウザの設定を PrefBar ボタンに読み込みます。この機能は PrefBar が最新の状態にするたびに実行されます。PrefBar がブラウザの設定値を PreBar ボタンに反映させるために必ず &quot;value&quot; という変数に現在の値を代入してください。">
+<!ENTITY customizing.getfunction-setfunction.setfunction "Set-function は JavaScript を使用して PrefBar ボタンの値をブラウザの設定値に代入します。この機能は PrefBar のボタンの状態が変更されるたびに (リストの項目が選択されたりチェックボックスのチェックが付いたり外されたりする) 実行されいます。PrefBar ボタンの値は &quot;value&quot; という名前の変数に収納されています。">
+
+<!ENTITY customizing.initfunction.title "Init-function">
+<!ENTITY customizing.initfunction.content "Init-function は JavaScript を入力して使用します。ここで入力されたコードはボタンの初期化時に実行されます。ここでいうボタンの初期化時にはブラウザの起動時だけでなく PrefBar のボタンデータベースへの変更時も含まれます。ですからここに入力されたコードはセッション中に1回だけ実行されるものではない事に気をつけるべきです。">
+
+<!ENTITY customizing.label-value.title "表示名 &amp; 値">
+<!ENTITY customizing.label-value.content "メニューリスト形式のボタンでのみ使用出来ます。Prefstring で指定したブラウザへの設定の値と表示名を入力します。値に &quot;!RESET!&quot; と入れるならその設定はリセット (about:config で [リセット] を選択するのと同じ効果) が得られます。また表示名が入力されていない場合、その項目は無視され表示されません。">
+
+<!ENTITY customizing.url.title "URL">
+<!ENTITY customizing.url.content "クリックした時に表示するページの URL を入力します(これはリンクタイプでのみ使用できます)。">
+
+<!ENTITY customizing.hotkey.title "ホットキー">
+<!ENTITY customizing.hotkey.content "PrefBar ボタンに &quot;ホットキー&quot; を設定することで、キーボードからそのボタンの機能を呼び出せます。">
+
+<!ENTITY noeditbuttons.title "プリセットされたボタンを編集するべきではないのはなぜですか?">
+<!ENTITY noeditbuttons.why "カスタマイズの一環としてプリセットされているボタンに変更を加えるべきではありません。仮にプリセットされたボタンに変更を加えたとしても PrefBar のアップデート時にプリセットされたボタンも最新のものへ上書きされるので、変更はすべて元に戻ってしまいます。もしプリセットされたボタンに変更を加えたい場合は、カスタマイズウィンドウで変更を加えたいボタンを右クリックしコンテキストメニュー内にある &quot;コピー&quot; をクリックして作られた複製に変更を加えて使用してください。">
+<!ENTITY noeditbuttons.exceptions "ただし次の場合は除きます:">
+<!ENTITY noeditbuttons.exceptions.discussedin.beforelink "">
+<!ENTITY noeditbuttons.exceptions.discussedin.afterlink "にある、使用するのにボタンの編集を前提としているもの。">
+<!ENTITY noeditbuttons.exceptions.label "ボタンの表示名。<b>ボタンの表示名は、短くしたり、あなたが覚えやすいものといったように、好みに応じて自由に変更してください。</b>">
+<!ENTITY noeditbuttons.exceptions.selfcreated "もちろんあなたが自分で作ったボタンやインポートしたボタンはその対象ではありません。">
+<!ENTITY noeditbuttons.buildininfo "編集すべきでないボタンはヘルプページ内にあるボタンの一覧で知ることができます。もしボタンにバグを発見した場合は私に連絡をください。自分で修正して使い続けるべきではありません。PrefBar ボタンの修正は PrefBar チームが責任をもってやります。">
+
+<!ENTITY editbuttons.title "ボタンの編集方法">
+<!ENTITY editbuttons.preamble "いくつかのボタンの中には特殊な入力形式やプリセットされた変数を使用するものがあります。ここではそれら特殊なボタンの編集方法について説明します。">
+
+<!ENTITY editresize.title "画面の大きさ">
+<!ENTITY editresize.howto "画面の解像度を追加したい場合は次の形式で入力してください:">
+<!ENTITY editresize.example "<i>$WIDTH</i><b>x</b><i>$HEIGHT</i>">
+
+<!ENTITY edituseragent.title "ユーザーエージェント">
+<!ENTITY edituseragent.howto "次のふたつの方法でユーザーエージェントを追加できます:">
+<!ENTITY edituseragent.uastring.title "文字列を入力してユーザーエージェントを追加する">
+<!ENTITY edituseragent.uastring.howto "ユーザーエージェント文字列を入力することで、新しいユーザーエージェントを追加できます。例えば Linux 版 Mozilla 1.7.12 を追加する場合は次のように入力します:">
+<!ENTITY edituseragent.javascript.title "JavaScript を使用してユーザーエージェントを追加する">
+<!ENTITY edituseragent.javascript.preface "JavaScript を使用することでブラウザのユーザーエージェントや名前にバージョン、さらに使用している OS を分割して入力できます。">
+<!ENTITY edituseragent.javascript.howto "JavaScript を使用してユーザーエージェントを追加する場合、文字列の先頭は必ず &quot;js:&quot; で始めます。例えば Windows XP 版の Internet Explorer を追加する場合は次のように入力します:">
+
+<!ENTITY editproxylist.title "プロキシを選択">
+<!ENTITY editproxylist.howto "[プロキシを選択] ボタンは、あなたが使用するプロキシサーバーを設定しないと使用することができません。次の形式で設定してください:">
+<!ENTITY editproxylist.sockshowto "次の形式で SOCKS プロキシサーバーを使用出来ます:">
+<!ENTITY editproxylist.exampleinfo "&quot;$SERVER&quot; にはサーバーの名前か IP アドレスが &quot;$PORT&quot; にはポート番号が入ります。 FTP/HTTP と SOCKS プロキシサーバー をリストに加えることができます。">
+
+<!ENTITY editlanglist.title "言語識別子">
+<!ENTITY editlanglist.howto "言語識別子を自由に追加したり削除できます。">
+
+<!ENTITY importexport.title "ボタンのインポートとエクスポート">
+<!ENTITY importexport.howto "&quot;インポート&quot; と &quot;エクスポート&quot; 機能を使って PrefBar ボタンを &quot;btn&quot; ファイルとして保存したり、逆に PrefBar へボタンをインポートできます。エクスポートしたファイルをインターネット上で配布することであなたが作ったボタンを多くの PrefBar ユーザーに配ることも可能です。">
+<!ENTITY importexport.export.title "エクスポート">
+<!ENTITY importexport.export.howto "PrefBar ボタンをエクスポートするにはカスタマイズダイアログでエクスポートしたいボタンを右クリックし &quot;エクスポート&quot; を選択してください。保存先とファイル名を指定して &quot;保存&quot; をクリックすると指定した保存先に &quot;btn&quot; 拡張子のファイルが作成されます。">
+<!ENTITY importexport.import.title "インポート">
+<!ENTITY importexport.import.howto "&quot;btn&quot;　拡張子のファイルを簡単にインポートするにはカスタマイズダイアログで適当な PrefBar ボタンを右クリックし &quot;インポート&quot;  を選択して下さい。ファイルの選択画面でインポートしたい btn ファイルを選択し &quot;開く&quot; をクリックするとインポートが開始されます。もしインポートするボタンの &quot;Id&quot; が既に PrefBar で使用されている場合は上書きを行うか確認します。">

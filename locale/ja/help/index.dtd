@@ -1,0 +1,13 @@
+<!ENTITY version "バージョン 1.2.21. 最終更新日: 2008年 5月 24日">
+<!ENTITY welcome "PrefBar のヘルプドキュメントへようこそ。">
+<!ENTITY currentlyusing "この PrefBar について: Prefbar ">
+<!ENTITY builddate " 作成日時: ">
+<!ENTITY onlinenote "このドキュメントをオンラインで読んでいる場合は現在使っているバージョンを正しく表示できません。">
+<!ENTITY pleaseselect "上部のメニューから読みたいセクションを選択するか、各ページの概要をごらんください。">
+
+<!ENTITY use.desc "PrefBar を使用するうえで必要な情報が書かれています。">
+<!ENTITY newstuff.desc "現在使用しているバージョンの新機能一覧。">
+<!ENTITY buttons.desc "PrefBar で使用可能なボタンとその機能の一覧。">
+<!ENTITY faq.desc "PrefBar を使用するにあたって出くわす代表的な質問の答えが書かれています。もしもここにあなたの疑問が載せられていない場合はメールで連絡してください。">
+<!ENTITY credits.desc "クレジットとライセンスに関して。">
+<!ENTITY feedback.desc "作者への連絡方法。">

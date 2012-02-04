@@ -1,0 +1,9 @@
+<!ENTITY prefbar-toolbar.label  "PrefBar ツールバー">
+
+<!ENTITY prefbar-help-main      "PrefBar ヘルプ">
+<!ENTITY prefbar-help-customize "カスタマイズ...">
+
+<!ENTITY prefbar-menu.label     "設定">
+<!ENTITY prefbar-menu.title     "PrefBar メニュー">
+
+<!ENTITY prefbar-toolbaritem.title "PrefBar ツールバーの項目">
