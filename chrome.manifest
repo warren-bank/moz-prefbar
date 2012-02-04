@@ -14,3 +14,4 @@ content	prefbar	jar:chrome/prefbar.jar!/content/
 skin	prefbar	classic/1.0	jar:chrome/prefbar.jar!/skin/
 locale	prefbar	en-US	jar:chrome/prefbar.jar!/locale/en-US/
 locale	prefbar	de-AT	jar:chrome/prefbar.jar!/locale/de-AT/
+locale	prefbar	ja	jar:chrome/prefbar.jar!/locale/ja/
