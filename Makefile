@@ -33,3 +33,15 @@ clean:
 	rm -f prefbar-trunk.xpi
 	rm -f chrome/prefbar.jar
 	if [ -d chrome ]; then rmdir chrome; fi
+
+check-tree:
+	@if [ -d .git ]; then \
+	  if [ -n "$$(git status --porcelain)" ]; then \
+	    echo "There are uncommitted changes!"; exit 1; \
+	  fi \
+	fi
+
+# Fetches japanese locale, which is developed external on a SVN server.
+update-ja: check-tree
+	@if [ -d locale/ja ]; then rm -r locale/ja; fi
+	svn export https://minefield-jlp.googlecode.com/svn/trunk/chrome/locale/prefbar/ locale/ja/
