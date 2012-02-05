@@ -105,12 +105,12 @@
   "prefbar:button:help":{
     "label":"PrefBar Help",
     "type":"link",
-    "url":"chrome://prefbar/locale/help/index.html"
+    "url":"chrome://prefbar/content/help/index.xhtml"
   },
   "prefbar:button:whatsnew":{
     "label":"What's New",
     "type":"link",
-    "url":"chrome://prefbar/locale/help/newstuff.html"
+    "url":"chrome://prefbar/content/help/newstuff.xhtml"
   },
   "prefbar:button:separator4":{
     "type":"separator"
