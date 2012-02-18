@@ -371,8 +371,9 @@ var ButtonHandling = {
 
       if (aDefaultset && defaultitem) activeitem = defaultitem;
 
-      if (aIsMenu)
-        activeitem.setAttribute("checked", "true");
+      if (aIsMenu) {
+        if (activeitem) activeitem.setAttribute("checked", "true");
+      }
       else {
         if (activeitem)
           menu.selectedItem = activeitem;
