@@ -309,12 +309,13 @@ function SetSpecialChecks(updatefor) {
 
   for (var i = 0; i < buttons.childNodes.length; i++) {
     var button = buttons.childNodes[i];
+
+    if (button.style.visibility == "hidden") break;
+
     if (button.tagName == "toolbaritem") button = button.firstChild;
 
-    if (button.collapsed == true) break;
-
     var data = gMainDS[button.id];
-    if (!data) alert(button.id);
+    if (!data) continue;
 
     var btnufor = data.browserbtnupdatefor;
     if (!btnufor) continue;
