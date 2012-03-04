@@ -68,23 +68,20 @@
     "items":[["Real UA",
         "!RESET!"
       ],
-      ["Moz 1.7.13 Lin",
-        "js:useragent=\"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.13) Gecko/20060417\"; appname=\"Netscape\"; appversion=\"5.0 (X11; en-US)\"; platform=\"Linux i686\";"
+      ["SM 2.7.2 Lin",
+        "js:useragent=\"Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20120216 SeaMonkey/2.7.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11)\"; platform=\"Linux i686\";"
       ],
-      ["NS 4.7 Mac",
-        "Mozilla/4.78 (Macintosh; U; PPC)"
+      ["FF 10.0.2 Lin",
+        "js:useragent=\"Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11)\"; platform=\"Linux i686\";"
       ],
-      ["NS 6.2 Lin",
-        "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.4) Gecko/20011022 Netscape6/6.2"
+      ["IE 9.0 Win7",
+        "js:useragent=\"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1)\"; appname=\"Microsoft Internet Explorer\"; appversion=\"5.0 (compatible; MSIE 9.0; Windows NT 6.1)\"; platform=\"Win32\";"
       ],
-      ["IE 6.0 WinXP",
-        "js:useragent=\"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\"; appname=\"Microsoft Internet Explorer\"; appversion=\"4.0 (compatible; MSIE 6.0; Windows NT 5.1)\"; platform=\"Win32\";"
+      ["Chrome",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21"
       ],
-      ["SM 1.0.8 Lin",
-        "js:useragent=\"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.10) Gecko/20070306 SeaMonkey/1.0.8\"; appname=\"Netscape\"; appversion=\"5.0 (X11; en-US)\"; platform=\"Linux i686\";"
-      ],
-      ["FF 2.0.0.2 Lin",
-        "js:useragent=\"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070220 Firefox/2.0.0.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11; en-US)\"; platform=\"Linux i686\";"
+      ["Safari",
+        "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1"
       ],
       ["Lynx",
         "Lynx/2.8.3rel.1 libwww-FM/2.14FM"
@@ -94,7 +91,7 @@
     "type":"extlist",
     "dontupdatelistitems":true,
     "setfunction":"prefbarSetUseragent(value);",
-    "getfunction":"var t = new Object;\nt.items = items; t.value = value;\nprefbarGetUseragent(t);\nitems = t.items; value = t.value;"
+    "getfunction":"value = prefbarGetUseragent(items);"
   },
   "prefbar:button:spacer0":{
     "type":"spacer"

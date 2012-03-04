@@ -453,80 +453,43 @@ function prefbarSavePage() {
 
 //
 // Useragent Menulist
-// This code handles useragent, appname, appversion and platform spoofing
-// If more than useragent is needed, then prefix the value with "js:"
-// and use Javascript syntax to set the variables "useragent", "appname",
-// "appversion" and "platform"
 //
 
-function prefbarSetUseragent(value) {
-  // This are the variables that may be changed in the short Javascript
-  // in menuitems value
-  var useragent;
-  var appname;
-  var appversion;
-  var platform;
-
-  if (value.substr(0,3) == "js:")
-    eval(value.substr(3));
-  else if (value == "!RESET!")
-    useragent = undefined;
-  else
-    useragent = value;
+function prefbarSetUseragent(aValue) {
+  var data = new Components.utils.Sandbox(window);
+  if (aValue.substr(0,3) == "js:")
+    Components.utils.evalInSandbox(aValue.substr(3), data);
+  else if (aValue != "!RESET!")
+    data.useragent = aValue;
 
   // Either set or reset the variables that may be changed using the user
   // agent menulist.
-  var pref = "general.useragent.override";
-  if (useragent == undefined)
-    goPrefBar.ClearPref(pref);
-  else
-    goPrefBar.SetPref(pref, useragent);
-  pref = "general.appname.override";
-  if (appname == undefined)
-    goPrefBar.ClearPref(pref);
-  else
-    goPrefBar.SetPref(pref, appname);
-  pref = "general.appversion.override";
-  if (appversion == undefined)
-    goPrefBar.ClearPref(pref);
-  else
-    goPrefBar.SetPref(pref, appversion);
-  pref = "general.platform.override";
-  if (platform == undefined)
-    goPrefBar.ClearPref(pref);
-  else
-    goPrefBar.SetPref(pref, platform);
+  for (var varname in {useragent:1, appname:1, appversion:1, platform:1}) {
+    var pref = "general." + varname + ".override";
+    if (data[varname] == undefined)
+      goPrefBar.ClearPref(pref);
+    else
+      goPrefBar.SetPref(pref, data[varname]);
+  }
 }
 
-function prefbarGetUseragent(context) {
-  var prefBranch = goPrefBar.PrefBranch;
-
-  if (!prefBranch.prefHasUserValue("general.useragent.override")) {
-    context.value = "!RESET!";
-    return;
-  }
+function prefbarGetUseragent(aItems) {
+  if (!goPrefBar.PrefBranch.prefHasUserValue("general.useragent.override"))
+    return "!RESET!";
 
   var uavalue = goPrefBar.GetPref("general.useragent.override");
-  for (var index = 0; index < context.items.length; index++) {
-    var curval = context.items[index][1];
-    if (curval.substr(0,3) == "js:") {
-      var useragent;
-      var appname;
-      var appversion;
-      var platform;
-      eval(curval.substr(3));
-      if (useragent == uavalue) {
-        context.value = curval;
-        break;
-      }
-    }
-    else {
-      if (curval == uavalue) {
-        context.value = curval;
-        break;
-      }
-    }
+  for (var index = 0; index < aItems.length; index++) {
+    var curval = aItems[index][1];
+    var data = new Components.utils.Sandbox(window);
+    if (curval.substr(0,3) == "js:")
+      Components.utils.evalInSandbox(curval.substr(3), data);
+    else
+      data.useragent = curval;
+
+    if (data.useragent == uavalue)
+      return curval;
   }
+  return undefined;
 }
 
 //
