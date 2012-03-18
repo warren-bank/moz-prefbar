@@ -4,7 +4,7 @@
 #
 
 VERSION=6.1.0
-BUILD=20110913
+BUILD=20120318
 
 all: patch jar xpi
 
