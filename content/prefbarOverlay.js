@@ -50,6 +50,7 @@ var DatabaseChanged = false;
 var gMainDS = goPrefBar.JSONUtils.mainDS;
 
 window.addEventListener("load", StartPrefBar, true);
+window.addEventListener("unload", Shutdown, false);
 
 function StartPrefBar(event) {
   window.removeEventListener("load", StartPrefBar, true);
@@ -70,6 +71,10 @@ function StartPrefBar(event) {
   appcontent.addEventListener("click", OnLinkClicked, false);
   appcontent.addEventListener("DOMContentLoaded", OnPageLoaded, false);
   appcontent.addEventListener("select", OnTabChanged, false);
+
+  // Init Pref observers
+  goPrefBar.PrefBranch.addObserver("extensions.prefbar.slimbuttons", PrefObserver, false);
+  goPrefBar.PrefBranch.addObserver("extensions.prefbar.hktoggle", PrefObserver, false);
 
   // Bugfix for Firefox. Older PrefBar versions used "goToggleToolbar" to
   // toggle the toolbar in Firefox, which used "hidden" to hide the toolbar
@@ -143,20 +148,25 @@ function StartPrefBar(event) {
   setTimeout(OnAfterCustomization, 0);
 }
 
-// preferences observer "driven" by goPrefBar
-function PrefObserver(subject, topic, data) {
-  var value;
-  switch (data) {
-  case "extensions.prefbar.slimbuttons":
-    value = goPrefBar.GetPref(data);
-    var buttons = document.getElementById("prefbar-buttons");
-    if (buttons) buttons.setAttribute("prefbarslimbuttons", value);
-    break;
-  case "extensions.prefbar.hktoggle":
-    UpdateToggleKey();
-    break;
-  }
+function Shutdown(aEvent) {
+  goPrefBar.PrefBranch.removeObserver("extensions.prefbar.slimbuttons", PrefObserver);
+  goPrefBar.PrefBranch.removeObserver("extensions.prefbar.hktoggle", PrefObserver);
 }
+
+var PrefObserver = {
+  observe: function(aSubject, aTopic, aData) {
+    switch (aData) {
+    case "extensions.prefbar.slimbuttons":
+      var value = goPrefBar.GetPref(aData);
+      var buttons = document.getElementById("prefbar-buttons");
+      if (buttons) buttons.setAttribute("prefbarslimbuttons", value);
+      break;
+    case "extensions.prefbar.hktoggle":
+      UpdateToggleKey();
+      break;
+    }
+  }
+};
 
 function OnResize(aEvent) {
   // Resize events should not be handled for descendant nodes.

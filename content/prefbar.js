@@ -43,8 +43,8 @@
 
 const prefbarVersion = 20120318;
 
-var PrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
-var PrefBranch = PrefService.getBranch("");
+var PrefBranch = Components.classes["@mozilla.org/preferences-service;1"]
+  .getService(Components.interfaces.nsIPrefBranch2);
 var PromptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
 
 // This is the context, where buttons may place global stuff.
@@ -100,13 +100,6 @@ function Init() {
   // *and* all mail, composer, chat.... windows have been closed.
   ObserverService.addObserver(UAResetObserver,"quit-application",false);
 
-  // Init Preference Observers
-  var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-    .getService(Components.interfaces.nsIPrefBranch);
-  var pbi = prefs.QueryInterface(Components.interfaces.nsIPrefBranchInternal);
-  pbi.addObserver("extensions.prefbar.slimbuttons", PrefObserver, false);
-  pbi.addObserver("extensions.prefbar.hktoggle", PrefObserver, false);
-
   // Prefill web import whitelist
   ImportWhitelistPrefs();
 }
@@ -152,22 +145,6 @@ var UAResetObserver = {
     ClearPref("general.appname.override");
     ClearPref("general.appversion.override");
     ClearPref("general.platform.override");
-  }
-};
-
-// preferences observer
-var PrefObserver = {
-  observe: function(subject, topic, data) {
-    // Notify all open PrefBar instances about the change
-    var windowMediator = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
-    var browserWindows = windowMediator.getEnumerator("navigator:browser");
-    while(browserWindows.hasMoreElements()) {
-      var browserWindow = browserWindows.getNext();
-      if (browserWindow.PrefBarNS) {
-        dump("PrefObserver: Notifying browser Window about: " + data);
-        browserWindow.PrefBarNS.PrefObserver(subject, topic, data);
-      }
-    }
   }
 };
 
