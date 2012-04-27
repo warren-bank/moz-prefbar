@@ -85,18 +85,9 @@ function Init(aGO) {
   if (!gMainDSFile.exists()) WriteJSON(gMainDSFile, mainDS);
 }
 
-function MainDSUpdated() {
-  // Notify all open PrefBar instances about the change
-  var windowMediator = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
-  var browserWindows = windowMediator.getEnumerator("navigator:browser");
-  while(browserWindows.hasMoreElements()) {
-    var browserWindow = browserWindows.getNext();
-    if (browserWindow.PrefBarNS &&
-        !browserWindow.PrefBarNS.DatabaseChanged) {
-      goPrefBar.dump("MainDSUpdated: Notifying browser Window about change");
-      browserWindow.PrefBarNS.DatabaseChanged = true;
-    }
-  }
+function MainDSUpdated(aSource) {
+  // Notify anyone about the datasource change
+  goPrefBar.ObserverService.notifyObservers(null, "extensions-prefbar-json-changed", aSource)
 
   // Flush datasource file to hard drive
   WriteJSON(gMainDSFile, mainDS);

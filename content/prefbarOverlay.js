@@ -45,8 +45,6 @@
 // +-
 
 // goPrefBar sets this to true, if anything in database has changed
-var DatabaseChanged = false;
-
 var gMainDS = goPrefBar.JSONUtils.mainDS;
 
 window.addEventListener("load", StartPrefBar, true);
@@ -75,6 +73,8 @@ function StartPrefBar(event) {
   // Init Pref observers
   goPrefBar.PrefBranch.addObserver("extensions.prefbar.slimbuttons", PrefObserver, false);
   goPrefBar.PrefBranch.addObserver("extensions.prefbar.hktoggle", PrefObserver, false);
+
+  goPrefBar.ObserverService.addObserver(JSONObserver, "extensions-prefbar-json-changed", false);
 
   // Bugfix for Firefox. Older PrefBar versions used "goToggleToolbar" to
   // toggle the toolbar in Firefox, which used "hidden" to hide the toolbar
@@ -151,6 +151,7 @@ function StartPrefBar(event) {
 function Shutdown(aEvent) {
   goPrefBar.PrefBranch.removeObserver("extensions.prefbar.slimbuttons", PrefObserver);
   goPrefBar.PrefBranch.removeObserver("extensions.prefbar.hktoggle", PrefObserver);
+  goPrefBar.ObserverService.removeObserver(JSONObserver, "extensions-prefbar-json-changed");
 }
 
 var PrefObserver = {
@@ -165,6 +166,13 @@ var PrefObserver = {
       UpdateToggleKey();
       break;
     }
+  }
+};
+
+var DatabaseChanged = false;
+var JSONObserver = {
+  observe: function(aSubject, aTopic, aData) {
+    DatabaseChanged = true;
   }
 };
 
@@ -275,18 +283,6 @@ function OnLinkClicked(event) {
                       "prefbarURLImport",
                       "chrome,centerscreen,modal,titlebar",
                       href);
-
-    // We have to get sure. trees of possible open editbar_panes are rerendered.
-    var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
-      .getService(Components.interfaces.nsIWindowMediator);
-    var prefWin = wm.getMostRecentWindow("prefbar:preferences");
-    if (!prefWin)
-      prefWin = wm.getMostRecentWindow("mozilla:preferences");
-    if (prefWin) {
-      var editbar_pane = prefWin.document.getElementById("prefbar_editbar_pane");
-      if (editbar_pane && editbar_pane.RenderBothTrees)
-        editbar_pane.RenderBothTrees();
-    }
 
     event.stopPropagation();
     event.preventDefault();

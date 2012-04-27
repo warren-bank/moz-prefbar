@@ -50,11 +50,6 @@ function resetButton() {
   if (resetwanted) {
     goPrefBar.ImpExp.Import(window, "chrome://prefbar/content/prefbar.json", goPrefBar.ImpExp.ImportType_Reset);
     goPrefBar.msgAlert(window, goPrefBar.GetString("pref-options.properties", "resetfinished"));
-
-    // If editbar pane exists and is loaded, then re-render trees on it
-    var editbar_pane = document.getElementById("prefbar_editbar_pane");
-    if (editbar_pane && editbar_pane.RenderBothTrees)
-      editbar_pane.RenderBothTrees();
   }
 }
 

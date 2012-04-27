@@ -46,6 +46,9 @@ const prefbarVersion = 20120318;
 var PrefBranch = Components.classes["@mozilla.org/preferences-service;1"]
   .getService(Components.interfaces.nsIPrefBranch2);
 var PromptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
+var ObserverService = Components.classes["@mozilla.org/observer-service;1"]
+  .getService(Components.interfaces.nsIObserverService);
+
 
 // This is the context, where buttons may place global stuff.
 var buttons = new Object();
@@ -87,9 +90,6 @@ function Init() {
   Include("chrome://prefbar/content/importexport.js", this.ImpExp);
   ImpExp.Init(this);
 
-  // Init observers
-  var ObserverService = Components.classes["@mozilla.org/observer-service;1"].getService();
-  ObserverService = ObserverService.QueryInterface(Components.interfaces.nsIObserverService);
   // Init observer for listening on Profile changes via "Extras ->
   // Change Profile". In this situation we have to "re-initialise" some
   // parts of PrefBar

@@ -110,12 +110,14 @@ function dialogAccept() {
   if (gInEditMode) {
     if(window.frames[0].verifyData()) {
       window.frames[0].editItem();
+      goPrefBar.JSONUtils.MainDSUpdated();
       return true;
     }
   }
   else {
     if(window.frames[0].verifyDataNew()) {
       window.frames[0].createNewItem();
+      goPrefBar.JSONUtils.MainDSUpdated("newItem");
       return true;
     }
   }

@@ -48,6 +48,8 @@ var enabledTree = null;
 var gMainDS = null;
 
 function Startup() {
+  window.addEventListener("unload", Shutdown, false);
+  goPrefBar.ObserverService.addObserver(JSONObserver, "extensions-prefbar-json-changed", false);
   goPrefBar.Include("chrome://global/content/contentAreaUtils.js", this);
   setTimeout(DelayedStartup, 0);
 }
@@ -66,6 +68,19 @@ function DelayedStartup() {
   if (allTree.view) allTree.view.selection.clearSelection();
   if (enabledTree.view) enabledTree.view.selection.select(0);
 }
+
+function Shutdown() {
+  goPrefBar.ObserverService.removeObserver(JSONObserver, "extensions-prefbar-json-changed");
+}
+
+var JSONObserver = {
+  observe: function(aSubject, aTopic, aData) {
+    if (aData != "pref-editbar.js")
+      RenderBothTrees();
+    if (aData == "newItem")
+      enabledTree.view.selection.select(0);
+  }
+};
 
 function TreeClick(event) {
   if (event.detail != 2) return; // doubleclick
@@ -116,16 +131,7 @@ function PopupShowing() {
 
 function ItemNew(aType) {
   if (!aType) return;
-  var rows1 = enabledTree.view.rowCount;
   window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "newItemDialog", "chrome,titlebar,dialog,modal,resizable", aType);
-
-  RenderTree(enabledTree);
-  var rows2 = enabledTree.view.rowCount;
-
-  if (rows1 != rows2) {
-    goPrefBar.JSONUtils.MainDSUpdated();
-    enabledTree.view.selection.select(0);
-  }
 }
 
 function prefbarItemEdit() {
@@ -134,9 +140,6 @@ function prefbarItemEdit() {
   var selItemId = selections[0];
 
   window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,modal,resizable", selItemId);
-
-  RenderTree(gActiveTree);
-  goPrefBar.JSONUtils.MainDSUpdated();
 }
 
 
@@ -177,7 +180,7 @@ function prefbarItemDelete() {
   }
 
   RenderTree(gActiveTree);
-  goPrefBar.JSONUtils.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
 }
 
 function ItemCopy() {
@@ -224,7 +227,7 @@ function ItemCopy() {
 
   RenderTree(gActiveTree);
   gActiveTree.view.selection.select(0);
-  goPrefBar.JSONUtils.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
 }
 
 function prefbarItemExport() {
@@ -239,9 +242,6 @@ function prefbarItemExport() {
   var res=fp.show();
   if (res==nsIFilePicker.returnOK || res == nsIFilePicker.returnReplace) {
     var selections = prefbarGetTreeSelections(gActiveTree);
-
-
-
     goPrefBar.ImpExp.Export(window, selections, fp.file);
   }
 }
@@ -260,8 +260,6 @@ function prefbarItemImport() {
   if (res==nsIFilePicker.returnOK) {
     goPrefBar.ImpExp.Import(window, fp.file);
   }
-
-  RenderBothTrees();
 }
 
 function OnLinkClick(aEvent) {
@@ -430,7 +428,7 @@ function DropOnTree(event, tree) {
   // Focus target tree
   tree.focus();
   RenderBothTrees();
-  goPrefBar.JSONUtils.MainDSUpdated();
+  goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
 
   // Add selection for newly added items
   if (dragcnt > 0) {
