@@ -47,8 +47,10 @@
         windowtype="prefbar:btneditor"
         title="&new-item-title;"
         edittitle="&edit-item-title;"
-        buttons="accept,cancel"
+        buttons="accept,cancel,extra1"
+        buttonlabelextra1="&apply-label;"
         ondialogaccept="return dialogAccept()"
+        ondialogextra1="dialogAccept()"
         onload="Startup()"
         height="400" width="500"
         persist="height width">

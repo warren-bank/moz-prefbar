@@ -35,3 +35,5 @@
 <!ENTITY button-update-window "Window">
 <!ENTITY button-update-tab "Tab">
 <!ENTITY button-update-url "URL">
+
+<!ENTITY apply-label "Apply">
