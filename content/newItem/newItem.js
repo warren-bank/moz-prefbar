@@ -75,6 +75,9 @@ function Startup() {
 
     var type = goPrefBar.JSONUtils.mainDS[arg].type
   }
+  else
+    document.documentElement.getButton("extra1").disabled = true;
+
   goPrefBar.dump("Item type: " + type);
 
   var page = gPages[type];
