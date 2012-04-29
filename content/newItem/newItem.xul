@@ -49,7 +49,7 @@
         buttons="accept,cancel,extra1"
         buttonlabelextra1="&apply-label;"
         ondialogaccept="return dialogAccept()"
-        ondialogextra1="dialogAccept()"
+        ondialogextra1="dialogApply()"
         onload="Startup()"
         height="400" width="500"
         persist="height width">

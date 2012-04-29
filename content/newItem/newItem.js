@@ -69,13 +69,10 @@ function Startup() {
 
   var type = arg;
   if (gInEditMode) {
-    var thiswin = document.getElementById("new-item-dialog");
-
     goPrefBar.dump("Editing item id: " + arg);
-
-    var type = goPrefBar.JSONUtils.mainDS[arg].type
+    type = goPrefBar.JSONUtils.mainDS[arg].type
   }
-  else
+  else if (type == "spacer" || type == "separator")
     document.documentElement.getButton("extra1").disabled = true;
 
   goPrefBar.dump("Item type: " + type);
@@ -105,6 +102,20 @@ function setupFrame() {
       if (idfield) idfield.focus();
       window.frames[0].setupNew();
     }
+  }
+}
+
+function dialogApply() {
+  var success = dialogAccept();
+  // If the item successfully has been newly created, then switch to edit mode.
+  if (success && !gInEditMode) {
+    var id = window.frames[0].document.getElementById("itemId").value;
+    if (window.arguments[0] == "submenu")
+      id = "prefbar:menu:" + id;
+    else
+      id = "prefbar:button:" + id;
+    window.arguments[0] = id;
+    Startup();
   }
 }
 
