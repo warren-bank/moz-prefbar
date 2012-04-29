@@ -131,15 +131,14 @@ function PopupShowing() {
 
 function ItemNew(aType) {
   if (!aType) return;
-  window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "newItemDialog", "chrome,titlebar,dialog,modal,resizable", aType);
+  goPrefBar.GoButtonEditor(window, aType);
 }
 
 function prefbarItemEdit() {
   var selections = prefbarGetTreeSelections(gActiveTree);
   if (selections.length != 1) return;
   var selItemId = selections[0];
-
-  window.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,modal,resizable", selItemId);
+  goPrefBar.GoButtonEditor(window, selItemId);
 }
 
 

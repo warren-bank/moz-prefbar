@@ -70,7 +70,6 @@ function Startup() {
   var type = arg;
   if (gInEditMode) {
     var thiswin = document.getElementById("new-item-dialog");
-    document.title = thiswin.getAttribute("edittitle");
 
     goPrefBar.dump("Editing item id: " + arg);
 

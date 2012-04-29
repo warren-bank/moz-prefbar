@@ -266,6 +266,20 @@ function OnAfterCustomization() {
   UpdateToolbar();
 }
 
+function OnContextPopup() {
+  var target = document.popupNode;
+  var edititem = document.getElementById("prefbar-menuitem-edit");
+  if (!target || !target.id || gMainDS[target.id].type == "spacer"
+                            || gMainDS[target.id].type == "separator") {
+    edititem.hidden = true;
+    return;
+  }
+
+  edititem.hidden = false;
+  var template = goPrefBar.GetString("prefbarOverlay.properties", "edit-button-template");
+  edititem.label = template.replace(/\$ID/, target.id.replace(/^\w+:\w+:/, ""));
+}
+
 function OnLinkClicked(event) {
   // Don't trust synthetic events
   if (!event.isTrusted) return true;

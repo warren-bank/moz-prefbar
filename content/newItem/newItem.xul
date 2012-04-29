@@ -46,7 +46,6 @@
         id="new-item-dialog"
         windowtype="prefbar:btneditor"
         title="&new-item-title;"
-        edittitle="&edit-item-title;"
         buttons="accept,cancel,extra1"
         buttonlabelextra1="&apply-label;"
         ondialogaccept="return dialogAccept()"

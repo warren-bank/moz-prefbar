@@ -1,5 +1,4 @@
-<!ENTITY new-item-title        "New Item">
-<!ENTITY edit-item-title       "Edit Item">
+<!ENTITY new-item-title        "PrefBar button editor">
 
 <!ENTITY button-type-check     "Checkbox">
 <!ENTITY button-type-button    "Button">

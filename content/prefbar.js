@@ -48,6 +48,7 @@ var PrefBranch = Components.classes["@mozilla.org/preferences-service;1"]
 var PromptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
 var ObserverService = Components.classes["@mozilla.org/observer-service;1"]
   .getService(Components.interfaces.nsIObserverService);
+var WindowMediator = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
 
 
 // This is the context, where buttons may place global stuff.
@@ -452,4 +453,12 @@ function GetPluginEnabled(aRegEx) {
     if (plugins[i].name.match(aRegEx) && !plugins[i].disabled) return true;
   }
   return false;
+}
+
+function GoButtonEditor(aWindow, aParam) {
+  var editWin = WindowMediator.getMostRecentWindow("prefbar:btneditor");
+  if (editWin)
+    editWin.focus();
+  else
+    aWindow.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,resizable", aParam);
 }

@@ -1,6 +1,5 @@
 <!-- -*- coding: utf-8 -*- -->
-<!ENTITY new-item-title        "Neues Element">
-<!ENTITY edit-item-title       "Element bearbeiten">
+<!ENTITY new-item-title        "PrefBar Button Editor">
 
 <!ENTITY button-type-check     "Checkbox">
 <!ENTITY button-type-button    "Button">

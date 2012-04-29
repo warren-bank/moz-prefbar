@@ -119,7 +119,10 @@
       <hbox id="prefbar-contents" flex="1">
         <toolbarbutton label="&prefbar-toolbaritem.title;"
                        class="prefbar-toolbar-customize"/>
-        <menupopup id="prefbar-contextmenu">
+        <menupopup id="prefbar-contextmenu"
+                   onpopupshowing="PrefBarNS.OnContextPopup();">
+          <menuitem id="prefbar-menuitem-edit"
+                    oncommand="goPrefBar.GoButtonEditor(window, document.popupNode.id);"/>
           <menuitem id="prefbar-help"
                     label="&prefbar-help-main;"
                     oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml');"/>
