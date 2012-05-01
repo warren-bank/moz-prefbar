@@ -113,18 +113,20 @@ function EnabledTreeFocus() {
 function PopupShowing() {
   if (!gActiveTree) return false;
 
-  var selectionCount = 0;
-  if (gActiveTree.view) selectionCount = gActiveTree.view.selection.count;
+  var selections = prefbarGetTreeSelections(gActiveTree);
 
   var editButton = document.getElementById("itemEdit");
   var copyButton = document.getElementById("itemCopy");
   var deleteButton = document.getElementById("itemDelete");
   var exportButton = document.getElementById("itemExport");
 
-  editButton.setAttribute("disabled", (selectionCount != 1));
-  copyButton.setAttribute("disabled", (selectionCount != 1));
-  deleteButton.setAttribute("disabled", (selectionCount <= 0));
-  exportButton.setAttribute("disabled", (selectionCount <= 0));
+  editButton.disabled = (selections.length != 1 ||
+                         gMainDS[selections[0]].type == "spacer" ||
+                         gMainDS[selections[0]].type == "separator");
+  copyButton.disabled = (selections.length != 1);
+  deleteButton.disabled = (selections.length <= 0);
+  exportButton.disabled = (selections.length <= 0);
+
   return true;
 }
 
@@ -137,8 +139,9 @@ function ItemNew(aType) {
 function prefbarItemEdit() {
   var selections = prefbarGetTreeSelections(gActiveTree);
   if (selections.length != 1) return;
-  var selItemId = selections[0];
-  goPrefBar.GoButtonEditor(window, selItemId);
+  var type = gMainDS[selections[0]].type;
+  if (type == "spacer" || type == "separator") return;
+  goPrefBar.GoButtonEditor(window, selections[0]);
 }
 
 
@@ -474,6 +477,13 @@ function restoreOpenStates() {
 
 function prefbarGetTreeSelections(tree) {
   var selections = [];
+
+  // TODO: Check if this is still needed on supported platforms
+  if (!tree.view) return selections;
+
+  // HACK! Backend returns an invalid selection range for empty trees
+  if (tree.view.rowCount == 0) return selections;
+
   var select = tree.view.selection;
   if (select) {
     var count = select.getRangeCount();
