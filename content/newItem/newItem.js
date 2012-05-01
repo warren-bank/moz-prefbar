@@ -45,8 +45,6 @@ const gPages = {"check": "newCheck.xul",
                 "menulist": "newMenulist.xul",
                 "link": "newLink.xul",
                 "text": "newText.xul",
-                "separator": "newSeparator.xul",
-                "spacer": "newSpacer.xul",
                 "extlist": "newExtlist.xul",
                 "extcheck": "newExtcheck.xul",
                 "submenu": "newSubmenu.xul"};
@@ -72,8 +70,6 @@ function Startup() {
     goPrefBar.dump("Editing item id: " + arg);
     type = goPrefBar.JSONUtils.mainDS[arg].type
   }
-  else if (type == "spacer" || type == "separator")
-    document.documentElement.getButton("extra1").disabled = true;
 
   goPrefBar.dump("Item type: " + type);
 

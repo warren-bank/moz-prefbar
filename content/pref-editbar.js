@@ -133,7 +133,17 @@ function PopupShowing() {
 
 function ItemNew(aType) {
   if (!aType) return;
-  goPrefBar.GoButtonEditor(window, aType);
+  switch (aType) {
+    case "spacer":
+    case "separator":
+      var id = goPrefBar.JSONUtils.GetAnonymousID();
+      gMainDS[id] = {type: aType};
+      gMainDS["prefbar:menu:enabled"].items.unshift(id);
+      goPrefBar.JSONUtils.MainDSUpdated("newItem");
+      break;
+    default:
+      goPrefBar.GoButtonEditor(window, aType);
+  }
 }
 
 function prefbarItemEdit() {

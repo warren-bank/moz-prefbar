@@ -160,3 +160,14 @@ function CanReadFormat(aDS) {
           info.formatversion >= 3 &&  // First used JSON datasource version
           info.formatversion <= gFormatVersion); // Current DS version
 }
+
+function GetAnonymousID() {
+  var uuidGenerator = Components.classes["@mozilla.org/uuid-generator;1"]
+    .getService(Components.interfaces.nsIUUIDGenerator);
+  var id;
+  do {
+    var uuid = uuidGenerator.generateUUID();
+    id = "prefbar:button:" + uuid.toString();
+  } while (id in mainDS);
+  return id;
+}
