@@ -51,6 +51,7 @@
         ondialogaccept="return dialogAccept()"
         ondialogextra1="dialogApply()"
         onload="Startup()"
+        onunload="Shutdown()"
         height="400" width="500"
         persist="height width">
 

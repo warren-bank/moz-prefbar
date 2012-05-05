@@ -49,9 +49,11 @@ const gPages = {"check": "newCheck.xul",
                 "extcheck": "newExtcheck.xul",
                 "submenu": "newSubmenu.xul"};
 var gInEditMode;
+var gButtonType;
 
 function Startup() {
   if (!window.arguments) return;
+  goPrefBar.ObserverService.addObserver(JSONObserver, "extensions-prefbar-json-changed", false);
 
   // Kill the Accesskey "Enter" in the Dialog, to make multiline textboxes
   // possible
@@ -62,18 +64,12 @@ function Startup() {
   }
 
   var arg = window.arguments[0];
-
   gInEditMode = arg.match(/^prefbar:/);
+  gButtonType = (gInEditMode) ? goPrefBar.JSONUtils.mainDS[arg].type : arg;
 
-  var type = arg;
-  if (gInEditMode) {
-    goPrefBar.dump("Editing item id: " + arg);
-    type = goPrefBar.JSONUtils.mainDS[arg].type
-  }
+  goPrefBar.dump("Item type: " + gButtonType);
 
-  goPrefBar.dump("Item type: " + type);
-
-  var page = gPages[type];
+  var page = gPages[gButtonType];
 
   window.frames[0].document.location.href = page;
 
@@ -81,6 +77,22 @@ function Startup() {
 
   setupFrame();
 }
+
+function Shutdown() {
+  goPrefBar.ObserverService.removeObserver(JSONObserver, "extensions-prefbar-json-changed");
+}
+
+var JSONObserver = {
+  observe: function(aSubject, aTopic, aData) {
+    if (gInEditMode) {
+      var id = window.arguments[0];
+      // If the button, we edit, was deleted or changed type, then close dialog
+      if (!(id in goPrefBar.JSONUtils.mainDS) ||
+          gButtonType != goPrefBar.JSONUtils.mainDS[id].type)
+        window.close();
+    }
+  }
+};
 
 function setupFrame() {
   var frame = document.getElementById("content-frame");

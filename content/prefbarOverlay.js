@@ -44,7 +44,6 @@
 // |  browser context (prefbarOverlay.xul)
 // +-
 
-// goPrefBar sets this to true, if anything in database has changed
 var gMainDS = goPrefBar.JSONUtils.mainDS;
 
 window.addEventListener("load", StartPrefBar, true);
