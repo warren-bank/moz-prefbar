@@ -455,10 +455,10 @@ function GetPluginEnabled(aRegEx) {
   return false;
 }
 
-function GoButtonEditor(aWindow, aParam) {
+function GoButtonEditor(aWindow, aParam, aParam2) {
   var editWin = WindowMediator.getMostRecentWindow("prefbar:btneditor");
   if (editWin)
     editWin.focus();
   else
-    aWindow.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,resizable", aParam);
+    aWindow.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,resizable", aParam, aParam2);
 }

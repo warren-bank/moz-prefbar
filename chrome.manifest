@@ -1,6 +1,7 @@
 overlay	chrome://navigator/content/navigator.xul	chrome://prefbar/content/prefbarOverlay.xul
 overlay	chrome://browser/content/browser.xul	chrome://prefbar/content/prefbarOverlay.xul
 overlay	chrome://communicator/content/pref/preferences.xul	chrome://prefbar/content/preferencesOverlay.xul
+overlay	about:config	chrome://prefbar/content/aboutConfigOverlay.xul
 
 style	chrome://global/content/customizeToolbar.xul	chrome://prefbar/skin/prefbarOverlay.css
 

@@ -39,6 +39,10 @@
 
 function setupNew() {
   mnueditSetupNew();
+
+  var pref = window.parent.arguments[1];
+  if (pref)
+    document.getElementById("itemPrefstring").value = pref;
 }
 
 function setupEdit() {
