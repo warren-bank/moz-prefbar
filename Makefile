@@ -6,7 +6,8 @@
 VERSION=6.1.0
 BUILD=20120318
 
-all: patch jar xpi
+.PHONY: all patch chrome xpi clean check-tree update-ja
+all: patch xpi
 
 patch:
 	sed -r "s/(<em:version>)[^<]*/\1$(VERSION)/" \
@@ -16,23 +17,27 @@ patch:
 	sed -r "s/(const prefbarVersion = )[^;]*/\1$(BUILD)/" \
     -i content/prefbar.js
 
-jar:
-	@if [ ! -d chrome ]; then mkdir chrome; fi
-	@if [ -f chrome/prefbar.jar ]; then rm chrome/prefbar.jar; fi
-	zip -r0 chrome/prefbar.jar content skin locale -x '*/CVS/*' -x '*~'
+chrome:
+	@mkdir -p chrome/icons/default
+	@rm -f chrome/prefbar.jar
+	zip -r0 chrome/prefbar.jar content skin locale -x '*~'
+#	Linux/Mac window icon for button editor. Just copy over...
+	cp skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.png
+#	Windows icon for button editor in proprietary ico format.
+#	Also store a 16x16px version to make it not look ugly on taskbar...
+	-convert skin/pblogo.png -scale 16x16 skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.ico
 
-xpi: jar
+xpi: chrome
 	@if [ -f prefbar-trunk.xpi ]; then rm prefbar-trunk.xpi; fi
-	zip -9 prefbar-trunk.xpi chrome/prefbar.jar \
-                         components/goprefbar.js \
-                         defaults/preferences/prefs.js \
-                         chrome.manifest \
-                         install.rdf
+	zip -r9 prefbar-trunk.xpi chrome \
+                          components/goprefbar.js \
+                          defaults/preferences/prefs.js \
+                          chrome.manifest \
+                          install.rdf
 
 clean:
 	rm -f prefbar-trunk.xpi
-	rm -f chrome/prefbar.jar
-	if [ -d chrome ]; then rmdir chrome; fi
+	rm -rf chrome
 
 check-tree:
 	@if [ -d .git ]; then \

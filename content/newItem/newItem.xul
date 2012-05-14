@@ -43,7 +43,7 @@
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
 
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        id="new-item-dialog"
+        id="prefbar-btneditor-dialog"
         windowtype="prefbar:btneditor"
         title="&new-item-title;"
         buttons="accept,cancel,extra1"

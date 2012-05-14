@@ -268,7 +268,7 @@ function msgPrompt(aWin, aText, aDefault, aTitle) {
 
 // Function for getting preferences
 // Much like "navigator.preference" but this one
-// - allowes to set a default for unset prefs
+// - allows to set a default for unset prefs
 // - doesn't cause silly exceptions
 function GetPref(aPrefstring, aDefault) {
   var type = PrefBranch.getPrefType(aPrefstring);
@@ -460,5 +460,5 @@ function GoButtonEditor(aWindow, aParam, aParam2) {
   if (editWin)
     editWin.focus();
   else
-    aWindow.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,resizable", aParam, aParam2);
+    aWindow.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,resizable,minimizable", aParam, aParam2);
 }
