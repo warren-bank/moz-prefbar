@@ -25,7 +25,7 @@ chrome:
 	cp skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.png
 #	Windows icon for button editor in proprietary ico format.
 #	Also store a 16x16px version to make it not look ugly on taskbar...
-	-convert skin/pblogo.png -scale 16x16 skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.ico
+	-convert -gamma 1.0 skin/pblogo.png -scale 16x16 skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.ico
 
 xpi: chrome
 	@if [ -f prefbar-trunk.xpi ]; then rm prefbar-trunk.xpi; fi
