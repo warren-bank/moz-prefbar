@@ -171,3 +171,11 @@ function GetAnonymousID() {
   } while (id in mainDS);
   return id;
 }
+
+function CheckNewID(aWin, aID) {
+  if (aID in mainDS) {
+    goPrefBar.msgAlert(aWin, goPrefBar.GetString("newItem.properties", "alertidinuse"));
+    return false;
+  }
+  return true;
+}

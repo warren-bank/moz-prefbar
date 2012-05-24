@@ -43,11 +43,7 @@ var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
 var gMainDS = goPrefBar.JSONUtils.mainDS;
 
 function checkId(itemId) {
-  if ("prefbar:button:" + itemId in gMainDS) {
-    goPrefBar.msgAlert(window, goPrefBar.GetString("newItem.properties", "alertidinuse"));
-    return false;
-  }
-  return true;
+  return goPrefBar.JSONUtils.CheckNewID(window, "prefbar:button:" + itemId);
 }
 
 function attributeNotEmpty(label, edit) {

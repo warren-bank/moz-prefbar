@@ -209,10 +209,7 @@ function ItemCopy() {
     if (id === null) return;
     if (!id.match(/[^\n\t\r ]/)) continue;
     copyid = prefix + id;
-    if (copyid in gMainDS) {
-      goPrefBar.msgAlert(window, goPrefBar.GetString("newItem.properties", "alertidinuse"));
-    }
-    else break;
+    if (goPrefBar.JSONUtils.CheckNewID(window, copyid)) break;
   }
 
   var copyitem = {};

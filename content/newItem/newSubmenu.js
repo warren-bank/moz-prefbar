@@ -53,10 +53,8 @@ function setupEdit() {
 function verifyDataNew() {
   var itemId = document.getElementById("itemId").value;
 
-  if ("prefbar:menu:" + itemId in gMainDS) {
-    goPrefBar.msgAlert(window, goPrefBar.GetString("newItem.properties", "alertidinuse"));
+  if (!goPrefBar.JSONUtils.CheckNewID(window, "prefbar:menu:" + itemId))
     return false;
-  }
 
   return verifyData();
 }
