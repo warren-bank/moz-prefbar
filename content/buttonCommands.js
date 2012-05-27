@@ -284,18 +284,18 @@ function prefbarRemoveElement(page, element) {
 // Proxy serverlist
 //
 
-function prefbarSetProxy(str) {
-  if (str == "")
+function prefbarSetProxy(aValue) {
+  if (aValue == "")
     goPrefBar.SetPref("network.proxy.type", 0);
-  else {
-    var args = str.split(":");
-    var host;
-    var port;
+  else if (aValue.match(/^(?:(\w+):)?(\[[^\]]+\]|[^:]+):(\d+)$/)) {
+    goPrefBar.SetPref("network.proxy.type", 1);
 
-    if (args.length == 3 && args[0] == "socks") {
-      host = args[1];
-      port = Number(args[2]);
+    var type = RegExp.$1;
+    var host = RegExp.$2;
+    var port = Number(RegExp.$3);
+    goPrefBar.dump("prefbarSetProxy: type: " + type + " host: " + host + " port: " + port);
 
+    if (type == "socks") {
       goPrefBar.SetPref("network.proxy.socks", host);
       goPrefBar.SetPref("network.proxy.socks_port", port);
       goPrefBar.ClearPref("network.proxy.http");
@@ -307,10 +307,7 @@ function prefbarSetProxy(str) {
       goPrefBar.ClearPref("network.proxy.gopher");
       goPrefBar.ClearPref("network.proxy.gopher_port");
     }
-    else if (args.length == 2) {
-      host = args[0];
-      port = Number(args[1]);
-
+    else {
       goPrefBar.SetPref("network.proxy.http", host);
       goPrefBar.SetPref("network.proxy.http_port", port);
       goPrefBar.SetPref("network.proxy.ssl", host);
@@ -322,16 +319,9 @@ function prefbarSetProxy(str) {
       goPrefBar.ClearPref("network.proxy.socks");
       goPrefBar.ClearPref("network.proxy.socks_port");
     }
-    else {
-      goPrefBar.msgAlert(window, 'Wrong proxy setting: "' + str + '"');
-      return;
-    }
-
-    // Maybe we shouldn't set the Proxy Type to "Manual" automatically,
-    // since some users may want to use "Proxy Serverlist" *and* "Proxy
-    // Menulist" at once...
-    goPrefBar.SetPref("network.proxy.type", 1);
   }
+  else
+    goPrefBar.msgAlert(window, 'Wrong proxy setting: "' + aValue + '"');
 }
 
 function prefbarGetProxy() {
