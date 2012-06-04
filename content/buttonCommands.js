@@ -486,22 +486,20 @@ function prefbarGetUseragent(aItems) {
 // Restore Tab Button
 //
 function prefbarRestoreTab() {
-  // Call Firefox 2.0 restore tab backend, if exists.
-  if (window.undoCloseTab) {
-    goPrefBar.dump("prefbarRestoreTab: Calling internal 'undoCloseTab'");
+  if (window.undoCloseTab) { // Firefox
+    goPrefBar.dump("prefbarRestoreTab: Calling Firefox 'undoCloseTab'");
     undoCloseTab();
-    return;
   }
-
-  // Call MultiZilla restore tab backend, if exists.
-  if ("restoreTab" in gBrowser) {
-    goPrefBar.dump("prefbarRestoreTab: Calling MultiZilla 'gBrowser.restoreTab'");
+  else if (gBrowser.undoCloseTab) { // SeaMonkey >= 2.1
+    goPrefBar.dump("prefbarRestoreTab: Calling SM 2.1 'gBrowser.undoCloseTab'");
+    gBrowser.undoCloseTab(0);
+  }
+  else if (gBrowser.restoreTab) { // SeaMonkey 2.0
+    goPrefBar.dump("prefbarRestoreTab: Calling SM 2.0 'gBrowser.restoreTab'");
     gBrowser.restoreTab(0);
-    return;
   }
-
-  // If we get up to here, then "Restore Tab" didn't work
-  goPrefBar.msgAlert(window, "Restore Tab doesn't currently work in the browser, you use.\nPlease file a bug at http://prefbar.tuxfamily.org/");
+  else
+    goPrefBar.msgAlert(window, "Restore Tab doesn't currently work in the browser, you use.\nPlease file a bug at http://prefbar.tuxfamily.org/");
 }
 
 //
