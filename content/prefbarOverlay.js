@@ -277,7 +277,7 @@ function OnContextPopup() {
 
   edititem.hidden = false;
   var template = goPrefBar.GetString("prefbarOverlay.properties", "edit-button-template");
-  edititem.label = template.replace(/\$ID/, target.id.replace(/^\w+:\w+:/, ""));
+  edititem.label = template.replace(/\$LABEL/, gMainDS[target.id].label);
 }
 
 function OnLinkClicked(event) {
