@@ -142,6 +142,9 @@ var UAResetObserver = {
       return;
     }
 
+    // Don't reset if there is a session to be restored on next start
+    if (GetPref("browser.sessionstore.resume_session_once", false)) return;
+
     ClearPref("general.useragent.override");
     ClearPref("general.appname.override");
     ClearPref("general.appversion.override");
