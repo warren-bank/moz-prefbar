@@ -458,5 +458,5 @@ function GoButtonEditor(aWindow, aParam, aParam2) {
   if (editWin)
     editWin.focus();
   else
-    aWindow.openDialog("chrome://prefbar/content/newItem/newItem.xul", "editItemDialog", "chrome,titlebar,dialog,resizable,minimizable", aParam, aParam2);
+    aWindow.openDialog("chrome://prefbar/content/buttoneditor/editWin.xul", "editItemDialog", "chrome,titlebar,dialog,resizable,minimizable", aParam, aParam2);
 }

@@ -55,7 +55,7 @@
         height="400" width="500"
         persist="height width">
 
-  <script type="application/x-javascript" src="chrome://prefbar/content/newItem/newItem.js"/>
+  <script type="application/x-javascript" src="chrome://prefbar/content/buttoneditor/editWin.js"/>
 
   <iframe id="content-frame"
           flex="1"
