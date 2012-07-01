@@ -76,20 +76,15 @@ function Init() {
   ClearPref("extensions.prefbar.display_on");
   ClearPref("extensions.prefbar.show_prefbar_menu");
 
-  // Load RDF stuff
-  this.RDF = new Object;
-  Include("chrome://prefbar/content/prefbarRDF.js", this.RDF);
-  RDF.Init(this);
-
-  // Load JSON stuff
-  this.JSONUtils = {};
-  Include("chrome://prefbar/content/json.js", this.JSONUtils);
-  JSONUtils.Init(this);
-
-  // Load Importer/Exporter
-  this.ImpExp = new Object;
-  Include("chrome://prefbar/content/importexport.js", this.ImpExp);
-  ImpExp.Init(this);
+  // Load submodules
+  var submodules = ["RDF", "JSONUtils", "ImpExp"];
+  for (var sindex = 0; sindex < submodules.length; sindex++) {
+    var submodule = submodules[sindex];
+    this[submodule] = {};
+    Include("chrome://prefbar/content/goprefbar/" + submodule + ".js",
+            this[submodule]);
+    this[submodule].Init(this);
+  }
 
   // Init observer for listening on Profile changes via "Extras ->
   // Change Profile". In this situation we have to "re-initialise" some
@@ -110,7 +105,7 @@ var ProfChangeObserver = {
     if (data == "switch") {
       // The user has switched the profile. At first we have to do
       // a check if PrefBar is available in the new profile
-      var urlprefbar = "chrome://prefbar/content/prefbar.js";
+      var urlprefbar = "chrome://prefbar/content/prefbarOverlay.js";
       if (!ChromeExists(urlprefbar)) {
         dump("PrefBar: Profile changed, but no PrefBar here...");
         return;

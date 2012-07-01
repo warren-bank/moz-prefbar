@@ -48,7 +48,7 @@ function Init(aGO) {
   goPrefBar = aGO;
   gMainDS = goPrefBar.JSONUtils.mainDS;
 
-  // If mainDS is empty (e.g. skeleton created by json.js), then forcefully
+  // If mainDS is empty (e.g. skeleton created by JSONUtils.js), then forcefully
   // trigger update to get it filled with contents of internal database
   if (gMainDS["prefbar:menu:enabled"].items.length == 0 &&
       gMainDS["prefbar:menu:disabled"].items.length == 0)

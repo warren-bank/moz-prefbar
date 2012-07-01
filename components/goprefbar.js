@@ -76,7 +76,7 @@ var objgoprefbar = {
 function GoPrefBar() {
   // Anything, this component does, is to load the global PrefBar stuff
   // into global context
-  objgoprefbar.Include("chrome://prefbar/content/prefbar.js", objgoprefbar);
+  objgoprefbar.Include("chrome://prefbar/content/goprefbar/main.js", objgoprefbar);
   objgoprefbar.Init();
   this.wrappedJSObject = objgoprefbar;
 }
