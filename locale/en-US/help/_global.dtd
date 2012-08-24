@@ -1,4 +1,5 @@
-<!ENTITY page.title "PrefBar Help">
+<!ENTITY page.title.left "PrefBar">
+<!ENTITY page.title.right "Help">
 
 <!ENTITY page.index.title "Introduction">
 <!ENTITY page.use.title "Using the Preferences Toolbar">

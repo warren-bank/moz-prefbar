@@ -1,4 +1,5 @@
-<!ENTITY page.title "PrefBar ヘルプ">
+<!ENTITY page.title.left "PrefBar">
+<!ENTITY page.title.right "ヘルプ">
 
 <!ENTITY page.index.title "はじめに">
 <!ENTITY page.use.title "PrefBar の使い方">

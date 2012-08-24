@@ -48,11 +48,14 @@
     <link rel="stylesheet" href="help.css" type="text/css"/>
     <link rel="icon" href="favicon.png" type="image/png"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>&page.newstuff.title; - &page.title;</title>
+    <title>&page.newstuff.title; - &page.title.left; &page.title.right;</title>
   </head>
   <body>
-    <div>
-      <img src="prefbarhelp.png" alt="&page.title;"/>
+    <div id="headerblock">
+      <span id="headertextleft">&page.title.left;</span><span id="headertextright">&nbsp;&page.title.right;
+        <span id="headerlineleft">&nbsp;</span>
+        <span id="headerlineright">&nbsp;</span>
+      </span>
     </div>
 
     <div id="buttons">
@@ -119,6 +122,7 @@
         <li>You no longer have to set an ID for "spacer" or "separator" items. If you click on "New" -> "Spacer"/"Separator", then the item is created immediately using an anonymous unique ID. (Manuel Reimer)</li>
         <li>"<a href="about:config">about:config</a>" integration, which allows you to enter the button editor directly from the about:config context menu. (Manuel Reimer)</li>
         <li>In SeaMonkey &gt;= 2.1, the "Restore Tab" button now restores more than three tabs, again. (Manuel Reimer)</li>
+        <li>Replaced image in page header of help pages with CSS-styled text. This makes PrefBar overall size a bit smaller and allows to translate the page header easily. (Manuel Reimer)</li>
         <li>Fixed Bug 24972 "UA reset may conflict with session restore" (Manuel Reimer)</li>
       </ul>
 

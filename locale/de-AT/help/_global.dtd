@@ -1,5 +1,6 @@
 <!-- -*- coding: utf-8 -*- -->
-<!ENTITY page.title "PrefBar Hilfe">
+<!ENTITY page.title.left "PrefBar">
+<!ENTITY page.title.right "Hilfe">
 
 <!ENTITY page.index.title "Einführung">
 <!ENTITY page.use.title "Preferences Toolbar benutzen">
