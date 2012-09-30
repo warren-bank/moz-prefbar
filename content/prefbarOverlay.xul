@@ -99,6 +99,21 @@
              tbalign="stretch"/>
   </toolbox>
 
+  <popupset id="mainPopupSet">
+    <menupopup id="prefbar-contextmenu"
+               onpopupshowing="PrefBarNS.OnContextPopup();">
+      <menuitem id="prefbar-menuitem-edit"
+                oncommand="goPrefBar.GoButtonEditor(window, document.popupNode.id);"/>
+      <menuitem id="prefbar-help"
+                label="&prefbar-help-main;"
+                oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml');"/>
+      <menuseparator/>
+      <menuitem id="prefbar-customize"
+                label="&prefbar-help-customize;"
+                oncommand="PrefBarNS.OpenPrefs();"/>
+    </menupopup>
+  </popupset>
+
   <toolbarpalette id="BrowserToolbarPalette">
     <toolbarbutton id="prefbar-menu"
                    class="toolbarbutton-1"
@@ -120,18 +135,6 @@
       <hbox id="prefbar-contents" flex="1">
         <toolbarbutton label="&prefbar-toolbaritem.title;"
                        class="prefbar-toolbar-customize"/>
-        <menupopup id="prefbar-contextmenu"
-                   onpopupshowing="PrefBarNS.OnContextPopup();">
-          <menuitem id="prefbar-menuitem-edit"
-                    oncommand="goPrefBar.GoButtonEditor(window, document.popupNode.id);"/>
-          <menuitem id="prefbar-help"
-                    label="&prefbar-help-main;"
-                    oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml');"/>
-          <menuseparator/>
-          <menuitem id="prefbar-customize"
-                    label="&prefbar-help-customize;"
-                    oncommand="PrefBarNS.OpenPrefs();"/>
-        </menupopup>
 
         <scrollbox id="prefbar-buttons"
                    style="min-width: 1px;"
