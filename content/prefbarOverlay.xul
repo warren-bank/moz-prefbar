@@ -104,7 +104,8 @@
                    class="toolbarbutton-1"
                    label="&prefbar-menu.label;"
                    title="&prefbar-menu.title;"
-                   type="menu">
+                   type="menu"
+                   context="prefbar-contextmenu">
       <menupopup
          id="prefbar-menu-popup"
          ref="prefbar:menu:enabled"
