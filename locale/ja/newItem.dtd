@@ -1,4 +1,4 @@
-<!ENTITY new-item-title        "新しいボタンの作成">
+<!ENTITY new-item-title        "PrefBar ボタンエディタ">
 
 <!ENTITY button-type-check     "チェックボックス"> 
 <!ENTITY button-type-button    "ボタン"> 
@@ -35,4 +35,4 @@
 <!ENTITY button-update-tab "タブ">
 <!ENTITY button-update-url "URL">
 
-<!ENTITY apply-label "Apply">
+<!ENTITY apply-label "適用">
