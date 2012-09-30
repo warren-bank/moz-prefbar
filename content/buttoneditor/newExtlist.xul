@@ -38,7 +38,7 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<?xul-overlay href="chrome://prefbar/content/newItem/menuEditorOverlay.xul"?>
+<?xul-overlay href="chrome://prefbar/content/buttoneditor/menuEditorOverlay.xul"?>
 
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
 
