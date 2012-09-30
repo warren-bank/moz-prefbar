@@ -104,13 +104,13 @@
                    class="toolbarbutton-1"
                    label="&prefbar-menu.label;"
                    title="&prefbar-menu.title;"
-                   type="menu"
-                   context="prefbar-contextmenu">
+                   type="menu">
       <menupopup
          id="prefbar-menu-popup"
          ref="prefbar:menu:enabled"
          onpopuphidden="setTimeout('PrefBarNS.ButtonHandling.update();');"
-         onpopupshowing="if (event.target == this) PrefBarNS.ButtonHandling.update(this);"/>
+         onpopupshowing="if (event.target == this) PrefBarNS.ButtonHandling.update(this);"
+         context="prefbar-contextmenu"/>
     </toolbarbutton>
 
     <toolbaritem id="prefbar-toolbaritem"
