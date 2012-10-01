@@ -89,7 +89,9 @@ var ButtonHandling = {
   update: function(aTarget, aForced) {
     goPrefBar.dump("ButtonHandling.update");
 
-    if (!aTarget) aTarget = document.getElementById("prefbar-buttons");
+    // SeaMonkey: Ignore button container if toolbaritem is on palette
+    if (!aTarget && !IsOnPalette("prefbar-toolbaritem"))
+      aTarget = document.getElementById("prefbar-buttons");
     if (!aTarget) return;
 
     var ismenu = (aTarget.tagName == "menupopup");
