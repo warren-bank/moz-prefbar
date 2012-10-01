@@ -159,6 +159,8 @@ var PrefObserver = {
     case "extensions.prefbar.slimbuttons":
       var value = goPrefBar.GetPref(aData);
       var buttons = document.getElementById("prefbar-buttons");
+      // SeaMonkey: Ignore button container if toolbaritem is on palette
+      if (buttons && IsOnPalette("prefbar-toolbaritem")) buttons = null;
       if (buttons) buttons.setAttribute("prefbarslimbuttons", value);
       break;
     case "extensions.prefbar.hktoggle":
@@ -209,6 +211,8 @@ function OnFocus(event) {
     UpdateButtonHotkeys();
     // Now update anything else...
     var buttons = document.getElementById("prefbar-buttons");
+    // SeaMonkey: Ignore button container if toolbaritem is on palette
+    if (buttons && IsOnPalette("prefbar-toolbaritem")) buttons = null;
     if (buttons) {
       ButtonHandling.render(buttons);
       var chevron = document.getElementById("prefbar-chevron-popup");
@@ -232,6 +236,8 @@ function OnAfterCustomization() {
   if (pbmenupopup) ButtonHandling.render(pbmenupopup);
 
   var buttons = document.getElementById("prefbar-buttons");
+  // SeaMonkey: Ignore button container if toolbaritem is on palette
+  if (buttons && IsOnPalette("prefbar-toolbaritem")) buttons = null;
   if (buttons) ButtonHandling.render(buttons);
 
   CallInitFunctions();
@@ -654,6 +660,12 @@ function OpenPrefs() {
   }
   else
     goPreferences('prefbar_editbar_pane');
+}
+
+function IsOnPalette(aNodeID) {
+  var node = document.getElementById(aNodeID);
+  if (!node) return false;
+  return (node.parentNode.tagName == "toolbarpalette");
 }
 
 function LogError(e, lf, id, fname) {
