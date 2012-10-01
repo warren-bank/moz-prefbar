@@ -190,13 +190,22 @@ var ButtonHandling = {
       else
         value = (button.getAttribute("type") == "radio");
 
-      goPrefBar.SetPref(data.prefstring, eval(data.topref));
+      try {
+        var lf = new Error();
+        value = eval(data.topref);
+      } catch(e) { LogError(e, lf, button.id, "topref"); }
+
+      goPrefBar.SetPref(data.prefstring, value);
     },
     update: function(button, data) {
       // Value is magic variable referenced in frompref
       var value = goPrefBar.GetPref(data.prefstring);
 
-      var checked = eval(data.frompref);
+      var checked;
+      try {
+        var lf = new Error();
+        checked = eval(data.frompref);
+      } catch(e) { LogError(e, lf, button.id, "frompref"); }
 
       if (button.tagName == "checkbox")
         button.setAttribute("checked", checked);
@@ -208,9 +217,16 @@ var ButtonHandling = {
     },
     hotkey: function(aID, aData) {
       var value = goPrefBar.GetPref(aData.prefstring);
-      var checked = eval(aData.frompref);
+      var checked;
+      try {
+        var lf = new Error();
+        checked = eval(aData.frompref);
+      } catch(e) { LogError(e, lf, aID, "frompref"); }
       value = !checked;
-      value = eval(aData.topref);
+      try {
+        var lf = new Error();
+        value = eval(aData.topref);
+      } catch(e) { LogError(e, lf, aID, "topref"); }
       goPrefBar.SetPref(aData.prefstring, value);
 
       var msg;
@@ -269,9 +285,15 @@ var ButtonHandling = {
       var button; // Intentionally left undefined
 
       var value;
-      eval(aData.getfunction);
+      try {
+        var lf = new Error();
+        eval(aData.getfunction);
+      } catch(e) { LogError(e, lf, aID, "getfuntion"); }
       value = !value;
-      eval(aData.setfunction);
+      try {
+        var lf = new Error();
+        eval(aData.setfunction);
+      } catch(e) { LogError(e, lf, aID, "setfuntion"); }
 
       var msg;
       if (value)
