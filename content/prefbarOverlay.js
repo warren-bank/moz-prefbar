@@ -159,8 +159,6 @@ var PrefObserver = {
     case "extensions.prefbar.slimbuttons":
       var value = goPrefBar.GetPref(aData);
       var buttons = document.getElementById("prefbar-buttons");
-      // SeaMonkey: Ignore button container if toolbaritem is on palette
-      if (buttons && IsOnPalette("prefbar-toolbaritem")) buttons = null;
       if (buttons) buttons.setAttribute("prefbarslimbuttons", value);
       break;
     case "extensions.prefbar.hktoggle":
@@ -220,6 +218,8 @@ function OnFocus(event) {
       setTimeout(UpdateToolbar);
     }
     var menu = document.getElementById("prefbar-menu-popup");
+    // SeaMonkey: Ignore menu container if menu is on palette
+    if (menu && IsOnPalette("prefbar-menu")) menu = null;
     if (menu) ButtonHandling.render(menu);
     CallInitFunctions();
   }
@@ -233,6 +233,8 @@ function OnAfterCustomization() {
   goPrefBar.dump("OnAfterCustomization");
 
   var pbmenupopup = document.getElementById("prefbar-menu-popup");
+  // SeaMonkey: Ignore menu container if menu is on palette
+  if (pbmenupopup && IsOnPalette("prefbar-menu")) pbmenupopup = null;
   if (pbmenupopup) ButtonHandling.render(pbmenupopup);
 
   var buttons = document.getElementById("prefbar-buttons");
