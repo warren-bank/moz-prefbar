@@ -30,7 +30,7 @@ chrome:
 xpi: chrome
 	@if [ -f prefbar-trunk.xpi ]; then rm prefbar-trunk.xpi; fi
 	zip -r9 prefbar-trunk.xpi chrome \
-                          components/goprefbar.js \
+                          components/*.js \
                           defaults/preferences/prefs.js \
                           chrome.manifest \
                           install.rdf
