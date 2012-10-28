@@ -157,9 +157,11 @@ var PrefObserver = {
   observe: function(aSubject, aTopic, aData) {
     switch (aData) {
     case "extensions.prefbar.slimbuttons":
-      var value = goPrefBar.GetPref(aData);
-      var buttons = document.getElementById("prefbar-buttons");
-      if (buttons) buttons.setAttribute("prefbarslimbuttons", value);
+      if (!IsOnPalette("prefbar-toolbaritem")) {
+        var value = goPrefBar.GetPref(aData);
+        var buttons = document.getElementById("prefbar-buttons");
+        buttons.setAttribute("prefbarslimbuttons", value);
+      }
       break;
     case "extensions.prefbar.hktoggle":
       UpdateToggleKey();
@@ -207,20 +209,15 @@ function OnFocus(event) {
     // Update the hotkeys first, to be sure the right keys
     // are displayed in menus
     UpdateButtonHotkeys();
-    // Now update anything else...
-    var buttons = document.getElementById("prefbar-buttons");
-    // SeaMonkey: Ignore button container if toolbaritem is on palette
-    if (buttons && IsOnPalette("prefbar-toolbaritem")) buttons = null;
-    if (buttons) {
-      ButtonHandling.render(buttons);
-      var chevron = document.getElementById("prefbar-chevron-popup");
-      ButtonHandling.render(chevron);
+    // Render toolbaritem if not placed on toolbar palette
+    if (!IsOnPalette("prefbar-toolbaritem")) {
+      ButtonHandling.render(document.getElementById("prefbar-buttons"));
+      ButtonHandling.render(document.getElementById("prefbar-chevron-popup"));
       setTimeout(UpdateToolbar);
     }
-    var menu = document.getElementById("prefbar-menu-popup");
-    // SeaMonkey: Ignore menu container if menu is on palette
-    if (menu && IsOnPalette("prefbar-menu")) menu = null;
-    if (menu) ButtonHandling.render(menu);
+    // Render menu if not placed on toolbar palette
+    if (!IsOnPalette("prefbar-menu"))
+      ButtonHandling.render(document.getElementById("prefbar-menu-popup"));
     CallInitFunctions();
   }
   else
@@ -232,23 +229,21 @@ function OnFocus(event) {
 function OnAfterCustomization() {
   goPrefBar.dump("OnAfterCustomization");
 
-  var pbmenupopup = document.getElementById("prefbar-menu-popup");
-  // SeaMonkey: Ignore menu container if menu is on palette
-  if (pbmenupopup && IsOnPalette("prefbar-menu")) pbmenupopup = null;
-  if (pbmenupopup) ButtonHandling.render(pbmenupopup);
+  if (!IsOnPalette("prefbar-menu"))
+    ButtonHandling.render(document.getElementById("prefbar-menu-popup"));
 
-  var buttons = document.getElementById("prefbar-buttons");
-  // SeaMonkey: Ignore button container if toolbaritem is on palette
-  if (buttons && IsOnPalette("prefbar-toolbaritem")) buttons = null;
-  if (buttons) ButtonHandling.render(buttons);
+  var buttons;
+  if (!IsOnPalette("prefbar-toolbaritem")) {
+    buttons = document.getElementById("prefbar-buttons");
+    ButtonHandling.render(buttons);
+  }
 
   CallInitFunctions();
 
-  // Cancel here, if PrefBar buttons are placed nowhere in FF
+  // Cancel here, if PrefBar buttons are placed nowhere
   if (!buttons) return;
 
-  var chevron = document.getElementById("prefbar-chevron-popup");
-  ButtonHandling.render(chevron);
+  ButtonHandling.render(document.getElementById("prefbar-chevron-popup"));
 
   // If there are other flexible items on the toolbar, we have been placed to,
   // then make PrefBar's stuff *non-flexible*
@@ -332,8 +327,9 @@ function OnTabChanged(event) {
 }
 
 function SetSpecialChecks(updatefor) {
+  if (IsOnPalette("prefbar-toolbaritem")) return;
+
   var buttons = document.getElementById("prefbar-buttons");
-  if (!buttons) return;
 
   for (var i = 0; i < buttons.childNodes.length; i++) {
     var button = buttons.childNodes[i];
@@ -492,8 +488,9 @@ function CallInitFunctions(aParent) {
 function UpdateToolbar() {
   goPrefBar.dump("UpdateToolbar");
 
+  if (IsOnPalette("prefbar-toolbaritem")) return;
+
   var buttons = document.getElementById("prefbar-buttons");
-  if (!buttons) return;
 
   // Force to redraw everything as we need the button width.
   ButtonHandling.update(buttons, true);
@@ -637,7 +634,6 @@ function TogglePrefBar() {
   }
   else
     goToggleToolbar('prefbar','viewprefsbar');
-  UpdateToolbar();
   window.content.focus();
 }
 
@@ -664,10 +660,11 @@ function OpenPrefs() {
     goPreferences('prefbar_editbar_pane');
 }
 
+// This function checks if the given toolbar item is not placed to any toolbar
 function IsOnPalette(aNodeID) {
   var node = document.getElementById(aNodeID);
-  if (!node) return false;
-  return (node.parentNode.tagName == "toolbarpalette");
+  if (!node) return true; // Firefox
+  return (node.parentNode.tagName == "toolbarpalette"); // SeaMonkey
 }
 
 function LogError(e, lf, id, fname) {
