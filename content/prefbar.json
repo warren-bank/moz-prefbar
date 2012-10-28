@@ -59,7 +59,7 @@
   "prefbar:button:savepage":{
     "label":"Save Page",
     "type":"button",
-    "onclick":"prefbarSavePage()"
+    "onclick":"saveDocument(window.content.document);"
   },
   "prefbar:button:separator8":{
     "type":"separator"

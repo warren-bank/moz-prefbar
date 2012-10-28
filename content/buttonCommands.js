@@ -381,67 +381,6 @@ function prefbarGetResolution() {
 }
 
 //
-// "Save Page" button
-//
-
-var prefbarSPFilename = null;
-var prefbarSPOldGetDefaultFileName = null;
-var prefbarSPGetDefaultFileName = function() {
-  if (prefbarSPFilename) {
-    var retval = prefbarSPFilename;
-    prefbarSPFilename = null;
-    return retval;
-  }
-  else
-    return prefbarSPOldGetDefaultFileName.apply(this, arguments);
-}
-
-function prefbarSavePage() {
-  var title = window._content.document.title;
-  var uri = window._content.location;
-  var doc = window._content.document;
-  var rchar = "_";
-
-  title = title.replace(/\/|\\|:|\*|\?|\"|<|>|\|/g, rchar);
-  title = title.replace(/\s/g, rchar);
-  if (title.match(new RegExp("^" + rchar + "+$"))) title = "";
-
-  // Filename is the modified title
-  prefbarSPFilename = title;
-
-  if (!prefbarSPOldGetDefaultFileName) {
-    if (window.getDefaultFileName) {
-      prefbarSPOldGetDefaultFileName = window.getDefaultFileName;
-      window.getDefaultFileName = prefbarSPGetDefaultFileName;
-    }
-    else {
-      goPrefBar.msgAlert(window, "Save Page feature not available for the mozilla version you use!");
-      return;
-    }
-  }
-
-  // Save function used by Mozilla since 1.8 and SeaMonkey
-  if (window.internalSave) {
-    // We want to use cached data because the document is currently visible.
-    var dispHeader = null;
-    try {
-      dispHeader =
-        doc.defaultView
-        .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-        .getInterface(Components.interfaces.nsIDOMWindowUtils)
-        .getDocumentMetadata("content-disposition");
-    } catch (ex) {
-      // Failure to get a content-disposition is ok
-    }
-
-    internalSave(uri, doc, null, dispHeader,
-                 doc.contentType, false, null, null);
-  }
-  else
-    goPrefBar.msgAlert(window, "Save Page feature not available for the mozilla version you use!");
-}
-
-//
 // Useragent Menulist
 //
 
