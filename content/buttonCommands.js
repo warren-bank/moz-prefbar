@@ -46,10 +46,6 @@
 // |  "prefbar" to differentiate PrefBar API functions from global browser code
 // +-
 
-// Obsoletes (moved to global "goPrefBar" context)
-var prefbarExecute = goPrefBar.RunApplication;
-var prefbarReadClipboard = goPrefBar.ReadClipboard;
-
 //
 // Clear cache buttons
 //
@@ -60,12 +56,6 @@ function prefbarClearCache(aType) {
   try {
     cacheService.evictEntries(aType);
   } catch (e) {}
-}
-function prefbarClearMemCache() { // Obsolete! To be removed!
-  prefbarClearCache(Components.interfaces.nsICache.STORE_IN_MEMORY);
-}
-function prefbarClearDiskCache() { // Obsolete! To be removed!
-  prefbarClearCache(Components.interfaces.nsICache.STORE_ON_DISK);
 }
 function prefbarClearAllCache() {
   prefbarClearCache(Components.interfaces.nsICache.STORE_ANYWHERE);
