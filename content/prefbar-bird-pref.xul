@@ -71,8 +71,7 @@
     // SeaMonkey pref system.
     //
     if (goPrefBar.InSM()) {
-      var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
-                         .getService(Components.interfaces.nsIWindowMediator);
+      var wm = goPrefBar.WindowMediator;
       var editWin = wm.getMostRecentWindow("prefbar:btneditor");
 
       // Button editor found

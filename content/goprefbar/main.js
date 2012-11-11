@@ -437,9 +437,7 @@ function SetPluginEnabled(aRegEx, aValue, aName) {
   }
 
   if (!found) {
-    var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
-                       .getService(Components.interfaces.nsIWindowMediator);
-    var window = wm.getMostRecentWindow(null);
+    var window = WindowMediator.getMostRecentWindow(null);
     msgAlert(window, "No " + aName + " plugin found!");
   }
 }

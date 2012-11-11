@@ -638,8 +638,7 @@ function TogglePrefBar() {
 }
 
 function OpenPrefs() {
-  var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
-                     .getService(Components.interfaces.nsIWindowMediator);
+  var wm = goPrefBar.WindowMediator;
 
   var editWin = wm.getMostRecentWindow("prefbar:btneditor");
   if (editWin) {

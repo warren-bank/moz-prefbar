@@ -105,9 +105,8 @@ function prefbarClearHistory() {
   } catch(ex) {goPrefBar.dump("ERROR: Clear history failed");}
 
   try {
-    var os = Components.classes["@mozilla.org/observer-service;1"]
-      .getService(Components.interfaces.nsIObserverService);
-    os.notifyObservers(null, "browser:purge-session-history", "");
+    goPrefBar.ObserverService
+      .notifyObservers(null, "browser:purge-session-history", "");
   } catch(ex) {goPrefBar.dump("ERROR: notifyObservers failed");}
 }
 
@@ -133,9 +132,7 @@ function prefbarClearLocationBar() {
 
 function prefbarClearFormData() {
   // Clear undo history of all searchBars (FF only)
-  var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
-    .getService(Components.interfaces.nsIWindowMediator);
-  var windows = wm.getEnumerator("navigator:browser");
+  var windows = goPrefBar.WindowMediator.getEnumerator("navigator:browser");
   while (windows.hasMoreElements()) {
     var searchBar = windows.getNext().document.getElementById("searchbar");
     if (searchBar)
