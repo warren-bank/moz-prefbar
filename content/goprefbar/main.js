@@ -320,7 +320,7 @@ function RunApplication(aPath, aArguments) {
   executable.initWithPath(aPath);
 
   if (!executable.exists()) {
-    msgAlert(window, "Error - executable '" + aPath + "' not found");
+    msgAlert(null, "Error - executable '" + aPath + "' not found");
     return false;
   }
 
@@ -332,7 +332,7 @@ function RunApplication(aPath, aArguments) {
     return process;
   }
   catch (ex) {
-    msgAlert(window, "Error - couldn't execute '" + aPath + "'");
+    msgAlert(null, "Error - couldn't execute '" + aPath + "'");
     return false;
   }
 }
@@ -436,10 +436,7 @@ function SetPluginEnabled(aRegEx, aValue, aName) {
     }
   }
 
-  if (!found) {
-    var window = WindowMediator.getMostRecentWindow(null);
-    msgAlert(window, "No " + aName + " plugin found!");
-  }
+  if (!found) msgAlert(null, "No " + aName + " plugin found!");
 }
 // Returns plugin enabled status of plugin(s), whose name matches on aRegEx
 function GetPluginEnabled(aRegEx) {
