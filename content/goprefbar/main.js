@@ -430,7 +430,7 @@ function SetPluginEnabled(aRegEx, aValue, aName) {
       var filename = plugins[i].filename;
       //https://www.mozdev.org/bugs/show_bug.cgi?id=22582
       if (filename in filenames)
-        goPrefBar.msgAlert(null, "You have more than one plugin with name \"" + filename + "\" on your system.\nThis may confuse PrefBar and browser.\nPlease delete all but one of them.");
+        msgAlert(null, "You have more than one plugin with name \"" + filename + "\" on your system.\nThis may confuse PrefBar and browser.\nPlease delete all but one of them.");
       filenames[filename] = true;
       found = true;
     }
