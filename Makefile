@@ -3,8 +3,8 @@
 # Makefile for PrefBar
 #
 
-VERSION=6.1.0
-BUILD=20120318
+VERSION=6.2.0
+BUILD=20121123
 
 .PHONY: all patch chrome xpi clean check-tree update-ja
 all: patch xpi
@@ -28,7 +28,7 @@ chrome:
 	-convert -gamma 1.0 skin/pblogo.png -scale 16x16 skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.ico
 
 xpi: chrome
-	@if [ -f prefbar-trunk.xpi ]; then rm prefbar-trunk.xpi; fi
+	@rm -f prefbar-trunk.xpi
 	zip -r9 prefbar-trunk.xpi chrome \
                           components/*.js \
                           defaults/preferences/prefs.js \
@@ -48,5 +48,5 @@ check-tree:
 
 # Fetches japanese locale, which is developed external on a SVN server.
 update-ja: check-tree
-	@if [ -d locale/ja ]; then rm -r locale/ja; fi
+	@rm -rf locale/ja
 	svn export https://minefield-jlp.googlecode.com/svn/trunk/chrome/locale/prefbar/ locale/ja/
