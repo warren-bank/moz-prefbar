@@ -105,7 +105,7 @@ function doDownload() {
   gDownloader.progressListener = new PersistProgressListener;
 
   //save file to target
-  gDownloader.saveURI(gURL,null,null,null,null,gTempfile);
+  gDownloader.saveURI(gURL,null,null,null,null,gTempfile,null);
 
   return false;
 }
@@ -121,7 +121,7 @@ function downloadDone(status) {
     goPrefBar.msgAlert(window, goPrefBar.GetString("urlimport.properties", "msgdownloadfailed"));
     cleanup();
     window.close();
-    return false;
+    return;
   }
 
   if (gChecksum) {
@@ -130,7 +130,7 @@ function downloadDone(status) {
       goPrefBar.msgAlert(window, goPrefBar.GetString("urlimport.properties", "msgmd5failed"));
       cleanup();
       window.close();
-      return false;
+      return;
     }
   }
 
