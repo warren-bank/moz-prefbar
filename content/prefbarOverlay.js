@@ -101,15 +101,9 @@ function StartPrefBar(event) {
   var toolbox = document.getElementById("navigator-toolbox");
   toolbox.addEventListener("aftercustomization", OnAfterCustomization, false);
 
-  // Check if browser supports dispatching above event
-  var tempobj = {};
-  goPrefBar.Include("chrome://global/content/customizeToolbar.js", tempobj);
-  var hasevents = (typeof tempobj.dispatchCustomizationEvent == "function");
-  tempobj = null;
-
-  // If events are not supported, then hook into the cleanup routine of the
-  // toolbar customize stuff
-  if (!hasevents) {
+  // In older browsers, toolbar customization events are not supported.
+  // Hook into the cleanup routine of toolbar customize stuff there.
+  if (goPrefBar.InFF(null, "4.0") || goPrefBar.InSM(null, "2.1")) {
     goPrefBar.dump("No customization events here.");
     if ("BrowserToolboxCustomizeDone" in window) {
       window.prefbarOrigBTCD = window.BrowserToolboxCustomizeDone;
