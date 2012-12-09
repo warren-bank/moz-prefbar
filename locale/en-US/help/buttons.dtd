@@ -108,7 +108,7 @@
 <!ENTITY clearall.desc "Clears the History, the Location Bar, Disk Cache, and Memory Cache.">
 <!ENTITY resize.desc "Resizes the browser window to the resolution you select in the menulist.">
 <!ENTITY newtab.desc "Opens a new browser tab. I don't really know how useful this would be, but somebody wanted it so I put it in.">
-<!ENTITY savepage.desc "Click this button to save the current page on disk. Much like &quot;File -&gt; Save as&quot; in Mozilla, but this button uses the title to generate the default filename!">
+<!ENTITY savepage.desc "Click this button to save the current page on disk.">
 <!ENTITY restoretab.desc "This button will restore the last closed tab.">
 <!ENTITY killflash.desc "Click this button, to remove all flash embeds in the current page.">
 <!ENTITY fontdown.desc "Decrease the font size.">

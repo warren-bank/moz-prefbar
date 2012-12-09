@@ -109,7 +109,7 @@
 <!ENTITY clearall.desc "Leert die History, die Adressleiste, Festplatten-Cache und Speicher-Cache.">
 <!ENTITY resize.desc "Ändert die Größe des Browser-Fensters auf die, in der Liste eingestellte, Auflösung.">
 <!ENTITY newtab.desc "Öffnet ein neues Browser Tab. Ich weiß nicht wirklich, wie praktisch das ist, aber jemand wollte es und so habe ich es eingebaut.">
-<!ENTITY savepage.desc "Klicken Sie auf diesen Button, um die aktuelle Seite auf einen Datenträger zu speichern. Der Button arbeitet ähnlich, wie die &quot;Datei -&gt; Seite speichern unter...&quot;-Funktion von Mozilla, aber dieser Button verwendet den Titel, um den Vorgabewert für den Dateinamen zu generieren!">
+<!ENTITY savepage.desc "Klicken Sie auf diesen Button, um die aktuelle Seite auf einen Datenträger zu speichern.">
 <!ENTITY restoretab.desc "Dieser Button stellt das zuletzt geschlossene Tab wieder her.">
 <!ENTITY killflash.desc "Klicken Sie auf diesen Button, um alle eingebetteten Flash-Objekte, auf der aktuellen Seite, zu entfernen.">
 <!ENTITY fontdown.desc "Verringert die Schriftgröße.">
