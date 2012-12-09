@@ -82,15 +82,6 @@ function StartPrefBar(event) {
     document.persist(toolbar.id, "hidden");
   }
 
-  // MultiZilla support. Redraw toolbar whenever the QPrefs menu has been used
-  var mztabcontextmnu = document.getElementById("tabContextMenu");
-  var mzquickprefsmnu = document.getElementById("quickpref-popup");
-  if (mzquickprefsmnu && mztabcontextmnu) {
-    goPrefBar.dump("StartPrefbar: Registering Event Listeners for MultiZilla QPrefs");
-    mztabcontextmnu.addEventListener("popuphidden", function(){setTimeout('PrefBarNS.ButtonHandling.update();');}, false);
-    mzquickprefsmnu.addEventListener("popuphidden", function(){setTimeout('PrefBarNS.ButtonHandling.update();');}, false);
-  }
-
   // Init hotkey stuff
   DoHotkeySnapshot();
   UpdateToggleKey();
