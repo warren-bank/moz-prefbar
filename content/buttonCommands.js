@@ -152,6 +152,12 @@ function prefbarClearDownloads() {
   dlMgr = Components.classes["@mozilla.org/download-manager;1"]
     .getService(Components.interfaces.nsIDownloadManager);
   dlMgr.cleanUp();
+
+  // New interface for download history since Firefox 8.0 and SeaMonkey 2.5
+  if ("nsIDownloadHistory" in Components.interfaces)
+    Components.classes["@mozilla.org/browser/download-history;1"]
+      .getService(Components.interfaces.nsIDownloadHistory)
+      .removeAllDownloads();
 }
 
 //
