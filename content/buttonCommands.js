@@ -99,8 +99,16 @@ function prefbarClearHistory() {
   // use try/catch for everything but the last task so we clear as much as
   // possible
   try {
-    var history = Components.classes["@mozilla.org/browser/global-history;2"]
-      .getService(Components.interfaces.nsIBrowserHistory);
+    var history;
+    // New interface since Firefox 22 and SeaMonkey 2.19
+    if ("nsINavHistoryService" in Components.interfaces)
+      history = Components.classes["@mozilla.org/browser/nav-history-service;1"]
+        .getService(Components.interfaces.nsINavHistoryService)
+        .QueryInterface(Components.interfaces.nsIBrowserHistory)
+        .QueryInterface(Components.interfaces.nsPIPlacesDatabase);
+    else
+      history = Components.classes["@mozilla.org/browser/global-history;2"]
+        .getService(Components.interfaces.nsIBrowserHistory);
     history.removeAllPages();
   } catch(ex) {goPrefBar.dump("ERROR: Clear history failed");}
 
