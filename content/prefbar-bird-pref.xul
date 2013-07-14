@@ -46,7 +46,7 @@
 
 <?xml-stylesheet type="text/css" href="chrome://communicator/skin/" ?>
 
-<prefwindow id = "prefDialog"
+<prefwindow id = "prefbar-dialog"
             xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             title = "&header-title;"
             style = "width: 48em; height: 40em;"

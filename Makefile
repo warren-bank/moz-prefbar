@@ -22,10 +22,10 @@ chrome:
 	@rm -f chrome/prefbar.jar
 	zip -r0 chrome/prefbar.jar content skin locale -x '*~'
 #	Linux/Mac window icon for button editor. Just copy over...
-	cp skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.png
+	cp skin/pblogo.png chrome/icons/default/prefbar-dialog.png
 #	Windows icon for button editor in proprietary ico format.
 #	Also store a 16x16px version to make it not look ugly on taskbar...
-	-convert -gamma 1.0 skin/pblogo.png -scale 16x16 skin/pblogo.png chrome/icons/default/prefbar-btneditor-dialog.ico
+	-convert -gamma 1.0 skin/pblogo.png -scale 16x16 skin/pblogo.png chrome/icons/default/prefbar-dialog.ico
 
 xpi: chrome
 	@rm -f prefbar-trunk.xpi
