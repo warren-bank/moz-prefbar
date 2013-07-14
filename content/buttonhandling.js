@@ -346,7 +346,7 @@ var ButtonHandling = {
         else if(type == prefBranch.PREF_BOOL)
           prefBranch.setBoolPref(pref, Boolean(value));
         else
-          navigator.preference(pref, value);  // Couldn't hurt to try...
+          goPrefBar.msgAlert(window, "Preference " + pref + " doesn't exist!");
       }
     },
     update: function(button, data) {
