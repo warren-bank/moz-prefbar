@@ -131,3 +131,6 @@
 <!ENTITY separator2.desc "Ein Abstandshalter, der auf die rechte Seite des Home-Buttons gehört. Sie können ihn (natürlich) an jede beliebige Stelle auf der Toolbar verschieben.">
 <!ENTITY separatorX.desc "Noch ein Abstandshalter.">
 <!ENTITY spacer0.desc "Dieses Element zeigt nichts an, aber vergrößert sich so groß, wie möglich, um den ganzen übrigen Platz einzunehmen. Dadurch werden alle Elemente, auf der rechten Seite dieses Elements, an die rechte Seite der Toolbar geschoben.">
+
+<!ENTITY plugintoggle.mode.beforelink "Hinweis: Ab Firefox 23 ist es möglich das Verhalten von Plugin-Auswahlboxen über die">
+<!ENTITY plugintoggle.mode.afterlink "Einstellung zu beeinflussen.">

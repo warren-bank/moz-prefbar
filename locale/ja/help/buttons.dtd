@@ -130,3 +130,6 @@
 <!ENTITY separator2.desc "この区切り線はホームボタンの右側に表示されます。区切り線はツールバー上の好きなところに表示できます。 ">
 <!ENTITY separatorX.desc "その他の区切り線。">
 <!ENTITY spacer0.desc "このボタンは自動的に伸縮する空白を挿入します。このボタンの右側に置かれたボタンは強制的にツールバーの右側に配置されます。 ">
+
+<!ENTITY plugintoggle.mode.beforelink "Note: Starting with Firefox 23 it is possible to change the behaviour of plugin toggles via the">
+<!ENTITY plugintoggle.mode.afterlink "preference.">

@@ -88,3 +88,11 @@
 <!ENTITY importexport.export.howto "To export buttons you first have to select the buttons you want to export in one of the lists in the preferences dialog. You can't export buttons from both lists at once! Then click the &quot;Export&quot; button. Now you'll be asked where you want to save the &quot;btn&quot;-file to. After clicking on &quot;save&quot; the file gets created.">
 <!ENTITY importexport.import.title "Importing">
 <!ENTITY importexport.import.howto "If you get a &quot;btn&quot;-file you can easily import it using the &quot;Import&quot; button. After clicking on it you'll get a dialog where you have to navigate to your btn file. After clicking on &quot;open&quot; the file gets imported. You may be asked if you want to override existing items if one oft the buttons you want to import has the same &quot;Id&quot; as an existing button on prefbar.">
+
+<!ENTITY preferences.title "Hidden preferences">
+<!ENTITY preferences.info "There are a few preferences that influence how PrefBar handles some things. Maybe there will be a GUI to edit them, in future, but in the meantime you'll have to use about:config to edit them.">
+
+<!ENTITY preferences.plugintoggle.mode.info "This one only works with Firefox 23 and above and allows you the following options for all plugin toggle checkboxes (like the builtin Java and Flash checkbox).">
+<!ENTITY preferences.plugintoggle.mode.0 "Toggle between &quot;Never activate&quot; and &quot;Always activate&quot; (default)">
+<!ENTITY preferences.plugintoggle.mode.1 "Toggle between &quot;Never activate&quot; and &quot;Always ask&quot;">
+<!ENTITY preferences.plugintoggle.mode.2 "Toggle between &quot;Always ask&quot; and &quot;Always activate&quot;">

@@ -426,7 +426,27 @@ function SetPluginEnabled(aRegEx, aValue, aName) {
   var found = false;
   for (var i = 0; i < plugins.length; i++) {
     if (plugins[i].name.match(aRegEx)) {
-      plugins[i].disabled = !aValue;
+      if ("enabledState" in plugins[i]) {
+        var mode = GetPref("extensions.prefbar.plugintoggle.mode", 0);
+        var nsIPluginTag = Components.interfaces.nsIPluginTag;
+        switch(mode) {
+        case 0:
+          plugins[i].enabledState = aValue ? nsIPluginTag.STATE_ENABLED
+                                           : nsIPluginTag.STATE_DISABLED;
+          break;
+        case 1:
+          plugins[i].enabledState = aValue ? nsIPluginTag.STATE_CLICKTOPLAY
+                                           : nsIPluginTag.STATE_DISABLED;
+          break;
+        case 2:
+          plugins[i].enabledState = aValue ? nsIPluginTag.STATE_ENABLED
+                                           : nsIPluginTag.STATE_CLICKTOPLAY;
+          break;
+        }
+      }
+      else
+        plugins[i].disabled = !aValue;
+
       var filename = plugins[i].filename;
       //https://www.mozdev.org/bugs/show_bug.cgi?id=22582
       if (filename in filenames)
@@ -443,7 +463,21 @@ function GetPluginEnabled(aRegEx) {
   var plugins = GetPluginTags();
   if (!plugins) return false;
   for (var i = 0; i < plugins.length; i++) {
-    if (plugins[i].name.match(aRegEx) && !plugins[i].disabled) return true;
+    if (plugins[i].name.match(aRegEx))
+      if ("enabledState" in plugins[i]) {
+        var mode = GetPref("extensions.prefbar.plugintoggle.mode", 0);
+        var nsIPluginTag = Components.interfaces.nsIPluginTag;
+        switch(mode) {
+        case 0:
+        case 2:
+          return (plugins[i].enabledState == nsIPluginTag.STATE_ENABLED);
+        case 1:
+          return (plugins[i].enabledState == nsIPluginTag.STATE_CLICKTOPLAY ||
+                  plugins[i].enabledState == nsIPluginTag.STATE_ENABLED);
+        }
+      }
+      else
+        return !plugins[i].disabled;
   }
   return false;
 }

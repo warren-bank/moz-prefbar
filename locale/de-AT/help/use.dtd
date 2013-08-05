@@ -89,3 +89,11 @@
 <!ENTITY importexport.export.howto "Zum Exportieren von Buttons müssen Sie erst die Buttons, die Sie exportieren wollen, in einer der Listen im Einstellungs-Dialog auswählen. Sie können nicht von beiden Listen auf einmal Buttons exportieren. Dann klicken Sie auf den &quot;Export&quot;-Button. Nun werden Sie gefragt, wohin Sie die &quot;btn&quot;-Datei speichern wollen. Nach dem Klicken von &quot;Speichern&quot; wird die Datei erstellt.">
 <!ENTITY importexport.import.title "Importieren">
 <!ENTITY importexport.import.howto "Wenn Sie eine &quot;btn&quot;-Datei bekommen, dann können Sie diese einfach mit dem Button &quot;Import&quot; importieren. Nachdem Sie ihn angeklickt haben, wird ein Dialog angezeigt, in dem sie ihre &quot;btn&quot;-Datei auswählen müssen. Nach einem Klick auf &quot;Öffnen&quot;, wird die Datei importiert. Es ist möglich, dass Sie gefragt werden, ob sie exitierende Elemente überschreiben wollen, wenn eines der Elemente, dass Sie importieren wollen, die gleiche &quot;Id&quot;, wie ein bereits existierendes Element auf der PrefBar, hat.">
+
+<!ENTITY preferences.title "Versteckte Einstellungen">
+<!ENTITY preferences.info "Es gibt einige Einstellungen, die beeinflussen wie PrefBar einige Dinge behandelt. Vielleicht gibt es für diese in Zukunft ein GUI um sie zu verändern aber in der Zwischenzeit müssen Sie diese über about:config anpassen.">
+
+<!ENTITY preferences.plugintoggle.mode.info "Diese Einstellung funktioniert nur mit Firefox 23 und höher und gibt Ihnen die folgenden Möglichkeiten für alle Plugin-Auswahlboxen (wie die eingebaute Java und Flash Checkbox).">
+<!ENTITY preferences.plugintoggle.mode.0 "Wechseln zwischen &quot;Nie aktivieren&quot; und &quot;Immer aktivieren&quot; (Standard)">
+<!ENTITY preferences.plugintoggle.mode.1 "Wechseln zwischen &quot;Nie aktivieren&quot; und &quot;Immer fragen&quot;">
+<!ENTITY preferences.plugintoggle.mode.2 "Wechseln zwischen &quot;Immer fragen&quot; und &quot;Immer aktivieren&quot;">

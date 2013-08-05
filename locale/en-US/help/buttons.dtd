@@ -130,3 +130,6 @@
 <!ENTITY separator2.desc "A separator, designed to go to the right of the home button. You can (of course) move this to where ever place on the toolbar you want.">
 <!ENTITY separatorX.desc "Another separator.">
 <!ENTITY spacer0.desc "This widget doesn't display anything, but expands as big as it can, taking up all the extra space available and forcing everything to its right to the far right edge of the toolbar.">
+
+<!ENTITY plugintoggle.mode.beforelink "Note: Starting with Firefox 23 it is possible to change the behaviour of plugin toggles via the">
+<!ENTITY plugintoggle.mode.afterlink "preference.">
