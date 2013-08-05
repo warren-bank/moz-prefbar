@@ -422,7 +422,7 @@ function SetPluginEnabled(aRegEx, aValue, aName) {
   var found = false;
   for (var i = 0; i < plugins.length; i++) {
     if (plugins[i].name.match(aRegEx)) {
-      if ("enabledState" in plugins[i]) {
+      if ("enabledState" in plugins[i]) { // Firefox >= 23
         var mode = GetPref("extensions.prefbar.plugintoggle.mode", 0);
         var nsIPluginTag = Components.interfaces.nsIPluginTag;
         switch(mode) {
@@ -440,7 +440,7 @@ function SetPluginEnabled(aRegEx, aValue, aName) {
           break;
         }
       }
-      else
+      else // Firefox <= 22
         plugins[i].disabled = !aValue;
 
       var filename = plugins[i].filename;
@@ -460,7 +460,7 @@ function GetPluginEnabled(aRegEx) {
   if (!plugins) return false;
   for (var i = 0; i < plugins.length; i++) {
     if (plugins[i].name.match(aRegEx))
-      if ("enabledState" in plugins[i]) {
+      if ("enabledState" in plugins[i]) { // Firefox >= 23
         var mode = GetPref("extensions.prefbar.plugintoggle.mode", 0);
         var nsIPluginTag = Components.interfaces.nsIPluginTag;
         switch(mode) {
@@ -472,7 +472,7 @@ function GetPluginEnabled(aRegEx) {
                   plugins[i].enabledState == nsIPluginTag.STATE_ENABLED);
         }
       }
-      else
+      else // Firefox <= 22
         return !plugins[i].disabled;
   }
   return false;
