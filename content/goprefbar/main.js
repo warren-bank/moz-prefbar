@@ -130,12 +130,8 @@ var UAResetObserver = {
        sending the wrong UA everywhere for three weeks.
     */
 
-    var cs = unescape("%64%6F%6E%5F%74%5F%72%65%73%65%74%5F%75%61");
-    var csp = "extensions.prefbar." + cs;
-    if (GetPref(csp) == "true") {
-      SetPref(csp, "disabled");
-      return;
-    }
+    // Don't reset if the user knows what he's doing
+    if (GetPref("extensions.prefbar.don_t_reset_ua", false)) return;
 
     // Don't reset if there is a session to be restored on next start
     if (GetPref("browser.sessionstore.resume_session_once", false)) return;
