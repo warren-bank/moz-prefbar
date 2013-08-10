@@ -131,5 +131,5 @@
 <!ENTITY separatorX.desc "その他の区切り線。">
 <!ENTITY spacer0.desc "このボタンは自動的に伸縮する空白を挿入します。このボタンの右側に置かれたボタンは強制的にツールバーの右側に配置されます。 ">
 
-<!ENTITY plugintoggle.mode.beforelink "Note: Starting with Firefox 23 it is possible to change the behaviour of plugin toggles via the">
-<!ENTITY plugintoggle.mode.afterlink "preference.">
+<!ENTITY plugintoggle.mode.beforelink "メモ: Firefox 23 以降では">
+<!ENTITY plugintoggle.mode.afterlink "でプラグインの動作設定を変更できます。">

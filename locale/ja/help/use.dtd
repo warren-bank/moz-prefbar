@@ -89,10 +89,10 @@
 <!ENTITY importexport.import.title "インポート">
 <!ENTITY importexport.import.howto "&quot;btn&quot;　拡張子のファイルを簡単にインポートするにはカスタマイズダイアログで適当な PrefBar ボタンを右クリックし &quot;インポート&quot;  を選択して下さい。ファイルの選択画面でインポートしたい btn ファイルを選択し &quot;開く&quot; をクリックするとインポートが開始されます。もしインポートするボタンの &quot;Id&quot; が既に PrefBar で使用されている場合は上書きを行うか確認します。">
 
-<!ENTITY preferences.title "Hidden preferences">
-<!ENTITY preferences.info "There are a few preferences that influence how PrefBar handles some things. Maybe there will be a GUI to edit them, in future, but in the meantime you'll have to use about:config to edit them.">
+<!ENTITY preferences.title "隠された設定">
+<!ENTITY preferences.info "PrefBar の動作に影響を与えるいくつかの設定があります。今後この設定を変更するための GUI が用意されるかもしれませんが、about:config を使用して設定を変更する事ができます。">
 
-<!ENTITY preferences.plugintoggle.mode.info "This one only works with Firefox 23 and above and allows you the following options for all plugin toggle checkboxes (like the builtin Java and Flash checkbox).">
-<!ENTITY preferences.plugintoggle.mode.0 "Toggle between &quot;Never activate&quot; and &quot;Always activate&quot; (default)">
-<!ENTITY preferences.plugintoggle.mode.1 "Toggle between &quot;Never activate&quot; and &quot;Always ask&quot;">
-<!ENTITY preferences.plugintoggle.mode.2 "Toggle between &quot;Always ask&quot; and &quot;Always activate&quot;">
+<!ENTITY preferences.plugintoggle.mode.info "これは Firefox 23 以降のプラグインの動作を切り替えるチェックボックス (例えば PrefBar に標準で付属する Flash や Java 等のチェックボックス) 用のオプションです。">
+<!ENTITY preferences.plugintoggle.mode.0 "&quot;動作させない&quot; と &quot;常に動作させる&quot; を切り替えます (初期設定)">
+<!ENTITY preferences.plugintoggle.mode.1 "&quot;動作させない&quot; と &quot;毎回確認する&quot; を切り替えます">
+<!ENTITY preferences.plugintoggle.mode.2 "&quot;毎回確認する&quot; と &quot;常に動作させる&quot; を切り替えます">
