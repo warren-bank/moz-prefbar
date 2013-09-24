@@ -157,9 +157,12 @@ function prefbarClearFormData() {
 //
 
 function prefbarClearDownloads() {
-  dlMgr = Components.classes["@mozilla.org/download-manager;1"]
+  // Still used by SeaMonkey 2.20 for whatever reason but fails with FF 26.0
+  var dlMgr = Components.classes["@mozilla.org/download-manager;1"]
     .getService(Components.interfaces.nsIDownloadManager);
-  dlMgr.cleanUp();
+  try {
+    dlMgr.cleanUp();
+  } catch(e) {}
 
   // New interface for download history since Firefox 8.0 and SeaMonkey 2.5
   if ("nsIDownloadHistory" in Components.interfaces)
