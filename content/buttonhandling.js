@@ -169,6 +169,33 @@ var ButtonHandling = {
       var data = gMainDS[aButton.id];
       GoLink(data.url, aEvent);
     },
+    update: function(aButton, aData) {
+      // Add favicons for our builtins without asking favicon service
+      if (aData.url.match(/^chrome:\/\/prefbar\//))
+        aButton.setAttribute("image", "chrome://prefbar/content/help/favicon.png");
+      // If the required services are there, try to get favicon from cache
+      else if ("nsIFaviconService" in Components.interfaces &&
+               "mozIAsyncFavicons" in Components.interfaces) {
+        var faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
+          .getService(Components.interfaces.nsIFaviconService)
+          .QueryInterface(Components.interfaces.mozIAsyncFavicons);
+
+        var url = Components.classes['@mozilla.org/network/standard-url;1']
+          .createInstance(Components.interfaces.nsIURL);
+        url.spec = aData.url;
+
+        var callback = {
+          onComplete: function(aURI) {
+            if (aURI) {
+              var uri = faviconService.getFaviconLinkForIcon(aURI);
+              aButton.setAttribute("image", uri.spec);
+            }
+          }
+        }
+
+        faviconService.getFaviconURLForPage(url, callback);
+      }
+    },
     hotkey: function(aID, aData) {
       GoLink(aData.url);
     }

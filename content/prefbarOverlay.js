@@ -311,34 +311,32 @@ function OnTabChanged(event) {
   SetSpecialChecks("tab");
 }
 
-function SetSpecialChecks(updatefor) {
+function SetSpecialChecks(aUpdateFor) {
   if (IsOnPalette("prefbar-toolbaritem")) return;
 
   var buttons = document.getElementById("prefbar-buttons");
 
+  // Loop over buttons
   for (var i = 0; i < buttons.childNodes.length; i++) {
     var button = buttons.childNodes[i];
 
+    // Exit loop as soon as we reach the hidden buttons (chevron menu)
     if (button.style.visibility == "hidden") break;
 
+    // Jump into toolbaritem nodes
     if (button.tagName == "toolbaritem") button = button.firstChild;
 
+    // Get button data
     var data = gMainDS[button.id];
     if (!data) continue;
 
-    var btnufor = data.browserbtnupdatefor;
-    if (!btnufor) continue;
-    if (updatefor == "page" && btnufor != "page") continue;
-
-    var btntype = data.type;
-
-    switch (btntype) {
-    case "extcheck":
-      ButtonHandling.extcheck.update(button, data);
-      break;
-    case "extlist":
-      ButtonHandling.extlist.update(button, data);
-      break;
+    // Check if we have to update the current button in list
+    if (data.type == "link" && aUpdateFor == "page")
+      ButtonHandling.link.update(button, data);
+    else if (data.type == "extcheck" || data.type == "extlist") {
+      var btnufor = data.browserbtnupdatefor;
+      if (btnufor && (btnufor == aUpdateFor || btnufor == "page"))
+        ButtonHandling[data.type].update(button, data);
     }
   }
 }
