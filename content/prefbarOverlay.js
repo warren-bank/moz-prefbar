@@ -127,6 +127,9 @@ function StartPrefBar(event) {
     browser.selectedTab = tab;
   }
 
+  // Initialize AustralisHandler if applicable
+  AustralisHandler.init();
+
   // Emulate a customize of the toolbox to try to init PrefBar (fails if PrefBar
   // items aren't placed to any toolbar)
   setTimeout(OnAfterCustomization, 0);
@@ -136,6 +139,120 @@ function Shutdown(aEvent) {
   goPrefBar.PrefBranch.removeObserver("extensions.prefbar.slimbuttons", PrefObserver);
   goPrefBar.PrefBranch.removeObserver("extensions.prefbar.hktoggle", PrefObserver);
   goPrefBar.ObserverService.removeObserver(JSONObserver, "extensions-prefbar-json-changed");
+
+  // Uninitialize AustralisHandler if applicable
+  AustralisHandler.uninit();
+}
+
+// Object for everything, needed to be compatible with Australis.
+var AustralisHandler = {
+  init: function() {
+    if (!("CustomizableUI" in window)) return;
+    CustomizableUI.addListener(this);
+    this.initialized = true;
+    goPrefBar.dump("AustralisHandler now initialized");
+
+    // Register for the "click" event on PanelUI button.
+    var paneluibtn = document.getElementById("PanelUI-menu-button");
+    if (paneluibtn)
+      paneluibtn.addEventListener("click", this.onPanelUIBtnClick, false);
+
+    // Register for the "click" event on all known overflow buttons
+    var toolbox = document.getElementById("navigator-toolbox");
+    for (var index = 0; index < toolbox.children.length; index++) {
+      var toolbar = toolbox.children[index];
+      var overflowbtnid = toolbar.getAttribute("overflowbutton");
+      if (overflowbtnid) {
+        var overflowbtn = document.getElementById(overflowbtnid);
+        if (overflowbtn)
+          overflowbtn.addEventListener("click", function(aEvent){AustralisHandler.onOverflowBtnClick(aEvent)}, false);
+      }
+    }
+
+    this.lastparent = null;
+  },
+  uninit: function() {
+    if (!this.initialized) return;
+    CustomizableUI.removeListener(this);
+  },
+  resize: function() {
+    if (!this.initialized) return;
+    var toolbaritem = document.getElementById("prefbar-toolbaritem");
+
+    if (!toolbaritem) {
+      this.lastparent = null;
+      return;
+    }
+
+    // Parent node changed and new parent is toolbar
+    if (toolbaritem.parentNode != this.lastparent &&
+        this._GetContainer(toolbaritem).tagName == "toolbar") {
+      setTimeout(OnAfterCustomization, 0);
+      this.lastparent = toolbaritem.parentNode;
+    }
+  },
+
+  ToolbaritemOnPanel: function(aToolbaritem) {
+    if (!this.initialized) return false;
+
+    var container = this._GetContainer(aToolbaritem);
+    return (container.tagName == "panelview" || // PanelUI
+            container.tagName == "panel");      // Overflow menu
+  },
+
+  onPanelUIBtnClick: function() {
+    goPrefBar.dump("onPanelUIBtnClick");
+    setTimeout(UpdateToolbar, 0);
+  },
+  onOverflowBtnClick: function(aEvent) {
+    goPrefBar.dump("onOverflowBtnClick " + aEvent.target);
+    var toolbaritem = document.getElementById("prefbar-toolbaritem");
+
+    if (!toolbaritem) {
+      this.lastparent = null;
+      return;
+    }
+
+    // Parent node changed and new parent is panel
+    if (toolbaritem.parentNode != this.lastparent &&
+        this._GetContainer(toolbaritem).tagName == "panel") {
+      setTimeout(OnAfterCustomization, 0);
+      this.lastparent = toolbaritem.parentNode;
+    }
+  },
+
+  // Gets container for given node. Jumps over all *box nodes
+  _GetContainer: function(aNode) {
+    aNode = aNode.parentNode
+    while(aNode.tagName.match(/^.box$/))
+      aNode = aNode.parentNode;
+    return aNode;
+  },
+
+  // The following ones are events, created by "CustomizableUI"
+  onWidgetCreated: function(aNode) {
+    goPrefBar.dump("onWidgetCreated: " + aNode.id);
+  },
+  onWidgetAdded: function(aNode) {
+    goPrefBar.dump("onWidgetAdded: " + aNode.id);
+  },
+  onWidgetAfterCreation: function(aNode) {
+    goPrefBar.dump("onWidgetAfterCreation: " + aNode.id);
+  },
+  onWidgetBeforeDOMChange: function(aNode) {
+    goPrefBar.dump("onWidgetBeforeDOMChange: " + aNode.id);
+  },
+  onWidgetAfterDOMChange: function(aNode) {
+    if (aNode.id == "prefbar-toolbaritem")
+      OnAfterCustomization();
+    goPrefBar.dump("onWidgetAfterDOMChange: " + aNode.id);
+  },
+  onWidgetMoved: function(aNode) {
+    goPrefBar.dump("onWidgetMoved: " + aNode.id);
+  },
+  onWidgetDrag: function(aNodeId) {
+    goPrefBar.dump("onWidgetDrag: " + aNodeId);
+  }
 }
 
 var PrefObserver = {
@@ -167,6 +284,7 @@ function OnResize(aEvent) {
   if (aEvent.target != aEvent.currentTarget) return;
 
   goPrefBar.dump("OnResize");
+  AustralisHandler.resize();
   UpdateToolbar();
 }
 
@@ -244,6 +362,9 @@ function OnAfterCustomization() {
       break;
     }
   }
+
+  // Australis: Toolbaritem on panel --> always flexible
+  if (AustralisHandler.ToolbaritemOnPanel(toolbaritem)) toolbaritem.flex = 1;
 
   // Set value for "slimbuttons"
   var slimvalue = goPrefBar.GetPref("extensions.prefbar.slimbuttons");

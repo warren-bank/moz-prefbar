@@ -86,3 +86,26 @@ toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents >
 toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
   display: none;
 }
+
+
+/*
+ * Australis
+ */
+#prefbar-toolbaritem[cui-areatype="menu-panel"] > #prefbar-contents > hbox > #prefbar-chevron,
+#prefbar-toolbaritem[cui-areatype="menu-panel"] > #prefbar-contents > #prefbar-buttons > toolbarbutton {
+  height: auto;
+  width: auto;
+  min-width: 0px;
+  max-height: none;
+  max-width: none;
+  -moz-box-orient: horizontal;
+}
+toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
+toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
+  display: none;
+}
+toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .prefbar-toolbar-customize {
+  height: auto;
+  width: 21em;
+  -moz-box-orient: horizontal;
+}
