@@ -123,7 +123,7 @@
       <menupopup
          id="prefbar-menu-popup"
          ref="prefbar:menu:enabled"
-         onpopuphidden="setTimeout('PrefBarNS.ButtonHandling.update();');"
+         onpopuphidden="setTimeout(function(){PrefBarNS.ButtonHandling.update();}, 0);"
          onpopupshowing="if (event.target == this) PrefBarNS.ButtonHandling.update(this);"
          context="prefbar-contextmenu"/>
     </toolbarbutton>
