@@ -186,18 +186,20 @@ var AustralisHandler = {
 
     // Parent node changed and new parent is toolbar
     if (toolbaritem.parentNode != this.lastparent &&
-        this._GetContainer(toolbaritem).tagName == "toolbar") {
+        this.GetToolbaritemContainer(toolbaritem) == "toolbar") {
       setTimeout(OnAfterCustomization, 0);
       this.lastparent = toolbaritem.parentNode;
     }
   },
 
-  ToolbaritemOnPanel: function(aToolbaritem) {
+  GetToolbaritemContainer: function(aToolbaritem) {
     if (!this.initialized) return false;
-
-    var container = this._GetContainer(aToolbaritem);
-    return (container.tagName == "panelview" || // PanelUI
-            container.tagName == "panel");      // Overflow menu
+    var anchorid = aToolbaritem.getAttribute("cui-anchorid");
+    var areatype = aToolbaritem.getAttribute("cui-areatype");
+    if (!anchorid) return "toolbar";
+    if (areatype == "toolbar") return "overflow";
+    if (areatype == "menu-panel") return "panel";
+    goPrefBar.dump("GetToolbaritemContainer: Unknown state detected!");
   },
 
   onPanelUIBtnClick: function() {
@@ -213,20 +215,12 @@ var AustralisHandler = {
       return;
     }
 
-    // Parent node changed and new parent is panel
+    // Parent node changed and new parent is overflow menu
     if (toolbaritem.parentNode != this.lastparent &&
-        this._GetContainer(toolbaritem).tagName == "panel") {
+        this.GetToolbaritemContainer(toolbaritem) == "overflow") {
       setTimeout(OnAfterCustomization, 0);
       this.lastparent = toolbaritem.parentNode;
     }
-  },
-
-  // Gets container for given node. Jumps over all *box nodes
-  _GetContainer: function(aNode) {
-    aNode = aNode.parentNode
-    while(aNode.tagName.match(/^.box$/))
-      aNode = aNode.parentNode;
-    return aNode;
   },
 
   // The following ones are events, created by "CustomizableUI"
@@ -243,7 +237,8 @@ var AustralisHandler = {
     goPrefBar.dump("onWidgetBeforeDOMChange: " + aNode.id);
   },
   onWidgetAfterDOMChange: function(aNode) {
-    if (aNode.id == "prefbar-toolbaritem")
+    if (aNode.id == "prefbar-toolbaritem" ||
+        aNode.id == "prefbar-menu")
       OnAfterCustomization();
     goPrefBar.dump("onWidgetAfterDOMChange: " + aNode.id);
   },
@@ -363,8 +358,9 @@ function OnAfterCustomization() {
     }
   }
 
-  // Australis: Toolbaritem on panel --> always flexible
-  if (AustralisHandler.ToolbaritemOnPanel(toolbaritem)) toolbaritem.flex = 1;
+  // Australis: Toolbaritem on menu --> always flexible
+  var container = AustralisHandler.GetToolbaritemContainer(toolbaritem);
+  if (container == "overflow" || container == "panel") toolbaritem.flex = 1;
 
   // Set value for "slimbuttons"
   var slimvalue = goPrefBar.GetPref("extensions.prefbar.slimbuttons");
