@@ -200,6 +200,7 @@ var AustralisHandler = {
     if (areatype == "toolbar") return "overflow";
     if (areatype == "menu-panel") return "panel";
     goPrefBar.dump("GetToolbaritemContainer: Unknown state detected!");
+    return false;
   },
 
   onPanelUIBtnClick: function() {
