@@ -131,7 +131,8 @@
     <toolbaritem id="prefbar-toolbaritem"
                  flex="1"
                  style="min-width: 0px;"
-                 context="prefbar-contextmenu">
+                 context="prefbar-contextmenu"
+                 title="&prefbar-toolbaritem.title;">
       <hbox id="prefbar-contents" flex="1">
         <toolbarbutton label="&prefbar-toolbaritem.title;"
                        class="prefbar-toolbar-customize"/>

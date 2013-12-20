@@ -69,21 +69,16 @@ toolbarpaletteitem[place="palette"] > #prefbar-menu {
   display: -moz-box !important;
 }
 
-toolbarpaletteitem[place] > #prefbar-toolbaritem > #prefbar-contents >  .prefbar-toolbar-customize {
+toolbarpaletteitem[place="toolbar"] > #prefbar-toolbaritem > #prefbar-contents >  .prefbar-toolbar-customize {
   display: -moz-box;
 }
 
-toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .prefbar-toolbar-customize {
-  -moz-box-orient: vertical;
+#wrapper-prefbar-toolbaritem[place="palette"] > .toolbarpaletteitem-box {
+  background: url(chrome://prefbar/skin/pblogo18.png) no-repeat center;
 }
 
-toolbarpaletteitem[place="toolbar"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
-toolbarpaletteitem[place="toolbar"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
-  visibility: collapse;
-}
-
-toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
-toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
+toolbarpaletteitem[place] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
+toolbarpaletteitem[place] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
   display: none;
 }
 
@@ -100,9 +95,8 @@ toolbarpaletteitem[place="palette"] > #prefbar-toolbaritem > #prefbar-contents >
   max-width: none;
   -moz-box-orient: horizontal;
 }
-toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
-toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
-  display: none;
+toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents >  .prefbar-toolbar-customize {
+  display: -moz-box;
 }
 toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .prefbar-toolbar-customize {
   height: auto;
