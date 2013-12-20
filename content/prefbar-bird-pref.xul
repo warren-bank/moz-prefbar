@@ -37,23 +37,18 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<!DOCTYPE dialog [
-  <!ENTITY % editbarDTD SYSTEM "chrome://prefbar/locale/pref-editbar.dtd">
-  %editbarDTD;
-  <!ENTITY % overlayDTD SYSTEM "chrome://prefbar/locale/preferencesOverlay.dtd">
-  %overlayDTD;
-]>
+<!DOCTYPE dialog SYSTEM "chrome://prefbar/locale/preferencesOverlay.dtd">
 
 <?xml-stylesheet type="text/css" href="chrome://communicator/skin/" ?>
 
 <prefwindow id = "prefbar-dialog"
             xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            title = "&header-title;"
+            title = "&main-label;"
             style = "width: 48em; height: 40em;"
             persist = "screenX screenY"
             windowtype = "prefbar:preferences">
 
-  <prefpane id="prefbar_editbar_pane" label="&main-label;"
+  <prefpane id="prefbar_editbar_pane" label="&buttons-label;"
             src="chrome://prefbar/content/pref-editbar.xul"
             image="chrome://prefbar/skin/pblogo.png"/>
   <prefpane id="prefbar_options_pane" label="&options-label;"
