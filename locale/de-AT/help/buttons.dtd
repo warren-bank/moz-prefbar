@@ -123,7 +123,7 @@
 <!ENTITY mozilla.org.desc "Ein Link zu mozilla.org, Homepage des Mozilla Projekts.">
 <!ENTITY mozillazine.org.desc "Ein Link zu MozillaZine.org, Sammelplatz für Mozilla-Entwickler und -Benutzer.">
 <!ENTITY customize.desc "Dieser Button bringt Sie schnell zu den Prefbar-Einstellungen im Einstellungen-Dialog.">
-<!ENTITY hidetoolbar.desc "Ein Button, der die Preferences Toolbar ausblendet. Macht das gleiche, wie wenn F8 gedrückt wird.">
+<!ENTITY hidetoolbar.desc "Ein Button, der die PrefBar Symbolleiste ausblendet. Macht das gleiche, wie wenn F8 gedrückt wird.">
 <!ENTITY proxylist.desc "Eine Liste, in die benötigte Proxies mit den zugehörigen Ports eingetragen werden können. Dies macht es einfach, zwischen den Proxies zu wechseln.">
 <!ENTITY prefbarlanglist.desc "Ermöglicht das Umschalten der Sprachkennung, die an die Webserver übermittelt wird. Der Eintrag &quot;Standard&quot; setzt die Einstellung zurück auf den Wert, den der Autor Ihres Firefox/SeaMonkey Sprachpakets für Ihre Sprachumgebung vorgesehen hat.">
 

@@ -5,9 +5,9 @@
 <!ENTITY featurereq "Feature Requests">
 <!ENTITY other "Other">
 
-<!ENTITY whatis.title "What is the Preferences Toolbar?">
-<!ENTITY whatis.summary "The Preferences Toolbar is an Addon designed to make your web browsing experience more enjoyable and annoyance free by allowing you to quickly toggle certain navigator preferences and perform certain utility functions.">
-<!ENTITY whatis.example "For example, if you happen to find yourself visiting a site who's author thinks that red text on a yellow background constitutes an attractive color scheme, The Preferences Toolbar allows you to quickly turn off the &quot;Custom Colors&quot; pref, and browse that site in browser's default colors (usually white on black).">
+<!ENTITY whatis.title "What is the PrefBar?">
+<!ENTITY whatis.summary "The PrefBar is an Addon designed to make your web browsing experience more enjoyable and annoyance free by allowing you to quickly toggle certain navigator preferences and perform certain utility functions.">
+<!ENTITY whatis.example "For example, if you happen to find yourself visiting a site who's author thinks that red text on a yellow background constitutes an attractive color scheme, The PrefBar allows you to quickly turn off the &quot;Custom Colors&quot; pref, and browse that site in browser's default colors (usually white on black).">
 <!ENTITY whatis.developers "Web developers will also enjoy being able to clear their browser cache with a single click, and just about everyone could use a quick user agent spoof now and then.">
 
 <!ENTITY resetbuttons.title "How do I reset the buttons on the toolbar?">

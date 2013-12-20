@@ -1,13 +1,13 @@
 <!ENTITY version "Version 1.2.21. Last updated: May 24, 2008.">
-<!ENTITY welcome "Welcome to the Preferences Toolbar documentation!">
+<!ENTITY welcome "Welcome to the PrefBar documentation!">
 <!ENTITY currentlyusing "You are currently using PrefBar">
 <!ENTITY builddate "build date">
 <!ENTITY onlinenote "If you are viewing this documentation online that doesn't necessarily apply to you.">
 <!ENTITY pleaseselect "Please select the section you would like from the menu above, or read on for a description of each page.">
 
-<!ENTITY use.desc "Everything you need to know to use the Preferences Toolbar.">
+<!ENTITY use.desc "Everything you need to know to use the PrefBar.">
 <!ENTITY newstuff.desc "A list of the new features in the current version.">
-<!ENTITY buttons.desc "This is a list of all the buttons available on the prefbar and what they do.">
+<!ENTITY buttons.desc "This is a list of all the buttons available on the PrefBar and what they do.">
 <!ENTITY faq.desc "The mandatory Frequently Asked Questions page. Look for your question here before sending me an email.">
 <!ENTITY credits.desc "Credits and License issues.">
 <!ENTITY feedback.desc "Contact the author.">

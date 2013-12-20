@@ -1,7 +1,7 @@
 <!ENTITY intro "This is the PrefBar User's Guide. Everything you need to know about using the PrefBar is right here in this file. Well, maybe not <i>everything</i>, but pretty darn close.">
 
 <!ENTITY showing.title "Showing the PrefBar">
-<!ENTITY showing.howto "To show the Preferences Toolbar, either enable it via the &quot;View-&gt;Show/Hide&quot; menu (or the &quot;View-&gt;Toolbars&quot; menu in Firefox), or by pressing the F8 key. If the second method doesn't work, try the first.">
+<!ENTITY showing.howto "To show the PrefBar Toolbar, either enable it via the &quot;View-&gt;Show/Hide&quot; menu (or the &quot;View-&gt;Toolbars&quot; menu in Firefox), or by pressing the F8 key. If the second method doesn't work, try the first.">
 
 <!ENTITY moving.title "Moving PrefBar buttons to other toolbars">
 <!ENTITY moving.howto "PrefBar starts up as a new toolbar, which may be toggled by any hotkey, you define for it, but this doesn't mean, that you have to keep the buttons on their own toolbar. Starting with PrefBar 5.0, PrefBar is a so called &quot;customizable toolbar&quot;. This means, that you may either place foreign buttons to the PrefBar toolbar (and toggle them together with the other PrefBar items using your defined hotkey!) or place the PrefBar button group to any toolbar, you want. If you moved the PrefBar stuff from their own toolbar, you may just hide it to save space. To do this, right click on any Toolbar, despite PrefBar itself, and choose &quot;Customize...&quot; there. This way, you enter &quot;toolbar customize mode&quot;, where you may drag&amp;drop items around.">

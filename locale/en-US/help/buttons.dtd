@@ -121,8 +121,8 @@
 <!ENTITY prefbarhomepagelink.desc "A link to the homepage of the PrefBar project.">
 <!ENTITY mozilla.org.desc "A link to mozilla.org, homepage of the mozilla project.">
 <!ENTITY mozillazine.org.desc "A link to MozillaZine.org, gathering place for mozila developers and users.">
-<!ENTITY customize.desc "This will quickly take you to the preferences toolbar customization panel in the preferences dialog.">
-<!ENTITY hidetoolbar.desc "A button to hide the preferences toolbar. Does the same thing as pressing F8.">
+<!ENTITY customize.desc "This will quickly take you to the PrefBar customization dialog.">
+<!ENTITY hidetoolbar.desc "A button to hide the PrefBar toolbar. Does the same thing as pressing F8.">
 <!ENTITY proxylist.desc "A list, where you can add some proxies, you need, with the needed ports. This makes it easy to switch between the proxies.">
 <!ENTITY prefbarlanglist.desc "Enables to switch the language identifier, sent to webservers. The entry &quot;Default&quot; resets the setting of this preference back to the default setting, the author of your Firefox/SeaMonkey language pack defined for your locale.">
 

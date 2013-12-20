@@ -6,9 +6,9 @@
 <!ENTITY featurereq "Feature Anfragen">
 <!ENTITY other "Anderes">
 
-<!ENTITY whatis.title "Was ist die Preferences Toolbar?">
-<!ENTITY whatis.summary "Die Preferences Toolbar ist ein Addon, welches erstellt wurde, um Ihnen das Surfen angenehmer zu gestalten indem sie erlaubt, schnell Navigator-Eigenschaften zu verändern und verschiedene Funktionen auszuführen.">
-<!ENTITY whatis.example "Zum Beispiel wenn Sie eine Seite betrachten, deren Autor glaubt, dass roter Text auf gelbem Hintergrund schön aussieht, dann macht es die Preferences Toolbar möglich, schnell die &quot;Custom Colors&quot;-Eigenschaft zu deaktivieren und die Seite in den Browser-Standardfarben (normalerweise schwarz auf weiß) zu betrachten.">
+<!ENTITY whatis.title "Was ist die PrefBar?">
+<!ENTITY whatis.summary "Die PrefBar ist ein Addon, welches erstellt wurde, um Ihnen das Surfen angenehmer zu gestalten indem sie erlaubt, schnell Navigator-Eigenschaften zu verändern und verschiedene Funktionen auszuführen.">
+<!ENTITY whatis.example "Zum Beispiel wenn Sie eine Seite betrachten, deren Autor glaubt, dass roter Text auf gelbem Hintergrund schön aussieht, dann macht es die PrefBar möglich, schnell die &quot;Custom Colors&quot;-Eigenschaft zu deaktivieren und die Seite in den Browser-Standardfarben (normalerweise schwarz auf weiß) zu betrachten.">
 <!ENTITY whatis.developers "Webdesigner werden auch die Möglichkeit, das Browser Cache mit einem Klick zu leeren, mögen und auch das schnelle Vortäuschen eines falschen User Agent dürfte für viele interessant sein.">
 
 <!ENTITY resetbuttons.title "Wie kann ich die Buttons auf der Toolbar zurücksetzen?">
