@@ -11,8 +11,8 @@
 <!ENTITY whatis.example "Zum Beispiel wenn Sie eine Seite betrachten, deren Autor glaubt, dass roter Text auf gelbem Hintergrund schön aussieht, dann macht es die PrefBar möglich, schnell die &quot;Custom Colors&quot;-Eigenschaft zu deaktivieren und die Seite in den Browser-Standardfarben (normalerweise schwarz auf weiß) zu betrachten.">
 <!ENTITY whatis.developers "Webdesigner werden auch die Möglichkeit, das Browser Cache mit einem Klick zu leeren, mögen und auch das schnelle Vortäuschen eines falschen User Agent dürfte für viele interessant sein.">
 
-<!ENTITY resetbuttons.title "Wie kann ich die Buttons auf der Toolbar zurücksetzen?">
-<!ENTITY resetbuttons.howto "Um alle Buttons auf der Toolbar in den Auslieferungszustand zurückzusetzen, können Sie die Zurücksetzen-Funktion im Einstellungsdialog der PrefBar verwenden. Dies kann sinnvoll sein, wenn Sie etwas Gelöschtes wieder zurück haben wollen oder wenn Sie einen der Standardbuttons geändert haben und diesen in den Originalzustand zurücksetzen wollen. (Beachten Sie, dass dieses Vorgehen alle Änderungen, die Sie an der Toolbar gemacht haben, zerstört. Buttons, die neu erstellt wurden, werden nicht angefasst!)">
+<!ENTITY resetbuttons.title "Wie kann ich die Buttons auf der PrefBar zurücksetzen?">
+<!ENTITY resetbuttons.howto "Um alle Buttons auf der PrefBar in den Auslieferungszustand zurückzusetzen, können Sie die Zurücksetzen-Funktion im Einstellungsdialog der PrefBar verwenden. Dies kann sinnvoll sein, wenn Sie etwas Gelöschtes wieder zurück haben wollen oder wenn Sie einen der Standardbuttons geändert haben und diesen in den Originalzustand zurücksetzen wollen. (Beachten Sie, dass dieses Vorgehen alle Änderungen, die Sie an der PrefBar gemacht haben, zerstört. Buttons, die neu erstellt wurden, werden nicht angefasst!)">
 
 <!ENTITY imagereload.title "Warum funktioniert die &quot;Bilder&quot; Einstellung nicht?">
 <!ENTITY imagereload.reloadneeded "Die &quot;Bilder&quot;-Einstellung funktioniert. Es ist nur ein seltsamer Kniff erforderlich: Sie müssen die Seite neu laden, um den Effekt zu sehen.">
