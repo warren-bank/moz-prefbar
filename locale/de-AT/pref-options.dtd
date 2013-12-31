@@ -5,7 +5,7 @@
 <!ENTITY caption-reset "Buttons zurücksetzen">
 <!ENTITY caption-import "Import">
 
-<!ENTITY check-show-in-popups "PrefBar in Popup-Fenstern anzeigen">
+<!ENTITY check-show-in-popups "PrefBar Toolbar in Popup-Fenstern anzeigen">
 <!ENTITY check-slimbuttons "Schlanke Buttons nutzen (funktioniert nicht mit jedem Theme!)">
 <!ENTITY check-website-import "Websites erlauben, Button-Imports anzufragen (prefbar:// URL)">
 <!ENTITY button-manage-permissions "Erlaubte Websites">

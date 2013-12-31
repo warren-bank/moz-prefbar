@@ -56,7 +56,7 @@
 <!ENTITY noeditbuttons.exceptions.discussedin.beforelink "Things discussed in">
 <!ENTITY noeditbuttons.exceptions.discussedin.afterlink "">
 <!ENTITY noeditbuttons.exceptions.label "The label property. This one isn't touched by the update process, so <b>feel free to give each button a shorter name or just give it a name you like better</b>">
-<!ENTITY noeditbuttons.exceptions.selfcreated "Of course anything that isn't built in such as self-created buttons or imported buttons">
+<!ENTITY noeditbuttons.exceptions.selfcreated "Of course everything that isn't built in such as self-created buttons or imported buttons">
 <!ENTITY noeditbuttons.buildininfo "You may also have a look at the button list to see in detail which buttons you should not edit. If those buttons really have a bug, please tell me. It's the task of the PrefBar team to fix this. You should have no reason to modify the buttons on your own.">
 
 <!ENTITY editbuttons.title "Built in buttons you may edit">
