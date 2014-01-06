@@ -177,14 +177,15 @@ var AustralisHandler = {
   },
   resize: function() {
     if (!this.initialized) return;
-    var toolbaritem = document.getElementById("prefbar-toolbaritem");
 
-    if (!toolbaritem) {
+    // Reset lastparent if toolbaritem not on any toolbar/menu
+    if (IsOnPalette("prefbar-toolbaritem")) {
       this.lastparent = null;
       return;
     }
 
     // Parent node changed and new parent is toolbar
+    var toolbaritem = document.getElementById("prefbar-toolbaritem");
     if (toolbaritem.parentNode != this.lastparent &&
         this.GetToolbaritemContainer(toolbaritem) == "toolbar") {
       setTimeout(OnAfterCustomization, 0);
@@ -209,19 +210,22 @@ var AustralisHandler = {
   },
   onOverflowBtnClick: function(aEvent) {
     goPrefBar.dump("onOverflowBtnClick " + aEvent.target);
-    var toolbaritem = document.getElementById("prefbar-toolbaritem");
 
-    if (!toolbaritem) {
+    // Reset lastparent if toolbaritem not on any toolbar/menu
+    if (IsOnPalette("prefbar-toolbaritem")) {
       this.lastparent = null;
       return;
     }
 
     // Parent node changed and new parent is overflow menu
+    var toolbaritem = document.getElementById("prefbar-toolbaritem");
     if (toolbaritem.parentNode != this.lastparent &&
         this.GetToolbaritemContainer(toolbaritem) == "overflow") {
       setTimeout(OnAfterCustomization, 0);
       this.lastparent = toolbaritem.parentNode;
     }
+    else
+      setTimeout(UpdateToolbar, 0);
   },
 
   // The following ones are events, created by "CustomizableUI"
@@ -237,11 +241,11 @@ var AustralisHandler = {
   onWidgetBeforeDOMChange: function(aNode) {
     goPrefBar.dump("onWidgetBeforeDOMChange: " + aNode.id);
   },
-  onWidgetAfterDOMChange: function(aNode) {
+  onWidgetAfterDOMChange: function(aNode, aNextNode, aContainer, aIsRemoval) {
+    goPrefBar.dump("onWidgetAfterDOMChange: " + aNode.id);
     if (aNode.id == "prefbar-toolbaritem" ||
         aNode.id == "prefbar-menu")
       OnAfterCustomization();
-    goPrefBar.dump("onWidgetAfterDOMChange: " + aNode.id);
   },
   onWidgetMoved: function(aNode) {
     goPrefBar.dump("onWidgetMoved: " + aNode.id);
@@ -368,7 +372,7 @@ function OnAfterCustomization() {
   buttons.setAttribute("prefbarslimbuttons", slimvalue);
 
   // Update Toolbar
-  UpdateToolbar();
+  setTimeout(UpdateToolbar, 0);
 }
 
 function OnContextPopup() {
@@ -761,10 +765,15 @@ function OpenPrefs() {
 }
 
 // This function checks if the given toolbar item is not placed to any toolbar
+// or one of the menus invented with Australis
 function IsOnPalette(aNodeID) {
   var node = document.getElementById(aNodeID);
   if (!node) return true; // Firefox
-  return (node.parentNode.tagName == "toolbarpalette"); // SeaMonkey
+  var parent = node.parentNode;
+  if (!parent) return true;
+  if (parent.tagName == "toolbarpalette") return true; // SeaMonkey
+  if (parent.tagName == "toolbarpaletteitem") return true; // Firefox Australis
+  return false;
 }
 
 function LogError(e, lf, id, fname) {

@@ -341,8 +341,10 @@ var ButtonHandling = {
       btn.setAttribute("label", aData.label);
       if (aMenu)
         btn.setAttribute("onpopupshowing", "PrefBarNS.ButtonHandling.menulist.update(this);");
-      else
+      else {
         btn.setAttribute("tooltiptext", aData.label);
+        btn.setAttribute("noautoclose", "true");
+      }
 
       var menupopup = document.createElement("menupopup");
       menupopup.setAttribute("oncommand", "PrefBarNS.ButtonHandling.menulist.set(this, event);");
