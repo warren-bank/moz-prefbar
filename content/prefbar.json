@@ -352,7 +352,7 @@
     "type":"extlist",
     "dontupdatelistitems":true,
     "setfunction":"prefbarSetResolution(value);",
-    "getfunction":"value = prefbarGetResolution();"
+    "getfunction":"value = prefbarGetResolution(items);"
   },
   "prefbar:button:separator9":{
     "type":"separator"

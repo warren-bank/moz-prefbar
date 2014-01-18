@@ -65,6 +65,7 @@
 <!ENTITY editresize.title "画面の大きさ">
 <!ENTITY editresize.howto "画面の解像度を追加したい場合は次の形式で入力してください:">
 <!ENTITY editresize.example "<i>$WIDTH</i><b>x</b><i>$HEIGHT</i>">
+<!ENTITY editresize.onevalueonly "If you only want to set the width or the height of the window, you may leave out one of the values. For example, a value &quot;1024x&quot; will only set the width of the window.">
 
 <!ENTITY edituseragent.title "ユーザーエージェント">
 <!ENTITY edituseragent.howto "次のふたつの方法でユーザーエージェントを追加できます:">

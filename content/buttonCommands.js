@@ -372,14 +372,24 @@ function prefbarGetCacheEnabled() {
 // "Resize" menulist
 //
 
-function prefbarSetResolution(value) {
-  var valueArray = value.split("x");
-  window.outerWidth = valueArray[0];
-  window.outerHeight = valueArray[1];
+function prefbarSetResolution(aValue) {
+  var valueArray = aValue.split("x");
+  if (valueArray[0]) window.outerWidth  = valueArray[0];
+  if (valueArray[1]) window.outerHeight = valueArray[1];
 }
 
-function prefbarGetResolution() {
-  return window.outerWidth + "x" + window.outerHeight;
+function prefbarGetResolution(aItems) {
+  var fullvalue = window.outerWidth + "x" + window.outerHeight;
+  var wvalue = window.outerWidth + "x";
+  var hvalue = "x" + window.outerHeight;
+
+  var retval;
+  for (var index = 0; index < aItems.length; index++) {
+    var curval = aItems[index][1];
+    if (curval == fullvalue) return curval;
+    if (curval == wvalue || curval == hvalue) retval = curval;
+  }
+  return retval;
 }
 
 //

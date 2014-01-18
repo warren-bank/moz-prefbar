@@ -66,6 +66,7 @@
 <!ENTITY editresize.title "Resize">
 <!ENTITY editresize.howto "Hier können Sie Ihre eigenen Bildschirmauflösungen mit dem Bearbeiten-Button eintragen. Das Format ist:">
 <!ENTITY editresize.example "<i>$BREITE</i><b>x</b><i>$HÖHE</i>">
+<!ENTITY editresize.onevalueonly "Wenn Sie nur die Breite oder die Höhe festlegen wollen, dann können Sie einen der Werte weglassen. Zum Beispiel setzt der Wert &quot;1024x&quot; nur die Breite des Fensters.">
 
 <!ENTITY edituseragent.title "User Agent">
 <!ENTITY edituseragent.howto "Sie können hier problemlos eigene User Agents einfügen. Seit PrefBar 3.3 gibt es zwei Wege, um dies zu tun:">
