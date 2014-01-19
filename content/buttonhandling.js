@@ -172,7 +172,7 @@ var ButtonHandling = {
     update: function(aButton, aData) {
       // Add favicons for our builtins without asking favicon service
       if (aData.url.match(/^chrome:\/\/prefbar\//))
-        aButton.setAttribute("image", "chrome://prefbar/content/help/favicon.png");
+        aButton.setAttribute("image", "chrome://prefbar/skin/pblogo18.png");
       // If the required services are there, try to get favicon from cache
       else if ("nsIFaviconService" in Components.interfaces &&
                "mozIAsyncFavicons" in Components.interfaces) {
