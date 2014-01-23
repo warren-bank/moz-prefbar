@@ -123,7 +123,7 @@ function StartPrefBar(event) {
   if (goPrefBar.openPrefBarHP) {
     goPrefBar.openPrefBarHP = false;
     var browser = getBrowser();
-    var tab = browser.addTab("http://prefbar.tuxfamily.org/#news");
+    var tab = browser.addTab("http://prefbar.tuxfamily.org/updated.html");
     browser.selectedTab = tab;
   }
 
