@@ -42,10 +42,20 @@
 <overlay id="prefbarPreferencesOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+  <script type="text/javascript" src="chrome://global/content/contentAreaUtils.js"/>
+
   <script>
   <![CDATA[
     var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
                               .getService().wrappedJSObject;
+
+    function prefbarHelpHandler(aEvent) {
+      if (document.documentElement.currentPane.getAttribute("helpTopic") == "prefbar-editbar") {
+        aEvent.stopPropagation();
+        openURL('chrome://prefbar/content/help/use.xhtml#customizing');
+      }
+    }
+    window.addEventListener("dialoghelp", prefbarHelpHandler, true);
   ]]>
   </script>
 

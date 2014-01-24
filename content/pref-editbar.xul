@@ -52,6 +52,7 @@
   <prefpane id="prefbar_editbar_pane"
             label="&header-title;"
             flex="1"
+            helpTopic="prefbar-editbar"
             script="chrome://prefbar/content/pref-editbar.js">
 
     <menupopup id="tree-contextmenu"

@@ -44,9 +44,12 @@
 <prefwindow id = "prefbar-dialog"
             xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             title = "&main-label;"
+            ondialoghelp = "openURL('chrome://prefbar/content/help/use.xhtml#customizing')"
             style = "width: 48em; height: 40em;"
             persist = "screenX screenY"
             windowtype = "prefbar:preferences">
+
+  <script type="text/javascript" src="chrome://global/content/contentAreaUtils.js"/>
 
   <prefpane id="prefbar_editbar_pane" label="&buttons-label;"
             src="chrome://prefbar/content/pref-editbar.xul"
