@@ -1,15 +1,21 @@
 /* Slimbutton support */
 #prefbar-buttons[prefbarslimbuttons="true"] > toolbarbutton {
-  padding-left: 1px;
-  padding-right: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
   margin-left: 0px;
   margin-right: 0px;
 }
-#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > * {
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox {
   padding-left: 0px;
   padding-right: 0px;
   margin-left: 1px;
   margin-right: 1px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > menulist {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 #prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-spacer-box {
   margin-right: 1px;
@@ -37,6 +43,8 @@
 /* PrefBar menu */
 #prefbar-menu {
   list-style-image: url(chrome://prefbar/skin/pblogo24.png);
+}
+#prefbar-menu:not([cui-areatype="menu-panel"]) {
   /* Why do the Firefox developers want the dropmarker below the icon? */
   -moz-box-orient: horizontal;
 }
