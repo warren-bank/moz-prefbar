@@ -1,4 +1,6 @@
-/* Slimbutton support */
+/*
+ * Slimbutton support
+ */
 #prefbar-buttons[prefbarslimbuttons="true"] > toolbarbutton {
   padding-left: 3px;
   padding-right: 3px;
@@ -8,17 +10,26 @@
 #prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox {
   padding-left: 0px;
   padding-right: 0px;
-  margin-left: 1px;
+  margin-left: 3px;
   margin-right: 1px;
 }
 #prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > menulist {
   padding-left: 0px;
   padding-right: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
+/* Linux */
 #prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-spacer-box {
   margin-right: 1px;
+}
+/* Windows */
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-label-box > .checkbox-icon {
+  margin-right: 1px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-label-box {
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 /* Firefox wastes too much space for the toolbarbutton icon */
