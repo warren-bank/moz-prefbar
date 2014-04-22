@@ -343,6 +343,7 @@ var ButtonHandling = {
         btn.setAttribute("onpopupshowing", "PrefBarNS.ButtonHandling.menulist.update(this);");
       else {
         btn.setAttribute("tooltiptext", aData.label);
+        // HACK: Keep panel open when user clicks on menupopup (Bug 964944)
         btn.setAttribute("closemenu", "none");
       }
 
@@ -377,6 +378,11 @@ var ButtonHandling = {
         else
           goPrefBar.msgAlert(window, "Preference " + pref + " doesn't exist!");
       }
+
+      // HACK: Force panel close on select (Bug 964944)
+      if ("CustomizableUI" in window &&
+          "hidePanelForNode" in window.CustomizableUI)
+        CustomizableUI.hidePanelForNode(menupopup);
     },
     update: function(button, data) {
       // data is undefined, if called via "onpopupshowing"
@@ -456,6 +462,11 @@ var ButtonHandling = {
         var lf = new Error();
         eval(func);
       } catch(e) { LogError(e, lf, menupopup.id, "setfuntion"); }
+
+      // HACK: Force panel close on select (Bug 964944)
+      if ("CustomizableUI" in window &&
+          "hidePanelForNode" in window.CustomizableUI)
+        CustomizableUI.hidePanelForNode(menupopup);
     },
     update: function(button, data) {
       // data is undefined, if called via "onpopupshowing"
