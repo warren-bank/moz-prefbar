@@ -130,6 +130,7 @@
 
     <toolbaritem id="prefbar-toolbaritem"
                  flex="1"
+                 align="center"
                  style="min-width: 0px;"
                  context="prefbar-contextmenu"
                  title="&prefbar-toolbaritem.title;">

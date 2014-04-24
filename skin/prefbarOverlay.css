@@ -59,9 +59,6 @@
   /* Why do the Firefox developers want the dropmarker below the icon? */
   -moz-box-orient: horizontal;
 }
-#prefbar-menu .toolbarbutton-icon {
-  margin-right: 4px;
-}
 toolbar[iconsize="small"] > #prefbar-menu,
 toolbar[iconsize="small"] > toolbarpaletteitem > #prefbar-menu,
 toolbarpaletteitem[place="palette"] > #prefbar-menu {
