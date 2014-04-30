@@ -380,9 +380,7 @@ var ButtonHandling = {
       }
 
       // HACK: Force panel close on select (Bug 964944)
-      if ("CustomizableUI" in window &&
-          "hidePanelForNode" in window.CustomizableUI)
-        CustomizableUI.hidePanelForNode(menupopup);
+      AustralisHandler.hidePanelForNode(menupopup);
     },
     update: function(button, data) {
       // data is undefined, if called via "onpopupshowing"
@@ -464,9 +462,7 @@ var ButtonHandling = {
       } catch(e) { LogError(e, lf, menupopup.id, "setfuntion"); }
 
       // HACK: Force panel close on select (Bug 964944)
-      if ("CustomizableUI" in window &&
-          "hidePanelForNode" in window.CustomizableUI)
-        CustomizableUI.hidePanelForNode(menupopup);
+      AustralisHandler.hidePanelForNode(menupopup);
     },
     update: function(button, data) {
       // data is undefined, if called via "onpopupshowing"

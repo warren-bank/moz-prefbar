@@ -228,6 +228,11 @@ var AustralisHandler = {
       setTimeout(UpdateToolbar, 0);
   },
 
+  hidePanelForNode: function(aNode) {
+    if (!this.initialized) return;
+    CustomizableUI.hidePanelForNode(aNode);
+  },
+
   // The following ones are events, created by "CustomizableUI"
   onWidgetCreated: function(aNode) {
     goPrefBar.dump("onWidgetCreated: " + aNode.id);
