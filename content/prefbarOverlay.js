@@ -82,6 +82,19 @@ function StartPrefBar(event) {
     document.persist(toolbar.id, "hidden");
   }
 
+  // In Firefox 29 the attributes "mode" and "iconsize" are no longer supported
+  if (goPrefBar.InFF("29.0")) {
+    var attributes = [["mode", "icons"], ["iconsize", "small"]];
+    for (var index = 0; index < attributes.length; index++) {
+      var attr = attributes[index][0];
+      var value = attributes[index][1];
+      if (toolbar.hasAttribute(attr) && toolbar.getAttribute(attr) != value) {
+        toolbar.setAttribute(attr, value);
+        document.persist(toolbar.id, attr);
+      }
+    }
+  }
+
   // Init hotkey stuff
   DoHotkeySnapshot();
   UpdateToggleKey();
