@@ -3,8 +3,8 @@
 # Makefile for PrefBar
 #
 
-VERSION=6.3.0
-BUILD=20140119
+VERSION=6.4.0
+BUILD=20140521
 
 .PHONY: all patch chrome xpi clean check-tree update-ja
 all: patch xpi
