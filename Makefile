@@ -50,3 +50,5 @@ check-tree:
 update-ja: check-tree
 	@rm -rf locale/ja
 	svn export https://minefield-jlp.googlecode.com/svn/trunk/chrome/locale/prefbar/ locale/ja/
+	@rm -f locale/ja/help/help.dtd
+	@rm -f locale/ja/help/prefbarhelp.png
