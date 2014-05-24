@@ -6,7 +6,7 @@
 VERSION=6.4.0
 BUILD=20140521
 
-.PHONY: all patch chrome xpi clean check-tree update-ja
+.PHONY: all patch chrome xpi clean check-tree update-ja webhelp
 all: patch xpi
 
 patch:
@@ -38,6 +38,15 @@ xpi: chrome
 clean:
 	rm -f prefbar-trunk.xpi
 	rm -rf chrome
+
+webhelp:
+	mkdir -p webhelp
+	perl deentitize.pl -o webhelp -l locale/en-US content/help/*.xhtml
+#	Replace favicon
+	sed 's#chrome://prefbar/skin/pblogo18.png#favicon.png#' -i webhelp/*.html
+#	HTML5
+	sed '/<\?xml.*/d' -i webhelp/*.html
+	sed 's#<!DOCTYPE.*#<!DOCTYPE html>#' -i webhelp/*.html
 
 check-tree:
 	@if [ -d .git ]; then \
