@@ -50,6 +50,9 @@ use File::Basename;
     # Fix all "internal links" (make them point to the .html file, not .xhtml)
     $content =~ s#(<a href="[^:"]+)\.xhtml#$1.html#g;
 
+    # Fix "favicon" link
+    $content =~ s#(<link rel="icon" href=")chrome://[a-z]+/skin/#$1#;
+
     # Replace all entities with their value
     while (my($entity, $value) = each(%entities)) {
       $content =~ s#&\Q$entity\E;#$value#g;

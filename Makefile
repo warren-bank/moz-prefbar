@@ -41,9 +41,9 @@ clean:
 
 webhelp:
 	mkdir -p webhelp
+	cp content/help/*.css webhelp
+	cp skin/pblogo18.png webhelp
 	perl deentitize.pl -o webhelp -l locale/en-US content/help/*.xhtml
-#	Replace favicon
-	sed 's#chrome://prefbar/skin/pblogo18.png#favicon.png#' -i webhelp/*.html
 #	HTML5
 	sed '/<\?xml.*/d' -i webhelp/*.html
 	sed 's#<!DOCTYPE.*#<!DOCTYPE html>#' -i webhelp/*.html
