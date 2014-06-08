@@ -37,9 +37,14 @@
   margin-right: 2px;
 }
 
+/* Center items in toolbaritem elements. Needed to get text labels */
+/* vertically centered on toolbar. */
+#prefbar-buttons > toolbaritem {
+  -moz-box-align: center;
+}
+
 /* Toolkit toolbars may be set to "image only" using the customize window */
-/* PrefBar-buttons can't work without text, so force the text to be visible */
-/* there */
+/* PrefBar-buttons can't work without text, so force the text to be visible. */
 #prefbar-buttons .toolbarbutton-text {
   display: -moz-box !important;
 }
