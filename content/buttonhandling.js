@@ -207,16 +207,12 @@ var ButtonHandling = {
       var btn = document.createElement(aMenu ? "menuitem" : "checkbox");
       btn.setAttribute("oncommand", "PrefBarNS.ButtonHandling.check.set(this)");
       btn.setAttribute("label", aData.label);
-      if (aMenu) btn.setAttribute("name", aID);
+      if (aMenu) btn.setAttribute("type", "checkbox");
       return btn;
     },
     set: function(button) {
       var data = gMainDS[button.id];
-      var value;
-      if (button.tagName == "checkbox")
-        value = button.checked;
-      else
-        value = (button.getAttribute("type") == "radio");
+      var value = (button.getAttribute("checked") == "true");
 
       try {
         var lf = new Error();
@@ -235,13 +231,9 @@ var ButtonHandling = {
         checked = eval(data.frompref);
       } catch(e) { LogError(e, lf, button.id, "frompref"); }
 
-      if (button.tagName == "checkbox")
-        button.setAttribute("checked", checked);
-      else {
-        var tvalue = checked ? "checkbox" : "radio";
-        button.setAttribute("type", tvalue);
-        button.setAttribute("checked", "true");
-      }
+      button.setAttribute("checked", checked);
+
+      button.setAttribute("prefbar-visualize-unchecked", goPrefBar.GetPref("extensions.prefbar.visualize_unchecked", false));
     },
     hotkey: function(aID, aData) {
       var value = goPrefBar.GetPref(aData.prefstring);
@@ -277,36 +269,23 @@ var ButtonHandling = {
     },
     set: function(button, event) {
       var data = gMainDS[button.id];
-
-      var func = data.setfunction;
-
-      var value;
-      if (button.tagName == "checkbox")
-        value = button.checked;
-      else
-        value = (button.getAttribute("type") == "radio");
+      var value = (button.getAttribute("checked") == "true");
 
       try {
         var lf = new Error();
-        eval(func);
+        eval(data.setfunction);
       } catch(e) { LogError(e, lf, button.id, "setfuntion"); }
     },
     update: function(button, aData) {
-      var func = aData.getfunction;
-
       var value;
       try {
         var lf = new Error();
-        eval(func);
+        eval(aData.getfunction);
       } catch(e) { LogError(e, lf, button.id, "getfuntion"); }
 
-      if (button.tagName == "checkbox")
-        button.setAttribute("checked", value);
-      else {
-        var tvalue = value ? "checkbox" : "radio";
-        button.setAttribute("type", tvalue);
-        button.setAttribute("checked", "true");
-      }
+      button.setAttribute("checked", value);
+
+      button.setAttribute("prefbar-visualize-unchecked", goPrefBar.GetPref("extensions.prefbar.visualize_unchecked", false));
     },
     hotkey: function(aID, aData) {
       var event = {altKey:false, ctrlKey:false, metaKey:false, shiftKey:false};
@@ -418,10 +397,8 @@ var ButtonHandling = {
 
         newitem.setAttribute("label", optlabel);
         newitem.setAttribute("value", optvalue);
-        if (aIsMenu) {
-          newitem.setAttribute("type", "checkbox");
-          newitem.setAttribute("checked", "false");
-        }
+        if (aIsMenu)
+          newitem.setAttribute("type", "radio");
         aMenuPopup.appendChild(newitem);
       }
 

@@ -49,6 +49,11 @@
   display: -moz-box !important;
 }
 
+/* If requested, then visualize unchecked checkboxes */
+menuitem[prefbar-visualize-unchecked="true"][checked="false"] {
+  list-style-image: url(chrome://prefbar/skin/checkbox.png);
+}
+
 /* Checkboxes keep focus, but we want the focus in the content area */
 /* https://www.mozdev.org/bugs/show_bug.cgi?id=18086 */
 /* Starting with PrefBar 5.0 those items are wrapped in "toolbaritem" tags */

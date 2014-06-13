@@ -6,6 +6,7 @@
 
 <!ENTITY check-show-in-popups "ポップアップウィンドウに PrefBar を表示">
 <!ENTITY check-slimbuttons "スリムボタンを使用 (使用するテーマによっては利用できない場合があります！)">
+<!ENTITY check-visualize-unchecked "Visualize unchecked checkboxes in menus">
 <!ENTITY check-website-import "Web サイトからのボタンのインポートを許可 (prefbar:// URL)">
 <!ENTITY button-manage-permissions "許可するサイト">
 

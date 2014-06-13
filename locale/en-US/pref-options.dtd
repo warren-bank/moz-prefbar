@@ -6,6 +6,7 @@
 
 <!ENTITY check-show-in-popups "Show PrefBar toolbar in popup-windows">
 <!ENTITY check-slimbuttons "Use slim buttons (may not work with some themes!)">
+<!ENTITY check-visualize-unchecked "Visualize unchecked checkboxes in menus">
 <!ENTITY check-website-import "Allow websites to request button imports (prefbar:// URL)">
 <!ENTITY button-manage-permissions "Manage Permissions">
 

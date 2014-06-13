@@ -53,6 +53,9 @@
       <preference id="extensions.prefbar.slimbuttons"
                   name="extensions.prefbar.slimbuttons"
                   type="bool"/>
+      <preference id="extensions.prefbar.visualize_unchecked"
+                  name="extensions.prefbar.visualize_unchecked"
+                  type="bool"/>
       <preference id="extensions.prefbar.hktoggle"
                   name="extensions.prefbar.hktoggle"
                   type="string"/>
@@ -72,6 +75,8 @@
       <checkbox id="slimButtons"
                 label="&check-slimbuttons;"
                 preference="extensions.prefbar.slimbuttons"/>
+      <checkbox label="&check-visualize-unchecked;"
+                preference="extensions.prefbar.visualize_unchecked"/>
     </groupbox>
 
     <groupbox>
