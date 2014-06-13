@@ -103,11 +103,13 @@
 
     <groupbox id="resetGroup">
       <caption label="&caption-reset;"/>
-      <description>
-        &description-reset;
-      </description>
-      <button label="&button-reset;"
-              oncommand="resetButton();"/>
+      <hbox>
+        <description flex="1">
+          &description-reset;
+        </description>
+        <button label="&button-reset;"
+                oncommand="resetButton();"/>
+      </hbox>
     </groupbox>
 
   </prefpane>
