@@ -41,8 +41,8 @@ function Startup() {
 }
 
 function SetButtons() {
-  var webimport = goPrefBar.GetPref("extensions.prefbar.website_import");
-  document.getElementById("PrefBarManagePermissions").disabled = !webimport;
+  var pref = document.getElementById("extensions.prefbar.website_import");
+  document.getElementById("PrefBarManagePermissions").disabled = !pref.value;
 }
 
 function resetButton() {
