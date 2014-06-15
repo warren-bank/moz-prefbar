@@ -40,13 +40,16 @@ clean:
 	rm -rf chrome
 
 webhelp:
-	mkdir -p webhelp
-	cp content/help/*.css webhelp
-	cp skin/pblogo18.png webhelp
-	perl deentitize.pl -o webhelp -l locale/en-US content/help/*.xhtml
+	mkdir -p webhelp/ja webhelp/de
+	cp content/help/*.css skin/pblogo18.png webhelp
+	cp content/help/*.css skin/pblogo18.png webhelp/ja
+	cp content/help/*.css skin/pblogo18.png webhelp/de
+	perl deentitize.pl -o webhelp    -l locale/en-US content/help/*.xhtml
+	perl deentitize.pl -o webhelp/ja -l locale/ja    content/help/*.xhtml
+	perl deentitize.pl -o webhelp/de -l locale/de-AT content/help/*.xhtml
 #	HTML5
-	sed '/<\?xml.*/d' -i webhelp/*.html
-	sed 's#<!DOCTYPE.*#<!DOCTYPE html>#' -i webhelp/*.html
+	sed '/<\?xml.*/d' -i webhelp/*.html webhelp/*/*.html
+	sed 's#<!DOCTYPE.*#<!DOCTYPE html>#' -i webhelp/*.html webhelp/*/*.html
 
 check-tree:
 	@if [ -d .git ]; then \
