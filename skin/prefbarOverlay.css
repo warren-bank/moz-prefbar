@@ -53,6 +53,9 @@
 menuitem[prefbar-visualize-unchecked="true"][checked="false"] {
   list-style-image: url(chrome://prefbar/skin/checkbox.png);
 }
+menuitem[prefbar-visualize-unchecked="true"][checked="false"] .menu-iconic-icon {
+  display: -moz-box;
+}
 
 /* Checkboxes keep focus, but we want the focus in the content area */
 /* https://www.mozdev.org/bugs/show_bug.cgi?id=18086 */
