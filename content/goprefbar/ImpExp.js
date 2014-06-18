@@ -94,12 +94,14 @@ function Import(aWin, aFile, aImportType) {
 
   // We don't know what the user tries to import...
   var impds;
+  var oldrdfformat = false;
   try {
     impds = goPrefBar.JSONUtils.ReadJSON(aFile);
   }
   catch(e) {
     try {
       impds = goPrefBar.RDF.ReadRDF(aFile);
+      oldrdfformat = true;
     }
     catch(e) {
       goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
@@ -112,6 +114,9 @@ function Import(aWin, aFile, aImportType) {
     goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrversion").replace("$filename", aFile.path));
     return false;
   }
+
+  if (oldrdfformat)
+    goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importinfooldformat").replace("$filename", aFile.path));
 
   var overwrite = false;
   // Reset or Update --> overwrite anything without asking
