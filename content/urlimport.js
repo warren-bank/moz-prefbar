@@ -135,9 +135,7 @@ function downloadDone(status) {
   }
 
   info.value = goPrefBar.GetString("urlimport.properties", "infoimporting");
-  var fpService = Components.classes["@mozilla.org/network/protocol;1?name=file"].getService(Components.interfaces.nsIFileProtocolHandler);
-  var furl = fpService.getURLSpecFromFile(gTempfile);
-  goPrefBar.ImpExp.Import(window, furl);
+  goPrefBar.ImpExp.Import(window, gTempfile);
 
   goPrefBar.msgAlert(window, goPrefBar.GetString("urlimport.properties", "msgsuccess"));
   cleanup();
