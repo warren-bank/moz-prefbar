@@ -106,7 +106,7 @@
                 oncommand="goPrefBar.GoButtonEditor(window, document.popupNode.id);"/>
       <menuitem id="prefbar-help"
                 label="&prefbar-help-main;"
-                oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml');"/>
+                oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml'); PrefBarNS.AustralisHandler.hidePanelForNode(document.popupNode);"/>
       <menuseparator/>
       <menuitem id="prefbar-customize"
                 label="&prefbar-help-customize;"
