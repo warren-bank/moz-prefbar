@@ -47,18 +47,27 @@
 // +-
 
 //
-// Clear cache buttons
+// Clear cache button
 //
 
-function prefbarClearCache(aType) {
-  var cacheService = Components.classes["@mozilla.org/network/cache-service;1"]
-    .getService(Components.interfaces.nsICacheService);
-  try {
-    cacheService.evictEntries(aType);
-  } catch (e) {}
-}
 function prefbarClearAllCache() {
-  prefbarClearCache(Components.interfaces.nsICache.STORE_ANYWHERE);
+  var cache;
+
+  // New interface since Firefox 32
+  if ("nsICacheStorageService" in Components.interfaces) {
+    cache = Components.classes["@mozilla.org/netwerk/cache-storage-service;1"]
+      .getService(Components.interfaces.nsICacheStorageService);
+    try {
+      cache.clear();
+    } catch(e) {}
+  }
+  else {
+    cache = Components.classes["@mozilla.org/network/cache-service;1"]
+      .getService(Components.interfaces.nsICacheService);
+    try {
+      cacheService.evictEntries(Components.interfaces.nsICache.STORE_ANYWHERE);
+    } catch(e) {}
+  }
 }
 
 //
@@ -66,11 +75,22 @@ function prefbarClearAllCache() {
 //
 
 function prefbarClearOfflineApps() {
-  prefbarClearCache(Components.interfaces.nsICache.STORE_OFFLINE);
+  // New interface since Firefox 32
+  if ("nsICacheStorageService" in Components.interfaces) {
+    Components.utils.import("resource:///modules/offlineAppCache.jsm");
+    OfflineAppCacheHelper.clear();
+  }
+  else {
+    var cache = Components.classes["@mozilla.org/network/cache-service;1"]
+      .getService(Components.interfaces.nsICacheService);
+    try {
+      cacheService.evictEntries(Components.interfaces.nsICache.STORE_OFFLINE);
+    } catch(e) {}
 
-  var storageMgr = Components.classes["@mozilla.org/dom/storagemanager;1"]
-    .getService(Components.interfaces.nsIDOMStorageManager);
-  storageMgr.clearOfflineApps();
+    var storageMgr = Components.classes["@mozilla.org/dom/storagemanager;1"]
+      .getService(Components.interfaces.nsIDOMStorageManager);
+    storageMgr.clearOfflineApps();
+  }
 }
 
 //
