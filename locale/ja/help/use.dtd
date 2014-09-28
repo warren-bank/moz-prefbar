@@ -64,8 +64,8 @@
 
 <!ENTITY editresize.title "画面の大きさ">
 <!ENTITY editresize.howto "画面の解像度を追加したい場合は次の形式で入力してください:">
-<!ENTITY editresize.example "<i>$WIDTH</i><b>x</b><i>$HEIGHT</i>">
-<!ENTITY editresize.onevalueonly "ウィンドウの幅や高さのどちらか一方だけを指定したい場合は、値から片方を省くことができます。例えばウィンドウの幅だけ変更したい場合は、値に&quot;1024x&quot; と指定します。">
+<!ENTITY editresize.example "<i>$WIDTH</i><b>x</b><i>$HEIGHT</i>">>
+<!ENTITY editresize.onevalueonly "ウィンドウの横幅と高さのどちらか片方だけを指定したい場合は、片方の値だけを入力する事で設定できます。例えば横幅だけを設定したい時は &quot;1024x&quot; と入力してください。">
 
 <!ENTITY edituseragent.title "ユーザーエージェント">
 <!ENTITY edituseragent.howto "次のふたつの方法でユーザーエージェントを追加できます:">
