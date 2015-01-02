@@ -39,14 +39,72 @@
 
 var goPrefBar = null;
 var gMainDS;
+var _helper_functions, helper;
 
 const ImportType_Import = 1;
 const ImportType_Update = 2;
 const ImportType_Reset = 3;
 
+var _helper_functions = function(goPrefBar, gMainDS){
+	this.goPrefBar = goPrefBar;
+	this.gMainDS = gMainDS;
+};
+_helper_functions.prototype = {
+	"is_in_menu": function(id, menu_id){
+		return (this.goPrefBar.ArraySearch(id, this.gMainDS[menu_id].items) !== false);
+	},
+
+	"is_enabled": function(id){
+		return this.is_in_menu(id, "prefbar:menu:enabled");
+	},
+
+	"is_disabled": function(id){
+		return this.is_in_menu(id, "prefbar:menu:disabled");
+	},
+
+	"is_type": function(id, type){
+		var id_pattern;
+		id_pattern = new RegExp('^prefbar:' +type+ ':', 'i');
+		return id_pattern.test(id);
+	},
+
+	"is_menu": function(id){
+		return this.is_type(id, 'menu');
+	},
+
+	"is_button": function(id){
+		return this.is_type(id, 'button');
+	},
+
+	"is_non_null_object": function(o){
+		return (
+			(typeof o === 'object') &&
+			(o !== null)
+		);
+	},
+
+	"is_array": function(o){
+		return (
+			(this.is_non_null_object(o)) &&
+			(typeof o.constructor === 'function') &&
+			(typeof o.constructor.name === 'string') &&
+			(o.constructor.name.toLowerCase() === 'array') &&
+			(typeof o["length"] === 'number')
+		);
+	},
+
+	"is_non_empty_array": function(o){
+		return (
+			(this.is_array(o)) &&
+			(o["length"] > 0)
+		);
+	}
+};
+
 function Init(aGO) {
   goPrefBar = aGO;
   gMainDS = goPrefBar.JSONUtils.mainDS;
+  helper = new _helper_functions(goPrefBar, gMainDS);
 
   // If mainDS is empty (e.g. skeleton created by JSONUtils.js), then forcefully
   // trigger update to get it filled with contents of internal database
@@ -58,153 +116,205 @@ function Init(aGO) {
 }
 
 function Export(aWin, aToExport, aFileObj) {
-  if (aToExport.length == 0) return;
+	// sanity check
+	if (
+		(! helper.is_non_empty_array(aToExport))
+	) {return;}
 
-  // Which parent menu?
-  var parent = "prefbar:menu:enabled";
-  if (goPrefBar.ArraySearch(aToExport[0], gMainDS["prefbar:menu:disabled"].items) !== false) parent = "prefbar:menu:disabled";
+	var result, enabled, disabled, id, i;
 
-  // Generate template
-  var exportds = {
-    "prefbar:info": {
-      formatversion: gMainDS["prefbar:info"].formatversion
-    }
-  };
-  exportds[parent] = {items: []};
+	result = {};
+	enabled = [];
+	disabled = [];
 
-  // Add export items
-  for (var index = 0; index < aToExport.length; index++) {
-    var expitemid = aToExport[index];
-    var expitem = gMainDS[expitemid];
+	result["prefbar:info"]          = gMainDS["prefbar:info"];
+	result["prefbar:menu:enabled"]  = {"items": []};
+	result["prefbar:menu:disabled"] = {"items": []};
 
-    // No submenus!
-    if (expitem.type == "submenu") continue;
+	while (aToExport.length){
+		id = aToExport.shift();
 
-    exportds[expitemid] = expitem;
-    exportds[parent].items.push(expitemid);
-  }
+		// sanity check
+		if (
+			(! helper.is_non_null_object( gMainDS[id] )) ||
+			(typeof result[id] !== 'undefined')
+		){continue;}
 
-  goPrefBar.JSONUtils.WriteJSON(aFileObj, exportds);
+		result[id] = gMainDS[id];
+
+		if (helper.is_enabled(id)){
+			enabled.push(id);
+		}
+		else if (helper.is_disabled(id)){
+			disabled.push(id);
+		}
+
+		// include submenu items
+		if (
+			(result[id]["type"] === "submenu") &&
+			(helper.is_non_empty_array(result[id]["items"]))
+		){
+			for (i=0; i<result[id]["items"].length; i++){
+				id = result[id]["items"][i];
+				aToExport.push(id);
+			}
+		}
+	}
+
+	if (enabled.length > 0){
+		result["prefbar:menu:enabled"]["items"] = enabled;
+	}
+	if (disabled.length > 0){
+		result["prefbar:menu:disabled"]["items"] = disabled;
+	}
+
+	goPrefBar.JSONUtils.WriteJSON(aFileObj, result);
 }
 
 function Import(aWin, aFile, aImportType) {
-  if (aImportType == undefined) aImportType = ImportType_Import;
-  var menus = {"prefbar:menu:enabled": 1,
-               "prefbar:menu:disabled": 1};
+	var input, is_rdf_format, overwrite;
 
-  // We don't know what the user tries to import...
-  var impds;
-  var oldrdfformat = false;
-  try {
-    impds = goPrefBar.JSONUtils.ReadJSON(aFile);
-  }
-  catch(e) {
-    try {
-      impds = goPrefBar.RDF.ReadRDF(aFile);
-      oldrdfformat = true;
-    }
-    catch(e) {
-      goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
-      throw(e);
-      return false;
-    }
-  }
+	if (typeof aImportType === 'undefined'){
+		aImportType = ImportType_Import;
+	}
 
-  if (!goPrefBar.JSONUtils.CanReadFormat(impds)) {
-    goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrversion").replace("$filename", aFile.path));
-    return false;
-  }
+	try {
+		// parse `aFile` as JSON
+		input = goPrefBar.JSONUtils.ReadJSON(aFile);
+	}
+	catch(e1){
+		try {
+			// fall back to parsing `aFile` as an .rdf
+			input = goPrefBar.RDF.ReadRDF(aFile);
+			is_rdf_format = true;
+		}
+		catch(e2){
+			// stop processing `aFile`
+			goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrcorrupt"));
+			// note: not going to throw an Exception, because a quick audit of the code implies that this code is NOT called from within try/catch blocks.
+			// throw e2;
+			return false;
+		}
+	}
 
-  if (oldrdfformat)
-    goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importinfooldformat").replace("$filename", aFile.path));
+	// confirm that this addon supports: `input["prefbar:info"]["formatversion"]`
+	if (!goPrefBar.JSONUtils.CanReadFormat(input)) {
+		goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importerrversion").replace("$filename", aFile.path));
+		return false;
+	}
 
-  var overwrite = false;
-  // Reset or Update --> overwrite anything without asking
-  if (aImportType == ImportType_Reset || aImportType == ImportType_Update)
-    overwrite = true;
-  // Import by user --> If items already exist, then ask user about what to do
-  else {
-    var exists = false;
-    var noupdatelists = [];
-    for (var menuid in menus) {
-      if (!impds[menuid]) continue;
-      var items = impds[menuid].items;
-      for (var childindex = 0; childindex < items.length; childindex++) {
-        var childid = items[childindex];
-        if (gMainDS[childid]) {
-          exists = true;
-          if (impds[childid].dontupdatelistitems &&
-              gMainDS[childid].dontupdatelistitems)
-            noupdatelists.push(childid.replace(/^prefbar:button:/, ""));
-        }
-      }
-    }
-    if (exists) {
-      var msg = goPrefBar.GetString("importexport.properties", "importquestionoverwrite");
-      if (noupdatelists.length > 0)
-        msg += "\n(" + goPrefBar.GetString("importexport.properties", "importinfokeptlistitems") + ": " + noupdatelists.join(",") + ")";
-      overwrite = goPrefBar.msgYesNo(aWin, msg);
-    }
-  }
+	// display a notice when the format of the input file is .rdf
+	if (is_rdf_format){
+		goPrefBar.msgAlert(aWin, goPrefBar.GetString("importexport.properties", "importinfooldformat").replace("$filename", aFile.path));
+	}
 
-  // Run over all possible menus in btn file
-  for (var menuid in menus) {
-    if (!impds[menuid]) continue;
+	// determine whether any of the ID values to import currently exist.
+	// if so, confirm with the user whether or not it is OK to proceed.
+	// if not, then strip those ID values from the import data set.
+	(function(){
+		var existing_ids, existing_readonly_ids, ids_to_ignore, id, confirmation_message, overwrite, i;
 
-    var items = impds[menuid].items;
+		existing_ids = [];
+		existing_readonly_ids = [];
 
-    for (var childindex = 0; childindex < items.length; childindex++) {
-      var childid = items[childindex];
+		ids_to_ignore = ["prefbar:menu:enabled","prefbar:menu:disabled"];
 
-      var impitem = impds[childid];
+		for (id in input){
+			// ignore items that are not user-defined
+			if (goPrefBar.ArraySearch(id, ids_to_ignore) !== false){continue;}
 
-      // Try to localize imported button
-      var niceid = childid.replace(/^prefbar:button:/, "");
-      if (impitem.label) {
-        try {
-          if (aImportType != ImportType_Import ||
-              impitem.label == goPrefBar.GetString("buttons.properties", niceid + "._label"))
-            impitem.label = goPrefBar.GetString("buttons.properties", niceid + ".label");
-        } catch(e) {}
-      }
-      if (impitem.items) {
-        for (var index = 0; index < impitem.items.length; index++) {
-          try {
-            if (aImportType != ImportType_Import ||
-                impitem.items[index][0] == goPrefBar.GetString("buttons.properties", niceid + "._optionlabel" + (index + 1)))
-              impitem.items[index][0] = goPrefBar.GetString("buttons.properties", niceid + ".optionlabel" + (index + 1));
-          } catch(e) {}
-        }
-      }
+			if (typeof gMainDS[id] !== 'undefined'){
+				existing_ids.push(id);
 
-      // Item not in main datasource --> Append to menu also used in import ds
-      if (!gMainDS[childid])
-        gMainDS[menuid].items.push(childid);
-      // Item exists in main datasource --> Keep some things based on rules
-      else {
-        var olditem = gMainDS[childid];
+				if (
+					(gMainDS[id]["dontupdatelistitems"]) ||
+					(input[id]["dontupdatelistitems"])
+				){
+					existing_readonly_ids.push(id);
+				}
+			}
+		}
 
-        // If we update, we don't touch the users labels
-        if (aImportType == ImportType_Update) impitem.label = olditem.label;
+		if (existing_ids.length){
+			confirmation_message = goPrefBar.GetString("importexport.properties", "importquestionoverwrite");
 
-        // We never change the hotkeys, defined by the user
-        impitem.hkkey = olditem.hkkey;
-        impitem.hkkeycode = olditem.hkkeycode;
-        impitem.hkmodifiers = olditem.hkmodifiers;
+			if (existing_readonly_ids.length){
+				confirmation_message += "\n(" + goPrefBar.GetString("importexport.properties", "importinfokeptlistitems") + ": " + existing_readonly_ids.join(",") + ")";
+			}
 
-        // We don't edit listitems, if the "DontUpdateListItems"-flag is set
-        // in the main datasource *and* in the import datasource
-        if (impitem.dontupdatelistitems && olditem.dontupdatelistitems)
-          impitem.items = olditem.items;
-      }
+			overwrite = goPrefBar.msgYesNo(aWin, confirmation_message);
 
-      // Store imported item
-      gMainDS[childid] = impitem;
-    }
-  }
+			if (! overwrite){
+				for (i=0; i<existing_ids.length; i++){
+					id = existing_ids[i];
 
-  goPrefBar.JSONUtils.MainDSUpdated();
-  return true;
+					// keep menus and submenus. an updated "items" list should be retained, UNLESS the object is marked readonly.
+					if (! helper.is_menu(id)){
+						delete input[id];
+					}
+					else if (goPrefBar.ArraySearch(id, existing_readonly_ids) !== false) {
+						delete input[id];
+					}
+				}
+			}
+		}
+	})();
+
+	// merge the import data into `gMainDS`
+	(function(){
+		var id, i, item_id, item_attr;
+
+		for (id in input){
+			// merge menu into existing menu?
+			if (
+				(helper.is_menu(id)) &&
+				(helper.is_non_null_object(gMainDS[id])) &&
+				(helper.is_array(gMainDS[id]["items"]))
+			){
+				if (
+					(helper.is_non_null_object(input[id])) &&
+					(helper.is_non_empty_array(input[id]["items"]))
+				){
+					for (i=0; i<input[id]["items"].length; i++){
+						item_id = input[id]["items"][i];
+
+						// make sure that `item_id` is a new addition
+						if (goPrefBar.ArraySearch(item_id, gMainDS[id]["items"]) === false){
+							gMainDS[id]["items"].push(item_id);
+						}
+					}
+				}
+			}
+
+			// add new items
+			else if (
+				(! helper.is_non_null_object(gMainDS[id]))
+			){
+				gMainDS[id] = input[id];
+			}
+
+			// update an existing item
+			else {
+				// retain a few attributes
+				item_attr = ["hkkey","hkkeycode","hkmodifiers"];
+
+				if (aImportType == ImportType_Update){
+					item_attr.push("label");
+				}
+
+				for (i=0; i<item_attr.length; i++){
+					if (typeof gMainDS[id][ item_attr[i] ] !== 'undefined'){
+						input[id][ item_attr[i] ] = gMainDS[id][ item_attr[i] ];
+					}
+				}
+
+				gMainDS[id] = input[id];
+			}
+		}
+	})();
+
+	goPrefBar.JSONUtils.MainDSUpdated();
+	return true;
 }
 
 function prefbarCheckForUpdate() {

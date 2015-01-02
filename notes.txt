@@ -1,0 +1,649 @@
+content/pref-editbar.xul
+		<menuitem id="itemImport"
+				label="&button-import;"
+				oncommand="prefbarItemImport()"/>
+		<menuitem id="itemExport"
+				label="&button-export;"
+				oncommand="prefbarItemExport()"/>
+
+content/pref-editbar.js
+		function prefbarItemExport() {
+			var nsIFilePicker = Components.interfaces.nsIFilePicker;
+			var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+
+			fp.init(window, "Export Buttons to File:", nsIFilePicker.modeSave);
+			fp.appendFilter("ButtonCollections", "*.btn");
+			fp.defaultExtension = "btn";
+
+			var res=fp.show();
+			if (res==nsIFilePicker.returnOK || res == nsIFilePicker.returnReplace) {
+				var selections = prefbarGetTreeSelections(gActiveTree);
+				goPrefBar.ImpExp.Export(window, selections, fp.file);
+			}
+		}
+		function prefbarItemImport() {
+			var nsIFilePicker = Components.interfaces.nsIFilePicker;
+			var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+
+			fp.init(window, "Import Buttons from File:", nsIFilePicker.modeOpen);
+			fp.appendFilter("ButtonCollections", "*.btn");
+			fp.defaultExtension = "btn";
+
+			var res=fp.show();
+			if (res==nsIFilePicker.returnOK) {
+				goPrefBar.ImpExp.Import(window, fp.file);
+			}
+		}
+
+content/goprefbar/ImpExp.js
+		function Export(aWin, aToExport, aFileObj) {
+			//...
+			for (var index = 0; index < aToExport.length; index++) {
+				// No submenus!
+				if (expitem.type == "submenu") continue;
+			}
+			//...
+		}
+		function Import(aWin, aFile, aImportType)  {...}
+
+notes:
+  *	`ImpExp.Export()` iterates through `selections`
+  * `selections` does contain `submenu` elements,
+	but they are intentionally ignored
+  *	`selections` are obtained from `prefbarGetTreeSelections(gActiveTree)`
+
+content/pref-editbar.js
+		function prefbarGetTreeSelections(tree) {
+			var selections = [];
+
+			// TODO: Check if this is still needed on supported platforms
+			if (!tree.view) return selections;
+
+			// HACK! Backend returns an invalid selection range for empty trees
+			if (tree.view.rowCount == 0) return selections;
+
+			var select = tree.view.selection;
+			if (select) {
+				var count = select.getRangeCount();
+				var min = new Object();
+				var max = new Object();
+				for (var i = 0; i < count; i++) {
+					select.getRangeAt(i, min, max);
+					for (var k=min.value; k<=max.value; k++) {
+						if (k != -1) {
+							selections[selections.length] = tree.contentView.getItemAtIndex(k).getAttribute("id");
+						}
+					}
+				}
+			}
+			return selections;
+		}
+
+notes:
+  * so `tree` __may__ specify parent/child relationships,
+	but `selection` is a 1-dimensional array.. that loses this fidelity.
+
+urls:
+	chrome://prefbar/content/pref-options.xul
+	chrome://prefbar/content/prefbar-bird-pref.xul
+
+docs:
+  *	https://wiki.mozilla.org/XUL:Tree
+	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/Tutorial/Tree_Selection#Multiple_Selection
+  *	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/tree
+	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsITreeView
+		tree.view => nsITreeView
+	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsITreeSelection
+		tree.view.selection => nsITreeSelection
+	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/NsITreeContentView
+		tree.contentView => NsITreeContentView
+	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIDOMElement
+		tree.contentView.getItemAtIndex(i) => nsIDOMElement
+  *	https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/treeitem
+
+notes:
+  * a `submenu` is similiar to a `button`.
+	both are `treeitem` xul elements.
+	a `submenu` includes the attribute: `container="true"`.
+  * example:
+		<treeitem id="prefbar:menu:moz-rewrite-js" ref="prefbar:menu:moz-rewrite-js" container="true">
+			<treerow><treecell label="moz-rewrite-js"/><treecell label="submenu"/></treerow>
+			<treechildren><treeitem id="prefbar:button:extensions.Moz-Rewrite.request.enabled"><treerow><treecell label="enable HTTP request rules"/><treecell label="check"/></treerow></treeitem><treeitem id="prefbar:button:extensions.Moz-Rewrite.response.enabled"><treerow><treecell label="enable HTTP response rules"/><treecell label="check"/></treerow></treeitem><treeitem id="prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled"><treerow><treecell label="enable save() to output file"/><treecell label="check"/></treerow></treeitem></treechildren>
+		</treeitem>
+		<treeitem id="prefbar:button:back"><treerow><treecell label="Back"/><treecell label="button"/></treerow></treeitem>
+		<treeitem id="prefbar:button:colors"><treerow><treecell label="Colors"/><treecell label="check"/></treerow></treeitem>
+  *	within `prefbarGetTreeSelections()`,
+	when a `submenu` is selected,
+	it's simply seen the same as any other `treeitem`:
+		selections[selections.length] = tree.contentView.getItemAtIndex(k).getAttribute("id")
+	pushes its `id` value into `selection`.
+  *	example:
+		selections.push('prefbar:menu:moz-rewrite-js')
+
+notes:
+  *	`goPrefBar.JSONUtils.mainDS`,
+	which is aliased locally within:
+		content/goprefbar/ImpExp.js
+	as:
+		`gMainDS`
+	is a JSON representation of the trees.
+  *	this JSON representation DOES include information about `submenu` items.
+
+content/goprefbar/main.js
+		function GetString(filename, stringname) {
+			var StringBundle;
+			var strBundleService = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
+
+			StringBundle = strBundleService.createBundle("chrome://prefbar/locale/" + filename);
+
+			if (StringBundle)
+				return StringBundle.GetStringFromName(stringname);
+
+			return "";
+		}
+
+notes:
+  * this is just for localization of the button labels
+
+console test #01:
+=================
+(function(){
+	var $prefbar = Components.classes["@prefbar.mozdev.org/goprefbar;1"].getService().wrappedJSObject;
+	return typeof $prefbar;
+})();
+// result: "object"
+
+console test #02:
+=================
+(function(){
+	var $prefbar = Components.classes["@prefbar.mozdev.org/goprefbar;1"].getService().wrappedJSObject;
+	return typeof $prefbar.JSONUtils.mainDS;
+})();
+// result: "object"
+
+console test #03:
+=================
+(function(){
+	var $prefbar = Components.classes["@prefbar.mozdev.org/goprefbar;1"].getService().wrappedJSObject;
+	return JSON.stringify( $prefbar.JSONUtils.mainDS );
+})();
+// result: {"prefbar:menu:enabled":{"items":["prefbar:menu:moz-rewrite-js","prefbar:button:back","prefbar:button:colors"]},"prefbar:menu:disabled":{"items":["prefbar:button:images","prefbar:button:javascript","prefbar:button:Flash","prefbar:button:separator10","prefbar:button:clearallcache","prefbar:button:separator11","prefbar:button:savepage","prefbar:button:separator8","prefbar:button:useragent","prefbar:button:spacer0","prefbar:button:separator6","prefbar:button:help","prefbar:button:whatsnew","prefbar:button:separator4","prefbar:button:customize","prefbar:button:forward","prefbar:button:reload","prefbar:button:stop","prefbar:button:separator0","prefbar:button:home","prefbar:button:separator13","prefbar:button:prefbartabjavascript","prefbar:button:prefbartabimages","prefbar:button:prefbartabplugins","prefbar:button:separator1","prefbar:button:fonts","prefbar:button:systemcolors","prefbar:button:animation","prefbar:button:java","prefbar:button:popups","prefbar:button:proxycheck","prefbar:button:proxymenu","prefbar:button:cookies","prefbar:button:cookieask","prefbar:button:pipelining","prefbar:button:cacheenabled","prefbar:button:referrer","prefbar:button:separator2","prefbar:button:clearhist","prefbar:button:clearurlbar","prefbar:button:clearcookies","prefbar:button:clearall","prefbar:button:separator5","prefbar:button:resizelist","prefbar:button:separator9","prefbar:button:newtab","prefbar:button:prefbarrestoretab","prefbar:button:killflash","prefbar:button:separator12","prefbar:button:fontdown","prefbar:button:fontup","prefbar:button:separator3","prefbar:button:prefbarhomepagelink","prefbar:button:mozilla","prefbar:button:mozillazine","prefbar:button:separator7","prefbar:button:hidetoolbar","prefbar:button:proxylist","prefbar:button:prefbarlanglist"]},"prefbar:info":{"formatversion":3},"prefbar:button:colors":{"label":"Colors","type":"check","prefstring":"browser.display.use_document_colors","topref":"value","frompref":"value"},"prefbar:button:images":{"label":"Images","type":"check","prefstring":"permissions.default.image","topref":"value ? 1 : 2","frompref":"value == 1"},"prefbar:button:javascript":{"label":"JavaScript","type":"check","prefstring":"javascript.enabled","topref":"value","frompref":"value"},"prefbar:button:Flash":{"label":"Flash","type":"extcheck","setfunction":"prefbarSetFlash(value);","getfunction":"value = prefbarGetFlash();"},"prefbar:button:separator10":{"type":"separator"},"prefbar:button:clearallcache":{"label":"Clear Cache","type":"button","onclick":"prefbarClearAllCache()"},"prefbar:button:separator11":{"type":"separator"},"prefbar:button:savepage":{"label":"Save Page","type":"button","onclick":"saveDocument(window.content.document);"},"prefbar:button:separator8":{"type":"separator"},"prefbar:button:useragent":{"items":[["Real UA","!RESET!"],["SM 2.7.2 Lin","js:useragent=\"Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20120216 SeaMonkey/2.7.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11)\"; platform=\"Linux i686\";"],["FF 10.0.2 Lin","js:useragent=\"Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11)\"; platform=\"Linux i686\";"],["IE 9.0 Win7","js:useragent=\"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1)\"; appname=\"Microsoft Internet Explorer\"; appversion=\"5.0 (compatible; MSIE 9.0; Windows NT 6.1)\"; platform=\"Win32\";"],["Chrome","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21"],["Safari","Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1"],["Lynx","Lynx/2.8.3rel.1 libwww-FM/2.14FM"]],"label":"User Agent","type":"extlist","dontupdatelistitems":true,"setfunction":"prefbarSetUseragent(value);","getfunction":"value = prefbarGetUseragent(items);"},"prefbar:button:spacer0":{"type":"spacer"},"prefbar:button:separator6":{"type":"separator"},"prefbar:button:help":{"label":"PrefBar Help","type":"link","url":"chrome://prefbar/content/help/index.xhtml"},"prefbar:button:whatsnew":{"label":"What's New","type":"link","url":"chrome://prefbar/content/help/newstuff.xhtml"},"prefbar:button:separator4":{"type":"separator"},"prefbar:button:customize":{"label":"Customize","type":"button","onclick":"OpenPrefs();"},"prefbar:button:back":{"label":"Back","type":"button","onclick":"BrowserBack();","observes":"canGoBack"},"prefbar:button:forward":{"label":"Forward","type":"button","onclick":"BrowserForward();","observes":"canGoForward"},"prefbar:button:reload":{"label":"Reload","type":"button","onclick":"if (event.shiftKey) BrowserReloadSkipCache(); else BrowserReload();"},"prefbar:button:stop":{"label":"Stop","type":"button","onclick":"BrowserStop();","observes":"canStop"},"prefbar:button:separator0":{"type":"separator"},"prefbar:button:home":{"label":"Home","type":"button","onclick":"BrowserHome();"},"prefbar:button:separator13":{"type":"separator"},"prefbar:button:prefbartabjavascript":{"label":"Javascript (Tab)","type":"extcheck","browserbtnupdatefor":"tab","setfunction":"prefbarSetTabJavascript(value);","getfunction":"value = prefbarGetTabJavascript();"},"prefbar:button:prefbartabimages":{"label":"Images (Tab)","type":"extcheck","browserbtnupdatefor":"tab","setfunction":"prefbarSetTabImages(value);","getfunction":"value = prefbarGetTabImages();"},"prefbar:button:prefbartabplugins":{"label":"Plugins (Tab)","type":"extcheck","browserbtnupdatefor":"tab","setfunction":"prefbarSetTabPlugins(value, button, event);","getfunction":"value = prefbarGetTabPlugins();"},"prefbar:button:separator1":{"type":"separator"},"prefbar:button:fonts":{"label":"Fonts","type":"check","prefstring":"browser.display.use_document_fonts","topref":"Number(value)","frompref":"Boolean(value)"},"prefbar:button:systemcolors":{"label":"System Colors","type":"check","prefstring":"browser.display.use_system_colors","topref":"value","frompref":"value"},"prefbar:button:animation":{"label":"Animation","type":"check","prefstring":"image.animation_mode","topref":"value ? 'normal' : 'none'","frompref":"value=='normal'"},"prefbar:button:java":{"label":"Java","type":"extcheck","setfunction":"prefbarSetJava(value);","getfunction":"value = prefbarGetJava();"},"prefbar:button:popups":{"label":"Popups","type":"check","prefstring":"dom.disable_open_during_load","topref":"!value","frompref":"!value"},"prefbar:button:proxycheck":{"label":"Proxies","type":"extcheck","setfunction":"prefbarSetProxyEnabled(value);","getfunction":"value = prefbarGetProxyEnabled();"},"prefbar:button:proxymenu":{"items":[["No Proxies","0"],["Manual Proxy","1"],["Automatic Proxy","2"]],"label":"Proxy Menulist","type":"menulist","prefstring":"network.proxy.type"},"prefbar:button:cookies":{"label":"Cookies","type":"check","prefstring":"network.cookie.cookieBehavior","topref":"2*Number(!value)","frompref":"value != 2"},"prefbar:button:cookieask":{"label":"Cookie Warning","type":"check","prefstring":"network.cookie.lifetimePolicy","topref":"value ? 1 : 0","frompref":"value==1"},"prefbar:button:pipelining":{"label":"Pipelining","type":"extcheck","setfunction":"prefbarSetPipelining(value);","getfunction":"value = prefbarGetPipelining();"},"prefbar:button:cacheenabled":{"label":"Cache","type":"extcheck","setfunction":"prefbarSetCacheEnabled(value);","getfunction":"value = prefbarGetCacheEnabled();"},"prefbar:button:referrer":{"label":"Send Referrer","type":"check","prefstring":"network.http.sendRefererHeader","topref":"2*Number(value)","frompref":"Boolean(value)"},"prefbar:button:separator2":{"type":"separator"},"prefbar:button:clearhist":{"label":"Clear History","type":"button","onclick":"prefbarClearHistory()"},"prefbar:button:clearurlbar":{"label":"Clear Location Bar","type":"button","onclick":"prefbarClearLocationBar()"},"prefbar:button:clearcookies":{"label":"Clear Cookies","type":"button","onclick":"prefbarClearCookies()"},"prefbar:button:clearall":{"label":"Clear All","type":"button","onclick":"//### DO NOT EDIT THIS BUTTON! ###\n// This button will be overwritten with each PrefBar update!\n// If you want to customize this button, create a copy first.\n// On your copy, you may (un)comment below, as desired\n\nprefbarClearLocationBar();\nprefbarClearHistory();\nprefbarClearAllCache();\n//prefbarClearCookies();\n//prefbarClearFormData();\n//prefbarClearDownloads();\n//prefbarClearPasswords();\n//prefbarClearSessions();\n//prefbarClearOfflineApps();"},"prefbar:button:separator5":{"type":"separator"},"prefbar:button:resizelist":{"items":[["640x480","640x480"],["800x600","800x600"],["1024x768","1024x768"]],"label":"Resize","type":"extlist","dontupdatelistitems":true,"setfunction":"prefbarSetResolution(value);","getfunction":"value = prefbarGetResolution(items);"},"prefbar:button:separator9":{"type":"separator"},"prefbar:button:newtab":{"label":"New Tab","type":"button","onclick":"BrowserOpenTab();"},"prefbar:button:prefbarrestoretab":{"label":"Restore Tab","type":"button","onclick":"prefbarRestoreTab();"},"prefbar:button:killflash":{"label":"Kill Flash","type":"button","onclick":"prefbarKillFlash()"},"prefbar:button:separator12":{"type":"separator"},"prefbar:button:fontdown":{"label":"Font -","type":"button","onclick":"prefbarZoomReduce();"},"prefbar:button:fontup":{"label":"Font +","type":"button","onclick":"prefbarZoomEnlarge();"},"prefbar:button:separator3":{"type":"separator"},"prefbar:button:prefbarhomepagelink":{"label":"PrefBar homepage","type":"link","url":"http://prefbar.tuxfamily.org"},"prefbar:button:mozilla":{"label":"mozilla.org","type":"link","url":"http://www.mozilla.org"},"prefbar:button:mozillazine":{"label":"MozillaZine.org","type":"link","url":"http://www.mozillazine.org"},"prefbar:button:separator7":{"type":"separator"},"prefbar:button:hidetoolbar":{"label":"Hide Toolbar","type":"button","onclick":"setTimeout(TogglePrefBar);"},"prefbar:button:proxylist":{"items":[["None",""],["Proxy1","testproxy:8080"],["Proxy2","testproxy2:80"]],"label":"Proxy Serverlist","type":"extlist","dontupdatelistitems":true,"setfunction":"prefbarSetProxy(value);","getfunction":"value=prefbarGetProxy();"},"prefbar:button:prefbarlanglist":{"items":[["Default","!RESET!"],["English","en-us,en"],["French","fr-fr,fr,en-us,en"],["German","de-de,de,en-us,en"],["Japanese","ja,en-us,en"],["Spanish","es-es,es,en-us,en"]],"label":"Language","type":"menulist","prefstring":"intl.accept_languages","dontupdatelistitems":true},"prefbar:menu:moz-rewrite-js":{"type":"submenu","items":["prefbar:button:extensions.Moz-Rewrite.request.enabled","prefbar:button:extensions.Moz-Rewrite.response.enabled","prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled"],"label":"moz-rewrite-js"},"prefbar:button:extensions.Moz-Rewrite.request.enabled":{"type":"check","label":"enable HTTP request rules","prefstring":"extensions.Moz-Rewrite.request.enabled","topref":"value","frompref":"value"},"prefbar:button:extensions.Moz-Rewrite.response.enabled":{"type":"check","label":"enable HTTP response rules","prefstring":"extensions.Moz-Rewrite.response.enabled","topref":"value","frompref":"value"},"prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled":{"type":"check","label":"enable save() to output file","prefstring":"extensions.Moz-Rewrite.request_persistence.enabled","topref":"value","frompref":"value"}}
+
+pretty-printed results #03:
+===========================
+	{
+		"prefbar:menu:enabled": {
+			"items": ["prefbar:menu:moz-rewrite-js", "prefbar:button:back", "prefbar:button:colors"]
+		},
+		"prefbar:menu:disabled": {
+			"items": ["prefbar:button:images", "prefbar:button:javascript", "prefbar:button:Flash", "prefbar:button:separator10", "prefbar:button:clearallcache", "prefbar:button:separator11", "prefbar:button:savepage", "prefbar:button:separator8", "prefbar:button:useragent", "prefbar:button:spacer0", "prefbar:button:separator6", "prefbar:button:help", "prefbar:button:whatsnew", "prefbar:button:separator4", "prefbar:button:customize", "prefbar:button:forward", "prefbar:button:reload", "prefbar:button:stop", "prefbar:button:separator0", "prefbar:button:home", "prefbar:button:separator13", "prefbar:button:prefbartabjavascript", "prefbar:button:prefbartabimages", "prefbar:button:prefbartabplugins", "prefbar:button:separator1", "prefbar:button:fonts", "prefbar:button:systemcolors", "prefbar:button:animation", "prefbar:button:java", "prefbar:button:popups", "prefbar:button:proxycheck", "prefbar:button:proxymenu", "prefbar:button:cookies", "prefbar:button:cookieask", "prefbar:button:pipelining", "prefbar:button:cacheenabled", "prefbar:button:referrer", "prefbar:button:separator2", "prefbar:button:clearhist", "prefbar:button:clearurlbar", "prefbar:button:clearcookies", "prefbar:button:clearall", "prefbar:button:separator5", "prefbar:button:resizelist", "prefbar:button:separator9", "prefbar:button:newtab", "prefbar:button:prefbarrestoretab", "prefbar:button:killflash", "prefbar:button:separator12", "prefbar:button:fontdown", "prefbar:button:fontup", "prefbar:button:separator3", "prefbar:button:prefbarhomepagelink", "prefbar:button:mozilla", "prefbar:button:mozillazine", "prefbar:button:separator7", "prefbar:button:hidetoolbar", "prefbar:button:proxylist", "prefbar:button:prefbarlanglist"]
+		},
+		"prefbar:info": {
+			"formatversion": 3
+		},
+		"prefbar:button:colors": {
+			"label": "Colors",
+			"type": "check",
+			"prefstring": "browser.display.use_document_colors",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:images": {
+			"label": "Images",
+			"type": "check",
+			"prefstring": "permissions.default.image",
+			"topref": "value ? 1 : 2",
+			"frompref": "value == 1"
+		},
+		"prefbar:button:javascript": {
+			"label": "JavaScript",
+			"type": "check",
+			"prefstring": "javascript.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:Flash": {
+			"label": "Flash",
+			"type": "extcheck",
+			"setfunction": "prefbarSetFlash(value);",
+			"getfunction": "value = prefbarGetFlash();"
+		},
+		"prefbar:button:separator10": {
+			"type": "separator"
+		},
+		"prefbar:button:clearallcache": {
+			"label": "Clear Cache",
+			"type": "button",
+			"onclick": "prefbarClearAllCache()"
+		},
+		"prefbar:button:separator11": {
+			"type": "separator"
+		},
+		"prefbar:button:savepage": {
+			"label": "Save Page",
+			"type": "button",
+			"onclick": "saveDocument(window.content.document);"
+		},
+		"prefbar:button:separator8": {
+			"type": "separator"
+		},
+		"prefbar:button:useragent": {
+			"items": [
+				["Real UA", "!RESET!"],
+				["SM 2.7.2 Lin", "js:useragent=\"Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20120216 SeaMonkey/2.7.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11)\"; platform=\"Linux i686\";"],
+				["FF 10.0.2 Lin", "js:useragent=\"Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2\"; appname=\"Netscape\"; appversion=\"5.0 (X11)\"; platform=\"Linux i686\";"],
+				["IE 9.0 Win7", "js:useragent=\"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1)\"; appname=\"Microsoft Internet Explorer\"; appversion=\"5.0 (compatible; MSIE 9.0; Windows NT 6.1)\"; platform=\"Win32\";"],
+				["Chrome", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21"],
+				["Safari", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1"],
+				["Lynx", "Lynx/2.8.3rel.1 libwww-FM/2.14FM"]
+			],
+			"label": "User Agent",
+			"type": "extlist",
+			"dontupdatelistitems": true,
+			"setfunction": "prefbarSetUseragent(value);",
+			"getfunction": "value = prefbarGetUseragent(items);"
+		},
+		"prefbar:button:spacer0": {
+			"type": "spacer"
+		},
+		"prefbar:button:separator6": {
+			"type": "separator"
+		},
+		"prefbar:button:help": {
+			"label": "PrefBar Help",
+			"type": "link",
+			"url": "chrome://prefbar/content/help/index.xhtml"
+		},
+		"prefbar:button:whatsnew": {
+			"label": "What's New",
+			"type": "link",
+			"url": "chrome://prefbar/content/help/newstuff.xhtml"
+		},
+		"prefbar:button:separator4": {
+			"type": "separator"
+		},
+		"prefbar:button:customize": {
+			"label": "Customize",
+			"type": "button",
+			"onclick": "OpenPrefs();"
+		},
+		"prefbar:button:back": {
+			"label": "Back",
+			"type": "button",
+			"onclick": "BrowserBack();",
+			"observes": "canGoBack"
+		},
+		"prefbar:button:forward": {
+			"label": "Forward",
+			"type": "button",
+			"onclick": "BrowserForward();",
+			"observes": "canGoForward"
+		},
+		"prefbar:button:reload": {
+			"label": "Reload",
+			"type": "button",
+			"onclick": "if (event.shiftKey) BrowserReloadSkipCache(); else BrowserReload();"
+		},
+		"prefbar:button:stop": {
+			"label": "Stop",
+			"type": "button",
+			"onclick": "BrowserStop();",
+			"observes": "canStop"
+		},
+		"prefbar:button:separator0": {
+			"type": "separator"
+		},
+		"prefbar:button:home": {
+			"label": "Home",
+			"type": "button",
+			"onclick": "BrowserHome();"
+		},
+		"prefbar:button:separator13": {
+			"type": "separator"
+		},
+		"prefbar:button:prefbartabjavascript": {
+			"label": "Javascript (Tab)",
+			"type": "extcheck",
+			"browserbtnupdatefor": "tab",
+			"setfunction": "prefbarSetTabJavascript(value);",
+			"getfunction": "value = prefbarGetTabJavascript();"
+		},
+		"prefbar:button:prefbartabimages": {
+			"label": "Images (Tab)",
+			"type": "extcheck",
+			"browserbtnupdatefor": "tab",
+			"setfunction": "prefbarSetTabImages(value);",
+			"getfunction": "value = prefbarGetTabImages();"
+		},
+		"prefbar:button:prefbartabplugins": {
+			"label": "Plugins (Tab)",
+			"type": "extcheck",
+			"browserbtnupdatefor": "tab",
+			"setfunction": "prefbarSetTabPlugins(value, button, event);",
+			"getfunction": "value = prefbarGetTabPlugins();"
+		},
+		"prefbar:button:separator1": {
+			"type": "separator"
+		},
+		"prefbar:button:fonts": {
+			"label": "Fonts",
+			"type": "check",
+			"prefstring": "browser.display.use_document_fonts",
+			"topref": "Number(value)",
+			"frompref": "Boolean(value)"
+		},
+		"prefbar:button:systemcolors": {
+			"label": "System Colors",
+			"type": "check",
+			"prefstring": "browser.display.use_system_colors",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:animation": {
+			"label": "Animation",
+			"type": "check",
+			"prefstring": "image.animation_mode",
+			"topref": "value ? 'normal' : 'none'",
+			"frompref": "value=='normal'"
+		},
+		"prefbar:button:java": {
+			"label": "Java",
+			"type": "extcheck",
+			"setfunction": "prefbarSetJava(value);",
+			"getfunction": "value = prefbarGetJava();"
+		},
+		"prefbar:button:popups": {
+			"label": "Popups",
+			"type": "check",
+			"prefstring": "dom.disable_open_during_load",
+			"topref": "!value",
+			"frompref": "!value"
+		},
+		"prefbar:button:proxycheck": {
+			"label": "Proxies",
+			"type": "extcheck",
+			"setfunction": "prefbarSetProxyEnabled(value);",
+			"getfunction": "value = prefbarGetProxyEnabled();"
+		},
+		"prefbar:button:proxymenu": {
+			"items": [
+				["No Proxies", "0"],
+				["Manual Proxy", "1"],
+				["Automatic Proxy", "2"]
+			],
+			"label": "Proxy Menulist",
+			"type": "menulist",
+			"prefstring": "network.proxy.type"
+		},
+		"prefbar:button:cookies": {
+			"label": "Cookies",
+			"type": "check",
+			"prefstring": "network.cookie.cookieBehavior",
+			"topref": "2*Number(!value)",
+			"frompref": "value != 2"
+		},
+		"prefbar:button:cookieask": {
+			"label": "Cookie Warning",
+			"type": "check",
+			"prefstring": "network.cookie.lifetimePolicy",
+			"topref": "value ? 1 : 0",
+			"frompref": "value==1"
+		},
+		"prefbar:button:pipelining": {
+			"label": "Pipelining",
+			"type": "extcheck",
+			"setfunction": "prefbarSetPipelining(value);",
+			"getfunction": "value = prefbarGetPipelining();"
+		},
+		"prefbar:button:cacheenabled": {
+			"label": "Cache",
+			"type": "extcheck",
+			"setfunction": "prefbarSetCacheEnabled(value);",
+			"getfunction": "value = prefbarGetCacheEnabled();"
+		},
+		"prefbar:button:referrer": {
+			"label": "Send Referrer",
+			"type": "check",
+			"prefstring": "network.http.sendRefererHeader",
+			"topref": "2*Number(value)",
+			"frompref": "Boolean(value)"
+		},
+		"prefbar:button:separator2": {
+			"type": "separator"
+		},
+		"prefbar:button:clearhist": {
+			"label": "Clear History",
+			"type": "button",
+			"onclick": "prefbarClearHistory()"
+		},
+		"prefbar:button:clearurlbar": {
+			"label": "Clear Location Bar",
+			"type": "button",
+			"onclick": "prefbarClearLocationBar()"
+		},
+		"prefbar:button:clearcookies": {
+			"label": "Clear Cookies",
+			"type": "button",
+			"onclick": "prefbarClearCookies()"
+		},
+		"prefbar:button:clearall": {
+			"label": "Clear All",
+			"type": "button",
+			"onclick": "//### DO NOT EDIT THIS BUTTON! ###\n// This button will be overwritten with each PrefBar update!\n// If you want to customize this button, create a copy first.\n// On your copy, you may (un)comment below, as desired\n\nprefbarClearLocationBar();\nprefbarClearHistory();\nprefbarClearAllCache();\n//prefbarClearCookies();\n//prefbarClearFormData();\n//prefbarClearDownloads();\n//prefbarClearPasswords();\n//prefbarClearSessions();\n//prefbarClearOfflineApps();"
+		},
+		"prefbar:button:separator5": {
+			"type": "separator"
+		},
+		"prefbar:button:resizelist": {
+			"items": [
+				["640x480", "640x480"],
+				["800x600", "800x600"],
+				["1024x768", "1024x768"]
+			],
+			"label": "Resize",
+			"type": "extlist",
+			"dontupdatelistitems": true,
+			"setfunction": "prefbarSetResolution(value);",
+			"getfunction": "value = prefbarGetResolution(items);"
+		},
+		"prefbar:button:separator9": {
+			"type": "separator"
+		},
+		"prefbar:button:newtab": {
+			"label": "New Tab",
+			"type": "button",
+			"onclick": "BrowserOpenTab();"
+		},
+		"prefbar:button:prefbarrestoretab": {
+			"label": "Restore Tab",
+			"type": "button",
+			"onclick": "prefbarRestoreTab();"
+		},
+		"prefbar:button:killflash": {
+			"label": "Kill Flash",
+			"type": "button",
+			"onclick": "prefbarKillFlash()"
+		},
+		"prefbar:button:separator12": {
+			"type": "separator"
+		},
+		"prefbar:button:fontdown": {
+			"label": "Font -",
+			"type": "button",
+			"onclick": "prefbarZoomReduce();"
+		},
+		"prefbar:button:fontup": {
+			"label": "Font +",
+			"type": "button",
+			"onclick": "prefbarZoomEnlarge();"
+		},
+		"prefbar:button:separator3": {
+			"type": "separator"
+		},
+		"prefbar:button:prefbarhomepagelink": {
+			"label": "PrefBar homepage",
+			"type": "link",
+			"url": "http://prefbar.tuxfamily.org"
+		},
+		"prefbar:button:mozilla": {
+			"label": "mozilla.org",
+			"type": "link",
+			"url": "http://www.mozilla.org"
+		},
+		"prefbar:button:mozillazine": {
+			"label": "MozillaZine.org",
+			"type": "link",
+			"url": "http://www.mozillazine.org"
+		},
+		"prefbar:button:separator7": {
+			"type": "separator"
+		},
+		"prefbar:button:hidetoolbar": {
+			"label": "Hide Toolbar",
+			"type": "button",
+			"onclick": "setTimeout(TogglePrefBar);"
+		},
+		"prefbar:button:proxylist": {
+			"items": [
+				["None", ""],
+				["Proxy1", "testproxy:8080"],
+				["Proxy2", "testproxy2:80"]
+			],
+			"label": "Proxy Serverlist",
+			"type": "extlist",
+			"dontupdatelistitems": true,
+			"setfunction": "prefbarSetProxy(value);",
+			"getfunction": "value=prefbarGetProxy();"
+		},
+		"prefbar:button:prefbarlanglist": {
+			"items": [
+				["Default", "!RESET!"],
+				["English", "en-us,en"],
+				["French", "fr-fr,fr,en-us,en"],
+				["German", "de-de,de,en-us,en"],
+				["Japanese", "ja,en-us,en"],
+				["Spanish", "es-es,es,en-us,en"]
+			],
+			"label": "Language",
+			"type": "menulist",
+			"prefstring": "intl.accept_languages",
+			"dontupdatelistitems": true
+		},
+		"prefbar:menu:moz-rewrite-js": {
+			"type": "submenu",
+			"items": ["prefbar:button:extensions.Moz-Rewrite.request.enabled", "prefbar:button:extensions.Moz-Rewrite.response.enabled", "prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled"],
+			"label": "moz-rewrite-js"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.request.enabled": {
+			"type": "check",
+			"label": "enable HTTP request rules",
+			"prefstring": "extensions.Moz-Rewrite.request.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.response.enabled": {
+			"type": "check",
+			"label": "enable HTTP response rules",
+			"prefstring": "extensions.Moz-Rewrite.response.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled": {
+			"type": "check",
+			"label": "enable save() to output file",
+			"prefstring": "extensions.Moz-Rewrite.request_persistence.enabled",
+			"topref": "value",
+			"frompref": "value"
+		}
+	}
+
+in contrast, an export of the `submenu`: "moz-rewrite-js":
+==========================================================
+	{
+		"prefbar:info": {
+			"formatversion": 3
+		},
+		"prefbar:menu:enabled": {
+			"items": ["prefbar:button:extensions.Moz-Rewrite.request.enabled", "prefbar:button:extensions.Moz-Rewrite.response.enabled", "prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled"]
+		},
+		"prefbar:button:extensions.Moz-Rewrite.request.enabled": {
+			"type": "check",
+			"label": "enable HTTP request rules",
+			"prefstring": "extensions.Moz-Rewrite.request.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.response.enabled": {
+			"type": "check",
+			"label": "enable HTTP response rules",
+			"prefstring": "extensions.Moz-Rewrite.response.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled": {
+			"type": "check",
+			"label": "enable save() to output file",
+			"prefstring": "extensions.Moz-Rewrite.request_persistence.enabled",
+			"topref": "value",
+			"frompref": "value"
+		}
+	}
+
+in contrast, what an export SHOULD contain:
+===========================================
+	{
+		"prefbar:info": {
+			"formatversion": 3
+		},
+		"prefbar:menu:enabled": {
+			"items": ["prefbar:menu:moz-rewrite-js"]
+		},
+		"prefbar:menu:moz-rewrite-js": {
+			"type": "submenu",
+			"items": ["prefbar:button:extensions.Moz-Rewrite.request.enabled", "prefbar:button:extensions.Moz-Rewrite.response.enabled", "prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled"],
+			"label": "moz-rewrite-js"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.request.enabled": {
+			"type": "check",
+			"label": "enable HTTP request rules",
+			"prefstring": "extensions.Moz-Rewrite.request.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.response.enabled": {
+			"type": "check",
+			"label": "enable HTTP response rules",
+			"prefstring": "extensions.Moz-Rewrite.response.enabled",
+			"topref": "value",
+			"frompref": "value"
+		},
+		"prefbar:button:extensions.Moz-Rewrite.request_persistence.enabled": {
+			"type": "check",
+			"label": "enable save() to output file",
+			"prefstring": "extensions.Moz-Rewrite.request_persistence.enabled",
+			"topref": "value",
+			"frompref": "value"
+		}
+	}
+
+observations:
+=============
+  * "right click" on a `submenu` item
+  *	choose: "delete"
+  *	only the `submenu` item is deleted;
+	its children become children of the parent `treeitem`
+
+test #04:
+=========
+  *	into the unmodified addon,
+	import the above json (ie: "what an export SHOULD contain")
+  *	results:
+	  -	the "moz-rewrite-js" `submenu` was successfully imported
+	  -	none of the `button` items that it contains were imported
+
+notes:
+======
+  *	the problem seems very simple,
+	and should only require very minor updates to the existing code.
+  * the json data format will be fully backwards compatible,
+	so its version number can remain at: 3
