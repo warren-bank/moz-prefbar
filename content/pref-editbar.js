@@ -226,6 +226,9 @@ function ItemCopy() {
           copyitem.items.push(srcarray.slice());
         }
       }
+      else if (selitem.type === 'submenu'){
+        copyitem.items = selitem.items.slice();
+      }
     }
     else
       copyitem[property] = value;
