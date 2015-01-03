@@ -217,9 +217,10 @@ function IsArray(aObject) {
 }
 
 function ArraySearch(aSearch, aArray) {
-  for (var index = 0; index < aArray.length; index++)
-    if (aArray[index] == aSearch) return index;
-  return false;
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+  // Firefox 1.5+
+  var index = aArray.indexOf(aSearch);
+  return (index !== -1)? index : false;
 }
 
 function dump(aMessage) {
