@@ -12,7 +12,7 @@
 
 <!ENTITY caption-toggle-hotkey "Hotkey for hiding/showing PrefBar">
 
-<!ENTITY description-reset "The following buttons will reset built-in items to their &quot;factory-default&quot; configuration settings&hellip;">
-<!ENTITY description-soft-reset "Click this button to revert built-in items to a post-installation state. User created/imported items will be preserved.">
-<!ENTITY description-hard-reset "Click this button to revert all items to a post-installation state. User created/imported items will be removed.">
+<!ENTITY description-reset "The following buttons will reset built-in items to their &quot;factory-default&quot; configuration settings:">
+<!ENTITY description-soft-reset "Click this button to revert built-in items to a post-installation state.<html:br/>User created/imported items will be preserved.">
+<!ENTITY description-hard-reset "Click this button to revert all items to a post-installation state.<html:br/>User created/imported items will be removed.">
 <!ENTITY button-reset "Reset">

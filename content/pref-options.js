@@ -46,8 +46,9 @@ function SetButtons() {
 }
 
 function resetButton(hard) {
-  var resetwanted, ImportType;
-  resetwanted = goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-options.properties", "questionreset"));
+  var resetwanted, propname, ImportType;
+  propname = (hard)? "questionhardreset" : "questionsoftreset";
+  resetwanted = goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-options.properties", propname));
   if (resetwanted) {
     ImportType = (hard)? goPrefBar.ImpExp.ImportType_Hard_Reset : goPrefBar.ImpExp.ImportType_Soft_Reset;
     goPrefBar.ImpExp.Import(window, "chrome://prefbar/content/prefbar.json", ImportType);

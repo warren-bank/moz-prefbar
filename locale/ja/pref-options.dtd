@@ -12,5 +12,7 @@
 
 <!ENTITY caption-toggle-hotkey "ショートカットキー (PrefBar の表示と非表示を切り替えます)">
 
-<!ENTITY description-reset "ボタンセットを &quot;インストール時の状態&quot; に戻したい場合やボタンの翻訳を最新の状態にしたい時は、このボタンをクリックしてください。">
+<!ENTITY description-reset "以下のボタンが工場出荷時のデフォルト設定にビルトインアイテムをリセットします:">
+<!ENTITY description-soft-reset "インストール後の状態への組み込みのアイテムを元に戻すには、このボタンをクリック.<html:br/>ユーザーが作成/インポートされたアイテムが保存されます.">
+<!ENTITY description-hard-reset "インストール後の状態にすべての項目を元に戻すには、このボタンをクリック.<html:br/>ユーザーが作成/インポートされたアイテムは削除されます.">
 <!ENTITY button-reset "初期化を開始">
