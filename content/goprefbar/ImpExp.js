@@ -46,12 +46,13 @@ const ImportType_Update = 2;
 const ImportType_Soft_Reset = 3;
 const ImportType_Hard_Reset = 4;
 
-var _helper_functions = function(goPrefBar){
+var _helper_functions = function(goPrefBar, gMainDS){
 	this.goPrefBar = goPrefBar;
+	this.gMainDS = gMainDS;
 };
 _helper_functions.prototype = {
 	"is_in_menu": function(id, menu_id){
-		return (this.goPrefBar.ArraySearch(id, this.goPrefBar.JSONUtils.mainDS[menu_id].items) !== false);
+		return (this.goPrefBar.ArraySearch(id, this.gMainDS[menu_id].items) !== false);
 	},
 
 	"is_enabled": function(id){
@@ -98,13 +99,29 @@ _helper_functions.prototype = {
 			(this.is_array(o)) &&
 			(o["length"] > 0)
 		);
+	},
+
+	"remove_all_object_attributes": function(o){
+		var attr;
+
+		for (attr in o){
+			delete o[attr];
+		}
+	},
+
+	"copy_all_object_attributes": function(o_src, o_dst){
+		var attr;
+
+		for (attr in o_src){
+			o_dst[attr] = o_src[attr];
+		}
 	}
 };
 
 function Init(aGO) {
   goPrefBar = aGO;
   gMainDS = goPrefBar.JSONUtils.mainDS;
-  helper = new _helper_functions(goPrefBar);
+  helper = new _helper_functions(goPrefBar, gMainDS);
 
   // If mainDS is empty (e.g. skeleton created by JSONUtils.js), then forcefully
   // trigger update to get it filled with contents of internal database
@@ -214,8 +231,8 @@ function Import(aWin, aFile, aImportType) {
 	}
 
 	if (aImportType === ImportType_Hard_Reset){
-		goPrefBar.JSONUtils.mainDS = input;
-		gMainDS = goPrefBar.JSONUtils.mainDS;
+		helper.remove_all_object_attributes(gMainDS);
+		helper.copy_all_object_attributes(input, gMainDS);
 	}
 	else {
 		switch(aImportType){
@@ -234,7 +251,7 @@ function Import(aWin, aFile, aImportType) {
 					existing_ids = [];
 					existing_readonly_ids = [];
 
-					ids_to_ignore = ["prefbar:menu:enabled","prefbar:menu:disabled"];
+					ids_to_ignore = ["prefbar:info","prefbar:menu:enabled","prefbar:menu:disabled"];
 
 					for (id in input){
 						// ignore items that are not user-defined
