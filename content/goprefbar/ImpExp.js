@@ -45,13 +45,12 @@ const ImportType_Import = 1;
 const ImportType_Update = 2;
 const ImportType_Reset = 3;
 
-var _helper_functions = function(goPrefBar, gMainDS){
+var _helper_functions = function(goPrefBar){
 	this.goPrefBar = goPrefBar;
-	this.gMainDS = gMainDS;
 };
 _helper_functions.prototype = {
 	"is_in_menu": function(id, menu_id){
-		return (this.goPrefBar.ArraySearch(id, this.gMainDS[menu_id].items) !== false);
+		return (this.goPrefBar.ArraySearch(id, this.goPrefBar.JSONUtils.mainDS[menu_id].items) !== false);
 	},
 
 	"is_enabled": function(id){
@@ -104,7 +103,7 @@ _helper_functions.prototype = {
 function Init(aGO) {
   goPrefBar = aGO;
   gMainDS = goPrefBar.JSONUtils.mainDS;
-  helper = new _helper_functions(goPrefBar, gMainDS);
+  helper = new _helper_functions(goPrefBar);
 
   // If mainDS is empty (e.g. skeleton created by JSONUtils.js), then forcefully
   // trigger update to get it filled with contents of internal database
@@ -214,7 +213,8 @@ function Import(aWin, aFile, aImportType) {
 	}
 
 	if (aImportType == ImportType_Reset){
-		gMainDS = input;
+		goPrefBar.JSONUtils.mainDS = input;
+		gMainDS = goPrefBar.JSONUtils.mainDS;
 	}
 	else {
 		// determine whether any of the ID values to import currently exist.
