@@ -1,0 +1,15 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY intro "Ich habe mein bestes getan, dass so ziemlich jeder alles was er über die PrefBar wissen muss in diesem Hilfe-System findet. Sollten Sie, nachdem sie dies alles gelesen haben, immer noch Hilfe benötigen dann sind sie an der richtigen Stellen. Lesen Sie weiter für mehr Informationen.">
+
+<!ENTITY checkfaq.title "Lesen Sie die FAQ">
+<!ENTITY checkfaq.content.beforelink "Wenn Sie eine Frage haben dann stellen Sie sicher das die Frage nicht in der">
+<!ENTITY checkfaq.content.afterlink "steht bevor Sie mir eine E-Mail schreiben. Es sind noch nicht sehr viele Fragen in der FAQ aber ich hoffe die FAQ mit richtigen Benutzerfragen füllen zu können, sobald sie gefragt werden.">
+
+<!ENTITY bugzilla.content "Alle PrefBar Bugs werden jetzt durch das Bugzilla-System von mozdev.org bearbeitet. Um einen neuen Bug zu melden oder existierende Bugs anzusehen gehen Sie zu">
+
+<!ENTITY websites.title "Internet Seiten">
+<!ENTITY websites.prefbarhp.info "Für weitere Informationen über die PrefBar besuchen Sie">
+<!ENTITY websites.prefbarhp.link "die PrefBar Homepage">
+
+<!ENTITY email.title "EMail">
+<!ENTITY email.content "Für andere Fragen und Feedback können Sie Manuel Reimer via EMail kontaktieren:">

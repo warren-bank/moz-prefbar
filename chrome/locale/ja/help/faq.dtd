@@ -1,0 +1,37 @@
+<!ENTITY intro "このページには実際にユーザーから寄せられた質問が掲載されています。質問のメールを送る場合は必ずこのページを読んでから行なってください。">
+
+<!ENTITY general "全般">
+<!ENTITY use "使用">
+<!ENTITY featurereq "機能の提案と要望">
+<!ENTITY other "その他">
+
+<!ENTITY whatis.title "PrefBar とはなんですか?">
+<!ENTITY whatis.summary "PrefBar はあなたのネットサーフィンをより快適にするために作られたアドオンです。ツールバー上からブラウザの設定や動作を簡単に切り替えることができます。">
+<!ENTITY whatis.example "例えば偶然あなたが開いたページの文字の色が赤で、背景色が黄色だった場合に PrefBar の 'カラー' をクリックするとブラウザの規定の配色(通常は白の背景に黒い文字)で表示されます。">
+<!ENTITY whatis.developers "ウェブ開発者ならブラウザのキャッシュをワンクリックで消去することや、ユーザーエージェントを簡単に切り替えることもできます。">
+
+<!ENTITY resetbuttons.title "ツールバーのボタンをインストール時の状態に戻す時はどうすれば良いですか?">
+<!ENTITY resetbuttons.howto "PrefBar ボタンをインストール時の状態に戻したい時は、オプション画面にある &quot;初期化&quot; ボタンをクリックしてください。この機能はプリセットのボタンを誤って削除したり編集した時に有効かもしれませんが、プリセット以外のボタンには影響を及ぼしません。">
+
+<!ENTITY imagereload.title "画像の表示ボタンが動作しないのはなぜですか?">
+<!ENTITY imagereload.reloadneeded "画像の表示ボタンは押しただけでは動作しません。実際に効果を反映するにはページを再読み込みする必要があります。">
+<!ENTITY imagereload.autoreload "私は以前に画像の表示ボタンを押すと自動的にページを再読み込みする機能を試しましたが、ページによってはセッションが維持されない等の不具合が発生する事がわかりました。また画像を消す目的であれば、再読み込みを行なってもページの読み込みに時間はかかりませんし、大抵のユーザーは特定のページでだけ画像の表示を行わないという使い方はしないので、現在の PrefBar には画像の表示ボタンにともなうページの自動再読み込み機能は搭載していません。">
+
+<!ENTITY buttonvaluesask.title "ボタンを作りたいので onclick の値を教えてください">
+<!ENTITY buttonvaluesask.answer "それはできません。基本的なボタンはすべてプリセットの中に含まれているので新たに作る必要は無いでしょうし、ボタンを作るのにそれなりの時間がかかります(例えば PrefBar の初期バーションではボタンを揃えるのに四ヶ月かかりました)。この質問をされても私は答えることができないでしょう。">
+
+<!ENTITY buttonvaluesgive.title "新しいボタンを作ったならどうしたら良いですか?">
+<!ENTITY buttonvaluesgive.answer "私に連絡をください。作ったボタンを私に送ってくれるのなら、より多くのユーザーがボタンを利用できるように手配するでしょう。">
+
+<!ENTITY nightly.title "PrefBar を Firefox の Beta や Aurora で、また Nightly で使用すると不具合が発生するのなぜですか?">
+<!ENTITY nightly.answer "PrefBar をメンテナンスするには多くの時間と作業が伴います。そのため複数のブラウザを同時にサポートし続けることは不可能です。また定期的に仕様が変更されているため Nightly は &quot;不安定版&quot; と呼ばれており PrefBar の動作に影響を及ぼす大きなバグが含まれている可能性があります。最終版でそれらのバグが修正されるならば Nightly のバグを回避するためだけ作業を行う必要がなくなり、その他の有益な機能の追加に時間を割くことができます。">
+
+<!ENTITY foundabug.title "バグを見つけたらどうすれば良いですか?">
+<!ENTITY foundabug.answer.beforelink "そのバグが既に知られたものであるかどうか FAQ で確認してください。もしそれがまだ知られていないバグなら">
+<!ENTITY foundabug.answer.sendmail "メールで連絡をください">
+<!ENTITY foundabug.answer.afterlink "。問題を速やかに解決できるよう使用している PrefBar のバージョンだけでなく、使用しているブラウザや OS のバージョンも知らせてもらえると助かります。">
+
+<!ENTITY notlisted.title "私の疑問はこのページで解決する事ができませんでした。">
+<!ENTITY notlisted.answer.beforelink "もしこのページにあなたが必要とする質問とその答えがないならば、私に">
+<!ENTITY notlisted.answer.sendmail "メールで知らせてください">
+<!ENTITY notlisted.answer.afterlink "。私の状況によって返事にかかる日数は変わりますが、可能な限り早く返信します。">

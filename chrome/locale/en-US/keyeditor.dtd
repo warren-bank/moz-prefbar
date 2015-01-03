@@ -1,0 +1,3 @@
+<!ENTITY value-disabled "(disabled)">
+<!ENTITY tooltip-editbox "press your hotkey in this box, to get it recognized">
+<!ENTITY tooltip-disable "Disable hotkey">

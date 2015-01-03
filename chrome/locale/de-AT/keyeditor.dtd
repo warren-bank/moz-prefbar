@@ -1,0 +1,4 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY value-disabled "(deaktiviert)">
+<!ENTITY tooltip-editbox "Drücken Sie ihre Tastenkombination in diesem Feld">
+<!ENTITY tooltip-disable "Hotkey deaktivieren">

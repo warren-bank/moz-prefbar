@@ -1,0 +1,14 @@
+<!ENTITY intro "このヘルプには PrefBar を使用する上で必要な情報がすべて収められていますが、不具合や追加のサポートを必要とする場合の情報がのせられています。">
+
+<!ENTITY checkfaq.title "追加のサポートを必要とする場合">
+<!ENTITY checkfaq.content.beforelink "追加のサポートを必要とする時はまず最初に必ず">
+<!ENTITY checkfaq.content.afterlink "を読んでから、質問のメールを送ってください。この FAQ は実際にユーザーから寄せられた質問を元に作成されているので PrefBar を使用する上で必要な情報は網羅されているはずです。">
+
+<!ENTITY bugzilla.content "PrefBar に関するすべてのバグは mozdev.org 上に設置されている bugzilla システムによって管理されています。新しいバグの報告や既存のバグの確認したい場合はそちらをご覧下さい:">
+
+<!ENTITY websites.title "ウェブサイト">
+<!ENTITY websites.prefbarhp.info "その他の情報に関してはホームページをご覧下さい:">
+<!ENTITY websites.prefbarhp.link "PrefBar ホームページ">
+
+<!ENTITY email.title "メール">
+<!ENTITY email.content "その他の質問やフィードバックは Manuel Reimer に気兼ねなく連絡してください:">

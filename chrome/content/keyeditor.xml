@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar 4.
+   -
+   - The Initial Developer of the Original Code is
+   - Manuel Reimer.
+   - Portions created by the Initial Developer are Copyright (C) 2008
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): Manuel Reimer (manuel.reimer@gmx.de)
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<!DOCTYPE bindings [
+<!ENTITY % keyEditDTD SYSTEM "chrome://prefbar/locale/keyeditor.dtd" >
+%keyEditDTD;
+]>
+
+<bindings id="keyEditorBindings"
+          xmlns="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+          xmlns:xbl="http://www.mozilla.org/xbl">
+
+  <binding id="keyeditor">
+
+    <content>
+      <xul:hbox align="center" flex="1">
+        <xul:textbox id="hotkeyDisplay" value="&value-disabled;" tooltiptext="&tooltip-editbox;" readonly="true" flex="1" onkeypress="this.parentNode.parentNode.onKeypress(event);"/>
+        <xul:button label="X" tooltiptext="&tooltip-disable;" onclick="this.parentNode.parentNode.disable();" style="min-width:2em; margin-left:0;"/>
+      </xul:hbox>
+    </content>
+
+    <implementation>
+      <constructor>
+        <![CDATA[
+          this.key = ""
+          this.keycode = "";
+          this.modifiers = "";
+          this.display = document.getElementById("hotkeyDisplay");
+          this.txtDisabled = display.value;
+          this.keyNames = new Array();
+          for (var id in KeyEvent) {
+            this.keyNames[KeyEvent[id]] = id.replace("DOM_", "");
+          }
+          this.update();
+        ]]>
+      </constructor>
+
+      <method name="update">
+        <parameter name="aSendEvent"/>
+        <body>
+          <![CDATA[
+            if (this.key || this.keycode) {
+              var displayval = "";
+
+              if (this.modifiers)
+                displayval = this.modifiers + " + ";
+
+              if (this.key == " ")
+                displayval += "(SPACE)";
+              else if (this.key)
+                displayval += this.key;
+              else
+                displayval += this.keycode;
+
+              this.display.value = displayval;
+
+              // If snapshot available, then check, if key is unused
+              if (goPrefBar && goPrefBar.hotkeysnapshot) {
+                var s = this.key + "\t" + this.keycode + "\t" + this.modifiers;
+                if (goPrefBar.hotkeysnapshot[s])
+                  this.display.setAttribute("style", "color: red;");
+                else
+                  this.display.removeAttribute("style");
+              }
+            }
+            else {
+              this.display.value = this.txtDisabled;
+              this.display.removeAttribute("style");
+            }
+
+            if (aSendEvent) {
+              var evt = document.createEvent("Events");
+              evt.initEvent("change", true, true);
+              this.dispatchEvent(evt);
+            }
+          ]]>
+        </body>
+      </method>
+
+      <method name="disable">
+        <body>
+          <![CDATA[
+            this.key = "";
+            this.keycode = "";
+            this.modifiers = "";
+            this.update(true);
+          ]]>
+        </body>
+      </method>
+
+      <method name="onKeypress">
+        <parameter name="event"/>
+        <body>
+          <![CDATA[
+            event.stopPropagation();
+            event.preventDefault();
+
+           var marray = new Array();
+           if (event.ctrlKey)
+             marray.push("accel");
+           if (event.altKey)
+             marray.push("alt");
+           if (event.shiftKey)
+             marray.push("shift");
+           if (event.metaKey)
+             marray.push("meta");
+
+           marray.sort();
+           this.modifiers = marray.join(",");
+
+           if (event.charCode) {
+             this.key = String.fromCharCode(event.charCode).toUpperCase();
+             this.keycode = "";
+           }
+           else {
+             this.key = "";
+             this.keycode = this.keyNames[event.keyCode];
+           }
+
+           this.update(true);
+          ]]>
+        </body>
+      </method>
+
+      <property name="key"/>
+      <property name="keycode"/>
+      <property name="modifiers"/>
+
+    </implementation>
+  </binding>
+</bindings>

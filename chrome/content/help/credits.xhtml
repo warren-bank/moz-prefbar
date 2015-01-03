@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+  <!ENTITY % globalDTD SYSTEM "chrome://prefbar/locale/help/_global.dtd">
+    %globalDTD;
+  <!ENTITY % pageDTD SYSTEM "chrome://prefbar/locale/help/credits.dtd">
+    %pageDTD;
+]>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar.
+   -
+   - The Initial Developer of the Original Code is
+   - Aaron Andersen.
+   - Portions created by the Initial Developer are Copyright (C) 2002
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): Aaron Andersen <aaron@xulplanet.com>
+   -                 Manuel Reimer <Manuel.Reimer@gmx.de>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <link rel="stylesheet" href="help.css" type="text/css"/>
+    <link rel="icon" href="chrome://prefbar/skin/pblogo18.png" type="image/png"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>&page.credits.title; - &page.title.left; &page.title.right;</title>
+  </head>
+  <body>
+    <div id="headerblock">
+      <span id="headertextleft">&page.title.left;</span><span id="headertextright">&nbsp;&page.title.right;
+        <span id="headerlineleft">&nbsp;</span>
+        <span id="headerlineright">&nbsp;</span>
+      </span>
+    </div>
+
+    <div id="buttons">
+      <a href="index.xhtml">&page.index.title;</a>
+      <a href="use.xhtml">&page.use.title;</a>
+      <a href="newstuff.xhtml">&page.newstuff.title;</a>
+      <a href="buttons.xhtml">&page.buttons.title;</a>
+      <a href="faq.xhtml">&page.faq.title;</a>
+      <span>&page.credits.title;</span>
+      <a href="feedback.xhtml">&page.feedback.title;</a>
+    </div>
+
+    <div id="content">
+      <h1>&page.credits.title;</h1>
+
+      <hr/>
+
+      <h2>&license.title;</h2>
+      <p>
+        &license.content; <a href="feedback.xhtml#myaddress">&license.letmeknow;</a>.
+      </p>
+
+      <hr/>
+
+      <h2>&page.credits.title;</h2>
+      <p>
+        Original Concept: <a href="http://mpt.phrasewise.com/">Matthew Thomas</a> (via <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=38521">bug 38521</a>)
+      </p>
+      <p>
+        Inital developer: <b>Aaron Andersen</b>
+      </p>
+      <p>
+        <b>Manuel Reimer</b>: Project Owner <a href="mailto:manuel.reimer@gmx.de">[mail]</a>
+      </p>
+      <p>
+        <b>Norah Marinkovic</b>: Japanese translation <a href="mailto:norahmarinkovic@gmail.com">[mail]</a><a href="http://norahmodel.exblog.jp/">[homepage]</a>
+      </p>
+
+      <h2>&specialthanks.title;</h2>
+      <p>
+        &specialthanks.preface;
+      </p>
+      <p>
+        Sascha Grage, Stefan Blumenrath and Stefan Müller for testing my release candidates of PrefBar 6.0
+      </p>
+      <p>
+        Arivald for explaining to me why my prefpanes fail on Mac OS 10 (animating of prefwindow) and Bob for helping me with debugging the issue on his Mac.
+      </p>
+      <p>
+        Stefan Blumenrath, Sascha Grage and Ruediger Lahl for beta testing PrefBar 5.0.
+      </p>
+      <p>
+        Stephen Clavering - who was Project Owner for some time. He fixed some bugs with Firefox compatibility and helped me (Manuel Reimer) with learning how CVS and mozdev works.
+      </p>
+      <p>
+        Charlie Wexler - for proofreading my english help system
+      </p>
+      <p>
+        Rudi Theisen - for proofreading my german help system
+      </p>
+      <p>
+        Karsten Düsterloh - who helped me with converting the german "Umlaute" to UTF8 and with creating the "install.rdf" file and the configuration-dialog which are needed to get PrefBar compatible with Firefox. I also found the needed setting to get the PrefBar homepage skinned with the default skin in the CVS repository of his project "mnenhy".
+      </p>
+      <p>
+        Shimoda Hiroshi - who created the library which I used for the uninstaller in Mozilla Seamonkey 1.x
+      </p>
+      <p>
+        Vladislav Duma - who sent in the code for the new button type "extlist"
+      </p>
+      <p>
+        Adam Fletcher - Without whom I would never have learned how to manipulate RDF data, and we wouldn't have any customizable toolbars.
+      </p>
+      <p>
+        Matt Kennedy - Who wrote the code that rebuilds the config file when it doesn't exist, making it much easier to use the prefbar with multiple profiles.
+      </p>
+      <p>
+        Frank Nestel - My alpha tester, who put up with all my buggy software, including the version with the wrong install script.
+      </p>
+      <p>Fred Yontz - Who (without being asked) proofread all the prefbar documentation, pointing out to me all my misspellings, inaccuracies, and grammatical rule breaking.
+      </p>
+      <p>
+        Dave Johnson - Who hacked together the first Phoenix compatible version of the PrefBar, and then didn't kill me when it took me <del>two</del> <del>three</del> four months to get it online.
+      </p>
+      <p>
+        Chris Neale and  Johannes Eder - Who helped me beta test version 2.2 and make sure the all the new stuff (including Phoenix compatibility) worked as advertised.
+      </p>
+      <p>
+        If you sent in a feature suggestion that eventually made it into the product (especially if you gave me the values to make it work) then your name belongs here.  Write to me and remind me of who you are and I'll make sure you get listed.
+      </p>
+      <p>
+        The following members of #mozilla and #mozillazine who helped me resolve the many XUL problems I encountered while working on this program: biesi, BenB, caillon, jesus_X, oeschger, rginda, sirLurxalot, smontagu, ssieb, timeless, WeirdAl, and probably a few other people I forgot.
+      </p>
+      <p>
+        Everyone who wrote me emails about version 1.0, whether to ask questions or just to say "thanks for making the prefbar".  You really made my day.  (Or more specifically, each individual one of you made my day the day that I received your particular email.)
+      </p>
+    </div>
+  </body>
+</html>

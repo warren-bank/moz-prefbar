@@ -1,0 +1,17 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY header-title "Optionen">
+
+<!ENTITY caption-appearance "Erscheinungsbild">
+<!ENTITY caption-reset "Buttons zurücksetzen">
+<!ENTITY caption-import "Import">
+
+<!ENTITY check-show-in-popups "PrefBar Toolbar in Popup-Fenstern anzeigen">
+<!ENTITY check-slimbuttons "Schlanke Buttons nutzen (funktioniert nicht mit jedem Theme!)">
+<!ENTITY check-visualize-unchecked "Abgewählte Checkboxen in Menüs hervorheben">
+<!ENTITY check-website-import "Websites erlauben, Button-Imports anzufragen (prefbar:// URL)">
+<!ENTITY button-manage-permissions "Erlaubte Websites">
+
+<!ENTITY caption-toggle-hotkey "Hotkey zum Anzeigen/Verstecken der PrefBar">
+
+<!ENTITY description-reset "Klicken Sie diesen Button wenn Sie eingebaute Buttons gelöscht oder verändert haben und Sie die Buttons auf die &quot;Werkseinstellung&quot; zurücksetzen wollen">
+<!ENTITY button-reset "Zurücksetzen">

@@ -1,0 +1,99 @@
+<!ENTITY intro "This is the PrefBar User's Guide. Everything you need to know about using the PrefBar is right here in this file. Well, maybe not <i>everything</i>, but pretty darn close.">
+
+<!ENTITY showing.title "Showing the PrefBar toolbar">
+<!ENTITY showing.howto "To show the PrefBar toolbar, either enable it via the &quot;View-&gt;Show/Hide&quot; menu (or the &quot;View-&gt;Toolbars&quot; menu in Firefox), or by pressing the F8 key. If the second method doesn't work, try the first.">
+
+<!ENTITY moving.title "Moving PrefBar buttons to other toolbars">
+<!ENTITY moving.howto "PrefBar starts up as a new toolbar, which may be toggled by any hotkey, you define for it, but this doesn't mean, that you have to keep the buttons on their own toolbar. Starting with PrefBar 5.0, PrefBar is a so called &quot;customizable toolbar&quot;. This means, that you may either place foreign buttons to the PrefBar toolbar (and toggle them together with the other PrefBar items using your defined hotkey!) or place the PrefBar button group to any toolbar, you want. If you moved the PrefBar stuff from their own toolbar, you may just hide it to save space. To do this, right click on any toolbar, despite PrefBar itself, and choose &quot;Customize...&quot; there. This way, you enter &quot;toolbar customize mode&quot;, where you may drag&amp;drop items around.">
+
+<!ENTITY menu.title "Showing PrefBar contents as menu button">
+<!ENTITY menu.howto.beforelink "Starting with PrefBar 5.1, you may also place PrefBar's buttons below one single menu button. You find this button, named &quot;PrefBar menu&quot; in the toolbar customize dialog of your browser (see: ">
+<!ENTITY menu.howto.afterlink "). After placing this button to anywhere, you like, you may just hide the PrefBar toolbar completely.">
+
+<!ENTITY customizing.title "Customizing the PrefBar">
+<!ENTITY customizing.howto "To customize the PrefBar, right click onto PrefBar and choose &quot;Customize PrefBar...&quot; from there. You may also reach this from the main browser configuration in SeaMonkey and via the Addons manager in SeaMonkey and Firefox, but the context menu is the fastest way.">
+<!ENTITY customizing.ui "The UI for customizing the PrefBar is fairly straight forward. The buttons, currently on the PrefBar, are shown in the right tree, and the available buttons, not on the PrefBar, in the left tree. To add an existing button to the PrefBar, you drag it from the left list to the right list. To remove an item, do it the other way round. You'll also use drag&amp;drop to sort the items in both lists. All additional functions are available via context menu.">
+<!ENTITY customizing.attributes "When editing existing buttons or creating new ones, you may encounter one or more of the following attributes:">
+
+<!ENTITY customizing.id.title "Id">
+<!ENTITY customizing.id.content "Everything has an Id. You need to be sure, that the Id is unique. Use an Id, that tells, what your button does, in one little word. If your Id is not equal and you export the button, to give it to someone, then the person, who gets your button-file, may get problems with existing buttons. This is particularly important, if you like to share your button on the internet.">
+
+<!ENTITY customizing.label.title "Label">
+<!ENTITY customizing.label.content "This is the label that will appear on the button and in the customization dialog.">
+
+<!ENTITY customizing.onclick.title "Onclick">
+<!ENTITY customizing.onclick.content "For a button, this is the code that is executed when someone clicks the button. The built in buttons have built in functions and therefore have very short onclick values. If you add your own buttons, you can use the multiline code editor to add multiline code with comments.">
+
+<!ENTITY customizing.prefstring.title "Prefstring">
+<!ENTITY customizing.prefstring.content "This is the name of the preference the widget deals with. These aren't exactly documented anywhere, so the best way to find the prefstring of a new preference you want to add would be to look at the XUL source code for whatever preferences panel sets it normally.">
+
+<!ENTITY customizing.frompref-topref.title "fromPref &amp; topPref">
+<!ENTITY customizing.frompref-topref.applies "This applies only the Pref checks. Because there are multiple types of prefs (int, bool, string, etc.) and because some of them take weird values, the PrefBar maps them to the on and off state of the checkboxes using the frompref and topref attributes.">
+<!ENTITY customizing.frompref-topref.frompref "The frompref attribute is a javascript expression which, when evaluated, will return the state the checkbox is to be set to (i.e. either true or false.) The variable &quot;value&quot; holds the current state of the preference, so common frompref values are &quot;value&quot; and &quot;!value&quot;. (Or &quot;Boolean(value)&quot; and &quot;Boolean(!value)&quot; if value is an int. Remember, the end result must be a bool.) Char prefs usually require weirder topref and frompref values.)">
+<!ENTITY customizing.frompref-topref.topref "The topref attribute is the reverse of the frompref attribute. It is used to turn the boolean checkbox state variable into the appropriate pref value. Like frompref, topref must be a javascript expression which evaluates to the correct preference value, which must be of the same type as the preference involved. The &quot;value&quot; variable holds the &quot;true&quot; or &quot;false&quot; state of the checkbox in question. Common topref values are &quot;value&quot;, &quot;!value&quot; and &quot;2*Number(!value)&quot;.">
+<!ENTITY customizing.frompref-topref.prefinfo "Once again, the preferences are not very well documented, so the best way to find out what values a certain preference takes is by examining the XUL source code of the UI for that preference. If the preference in question doesn't have a UI, then you're pretty much on your own.">
+
+<!ENTITY customizing.getfunction-setfunction.title "Get-function &amp; Set-function">
+<!ENTITY customizing.getfunction-setfunction.applies "This applies only the Buttons, Extchecks and the Extlists. These button types are designed specially for scripts. They don't set preferences, but call the script, if the user clicks the button, sets the checkbox/list or if Mozilla wants to get the current state.">
+<!ENTITY customizing.getfunction-setfunction.getfunction "The Get-function is a javascript expression which is called everytime when the PrefBar needs update. Here PrefBar wants to know what the current state of the item is. You have to set the variable &quot;value&quot; to the current value.">
+<!ENTITY customizing.getfunction-setfunction.setfunction "The Set-function is a javascript expression which is called whenever the user changes the state of your item (selects item in list or checks/unchecks the checkbox). The new state is in the variable &quot;value&quot;.">
+
+<!ENTITY customizing.initfunction.title "Init-function">
+<!ENTITY customizing.initfunction.content "The Init-function is an optional javascript expression, which may be used to place code, which is required to initialize your button. The code will be called once on startup of the browser and on any PrefBar database change. This means, that the Init-function may get called more than once in one browser session!">
+
+<!ENTITY customizing.label-value.title "Label &amp; Value">
+<!ENTITY customizing.label-value.content "When dealing with menulists, each option has a corresponding value which the preference defined in prefstring will be set to when that option is chosen. If the value for an option is &quot;!RESET!&quot;, then the preference will be resetted to its default setting (like &quot;Reset&quot; in about:config). If both the value and label for a given option are empty, then those items will be ignored if you accept the dialog window.">
+
+<!ENTITY customizing.url.title "Url">
+<!ENTITY customizing.url.content "For a link, this is the url you will be taken to if you click on the link.">
+
+<!ENTITY customizing.hotkey.title "Hotkey">
+<!ENTITY customizing.hotkey.content "The field &quot;hotkey&quot; enables you to set a hotkey for this button. If this hotkey is pressed in the browser window, then the function of the button gets called, just as if you had clicked the button with your mouse.">
+
+<!ENTITY noeditbuttons.title "Why you shouldn't edit most of the built in buttons">
+<!ENTITY noeditbuttons.why "Even as you know now how to edit buttons it's not recommended to do so with most properties of the built in buttons without creating a copy of the button before (right click on button in customize window, choose &quot;Copy&quot; and enter a new ID for your button). The reason is simple: As soon as you get a new PrefBar version and update the buttons, PrefBar will immediately update its built in buttons and your changes are lost!">
+<!ENTITY noeditbuttons.exceptions "Exceptions to this rule are:">
+<!ENTITY noeditbuttons.exceptions.discussedin.beforelink "Things discussed in">
+<!ENTITY noeditbuttons.exceptions.discussedin.afterlink "">
+<!ENTITY noeditbuttons.exceptions.label "The label property. This one isn't touched by the update process, so <b>feel free to give each button a shorter name or just give it a name you like better</b>">
+<!ENTITY noeditbuttons.exceptions.selfcreated "Of course everything that isn't built in such as self-created buttons or imported buttons">
+<!ENTITY noeditbuttons.buildininfo "You may also have a look at the button list to see in detail which buttons you should not edit. If those buttons really have a bug, please tell me. It's the task of the PrefBar team to fix this. You should have no reason to modify the buttons on your own.">
+
+<!ENTITY editbuttons.title "Built in buttons you may edit">
+<!ENTITY editbuttons.preamble "There are some buttons that are a special case. As they are not usable without editing some things there are some parts excluded from update. Here I want to inform you how to edit those buttons to make them usable for you.">
+
+<!ENTITY editresize.title "Resize">
+<!ENTITY editresize.howto "Here you may add your own screen resolutions using the edit button. The format is:">
+<!ENTITY editresize.example "<i>$WIDTH</i><b>x</b><i>$HEIGHT</i>">
+<!ENTITY editresize.onevalueonly "If you only want to set the width or the height of the window, you may leave out one of the values. For example, a value &quot;1024x&quot; will only set the width of the window.">
+
+<!ENTITY edituseragent.title "User Agent">
+<!ENTITY edituseragent.howto "Feel free to add own user agents here. Starting with PrefBar 3.3 there are two ways to do this:">
+<!ENTITY edituseragent.uastring.title "Just entering the User Agent string">
+<!ENTITY edituseragent.uastring.howto "As value for your new user agent you may just enter a user agent value of your choice. For example this is the user agent of mozilla 1.7.12 running under Linux:">
+<!ENTITY edituseragent.javascript.title "Using Javascript syntax to specify more than just the agent">
+<!ENTITY edituseragent.javascript.preface "This is a new feature which came with PrefBar 3.3. You may now specify each of the following using Javascript: useragent, appname, appversion and platform. This will allow you to pass even more browser selection scripts.">
+<!ENTITY edituseragent.javascript.howto "To tell PrefBar you like to use Javascript you have to prefix your value with &quot;js:&quot;. For example this would be the string you enter to spoof Internet Explorer on Windows XP:">
+
+<!ENTITY editproxylist.title "Proxy Serverlist">
+<!ENTITY editproxylist.howto "A proxy server list won't help you if you wouldn't be allowed to enter your proxies here ;-) Feel free to add some in the following syntax:">
+<!ENTITY editproxylist.sockshowto "Starting with PrefBar 4.2, it's also possible to enter SOCKS proxies into the list, in the following form:">
+<!ENTITY editproxylist.exampleinfo "In both cases &quot;$SERVER&quot; is the server name or server IP and &quot;$PORT&quot; is the port number. You may mix FTP/HTTP and SOCKS proxies in your list, if you like.">
+
+<!ENTITY editlanglist.title "Language list">
+<!ENTITY editlanglist.howto "Feel free to add, delete or move language identifiers, here.">
+
+<!ENTITY importexport.title "Importing/Exporting Items">
+<!ENTITY importexport.howto "You can use the &quot;Import&quot; and &quot;Export&quot; entries of the context menu of the PrefBar Buttons customization dialog to export buttons to &quot;btn&quot;-files and to import buttons from those files. This makes it possible to easily give buttons to others or to share buttons or button collections on the internet.">
+<!ENTITY importexport.export.title "Exporting">
+<!ENTITY importexport.export.howto "To export buttons you first have to select the buttons you want to export in one of the lists in the preferences dialog. You can't export buttons from both lists at once! Then right click on the list and choose &quot;Export&quot;. Now you'll be asked where you want to save the &quot;btn&quot;-file to. After clicking on &quot;Save&quot; the file gets created.">
+<!ENTITY importexport.import.title "Importing">
+<!ENTITY importexport.import.howto "If you get a &quot;btn&quot;-file you can easily import it by right clicking into one of the two lists and choosing &quot;Import&quot; in this menu. This opens a dialog where you may navigate to your btn file. After clicking on &quot;Open&quot; the file gets imported. You may be asked, if you want to override existing items, if one oft the buttons, you want to import, has the same &quot;Id&quot; as an existing button on PrefBar.">
+
+<!ENTITY preferences.title "Hidden preferences">
+<!ENTITY preferences.info "There are a few preferences that influence how PrefBar handles some things. Maybe there will be a GUI to edit them, in future, but in the meantime you'll have to use about:config to edit them.">
+
+<!ENTITY preferences.plugintoggle.mode.info "This one only works with Firefox 23 and above and allows you the following options for all plugin toggle checkboxes (like the builtin Java and Flash checkbox).">
+<!ENTITY preferences.plugintoggle.mode.0 "Toggle between &quot;Never activate&quot; and &quot;Always activate&quot; (default)">
+<!ENTITY preferences.plugintoggle.mode.1 "Toggle between &quot;Never activate&quot; and &quot;Always ask&quot;">
+<!ENTITY preferences.plugintoggle.mode.2 "Toggle between &quot;Always ask&quot; and &quot;Always activate&quot;">

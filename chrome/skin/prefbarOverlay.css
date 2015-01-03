@@ -1,0 +1,137 @@
+/*
+ * Slimbutton support
+ */
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbarbutton {
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 3px;
+  margin-right: 1px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > menulist {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+/* Linux */
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-spacer-box {
+  margin-right: 1px;
+}
+/* Windows */
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-label-box > .checkbox-icon {
+  margin-right: 1px;
+}
+#prefbar-buttons[prefbarslimbuttons="true"] > toolbaritem > checkbox > .checkbox-label-box {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+/* Firefox wastes too much space for the toolbarbutton icon */
+#prefbar-buttons > toolbarbutton > .toolbarbutton-icon {
+  margin-right: 2px;
+}
+
+/* Center items in toolbaritem elements. Needed to get text labels */
+/* vertically centered on toolbar. */
+#prefbar-buttons > toolbaritem {
+  -moz-box-align: center;
+}
+
+/* Toolkit toolbars may be set to "image only" using the customize window */
+/* PrefBar-buttons can't work without text, so force the text to be visible. */
+#prefbar-buttons .toolbarbutton-text {
+  display: -moz-box !important;
+}
+
+/* If requested, then visualize unchecked checkboxes */
+menuitem[prefbar-visualize-unchecked="true"][checked="false"] {
+  list-style-image: url(chrome://prefbar/skin/checkbox.png);
+}
+menuitem[prefbar-visualize-unchecked="true"][checked="false"] .menu-iconic-icon {
+  display: -moz-box;
+}
+
+/* Checkboxes keep focus, but we want the focus in the content area */
+/* https://www.mozdev.org/bugs/show_bug.cgi?id=18086 */
+/* Starting with PrefBar 5.0 those items are wrapped in "toolbaritem" tags */
+#prefbar-buttons > toolbaritem > * {
+  -moz-user-focus: ignore;
+}
+
+/*
+  Toolbar icon size handling
+*/
+.prefbar-toolbar-customize,
+#prefbar-menu {
+  list-style-image: url(chrome://prefbar/skin/pblogo24.png);
+}
+toolbar[iconsize="small"] .prefbar-toolbar-customize,
+toolbar[iconsize="small"] #prefbar-menu {
+  list-style-image: url(chrome://prefbar/skin/pblogo18.png);
+}
+#prefbar-menu[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] .prefbar-toolbar-customize,
+toolbarpaletteitem[place="palette"] #prefbar-menu
+{
+  list-style-image: url(chrome://prefbar/skin/pblogo.png);
+}
+
+/* PrefBar menu */
+#prefbar-menu:not([cui-areatype="menu-panel"]) {
+  /* Why do the Firefox developers want the dropmarker below the icon? */
+  -moz-box-orient: horizontal;
+}
+
+/*
+  In customize mode we hide the normal PrefBar items and show a placeholder
+  for the drag/drop UI.
+*/
+.prefbar-toolbar-customize {
+  display: none;
+  max-width: 15em !important;
+}
+.prefbar-toolbar-customize > .toolbarbutton-icon,
+.prefbar-toolbar-customize > .toolbarbutton-text {
+  display: -moz-box !important;
+}
+
+toolbarpaletteitem[place="toolbar"] > #prefbar-toolbaritem > #prefbar-contents >  .prefbar-toolbar-customize {
+  display: -moz-box;
+}
+
+#wrapper-prefbar-toolbaritem[place="palette"] > .toolbarpaletteitem-box {
+  background: url(chrome://prefbar/skin/pblogo.png) no-repeat center;
+}
+
+toolbarpaletteitem[place] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-overflow-items,
+toolbarpaletteitem[place] > #prefbar-toolbaritem > #prefbar-contents > .bookmarks-toolbar-items {
+  display: none;
+}
+
+
+/*
+ * Australis
+ */
+#prefbar-toolbaritem[cui-areatype="menu-panel"] > #prefbar-contents > hbox > #prefbar-chevron,
+#prefbar-toolbaritem[cui-areatype="menu-panel"] > #prefbar-contents > #prefbar-buttons > toolbarbutton {
+  height: auto;
+  width: auto;
+  min-width: 0px;
+  max-height: none;
+  max-width: none;
+  -moz-box-orient: horizontal;
+}
+toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents >  .prefbar-toolbar-customize {
+  display: -moz-box;
+}
+toolbarpaletteitem[place="panel"] > #prefbar-toolbaritem > #prefbar-contents > .prefbar-toolbar-customize {
+  height: auto;
+  width: 21em;
+  -moz-box-orient: horizontal;
+}

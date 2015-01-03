@@ -1,0 +1,4 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY window-title        "PrefBar Button Import">
+<!ENTITY import-info         "Eine Webseite möchte einen PrefBar Button importieren">
+<!ENTITY import-warning      "PrefBar Buttons haben die gleichen Rechte, wie Ihr Browser, und können so Dateien auf Ihrem Computer beschädigen, oder Ihre Privatsphäre verletzen. Sie sollten nur Buttons aus vertrauenswürdigen Quellen importieren!">

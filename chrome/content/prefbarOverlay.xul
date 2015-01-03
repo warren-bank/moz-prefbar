@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar 3.
+   -
+   - The Initial Developer of the Original Code is
+   - Manuel Reimer.
+   - Portions created by the Initial Developer are Copyright (C) 2007
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): Aaron Andersen <aaron@xulplanet.com>
+   -                 Kevin Teuscher
+   -                 Manuel Reimer <Manuel.Reimer@gmx.de>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+
+<!DOCTYPE overlay SYSTEM "chrome://prefbar/locale/prefbarOverlay.dtd">
+
+<?xml-stylesheet href="chrome://prefbar/skin/prefbarOverlay.css" type="text/css"?>
+
+<overlay id="prefbarOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript">
+  <![CDATA[
+    var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
+                              .getService().wrappedJSObject;
+    // We are in global namespace of the browser, so wrap our stuff
+    var PrefBarNS = {}; // PrefBar NameSpace
+    goPrefBar.Include("chrome://prefbar/content/prefbarOverlay.js", PrefBarNS);
+    goPrefBar.Include("chrome://prefbar/content/buttonCommands.js", PrefBarNS);
+    goPrefBar.Include("chrome://prefbar/content/buttonhandling.js", PrefBarNS);
+
+    // Don't rename this one or move this one to any other context!!!
+    // This is used by other extensions (at least Tiny Menu):
+    // http://trac.arantius.com/ticket/212
+    // to tell PrefBar "I killed your menu, please recreate it"
+    var prefbarBrowserToolboxCustomizeDone = PrefBarNS.OnAfterCustomization;
+  ]]>
+  </script>
+
+  <!-- Firefox: -->
+  <commandset id="mainCommandSet">
+    <command id="cmd_prefbar"
+             oncommand="PrefBarNS.TogglePrefBar();"/>
+  </commandset>
+
+
+  <!-- SeaMonkey: -->
+  <commandset id="commands">
+    <command id="cmd_prefbar"
+             oncommand="PrefBarNS.TogglePrefBar()"/>
+  </commandset>
+
+  <menupopup id="view_toolbars_popup">
+    <menuitem id="viewprefsbar"
+              position="3"
+              checked="true"
+              class="menuitem-iconic"
+              type="checkbox"
+              label="&prefbar-toolbar.label;"
+              command="cmd_prefbar"
+              key="key_prefbar"/>
+  </menupopup>
+
+  <toolbox id="navigator-toolbox">
+    <toolbar id="prefbar"
+             customizable="true"
+             prefixhidden="true"
+             grippytooltiptext="&prefbar-toolbar.label;"
+             toolbarname="&prefbar-toolbar.label;"
+             togglemenuitem="viewprefsbar"
+             context="toolbar-context-menu"
+             defaultset="prefbar-toolbaritem"
+             tbalign="stretch"/>
+  </toolbox>
+
+  <popupset id="mainPopupSet">
+    <menupopup id="prefbar-contextmenu"
+               onpopupshowing="PrefBarNS.OnContextPopup();">
+      <menuitem id="prefbar-menuitem-edit"
+                oncommand="goPrefBar.GoButtonEditor(window, document.popupNode.id);"/>
+      <menuitem id="prefbar-help"
+                label="&prefbar-help-main;"
+                oncommand="PrefBarNS.GoLink('chrome://prefbar/content/help/index.xhtml'); PrefBarNS.AustralisHandler.hidePanelForNode(document.popupNode);"/>
+      <menuseparator/>
+      <menuitem id="prefbar-customize"
+                label="&prefbar-help-customize;"
+                oncommand="PrefBarNS.OpenPrefs();"/>
+    </menupopup>
+  </popupset>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="prefbar-menu"
+                   class="toolbarbutton-1"
+                   label="&prefbar-menu.label;"
+                   title="&prefbar-menu.title;"
+                   type="menu">
+      <menupopup
+         id="prefbar-menu-popup"
+         ref="prefbar:menu:enabled"
+         onpopuphidden="setTimeout(function(){PrefBarNS.ButtonHandling.update();}, 0);"
+         onpopupshowing="if (event.target == this) PrefBarNS.ButtonHandling.update(this);"
+         context="prefbar-contextmenu"/>
+    </toolbarbutton>
+
+    <toolbaritem id="prefbar-toolbaritem"
+                 flex="1"
+                 align="center"
+                 style="min-width: 0px;"
+                 context="prefbar-contextmenu"
+                 title="&prefbar-toolbaritem.title;">
+      <hbox id="prefbar-contents" flex="1">
+        <toolbarbutton label="&prefbar-toolbaritem.title;"
+                       class="prefbar-toolbar-customize"/>
+
+        <scrollbox id="prefbar-buttons"
+                   style="min-width: 1px;"
+                   flex="1"
+                   class="bookmarks-toolbar-items"
+                   ref="prefbar:menu:enabled"/>
+
+        <hbox class="bookmarks-toolbar-overflow-items" mousethrough="always">
+          <hbox mousethrough="always" id="prefbar-overflow-padder" flex="1"/>
+
+          <toolbarbutton id="prefbar-chevron"
+                         type="menu"
+                         class="chevron"
+                         mousethrough="never"
+                         collapsed="false" >
+            <menupopup id="prefbar-chevron-popup"
+                       onpopupshowing="if (event.target == this) PrefBarNS.UpdateChevronMenu();"
+                       template="prefbarToolbarTemplate"
+                       ref="prefbar:menu:enabled"/>
+          </toolbarbutton>
+
+        </hbox><!--prefbar-toolbar-overflow-items-->
+      </hbox><!--prefbar-contents-->
+    </toolbaritem>
+  </toolbarpalette>
+
+</overlay>

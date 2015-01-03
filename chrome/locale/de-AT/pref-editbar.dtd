@@ -1,0 +1,18 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY header-title "Buttons">
+
+<!ENTITY available-tree "Verfügbare Elemente">
+<!ENTITY enabled-tree   "Aktivierte Elemente">
+
+<!ENTITY name-col "Name">
+<!ENTITY type-col "Typ">
+
+<!ENTITY button-new "Neu">
+<!ENTITY button-edit "Bearbeiten">
+<!ENTITY button-delete "Löschen">
+<!ENTITY button-copy "Kopieren">
+
+<!ENTITY button-import "Import">
+<!ENTITY button-export "Export">
+
+<!ENTITY link-buttons "Mehr Buttons">

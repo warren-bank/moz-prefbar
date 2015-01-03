@@ -1,0 +1,17 @@
+<!ENTITY header-title "オプション - PrefBar">
+
+<!ENTITY available-tree "使用できるボタン">
+<!ENTITY enabled-tree   "表示中のボタン">
+
+<!ENTITY name-col "ボタンの名前">
+<!ENTITY type-col "種類">
+
+<!ENTITY button-new "作成">
+<!ENTITY button-edit "編集">
+<!ENTITY button-delete "削除">
+<!ENTITY button-copy "コピー">
+
+<!ENTITY button-import "インポート">
+<!ENTITY button-export "エクスポート">
+
+<!ENTITY link-buttons "ボタンを追加する">

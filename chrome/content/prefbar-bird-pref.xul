@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar 4.
+   -
+   - The Initial Developer of the Original Code is
+   - Manuel Reimer.
+   - Portions created by the Initial Developer are Copyright (C) 2007
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -  Manuel Reimer <Manuel.Reimer@gmx.de>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<!DOCTYPE dialog SYSTEM "chrome://prefbar/locale/preferencesOverlay.dtd">
+
+<?xml-stylesheet type="text/css" href="chrome://communicator/skin/" ?>
+
+<prefwindow id = "prefbar-dialog"
+            xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            title = "&main-label;"
+            ondialoghelp = "openURL('chrome://prefbar/content/help/use.xhtml#customizing')"
+            style = "width: 48em; height: 40em;"
+            persist = "screenX screenY"
+            windowtype = "prefbar:preferences">
+
+  <script type="text/javascript" src="chrome://global/content/contentAreaUtils.js"/>
+
+  <prefpane id="prefbar_editbar_pane" label="&buttons-label;"
+            src="chrome://prefbar/content/pref-editbar.xul"
+            image="chrome://prefbar/skin/pblogo.png"/>
+  <prefpane id="prefbar_options_pane" label="&options-label;"
+            src="chrome://prefbar/content/pref-options.xul"
+            image="chrome://prefbar/skin/pblogo.png"/>
+
+  <script type="application/x-javascript">
+  <![CDATA[
+    var goPrefBar = Components.classes["@prefbar.mozdev.org/goprefbar;1"]
+                              .getService().wrappedJSObject;
+
+    //
+    // This window will also be called by the Addons manager in SeaMonkey
+    // As we don't want it there, we'll forward the call to the original
+    // SeaMonkey pref system.
+    //
+    if (goPrefBar.InSM()) {
+      var wm = goPrefBar.WindowMediator;
+      var editWin = wm.getMostRecentWindow("prefbar:btneditor");
+
+      // Button editor found
+      if (editWin)
+        editWin.focus();
+      else {
+        // We ask the first window with "goPreferences" to open the pref system
+        // for us, so the preferences window can not get modal to this window.
+        var wins = wm.getEnumerator(null);
+        while(wins.hasMoreElements()) {
+          var win = wins.getNext();
+          if (win.goPreferences) {
+            win.goPreferences("prefbar_editbar_pane");
+            break;
+          }
+        }
+      }
+
+      setTimeout(function(){window.close();}, 0);
+    }
+
+    // Some getter injections to modify behaviour of prefwindow
+    function loadHandler(event) {
+      // Animation stuff sucks! This is default on Mac and effectively destroys
+      // the layout of our prefpanes, so we forcefully disable it here!
+      document.documentElement.__defineGetter__(
+        "_shouldAnimate", function() { return false; }
+      );
+
+      // This one forces the dialog to always come up with the "editbar" pane
+      document.documentElement.__defineGetter__(
+        "lastSelected", function() { return "prefbar_editbar_pane"; }
+      );
+    }
+    window.addEventListener("DOMContentLoaded", loadHandler, true);
+
+    // This is a simplified clone of the SeaMonkey "script attribute" feature
+    function paneloadHandler(event) {
+      var pane = event.target;
+      var script = pane.getAttribute("script");
+      if (script) {
+        goPrefBar.Include(script, pane);
+        if ("Startup" in pane)
+          pane.Startup();
+      }
+    }
+    window.addEventListener("paneload", paneloadHandler, true);
+  ]]>
+  </script>
+
+</prefwindow>

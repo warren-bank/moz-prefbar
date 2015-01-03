@@ -1,0 +1,17 @@
+<!ENTITY header-title "Buttons">
+
+<!ENTITY available-tree "Available Items">
+<!ENTITY enabled-tree   "Enabled Items">
+
+<!ENTITY name-col "Item Name">
+<!ENTITY type-col "Type">
+
+<!ENTITY button-new "New">
+<!ENTITY button-edit "Edit">
+<!ENTITY button-delete "Delete">
+<!ENTITY button-copy "Copy">
+
+<!ENTITY button-import "Import">
+<!ENTITY button-export "Export">
+
+<!ENTITY link-buttons "Get more buttons">

@@ -1,0 +1,770 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+  <!ENTITY % globalDTD SYSTEM "chrome://prefbar/locale/help/_global.dtd">
+    %globalDTD;
+  <!ENTITY % pageDTD SYSTEM "chrome://prefbar/locale/help/buttons.dtd">
+    %pageDTD;
+  <!ENTITY % buttontypeDTD SYSTEM "chrome://prefbar/locale/newItem.dtd">
+    %buttontypeDTD;
+]>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar.
+   -
+   - The Initial Developer of the Original Code is
+   - Aaron Andersen.
+   - Portions created by the Initial Developer are Copyright (C) 2002
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): Aaron Andersen <aaron@xulplanet.com>
+   -                 Manuel Reimer <Manuel.Reimer@gmx.de>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <link rel="stylesheet" href="help.css" type="text/css"/>
+    <link rel="stylesheet" href="buttons.css" type="text/css"/>
+    <link rel="icon" href="chrome://prefbar/skin/pblogo18.png" type="image/png"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>&page.buttons.title; - &page.title.left; &page.title.right;</title>
+  </head>
+  <body>
+    <div id="headerblock">
+      <span id="headertextleft">&page.title.left;</span><span id="headertextright">&nbsp;&page.title.right;
+        <span id="headerlineleft">&nbsp;</span>
+        <span id="headerlineright">&nbsp;</span>
+      </span>
+    </div>
+
+    <div id="buttons">
+      <a href="index.xhtml">&page.index.title;</a>
+      <a href="use.xhtml">&page.use.title;</a>
+      <a href="newstuff.xhtml">&page.newstuff.title;</a>
+      <span>&page.buttons.title;</span>
+      <a href="faq.xhtml">&page.faq.title;</a>
+      <a href="credits.xhtml">&page.credits.title;</a>
+      <a href="feedback.xhtml">&page.feedback.title;</a>
+    </div>
+
+    <div id="content">
+
+      <h1>&page.buttons.title;</h1>
+      <p>
+        &intro;
+      </p>
+
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>&navbuttons;:</td>
+          <td><a href="#back">&back.label;</a> | <a href="#forward">&forward.label;</a> | <a href="#reload">&reload.label;</a> | <a href="#stop">&stop.label;</a> | <a href="#home">&home.label;</a></td>
+        </tr>
+        <tr>
+          <td>&prefchecks;:</td>
+          <td><a href="#tabjavascript">&tabjavascript.label;</a> | <a href="#tabimages">&tabimages.label;</a> | <a href="#tabplugins">&tabplugins.label;</a> | <a href="#fonts">&fonts.label;</a> | <a href="#colors">&colors.label;</a> | <a href="#systemcolors">&systemcolors.label;</a> | <a href="#images">&images.label;</a> | <a href="#animation">&animation.label;</a> | <a href="#javascript">&javascript.label;</a> | <a href="#java">&java.label;</a> | <a href="#popups">&popups.label;</a> | <a href="#proxies">&proxies.label;</a> | <a href="#cookies">&cookies.label;</a> | <a href="#cookiewarning">&cookiewarning.label;</a> | <a href="#Flash">&Flash.label;</a></td>
+        </tr>
+        <tr>
+          <td>&devchecks;:</td>
+          <td><a href="#pipelining">&pipelining.label;</a> | <a href="#cacheenabled">&cacheenabled.label;</a> | <a href="#sendreferrer">&sendreferrer.label;</a></td>
+        </tr>
+        <tr>
+          <td>&devbuttons;</td>
+          <td><a href="#clearallcache">&clearallcache.label;</a> | <a href="#clearhist">&clearhist.label;</a> | <a href="#clearurlbar">&clearurlbar.label;</a> | <a href="#clearcookies">&clearcookies.label;</a> | <a href="#clearall">&clearall.label;</a> | <a href="#resize">&resize.label;</a></td>
+        </tr>
+        <tr>
+          <td>&commandbuttons;:</td>
+          <td><a href="#newtab">&newtab.label;</a> | <a href="#savepage">&savepage.label;</a> | <a href="#restoretab">&restoretab.label;</a> | <a href="#killflash">&killflash.label;</a> | <a href="#fontdown">&fontdown.label;</a> | <a href="#fontup">&fontup.label;</a> | <a href="#customize">&customize.label;</a> | <a href="#hidetoolbar">&hidetoolbar.label;</a></td>
+        </tr>
+        <tr>
+          <td>&menulists;:</td>
+          <td><a href="#useragent">&useragent.label;</a> | <a href="#proxymenulist">&proxymenulist.label;</a> | <a href="#proxylist">&proxylist.label;</a> | <a href="#prefbarlanglist">&prefbarlanglist.label;</a></td>
+        </tr>
+        <tr>
+          <td>&helplinks;:</td><td><a href="#help">&help.label;</a> | <a href="#whatsnew">&whatsnew.label;</a></td>
+        </tr>
+        <tr>
+          <td>&weblinks;:</td>
+          <td><a href="#prefbarhomepagelink">&prefbarhomepagelink.label;</a> | <a href="#mozilla.org">&mozilla.org.label;</a> | <a href="#mozillazine.org">&mozillazine.org.label;</a></td>
+        </tr>
+      </table>
+
+      <hr/>
+
+      <!--
+          <h2 id=""></h2>
+          <div class="buttonstats">
+            Type:
+            <br>Default Status:
+          </div>
+          <p>
+
+          </p>
+          -->
+
+      <h2 id="back">&back.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &back.desc;
+      </p>
+
+      <h2 id="forward">&forward.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &forward.desc;
+      </p>
+
+      <h2 id="reload">&reload.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &reload.desc;
+      </p>
+
+      <h2 id="stop">&stop.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &stop.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separator1.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="home">&home.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &home.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separator2.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="tabjavascript">&tabjavascript.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &tabjavascript.desc;
+      </p>
+
+      <h2 id="tabimages">&tabimages.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &tabimages.desc;
+      </p>
+
+      <h2 id="tabplugins">&tabplugins.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &tabplugins.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="fonts">&fonts.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &fonts.desc;
+      </p>
+
+      <h2 id="colors">&colors.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &colors.desc;
+      </p>
+
+      <h2 id="systemcolors">&systemcolors.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &systemcolors.desc;
+      </p>
+
+      <h2 id="images">&images.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &images.desc;
+      </p>
+
+      <h2 id="animation">&animation.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &animation.desc;
+      </p>
+
+      <h2 id="javascript">&javascript.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &javascript.desc;
+      </p>
+
+      <h2 id="java">&java.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &java.desc;
+      </p>
+      <p>
+        <b>&plugintoggle.mode.beforelink; <a href="use.xhtml#preferences.plugintoggle.mode">extensions.prefbar.plugintoggle.mode</a> &plugintoggle.mode.afterlink;</b>
+      </p>
+
+      <h2 id="Flash">&Flash.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &Flash.desc;
+      </p>
+      <p>
+        <b>&plugintoggle.mode.beforelink; <a href="use.xhtml#preferences.plugintoggle.mode">extensions.prefbar.plugintoggle.mode</a> &plugintoggle.mode.afterlink;</b>
+      </p>
+
+      <h2 id="popups">&popups.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &popups.desc;
+      </p>
+
+      <h2 id="proxies">&proxies.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &proxies.desc;
+      </p>
+
+      <h2 id="proxymenulist">&proxymenulist.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-menulist;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &proxymenulist.desc;
+      </p>
+      <div class="menulistoptions">&proxymenulist.options;
+        No Proxies      (&proxymenulist.noproxies;)
+        Manual Proxy    (&proxymenulist.manualproxy;)
+        Automatic Proxy (&proxymenulist.automaticproxy;)
+      </div>
+
+      <h2 id="cookies">&cookies.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &cookies.desc;
+      </p>
+
+      <h2 id="cookiewarning">&cookiewarning.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &cookiewarning.desc;
+      </p>
+
+      <h2 id="pipelining">&pipelining.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &pipelining.desc;
+      </p>
+
+      <h2 id="cacheenabled">&cacheenabled.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &cacheenabled.desc;
+      </p>
+
+      <h2 id="sendreferrer">&sendreferrer.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-check;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &sendreferrer.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="clearallcache">&clearallcache.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &clearallcache.desc;
+      </p>
+
+      <h2 id="clearhist">&clearhist.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &clearhist.desc;
+      </p>
+
+      <h2 id="clearurlbar">&clearurlbar.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &clearurlbar.desc;<br/>
+        <span style="color: red;">&clearurlbar.ffnote;</span>
+      </p>
+
+      <h2 id="clearcookies">&clearcookies.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &clearcookies.desc;
+      </p>
+
+      <h2 id="clearall">&clearall.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &clearall.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="resize">&resize.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-extlist;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#editresize" style="color:green">&yes;</a>
+      </div>
+      <p>
+        &resize.desc;
+      </p>
+
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="newtab">&newtab.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &newtab.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="savepage">&savepage.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &savepage.desc;
+      </p>
+
+
+      <h2 id="restoretab">&restoretab.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &restoretab.desc;
+      </p>
+
+
+      <h2 id="killflash">&killflash.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &killflash.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="fontdown">&fontdown.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &fontdown.desc;
+      </p>
+
+      <h2 id="fontup">&fontup.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &fontup.desc;
+      </p>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <hr/>
+
+      <h2 id="useragent">&useragent.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-menulist;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#edituseragent" style="color:green">&yes;</a>
+      </div>
+      <p>
+        &useragent.desc;
+      </p>
+      <p>
+        &useragent.resetuainfo.beforelink; <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=83376">Bug 83376</a> &useragent.resetuainfo.afterlink;
+      </p>
+
+      <h2 id="uaspacer">&button-type-spacer;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-spacer;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &spacer0.desc;
+      </p>
+
+      <hr/>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <h2 id="help">&help.label;</h2>
+      <div class="buttonstats">
+        &type;: Link<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &help.desc;
+      </p>
+
+      <h2 id="whatsnew">&whatsnew.label;</h2>
+      <div class="buttonstats">
+        &type;: Link<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &whatsnew.desc;
+      </p>
+
+      <hr/>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <h2 id="prefbarhomepagelink">&prefbarhomepagelink.label;</h2>
+      <div class="buttonstats">
+        &type;: Link<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &prefbarhomepagelink.desc;
+      </p>
+
+      <h2 id="mozilla.org">&mozilla.org.label;</h2>
+      <div class="buttonstats">
+        &type;: Link<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &mozilla.org.desc;
+      </p>
+
+      <h2 id="mozillazine.org">&mozillazine.org.label;</h2>
+      <div class="buttonstats">
+        &type;: Link<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &mozillazine.org.desc;
+      </p>
+
+      <hr/>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <h2 id="customize">&customize.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &visible;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &customize.desc;
+      </p>
+
+      <hr/>
+
+      <h2>&button-type-separator;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-separator;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &separatorX.desc;
+      </p>
+
+      <h2 id="hidetoolbar">&hidetoolbar.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-button;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#noeditbuttons" style="color:red">&no;</a>
+      </div>
+      <p>
+        &hidetoolbar.desc;
+      </p>
+
+      <h2 id="proxylist">&proxylist.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-menulist;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#editproxylist" style="color:green">&yes;</a>
+      </div>
+      <p>
+        &proxylist.desc;
+      </p>
+
+      <h2 id="prefbarlanglist">&prefbarlanglist.label;</h2>
+      <div class="buttonstats">
+        &type;: &button-type-extlist;<br/>
+        &defstatus;: &hidden;<br/>
+        &customizable;: <a href="use.xhtml#editlanglist" style="color:green">&yes;</a>
+      </div>
+      <p>
+        &prefbarlanglist.desc;
+      </p>
+
+      <hr/>
+      <br/>
+
+      &outro; <a href="feedback.xhtml">&outro.letmeknow;</a>.
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<!ENTITY prefbar-toolbar.label  "PrefBar Toolbar">
+
+<!ENTITY prefbar-help-main      "PrefBar Help">
+<!ENTITY prefbar-help-customize "Customize PrefBar...">
+
+<!ENTITY prefbar-menu.label     "PrefBar">
+<!ENTITY prefbar-menu.title     "PrefBar Menu">
+
+<!ENTITY prefbar-toolbaritem.title "PrefBar Toolbar Items">

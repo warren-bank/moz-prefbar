@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+
+    <em:id>{8A6C82A1-F6C9-481a-AAE7-C96444C9A754}</em:id>
+    <em:type>2</em:type>
+    <em:unpack>true</em:unpack>
+    <em:name>PrefBar</em:name>
+    <em:version>6.5.0</em:version>
+    <em:description>The all in one toolbar(item)</em:description>
+    <em:creator>Manuel Reimer</em:creator>
+    <em:contributor>Aaron Anderson</em:contributor>
+    <em:contributor>Stephen Clavering</em:contributor>
+    <em:contributor>Norah Marinkovic</em:contributor>
+    <em:homepageURL>http://prefbar.tuxfamily.org/</em:homepageURL>
+    <em:optionsURL>chrome://prefbar/content/prefbar-bird-pref.xul</em:optionsURL>
+    <em:aboutURL>chrome://prefbar/content/infoWindow.xul</em:aboutURL>
+    <em:iconURL>chrome://prefbar/skin/pblogo.png</em:iconURL>
+
+    <!-- Firefox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.5</em:minVersion>
+        <em:maxVersion>36.0</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- SeaMonkey -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>2.33</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+  </Description>
+
+</RDF>

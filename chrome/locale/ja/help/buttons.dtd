@@ -1,0 +1,135 @@
+<!ENTITY intro "このファイルにはデフォルトで使用可能なボタンの説明が書かれています。ボタンはすべて初回インストール時の順番で書かれています。 ">
+<!ENTITY outro "このファイルについてエラーを発見した場合は必ず">
+<!ENTITY outro.letmeknow "連絡してください。">
+
+<!-- Grouping of buttons in help system -->
+<!ENTITY navbuttons "ナビゲーション">
+<!ENTITY prefchecks "設定">
+<!ENTITY devchecks "開発者向け設定">
+<!ENTITY devbuttons "開発者向けボタン">
+<!ENTITY commandbuttons "コマンドボタン">
+<!ENTITY menulists "メニューリスト">
+<!ENTITY helplinks "ヘルプリンク">
+<!ENTITY weblinks "ウェブリンク">
+
+<!-- Preferences of buttons -->
+<!ENTITY type "種類">
+
+<!ENTITY defstatus "初期状態">
+<!ENTITY hidden "非表示">
+<!ENTITY visible "表示">
+
+<!ENTITY customizable "カスタマイズ">
+<!ENTITY yes "可能">
+<!ENTITY no "不可能">
+
+<!-- Labels of buttons -->
+<!ENTITY back.label "戻る">
+<!ENTITY forward.label "進む">
+<!ENTITY reload.label "再読み込み">
+<!ENTITY stop.label "中止">
+<!ENTITY home.label "ホーム">
+<!ENTITY tabjavascript.label "JavaScript (タブ)">
+<!ENTITY tabimages.label "画像 (タブ)">
+<!ENTITY tabplugins.label "プラグイン (タブ)">
+<!ENTITY fonts.label "フォント">
+<!ENTITY colors.label "色">
+<!ENTITY systemcolors.label "システムカラー">
+<!ENTITY images.label "画像">
+<!ENTITY animation.label "アニメーション">
+<!ENTITY javascript.label "JavaScript">
+<!ENTITY java.label "Java">
+<!ENTITY popups.label "ポップアップ">
+<!ENTITY proxies.label "プロキシ">
+<!ENTITY proxymenulist.label "接続設定">
+<!ENTITY cookies.label "Cookie">
+<!ENTITY cookiewarning.label "Cookie の警告">
+<!ENTITY Flash.label "Flash">
+<!ENTITY proxylist.label "プロキシを選択">
+<!ENTITY pipelining.label "パイプライン">
+<!ENTITY cacheenabled.label "キャッシュ">
+<!ENTITY sendreferrer.label "リファラーの送信">
+<!ENTITY clearallcache.label "キャッシュを消去">
+<!ENTITY clearhist.label "閲覧履歴を消去">
+<!ENTITY clearurlbar.label "ロケーションバーの消去">
+<!ENTITY clearcookies.label "Cookie を消去">
+<!ENTITY clearall.label "すべて消去">
+<!ENTITY resize.label "リサイズ">
+<!ENTITY newtab.label "新しいタブ">
+<!ENTITY savepage.label "ページを保存">
+<!ENTITY restoretab.label "タブを復元">
+<!ENTITY killflash.label "Flash を除去">
+<!ENTITY fontdown.label "フォント -">
+<!ENTITY fontup.label "フォント +">
+<!ENTITY customize.label "カスタマイズ">
+<!ENTITY hidetoolbar.label "ツールバーを隠す">
+<!ENTITY useragent.label "ユーザーエージェント">
+<!ENTITY help.label "ヘルプ">
+<!ENTITY whatsnew.label "最新情報">
+<!ENTITY prefbarhomepagelink.label "PrefBar ホームページ">
+<!ENTITY mozilla.org.label "Mozilla.org">
+<!ENTITY mozillazine.org.label "MozillaZine.org">
+<!ENTITY prefbarlanglist.label "言語識別子">
+
+<!-- Button descriptions -->
+<!ENTITY back.desc "ナビゲーション ツールバーの [戻る] ボタンと同じように、履歴上の前のページを表示します。このボタンはナビゲーション ツールバーのものとは異なり、戻れるページが存在しない場合でもアイコンが変化したり、無効化したりしません。 ">
+<!ENTITY forward.desc "シンプルな　[進む] ボタンです。履歴上の次ののページを表示する以外は [戻る] ボタンと同じ動作をします。 ">
+<!ENTITY reload.desc "シンプルな [再読み込み] ボタンです。クリックすることでページの再読み込みを行いますが [Shift] キーを押しながらこのボタンを押すならばキャッシュを使用せずに再読み込みを行います。 ">
+<!ENTITY stop.desc "ページの読み込みを停止します。このボタンはブラウザの停止ボタンと違い、ブラウザの状態を監視しないため、ページの読み込みを行なっていない時でも押すことができますが、その場合は何も行いません。 ">
+<!ENTITY home.desc "ホームボタンです。このボタンを押すとブラウザで設定したホームページを表示します。 ">
+<!ENTITY tabjavascript.desc "表示中のタブで JavaScript を使用するかを切り替えます。 ">
+<!ENTITY tabimages.desc "表示中のタブで画像を表示するかを切り替えます。 ">
+<!ENTITY tabplugins.desc "表示中のタブでプラグインを使用するかを切り替えます。 ">
+<!ENTITY fonts.desc "ページが指定したフォントを使用するか切り替えます。恐ろしく読みにくいフォントを指定しているウェブページを表示したさいに、この機能を使ってブラウザで指定されたフォントで強制的に表示できます。">
+<!ENTITY colors.desc "ページが指定したカラーリングを使用するか切り替えます。ページが指定した文字色と背景色がミスマッチなため、文字が読みにくいと感じる場合この機能を使用してブラウザで指定したカラーリングで強制的に表示できます。">
+<!ENTITY systemcolors.desc "文字の配色設定を切り替える事ができます。この設定が有効になっていると、文字や背景の色が、あなたが使用している OS の文字と背景色を優先して使用されます。 ">
+<!ENTITY images.desc "すべての画像を読み込むか設定できます。この設定はページを再度読み込む事で反映されます。設定を切り替えた場合は必ずページを再読み込みしてください。 ">
+<!ENTITY animation.desc "画像のアニメーションの許可を切り替えることができます。この設定は画像のアニメーションに対しては有効ですが Flash や JavaScript を使用したアニメーションに対しては効果はありません。またこの設定はページを再度読み込む事で反映されるので、設定を切り替えた場合は必ずページを再読み込みしてください。 ">
+<!ENTITY javascript.desc "JavaScript の使用を切り替えます。この設定の対象はあくまでブラウザ全体である事に注意してください。例えば複数のブラウザウィンドウを開いていた場合、どれかひとつのウィンドウでこの設定が変更されると、他のブラウザウィンドウに対してもその設定が反映されます。 ">
+<!ENTITY java.desc "Java の使用を切り替えます。この設定を使用することで Java が必要なときだけ有効にする事ができます。 ">
+<!ENTITY Flash.desc "Flash を表示するかを選択できます。 ">
+<!ENTITY popups.desc "ポップアップウィンドウを許可するか切り替える事ができます。ポップアップウィンドウの中には、いくつかのテクニックを用いてこの機能を回避する物が存在します。 ">
+<!ENTITY proxies.desc "プロキシを使用して接続するかしないかを選択します。">
+<!ENTITY proxymenulist.desc "ネットワークへの接続方法を選択します。プロキシを使用する場合はブラウザのオプションから使用するプロキシについての正しい情報を入力する必要があります。 ">
+<!ENTITY proxymenulist.options "オプション:">
+<!ENTITY proxymenulist.noproxies "直接接続 (プロキシを使用しない)">
+<!ENTITY proxymenulist.manualproxy "手動設定 (自分で設定したプロキシを使用する)">
+<!ENTITY proxymenulist.automaticproxy "自動接続 (プロキシの設定スクリプトに従って使用する">
+<!ENTITY cookies.desc "すべての Cookie を受け入れるか拒否するかを選択できます。 ">
+<!ENTITY cookiewarning.desc "ウェブページが Cookie の使用や変更を求めてきた時に、警告のダイアログを表示します。 ">
+<!ENTITY pipelining.desc "HTTP パイプラインを使用するか選択できます。ページの読み込み速度が大幅に上がる可能性もありますが、サーバー側がこの機能に対応している必要があります。 ">
+<!ENTITY cacheenabled.desc "ブラウザがキャッシュを使用するか切り替えます。">
+<!ENTITY sendreferrer.desc "無効化されている時は参照元の URL をウェブページに通知しません。 ">
+<!ENTITY clearallcache.desc "ブラウザが使用しているキャッシュを消去します。">
+<!ENTITY clearhist.desc "ブラウザの閲覧履歴を消去します。 ">
+<!ENTITY clearurlbar.desc "ロケーションバーに入力された文字列を消去します。">
+<!ENTITY clearurlbar.ffnote "Firefox 3.0 以上のブラウザではロケーションバーからブックマークと履歴を検索するため、このボタンは使用できません。代わりに [履歴の消去] を使用してください。">
+<!ENTITY clearcookies.desc "すべての Cookie を消去します。 ">
+<!ENTITY clearall.desc "閲覧履歴やロケーションバーを始め、ディスクとメモリーのキャッシュを消去します。 ">
+<!ENTITY resize.desc "ブラウザのウィンドウサイズをメニューリストで選択した解像度に変更します。 ">
+<!ENTITY newtab.desc "新しいブラウザのタブを開きます。 ">
+<!ENTITY savepage.desc "ボタンを押すと現在表示しているページをディスクに保存します。">
+<!ENTITY restoretab.desc "ボタンを押すと最後に閉じたタブを復元します。">
+<!ENTITY killflash.desc "このボタンをクリックすると、現在表示しているページから Flash を削除します。">
+<!ENTITY fontdown.desc "フォントのサイズを小さくします。 ">
+<!ENTITY fontup.desc "フォントのサイズを大きくします。 ">
+<!ENTITY useragent.desc "使用中のブラウザのユーザーエージェントを簡単に変更します。これは IE 以外のブラウザに対応していないウェブサイトなどを表示する際に、サーバーやクライアント判定をすり抜けるのに有効です。 ">
+<!ENTITY useragent.resetuainfo.beforelink "PrefBar はブラウザが起動されるたびにユーザーエージェントの値をデフォルト(使用中のブラウザの正しいユーザーエージェント)に戻します。これは">
+<!ENTITY useragent.resetuainfo.afterlink "によって引き起こされるブラウザのクラッシュを回避するための措置です。">
+<!ENTITY help.desc "ヘルプのトップページへのリンクです。 ">
+<!ENTITY whatsnew.desc "ヘルプの <i>最新情報</i> ページへのリンクです。">
+<!ENTITY prefbarhomepagelink.desc "PrefBar プロジェクトのホームページを表示します。 ">
+<!ENTITY mozilla.org.desc "モジラプロジェクトのホームページである mozilla.org へのリンクです。 ">
+<!ENTITY mozillazine.org.desc "モジラのユーザーと開発者が集まる MozillaZine.org へのリンクです。 ">
+<!ENTITY customize.desc "Prefbar のカスタマイズを簡単に行える設定ダイアログを表示します。 ">
+<!ENTITY hidetoolbar.desc "このボタンを押すと Prefbar を隠します。これは [F8] キーを押すのと同じ動作を行います。 ">
+<!ENTITY proxylist.desc "メニューリストから使用するプロキシサーバーを簡単に切り替えます。またボタンを編集することでプロキシサーバーを追加できます(ポート番号の指定も可能です)。 ">
+<!ENTITY prefbarlanglist.desc "ウェブサーバーへ通知する言語識別子を変更します。&quot;デフォルト&quot; を選択すると、ブラウザの初期設定に戻せます。(ブラウザの初期設定は使用する言語パックに依存します。)">
+
+<!ENTITY separator1.desc "この区切り線はナビゲーション関連のボタンとホームボタンの間に表示されます。PrefBar はデフォルトで各グループの間に区切り線を表示するようにしています。この区切り線はボタンを整理して表示するのに役立つ反面、わずかですがスペースを取ります。そのため解像度の低いモニターや沢山のボタンを表示したい場合などは、区切り線を表示しない事をおすすめします。 ">
+<!ENTITY separator2.desc "この区切り線はホームボタンの右側に表示されます。区切り線はツールバー上の好きなところに表示できます。 ">
+<!ENTITY separatorX.desc "その他の区切り線。">
+<!ENTITY spacer0.desc "このボタンは自動的に伸縮する空白を挿入します。このボタンの右側に置かれたボタンは強制的にツールバーの右側に配置されます。 ">
+
+<!ENTITY plugintoggle.mode.beforelink "メモ: Firefox 23 以降では">
+<!ENTITY plugintoggle.mode.afterlink "でプラグインの動作設定を変更できます。">

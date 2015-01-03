@@ -1,0 +1,136 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY intro "Diese Datei enthält eine Liste aller Buttons (checkbox, button, link, menulist, etc.), die in einer standard Prefbar Installation enthalten sind, mit einer Information, wie man sie einsetzen kann. Alle Elemente sind in der Reihenfolge gelistet, wie sie direkt nach der Installation angeordnet sind.">
+<!ENTITY outro "Das sollten alle sein. Wenn Sie Fehler finden">
+<!ENTITY outro.letmeknow "lassen Sie es mich wissen">
+
+<!-- Grouping of buttons in help system -->
+<!ENTITY navbuttons "Nav buttons">
+<!ENTITY prefchecks "Pref checks">
+<!ENTITY devchecks "Dev checks">
+<!ENTITY devbuttons "Dev buttons">
+<!ENTITY commandbuttons "Command buttons">
+<!ENTITY menulists "Menulists">
+<!ENTITY helplinks "Help Links">
+<!ENTITY weblinks "Web Links">
+
+<!-- Preferences of buttons -->
+<!ENTITY type "Typ">
+
+<!ENTITY defstatus "Standard Status">
+<!ENTITY hidden "Versteckt">
+<!ENTITY visible "Sichtbar">
+
+<!ENTITY customizable "Anpassbar">
+<!ENTITY yes "JA">
+<!ENTITY no "NEIN">
+
+<!-- Labels of buttons -->
+<!ENTITY back.label "Zurück">
+<!ENTITY forward.label "Vor">
+<!ENTITY reload.label "Neu laden">
+<!ENTITY stop.label "Stopp">
+<!ENTITY home.label "Home">
+<!ENTITY tabjavascript.label "Javascript (Tab)">
+<!ENTITY tabimages.label "Bilder (Tab)">
+<!ENTITY tabplugins.label "Plugins (Tab)">
+<!ENTITY fonts.label "Fonts">
+<!ENTITY colors.label "Farben">
+<!ENTITY systemcolors.label "Systemfarben">
+<!ENTITY images.label "Bilder">
+<!ENTITY animation.label "Animation">
+<!ENTITY javascript.label "JavaScript">
+<!ENTITY java.label "Java">
+<!ENTITY popups.label "Popups">
+<!ENTITY proxies.label "Proxies">
+<!ENTITY proxymenulist.label "Proxy Menulist">
+<!ENTITY cookies.label "Cookies">
+<!ENTITY cookiewarning.label "Cookie Warnung">
+<!ENTITY Flash.label "Flash">
+<!ENTITY proxylist.label "Proxyserver-Liste">
+<!ENTITY pipelining.label "Pipelining">
+<!ENTITY cacheenabled.label "Cache">
+<!ENTITY sendreferrer.label "Referrer senden">
+<!ENTITY clearallcache.label "Cache leeren">
+<!ENTITY clearhist.label "History leeren">
+<!ENTITY clearurlbar.label "Adresszeile leeren">
+<!ENTITY clearcookies.label "Cookies leeren">
+<!ENTITY clearall.label "Alles leeren">
+<!ENTITY resize.label "Resize">
+<!ENTITY newtab.label "Neues Tab">
+<!ENTITY savepage.label "Seite speichern">
+<!ENTITY restoretab.label "Restore Tab">
+<!ENTITY killflash.label "Kill Flash">
+<!ENTITY fontdown.label "Font -">
+<!ENTITY fontup.label "Font +">
+<!ENTITY customize.label "Anpassen">
+<!ENTITY hidetoolbar.label "Hide Toolbar">
+<!ENTITY useragent.label "User Agent">
+<!ENTITY help.label "Hilfe">
+<!ENTITY whatsnew.label "Was ist neu">
+<!ENTITY prefbarhomepagelink.label "PrefBar Homepage">
+<!ENTITY mozilla.org.label "Mozilla.org">
+<!ENTITY mozillazine.org.label "MozillaZine.org">
+<!ENTITY prefbarlanglist.label "Sprache">
+
+<!-- Button descriptions -->
+<!ENTITY back.desc "Dies ist ein sehr einfacher &quot;Zurück&quot; Button, der eine Seite in der Browser-History zurückspringt, genau so wie der &quot;Zurück&quot; Button in der Navigations-Symbolleiste.  Anders als der &quot;Zurück&quot; Button, in der Navigations-Symbolleiste, hat dieser Button keine Dropdown-Liste, mit den zuletzt gewählten Seiten, hat kein Icon und wird nicht deaktiviert, wenn es keine Seite zum zurückgehen gibt.  Wie gesagt, es ist nur ein einfacher &quot;Zurück&quot; Button.">
+<!ENTITY forward.desc "Dies ist ein sehr einfacher &quot;Weiter&quot; Button, ähnlich wie der einfache &quot;Zurück&quot; Button, der oben beschrieben wurde. Alle Einschränkungen, die dort genannt wurden, gelten auch hier.">
+<!ENTITY reload.desc "Dies ist ein sehr einfacher &quot;Neu laden&quot; Button, der zum einfachen &quot;Zurück&quot; Button und zum einfachen &quot;Weiter&quot; Button gehört. Anders als bei den oben beschriebenen Buttons hat dieser Button bereits alle Funktionalitäten wie der zugehörige Button auf der Navigations-Symbolleiste, was bedeutet das Sie ihn bei gedrückter Shift-Taste anklicken können, um das neu Laden der Seite, unabhängig vom Browser-Cache, zu erzwingen oder einfach klicken für ein normales neu Laden.">
+<!ENTITY stop.desc "Ein sehr einfacher &quot;Stopp&quot; Button, um die Gruppe zu vervollständigen. Dieser Button beobachtet nicht die Aktivität im Browser und ist deshalb auch aktiv, wenn der Navigator im Moment nichts tut (zu dieser Zeit hat das Anklicken aber absolut keinen Effekt).">
+<!ENTITY home.desc "Obwohl dieser Button nicht so schön aussieht, wie der richtige &quot;Startseite&quot; Button (er hat das Icon nicht, zumindest noch nicht) bringt ein Klick sie genau so schnell zu ihrer Startseite.">
+<!ENTITY tabjavascript.desc "Dies schaltet Javascript für das ausgewählte Tab ein oder aus.">
+<!ENTITY tabimages.desc "Dies schaltet die Anzeige von Bildern für das ausgewählte Tab ein oder aus.">
+<!ENTITY tabplugins.desc "Dies schaltet Plugins für das ausgewählte Tab ein oder aus.">
+<!ENTITY fonts.desc "Dies schaltet die &quot;Dokumenten erlauben, andere Schriftarten zu verwenden&quot; Eigenschaft ein oder aus. Wenn Sie eine Webseite mit wirklich schrecklichen Schrift-Einstellungen finden, dann stellen Sie dies ab, um die Seite stattdessen mit normalen Schriften angezeigt zu bekommen.">
+<!ENTITY colors.desc "Vielleicht die praktischste Checkbox von allen, diese stellt die von Autor festgelegten Farben ab und zeigt alles mit den Standardfarben an. Nur weil manche schwachsinnigen meinen, dass gelber Text auf einem roten Hintergrund schön aussieht, muss das nicht heißen, dass Sie das so lesen sollen. Von jetzt an müssen Sie nicht mehr.">
+<!ENTITY systemcolors.desc "Wechselt zwischen den Farben, die im Einstellungs-Dialog festgelegt wurden, und den Systemfarben. Nur sinnvoll, wenn die &quot;Colors&quot; Checkbox deaktiviert wird.">
+<!ENTITY images.desc "Dies schaltet die Grafik-Anzeigeregeln von &quot;Alle Grafiken akzeptieren&quot; (wenn aktiviert) nach &quot;Keine Grafiken laden&quot; (wenn deaktiviert). Sie müssen dies entweder vor dem Laden der Seite einstellen, oder Sie müssen die Seite, nach dem Ändern der Einstellung, neu Laden.  (Ich weiß nicht, warum diese Einstellung nicht automatisch funktioniert, wie die &quot;Fonts&quot; und &quot;Farben&quot; Einstellungen. Es ist vielleicht ein Bug, aber ich kenne die Nummer nicht.)">
+<!ENTITY animation.desc "Dies deaktiviert/aktiviert animierte Bilder. Die Einstellung hat keinen Einfluss auf andere Animationen, wie JavaScript oder Flash. Sie müssen diese Einstellung entweder vor dem Laden einer Seite festlegen, oder die Seite neu laden, wenn die Einstellung verändert wurde.">
+<!ENTITY javascript.desc "Aktiviert oder deaktiviert JavaScript. Dies kann manchmal sehr nützlich sein. Beachten Sie, dass diese Einstellung --wie bei allen alle Eigenschaften-- global vorgenommen wird. Deshalb deaktivert das Abstellen von JavaScript in einem Browser-Fenster oder -Tab die JavaScript Unterstützung von Mozilla vollständig.">
+<!ENTITY java.desc "Aktiviert oder deaktiviert Java. Persönlich bevorzuge ich es Java die meiste Zeit deaktiviert zu lassen und nur dann zu aktivieren, wenn ich ein Java Applet bemerke das ich wirklich brauche. So bleibe ich von Java basierter Werbung oder der Wartezeit, beim Laden von Java auf einer Seite, die Java benötigt, erspart.">
+<!ENTITY Flash.desc "Dies ist eine Checkbox, um Flash komplett zu deaktivieren, wenn es nicht gebraucht wird.">
+<!ENTITY popups.desc "Deaktiviert/aktiviert die &quot;Unerwünschte PopUp-Fenster blockieren&quot; Eigenschaft. Ich habe gehört, dass es immer noch manche Popups an diesem Blocker vorbeikommen, aber ich kenne keine Details.">
+<!ENTITY proxies.desc "Diese Checkbox schaltet die Proxy-Einstellungen zwischen &quot;Direkte Verbindung zum Internet&quot; (wenn deaktiviert) und der letzten Proxy-Einstellung, die eingestellt war, bevor Sie den Haken in der Checkbox entfernt haben (wenn aktiviert).">
+<!ENTITY proxymenulist.desc "Dies ermöglicht es auszuwählen, welcher Typ von Proxy im Moment benötigt wird. Sie müssen die Proxy-Einstellungen, für die Proxies, die Sie benötigen, im Einstellungs-Dialog vornehmen.">
+<!ENTITY proxymenulist.options "Optionen:">
+<!ENTITY proxymenulist.noproxies "Proxies sind deaktiviert">
+<!ENTITY proxymenulist.manualproxy "Manuelle Proxy Konfiguration wird verwendet">
+<!ENTITY proxymenulist.automaticproxy "Automatische Proxy Konfigurations URL wird genutzt">
+<!ENTITY cookies.desc "Dies schaltet die Cookie-Einstellungen zwischen &quot;Alle Cookies akzeptieren&quot; (wenn aktiviert) und &quot;Keine Cookies akzeptieren&quot; (wenn deaktiviert) um.">
+<!ENTITY cookiewarning.desc "Wenn aktiviert, dann wird Mozilla eine Warnung anzeigen, bevor eine Seite die Erlaubnis erhält, ein Cookie zu setzen, oder ein Cookie zu verändern.">
+<!ENTITY pipelining.desc "Aktiviert oder deaktiviert HTTP Pipelining. Dies ist eine experimentelle Funktion, um die Seitenladegeschwindigkeit zu verbessern, aber wird nicht von allen Servern unterstützt.">
+<!ENTITY cacheenabled.desc "Dies schaltet den Browser-Cache ein oder aus.">
+<!ENTITY sendreferrer.desc " Wenn diese Checkbox deaktiviert ist, wird Mozilla keine Referrer-Adressen mehr bei Seitenanfragen senden.">
+<!ENTITY clearallcache.desc "Dies leert Mozillas Browser-Cache.">
+<!ENTITY clearhist.desc "Leert Mozillas Browser History.">
+<!ENTITY clearurlbar.desc "Leert die History der URLs, die in die Adressleiste eigegeben wurden.">
+<!ENTITY clearurlbar.ffnote "Dieser Button funktioniert nicht mehr mit Firefox 3.0 oder höher, da dort die Lesezeichen und die reguläre History zum Füllen des Dropdown-Menüs in der Adresszeile genutzt werden. Sie können den Button &quot;&clearhist.label;&quot; als Ersatz verwenden.">
+<!ENTITY clearcookies.desc "Löscht alle gespeicherten Cookies.">
+<!ENTITY clearall.desc "Leert die History, die Adressleiste, Festplatten-Cache und Speicher-Cache.">
+<!ENTITY resize.desc "Ändert die Größe des Browser-Fensters auf die, in der Liste eingestellte, Auflösung.">
+<!ENTITY newtab.desc "Öffnet ein neues Browser Tab. Ich weiß nicht wirklich, wie praktisch das ist, aber jemand wollte es und so habe ich es eingebaut.">
+<!ENTITY savepage.desc "Klicken Sie auf diesen Button, um die aktuelle Seite auf einen Datenträger zu speichern.">
+<!ENTITY restoretab.desc "Dieser Button stellt das zuletzt geschlossene Tab wieder her.">
+<!ENTITY killflash.desc "Klicken Sie auf diesen Button, um alle eingebetteten Flash-Objekte, auf der aktuellen Seite, zu entfernen.">
+<!ENTITY fontdown.desc "Verringert die Schriftgröße.">
+<!ENTITY fontup.desc "Vergrößert die Schriftgröße.">
+<!ENTITY useragent.desc "Dies erlaubt es, den User Agent String von Mozilla schnell zu ändern, was praktisch ist, wenn man Seiten betrachten will, die alle Browser, außer IE, blockieren. Das funktioniert für alle serverseitigen und einige clientseitige Prüfungen. Der Eintrag &quot;Real UA&quot; repräsentiert den korrekten Wert für das Mozilla-Build das Sie nutzen.">
+<!ENTITY useragent.resetuainfo.beforelink "Die PrefBar setzt den User Agent automatisch auf den (richtigen) Standardwert, wenn Mozilla beendet wird. Dies verhindert Probleme mit">
+<!ENTITY useragent.resetuainfo.afterlink "(der dafür sorgt das Mozilla crasht) und stellt sicher, dass nicht vergessen wird, dass der UA-String geändert wurde, und dieser somit nicht für 3 Wochen verändert bleibt.">
+<!ENTITY help.desc "Ein Link zur Indexseite dieses Hilfe-Systems.">
+<!ENTITY whatsnew.desc "Ein Link zu der <i>&page.newstuff.title;</i> Seite dieses Hilfe-Systems.">
+<!ENTITY prefbarhomepagelink.desc "Ein Link zur Homepage des PrefBar Projekts.">
+<!ENTITY mozilla.org.desc "Ein Link zu mozilla.org, Homepage des Mozilla Projekts.">
+<!ENTITY mozillazine.org.desc "Ein Link zu MozillaZine.org, Sammelplatz für Mozilla-Entwickler und -Benutzer.">
+<!ENTITY customize.desc "Dieser Button bringt Sie schnell zu den Prefbar-Einstellungen im Einstellungen-Dialog.">
+<!ENTITY hidetoolbar.desc "Ein Button, der die PrefBar Symbolleiste ausblendet. Macht das gleiche, wie wenn F8 gedrückt wird.">
+<!ENTITY proxylist.desc "Eine Liste, in die benötigte Proxies mit den zugehörigen Ports eingetragen werden können. Dies macht es einfach, zwischen den Proxies zu wechseln.">
+<!ENTITY prefbarlanglist.desc "Ermöglicht das Umschalten der Sprachkennung, die an die Webserver übermittelt wird. Der Eintrag &quot;Standard&quot; setzt die Einstellung zurück auf den Wert, den der Autor Ihres Firefox/SeaMonkey Sprachpakets für Ihre Sprachumgebung vorgesehen hat.">
+
+<!ENTITY separator1.desc "Dieser Abstandshalter kommt zwischen die Navigations-Buttons und den Home-Button (oder wo auch immer sie ihn an der rechten Seite der Navigations-Buttons anordnen). Es gibt mehrere Abstandshalter in der PrefBar Button-Liste, einen für jede Gruppe von Elementen. Sie brauchen ein wenig Platz auf der Toolbar, aber sie sorgen dafür, dass die Button-Anordnungen besser aussehen. Deshalb ist es empfehlenswert, die Abstandshalter aktiviert zu lassen, es sei denn Sie haben einen sehr kleinen Monitor (oder wollen eine große Anzahl von Buttons auf einmal aktiviert haben).">
+<!ENTITY separator2.desc "Ein Abstandshalter, der auf die rechte Seite des Home-Buttons gehört. Sie können ihn (natürlich) an jede beliebige Stelle auf der Toolbar verschieben.">
+<!ENTITY separatorX.desc "Noch ein Abstandshalter.">
+<!ENTITY spacer0.desc "Dieses Element zeigt nichts an, aber vergrößert sich so groß, wie möglich, um den ganzen übrigen Platz einzunehmen. Dadurch werden alle Elemente, auf der rechten Seite dieses Elements, an die rechte Seite der Toolbar geschoben.">
+
+<!ENTITY plugintoggle.mode.beforelink "Hinweis: Ab Firefox 23 ist es möglich das Verhalten von Plugin-Auswahlboxen über die">
+<!ENTITY plugintoggle.mode.afterlink "Einstellung zu beeinflussen.">

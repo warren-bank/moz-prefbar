@@ -1,0 +1,3 @@
+<!ENTITY window-title        "PrefBar ボタンのインポート">
+<!ENTITY import-info         "Web サイトから PrefBar のボタンをインポートしようとしています">
+<!ENTITY import-warning      "PrefBar ボタンには chrome 特権が与えられます。そのため悪意を持って作られたボタンがファイルの削除やプライバシの侵害を行う可能性があります。信頼できるサイトからだけボタンをインポートしてください!">

@@ -1,0 +1,16 @@
+<!ENTITY header-title "PrefBar のオプション">
+
+<!ENTITY caption-appearance "表示">
+<!ENTITY caption-reset "ボタンの初期化">
+<!ENTITY caption-import "インポート">
+
+<!ENTITY check-show-in-popups "ポップアップウィンドウに PrefBar を表示">
+<!ENTITY check-slimbuttons "スリムボタンを使用 (使用するテーマによっては利用できない場合があります！)">
+<!ENTITY check-visualize-unchecked "メニューにチェックボックスを常に表示">
+<!ENTITY check-website-import "Web サイトからのボタンのインポートを許可 (prefbar:// URL)">
+<!ENTITY button-manage-permissions "許可するサイト">
+
+<!ENTITY caption-toggle-hotkey "ショートカットキー (PrefBar の表示と非表示を切り替えます)">
+
+<!ENTITY description-reset "ボタンセットを &quot;インストール時の状態&quot; に戻したい場合やボタンの翻訳を最新の状態にしたい時は、このボタンをクリックしてください。">
+<!ENTITY button-reset "初期化を開始">

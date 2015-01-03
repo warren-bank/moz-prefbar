@@ -1,0 +1,190 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is Preferences Toolbar 2.
+ *
+ * The Initial Developer of the Original Code is
+ * Aaron Andersen.
+ * Portions created by the Initial Developer are Copyright (C) 2___
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s): Aaron Andersen <aaron@xulplanet.com>
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * either the GNU General Public License Version 2 or later (the "GPL"), or
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ * in which case the provisions of the GPL or the LGPL are applicable instead
+ * of those above. If you wish to allow use of your version of this file only
+ * under the terms of either the GPL or the LGPL, and not to allow others to
+ * use your version of this file under the terms of the MPL, indicate your
+ * decision by deleting the provisions above and replace them with the notice
+ * and other provisions required by the GPL or the LGPL. If you do not delete
+ * the provisions above, a recipient may use your version of this file under
+ * the terms of any one of the MPL, the GPL or the LGPL.
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+body {
+  background-color: white;
+  font-family: serif;
+}
+
+#headerblock {
+  font-size: 24pt;
+  padding: 0 0 0.15em 0;
+  margin: -0.16em 0 0 0;
+}
+#headertextleft {
+  color: #4234bd;
+}
+#headertextright {
+  color: #08aa8c;
+  font-style: italic;
+  position: relative;
+}
+#headertextright > span {
+  top: -0.16em;
+  position: absolute;
+  border-width: 0 0 2px 0;
+  border-style: solid;
+}
+#headerlineleft {
+  left: -3ex;
+  width: 3ex;
+  border-color: #4234bd;
+}
+#headerlineright {
+  left: 0;
+  border-color: #08aa8c;
+  width: 2.5ex;
+}
+
+#content {
+  background-color: #eee;
+  border: 1px solid black;
+
+  margin-top: 10px;
+
+  padding: 5px;
+
+  padding-bottom: 1ex;
+  margin-bottom: 2em;
+}
+
+div#content a {
+  text-decoration: none;
+
+  color: Dodgerblue;
+  font-weight: bold;
+}
+
+div#content a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  margin-bottom: 0px;
+  margin-top: 20px;
+
+  font-size: xx-large;
+
+  font-family: sans-serif;
+
+  color: Midnightblue;
+}
+
+h2 {
+  margin-bottom: 0px;
+  margin-top: 10px;
+
+  font-size: x-large;
+
+  font-family: sans-serif;
+
+  color: Darkslateblue;
+}
+
+h3 {
+  margin-bottom: 0px;
+  margin-top: 10px;
+
+  font-size: large;
+
+  font-family: sans-serif;
+
+  color: Darkslateblue;
+}
+
+p {
+  margin: 0px;
+
+  margin-left: 1em;
+}
+
+p+p, dl+p, table + p {
+  margin-top: 1em;
+}
+
+table {
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+dl {
+  margin-left: 1em;
+}
+
+dt {
+  margin-top: 1em;
+}
+
+
+div#buttons {
+  margin-top: 0px;
+  border: 1px solid black;
+  background-color: #eee;
+
+  padding: 5px;
+}
+
+div#buttons > * {
+  font-family: sans-serif;
+  background-color: lightskyblue;
+  padding: 1px;
+
+  font-size: small;
+}
+
+div#buttons > span {
+  border: 2px inset lightskyblue;
+}
+
+div#buttons > a {
+  text-decoration: none;
+
+  border-width: 2px;
+  border-color: Dodgerblue;
+  color: black;
+
+  border-style: solid;
+}
+
+div#buttons > a:hover {
+  border-style: outset;
+  border-color: lightskyblue;
+}
+
+div#buttons > a:active {
+  border-style: inset;
+  border-color: lightskyblue;
+}

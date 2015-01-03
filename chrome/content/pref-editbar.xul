@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar 2.
+   -
+   - The Initial Developer of the Original Code is
+   - Aaron Andersen.
+   - Portions created by the Initial Developer are Copyright (C) 2002
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): Aaron Andersen <aaron@xulplanet.com>
+   -                 Kevin Teuscher
+   -                 Manuel Reimer <Manuel.Reimer@gmx.de>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+
+<!DOCTYPE overlay [
+  <!ENTITY % editbarDTD SYSTEM "chrome://prefbar/locale/pref-editbar.dtd">
+  %editbarDTD;
+  <!ENTITY % newitemDTD SYSTEM "chrome://prefbar/locale/newItem.dtd">
+  %newitemDTD;
+]>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <prefpane id="prefbar_editbar_pane"
+            label="&header-title;"
+            flex="1"
+            helpTopic="prefbar-editbar"
+            script="chrome://prefbar/content/pref-editbar.js">
+
+    <menupopup id="tree-contextmenu"
+               onpopupshowing="return PopupShowing();">
+      <menuitem id="itemEdit"
+                style="font-weight:bold;"
+                label="&button-edit;"
+                oncommand="prefbarItemEdit()"/>
+      <menuitem id="itemCopy"
+                label="&button-copy;"
+                oncommand="ItemCopy();"/>
+      <menuitem id="itemDelete"
+                label="&button-delete;"
+                oncommand="prefbarItemDelete()"/>
+      <menuseparator/>
+      <menu id="itemNew" label="&button-new;">
+        <menupopup>
+          <menuitem label="&button-type-check;"
+                    oncommand="ItemNew('check');"/>
+          <menuitem label="&button-type-button;"
+                    oncommand="ItemNew('button');"/>
+          <menuitem label="&button-type-menulist;"
+                    oncommand="ItemNew('menulist');"/>
+          <menuitem label="&button-type-link;"
+                    oncommand="ItemNew('link');"/>
+          <menuitem label="&button-type-label;"
+                    oncommand="ItemNew('text');"/>
+          <menuitem label="&button-type-separator;"
+                    oncommand="ItemNew('separator');"/>
+          <menuitem label="&button-type-spacer;"
+                    oncommand="ItemNew('spacer');"/>
+          <menuitem label="&button-type-extlist;"
+                    oncommand="ItemNew('extlist');"/>
+          <menuitem label="&button-type-extcheck;"
+                    oncommand="ItemNew('extcheck');"/>
+          <menuseparator/>
+          <menuitem label="&button-type-submenu;"
+                    oncommand="ItemNew('submenu');"/>
+        </menupopup>
+      </menu>
+      <menuseparator/>
+      <menuitem id="itemImport"
+                label="&button-import;"
+                oncommand="prefbarItemImport()"/>
+      <menuitem id="itemExport"
+                label="&button-export;"
+                oncommand="prefbarItemExport()"/>
+    </menupopup>
+
+    <hbox flex="1">
+
+      <vbox flex="1">
+        <label value="&available-tree;"/>
+        <tree id="allTree"
+              style="margin-right: 0;"
+              context="tree-contextmenu"
+              flex="1"
+              seltype="multiple"
+              ref="prefbar:menu:disabled"
+              onfocus="AllTreeFocus()"
+              onkeypress="TreeKeypress(event);"
+              ondraggesture="BeginDragTree(event, this)"
+              ondrop="DropOnTree(event, this)"
+              ondragover="DragOverTree(event)">
+          <treecols>
+            <treecol id="all-tree-name"    label="&name-col;" flex="2"/>
+            <splitter class="tree-splitter"/>
+            <treecol id="all-tree-type"    label="&type-col;" flex="1"/>
+          </treecols>
+          <treechildren/>
+        </tree>
+      </vbox>
+
+      <splitter/>
+
+      <vbox flex="1">
+        <label value="&enabled-tree;"/>
+        <tree id="enabledTree"
+              style="margin-left: 0;"
+              context="tree-contextmenu"
+              flex="1"
+              seltype="multiple"
+              ref="prefbar:menu:enabled"
+              onfocus="EnabledTreeFocus()"
+              onkeypress="TreeKeypress(event);"
+              ondraggesture="BeginDragTree(event, this)"
+              ondrop="DropOnTree(event, this)"
+              ondragover="DragOverTree(event)">
+          <treecols>
+            <treecol id="enabled-tree-name" label="&name-col;" flex="2"
+                     primary="true"/>
+            <splitter class="tree-splitter"/>
+            <treecol id="enabled-tree-type" label="&type-col;" flex="1"/>
+          </treecols>
+          <treechildren/>
+        </tree>
+      </vbox>
+
+    </hbox>
+    <description style="text-align: right">
+      <html:a target="_blank"
+              style="color: blue; text-decoration: underline;"
+              onclick="this.parentNode.parentNode.OnLinkClick(event);"
+              href="http://prefbar.tuxfamily.org/buttons.html">
+        &link-buttons;
+      </html:a>
+    </description>
+  </prefpane>
+</overlay>

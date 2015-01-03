@@ -1,0 +1,38 @@
+<!ENTITY new-item-title        "PrefBar button editor">
+
+<!ENTITY button-type-check     "Checkbox">
+<!ENTITY button-type-button    "Button">
+<!ENTITY button-type-menulist  "Menulist">
+<!ENTITY button-type-link      "Link">
+<!ENTITY button-type-label     "Text Label">
+<!ENTITY button-type-separator "Separator">
+<!ENTITY button-type-spacer    "Spacer">
+<!ENTITY button-type-extlist   "Extlist">
+<!ENTITY button-type-extcheck  "Extcheck">
+<!ENTITY button-type-submenu   "Submenu">
+
+<!ENTITY button-attr-data       "Item Data">
+
+<!ENTITY button-attr-id         "Id:">
+<!ENTITY button-attr-label      "Label:">
+<!ENTITY button-attr-prefstring "Prefstring:">
+<!ENTITY button-attr-topref     "toPref:">
+<!ENTITY button-attr-frompref   "fromPref:">
+<!ENTITY button-attr-url        "Url:">
+<!ENTITY button-attr-hotkey     "Hotkey:">
+
+<!ENTITY button-attr-itemlabel  "Label">
+<!ENTITY button-attr-itemvalue  "Value">
+
+<!ENTITY button-preftype-common   "Common">
+<!ENTITY button-preftype-onclick   "onClick">
+<!ENTITY button-preftype-setfunction "Set-function">
+<!ENTITY button-preftype-getfunction "Get-function">
+<!ENTITY button-preftype-initfunction "Init-function">
+
+<!ENTITY button-update-caption "Call on change of:">
+<!ENTITY button-update-window "Window">
+<!ENTITY button-update-tab "Tab">
+<!ENTITY button-update-url "URL">
+
+<!ENTITY apply-label "Apply">

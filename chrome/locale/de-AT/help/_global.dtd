@@ -1,0 +1,11 @@
+<!-- -*- coding: utf-8 -*- -->
+<!ENTITY page.title.left "PrefBar">
+<!ENTITY page.title.right "Hilfe">
+
+<!ENTITY page.index.title "Einführung">
+<!ENTITY page.use.title "PrefBar benutzen">
+<!ENTITY page.newstuff.title "Was ist neu?">
+<!ENTITY page.buttons.title "Button Liste">
+<!ENTITY page.faq.title "PrefBar FAQ">
+<!ENTITY page.credits.title "Credits">
+<!ENTITY page.feedback.title "Hilfe/Feedback">

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window SYSTEM "chrome://prefbar/locale/newItem.dtd">
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Preferences Toolbar 2.
+   -
+   - The Initial Developer of the Original Code is
+   - Aaron Andersen.
+   - Portions created by the Initial Developer are Copyright (C) 2002
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): Aaron Andersen <aaron@xulplanet.com>
+   -                 Manuel Reimer <Manuel.Reimer@gmx.de>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+
+<page xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      id="new-button" >
+
+  <script type="application/x-javascript" src="utility.js"/>
+  <script type="application/x-javascript" src="hotkeyedit.js"/>
+  <script type="application/x-javascript" src="newButton.js"/>
+
+  <dialogheader title="&button-type-button;"/>
+
+  <tabbox id="tabbox" flex="1">
+    <tabs>
+      <tab label="&button-preftype-common;"/>
+      <tab label="&button-preftype-onclick;"/>
+      <tab label="&button-preftype-initfunction;"/>
+    </tabs>
+    <tabpanels id="panel" flex="1">
+      <vbox class="tabpanel" id="commontab" flex="1">
+        <groupbox>
+          <caption label="&button-attr-data;"/>
+          <grid>
+            <columns>
+              <column/>
+              <column flex="1"/>
+            </columns>
+            <rows>
+              <row align="center">
+                <label value="&button-attr-id;"/>
+                <textbox id="itemId"/>
+              </row>
+              <row align="center">
+                <label value="&button-attr-label;"/>
+                <textbox id="itemLabel"/>
+              </row>
+              <row align="center">
+                <label value="&button-attr-hotkey;"/>
+                <hkeditor id="HotkeyEditor" style="-moz-binding:url(chrome://prefbar/content/keyeditor.xml#keyeditor);"/>
+              </row>
+            </rows>
+          </grid>
+        </groupbox>
+      </vbox>
+
+      <vbox id="onclicktab" flex="1">
+        <textbox id="itemOnclick" multiline="true" wrap="off" style="height: 100%; font-family: -moz-fixed;" flex="1" class="uri-element"/>
+      </vbox>
+
+      <vbox id="initfunctiontab" flex="1">
+        <textbox id="itemInitfunction" multiline="true" wrap="off" style="height: 100%; font-family: -moz-fixed;" flex="1" class="uri-element"/>
+      </vbox>
+    </tabpanels>
+  </tabbox>
+
+</page>
