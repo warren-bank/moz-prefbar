@@ -103,13 +103,25 @@
 
     <groupbox id="resetGroup">
       <caption label="&caption-reset;"/>
-      <hbox>
-        <description flex="1">
-          &description-reset;
-        </description>
-        <button label="&button-reset;"
-                oncommand="resetButton();"/>
-      </hbox>
+      <vbox>
+        <label value="&description-reset;"/>
+        <separator class="thin"/>
+        <hbox>
+          <description flex="1">
+            &description-soft-reset;
+          </description>
+          <button label="&button-reset;"
+                oncommand="resetButton(false);"/>
+        </hbox>
+        <separator class="thin"/>
+        <hbox>
+          <description flex="1">
+            &description-hard-reset;
+          </description>
+          <button label="&button-reset;"
+                oncommand="resetButton(true);"/>
+        </hbox>
+      </vbox>
     </groupbox>
 
   </prefpane>

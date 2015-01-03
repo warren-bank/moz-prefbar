@@ -45,10 +45,12 @@ function SetButtons() {
   document.getElementById("PrefBarManagePermissions").disabled = !pref.value;
 }
 
-function resetButton() {
-  var resetwanted = goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-options.properties", "questionreset"));
+function resetButton(hard) {
+  var resetwanted, ImportType;
+  resetwanted = goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-options.properties", "questionreset"));
   if (resetwanted) {
-    goPrefBar.ImpExp.Import(window, "chrome://prefbar/content/prefbar.json", goPrefBar.ImpExp.ImportType_Reset);
+    ImportType = (hard)? goPrefBar.ImpExp.ImportType_Hard_Reset : goPrefBar.ImpExp.ImportType_Soft_Reset;
+    goPrefBar.ImpExp.Import(window, "chrome://prefbar/content/prefbar.json", ImportType);
     goPrefBar.msgAlert(window, goPrefBar.GetString("pref-options.properties", "resetfinished"));
   }
 }

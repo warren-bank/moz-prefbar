@@ -13,5 +13,7 @@
 
 <!ENTITY caption-toggle-hotkey "Hotkey zum Anzeigen/Verstecken der PrefBar">
 
-<!ENTITY description-reset "Klicken Sie diesen Button wenn Sie eingebaute Buttons gelöscht oder verändert haben und Sie die Buttons auf die &quot;Werkseinstellung&quot; zurücksetzen wollen">
+<!ENTITY description-reset "Die folgenden tasten werden integrierte produkte auf ihre werkseitigen konfigurationseinstellungen zurückzusetzen&hellip;">
+<!ENTITY description-soft-reset "Klicken sie auf diese schaltfläche, um integrierte elemente in einem post-installations-zustand zurück. Benutzer erstellt/importierten elemente bleiben erhalten.">
+<!ENTITY description-hard-reset "Klicken sie auf diese schaltfläche, um alle einzelteile zu einem post-installation zustand zurückkehren. Benutzer erstellt/importierten elemente werden entfernt.">
 <!ENTITY button-reset "Zurücksetzen">
