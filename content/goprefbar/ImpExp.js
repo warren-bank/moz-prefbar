@@ -121,7 +121,7 @@ function Export(aWin, aToExport, aFileObj) {
 		(! helper.is_non_empty_array(aToExport))
 	) {return;}
 
-	var result, enabled, disabled, id, i;
+	var result, enabled, disabled, id, i, item_id;
 
 	result = {};
 	enabled = [];
@@ -155,8 +155,8 @@ function Export(aWin, aToExport, aFileObj) {
 			(helper.is_non_empty_array(result[id]["items"]))
 		){
 			for (i=0; i<result[id]["items"].length; i++){
-				id = result[id]["items"][i];
-				aToExport.push(id);
+				item_id = result[id]["items"][i];
+				aToExport.push(item_id);
 			}
 		}
 	}
