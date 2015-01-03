@@ -40,7 +40,7 @@
 
 <!DOCTYPE overlay SYSTEM "chrome://prefbar/locale/pref-options.dtd">
 
-<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
 
   <prefpane id="prefbar_options_pane"
             label="&header-title;"
@@ -104,7 +104,9 @@
     <groupbox id="resetGroup">
       <caption label="&caption-reset;"/>
       <vbox>
-        <label value="&description-reset;"/>
+        <description flex="1">
+          &description-reset;
+        </description>
         <separator class="thin"/>
         <hbox>
           <description flex="1">
