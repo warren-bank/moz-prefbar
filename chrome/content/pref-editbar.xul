@@ -118,7 +118,8 @@
               ondrop="DropOnTree(event, this)"
               ondragover="DragOverTree(event)">
           <treecols>
-            <treecol id="all-tree-name"    label="&name-col;" flex="2"/>
+            <treecol id="all-tree-name"    label="&name-col;" flex="2"
+                     primary="true"/>
             <splitter class="tree-splitter"/>
             <treecol id="all-tree-type"    label="&type-col;" flex="1"/>
           </treecols>
