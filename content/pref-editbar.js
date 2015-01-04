@@ -156,90 +156,164 @@ function prefbarItemEdit() {
 
 
 function prefbarItemDelete() {
-  var selections = prefbarGetTreeSelections(gActiveTree);
-  if (selections.length < 1) return;
+	var ids_to_delete, helper, id, parent_menu_id, item, parent_item, i, submenu_item_id;
 
-  if(!goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-editbar.properties", "questiondelete"))) return;
+	ids_to_delete       = prefbarGetTreeSelections(gActiveTree);
+	helper              = goPrefBar.ImpExp.helper;
 
-  var items = {};
-  for(var i = 0; i < selections.length; i++) {
-    var selItemId = selections[i];
-    var selItemCN = getCNameById(selItemId);
-    items[selItemId] = selItemCN;
-  }
+	// sanity check
+	if (
+		(! helper.is_non_empty_array(ids_to_delete))
+	){return;}
 
-  for (var delitemid in items) {
-    var parentid = items[delitemid];
-    var delitem = gMainDS[delitemid];
-    var parent = gMainDS[parentid];
+	// ask user to confirm the delete operation
+	if(!goPrefBar.msgYesNo(window, goPrefBar.GetString("pref-editbar.properties", "questiondelete"))) return;
 
-    // If the item, to delete, is a container, then move all children to
-    // the parent container, to empty the container.
-    if (delitem.type == "submenu") {
-      // Prepend children to parent
-      parent.items = delitem.items.concat(parent.items);
+	while (ids_to_delete.length){
+		id              = ids_to_delete.shift();
+		item            = gMainDS[id];
 
-      // Set new parent in our item list
-      for (var index = 0; index < delitem.items.length; index++) {
-        var child = delitem.items[index];
-        if (child in items) items[child] = parentid;
-      }
-    }
+		// sanity check
+		if (
+			(! helper.is_non_null_object(item))
+		){continue;}
 
-    var delitemindex = goPrefBar.ArraySearch(delitemid, parent.items);
-    parent.items.splice(delitemindex, 1);
-    delete(gMainDS[delitemid]);
-  }
+		parent_menu_id  = getCNameById(id);
+		parent_item     = gMainDS[parent_menu_id];
 
-  RenderTree(gActiveTree);
-  goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
+		if (
+			(item.type === "submenu") &&
+			(helper.is_non_empty_array(item.items))
+		){
+			for (i=0; i<item.items.length; i++){
+				submenu_item_id = item.items[i];
+				ids_to_delete.push(submenu_item_id);
+			}
+		}
+
+		if (
+			(helper.is_non_null_object(parent_item)) &&
+			(helper.is_non_empty_array(parent_item.items))
+		){
+			submenu_item_id = goPrefBar.ArraySearch(id, parent_item.items);
+
+			if (submenu_item_id !== false){
+				parent_item.items.splice(submenu_item_id, 1);
+			}
+		}
+
+		delete gMainDS[id];
+	}
+
+	RenderTree(gActiveTree);
+	goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
 }
 
 function ItemCopy() {
-  var selections = prefbarGetTreeSelections(gActiveTree);
-  if (selections.length != 1) return;
-  var selItemId = selections[0];
-  if (!selItemId.match(/^(prefbar:menu:|prefbar:button:)/)) return;
-  var prefix = RegExp.$1;
+	var ids_to_copy, helper, id_whitelist, id_mapping, generate_new_id, generate_shallow_item_copy, get_item_copy, id, item_copy, new_id, new_item;
 
-  var copyid;
-  var id = "";
-  while(true) {
-    id = goPrefBar.msgPrompt(window, goPrefBar.GetString("pref-editbar.properties", "promptenterid"), id);
-    if (id === null) return;
-    if (!id.match(/[^\n\t\r ]/)) continue;
-    copyid = prefix + id;
-    if (goPrefBar.JSONUtils.CheckNewID(window, copyid)) break;
-  }
+	ids_to_copy    = prefbarGetTreeSelections(gActiveTree);
+	helper         = goPrefBar.ImpExp.helper;
+	id_whitelist   = /^prefbar:(menu|button):/i;
+	id_mapping     = {};
 
-  var copyitem = {};
+	// sanity check
+	if (
+		(! helper.is_non_empty_array(ids_to_copy))
+	){return;}
 
-  var selitem = gMainDS[selItemId];
-  for (var property in selitem) {
-    var value = selitem[property];
+	generate_new_id = function(id){
+		var search_pattern, index, new_id_prefix, new_id;
 
-    if (property == "items") {
-      copyitem.items = [];
-      if (selitem.type.match(/list$/)) {
-        for (var index = 0; index < selitem.items.length; index++) {
-          var srcarray = selitem.items[index];
-          copyitem.items.push(srcarray.slice());
-        }
-      }
-      else if (selitem.type === 'submenu'){
-        copyitem.items = selitem.items.slice();
-      }
-    }
-    else
-      copyitem[property] = value;
-  }
+		search_pattern = /-(\d+)$/;
+		index          = search_pattern.exec(id);
+		index          = (index === null)? 1 : (parseInt(index[1], 10));
+		index          = (isNaN(index))?   1 : index;
+		new_id_prefix  = id.replace(search_pattern, '') + '-';
 
-  gMainDS[copyid] = copyitem;
-  gMainDS[gActiveTree.ref].items.unshift(copyid);
+		while(true){
+			index++;
+			new_id     = new_id_prefix + index;
+			if (goPrefBar.JSONUtils.CheckNewID(window, new_id)) break;
+		}
+		return new_id;
+	};
 
-  RenderTree(gActiveTree);
-  gActiveTree.view.selection.select(0);
-  goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
+	generate_shallow_item_copy = function(item){
+		var new_item;
+		new_item = JSON.stringify(item);
+		new_item = JSON.parse(new_item);
+		return new_item;
+	};
+
+	get_item_copy = function(id){
+		var item, new_id, new_item;
+		var i, submenu_id, submenu_item_copy, submenu_new_id;
+
+		// sanity check
+		if (
+			(! id_whitelist.test(id))
+		){return [false,false];}
+
+		// cache hit
+		if (id_mapping[id]){
+			new_id      = id_mapping[id];
+			new_item    = gMainDS[new_id];
+
+			return [new_id, new_item];
+		}
+
+		item            = gMainDS[id];
+
+		// sanity check
+		if (
+			(! helper.is_non_null_object(item))
+		){return [false,false];}
+
+		new_id          = generate_new_id(id);
+		new_item        = generate_shallow_item_copy(item);
+
+		id_mapping[id]  = new_id;
+		gMainDS[new_id] = new_item;
+
+		// recursively copy all items in submenu
+		if (
+			(new_item.type === "submenu") &&
+			(helper.is_non_empty_array(new_item.items))
+		){
+			for (i=0; i<new_item.items.length; i++){
+				submenu_id             = new_item.items[i];
+				submenu_item_copy      = get_item_copy(submenu_id);
+				submenu_new_id         = submenu_item_copy[0];
+				if (submenu_new_id){
+					new_item.items[i]  = submenu_new_id;
+				}
+			}
+		}
+
+		return [new_id, new_item];
+	};
+
+	while (ids_to_copy.length){
+		id              = ids_to_copy.shift();
+
+		// sanity check
+		if (
+			(! id_whitelist.test(id))
+		){continue;}
+
+		item_copy       = get_item_copy(id);
+		new_id          = item_copy[0];
+		new_item        = item_copy[1];
+
+		if (new_id){
+			gMainDS[gActiveTree.ref].items.unshift(new_id);
+		}
+	}
+
+	RenderTree(gActiveTree);
+	gActiveTree.view.selection.select(0);
+	goPrefBar.JSONUtils.MainDSUpdated("pref-editbar.js");
 }
 
 function prefbarItemExport() {
