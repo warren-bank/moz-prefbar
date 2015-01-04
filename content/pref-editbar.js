@@ -473,17 +473,6 @@ function DropOnTree(event, tree) {
   else
     targetcontainer = tree.ref;
 
-  // Containers may only be moved as one single item and they may only be
-  // moved to the enabled root level. Otherwise delete all containers
-  // from gDragArray
-  if (gDragArray.length > 1 ||
-      targetcontainer != "prefbar:menu:enabled") {
-    for (var i = gDragArray.length - 1; i >= 0; i--) {
-      if (gMainDS[gDragArray[i][0]].type == "submenu")
-        gDragArray.splice(i, 1);
-    }
-  }
-
   // first run: Kill all items from old menu
   var dragcnt = gDragArray.length;
   for (var i = 0; i < dragcnt; i++) {
